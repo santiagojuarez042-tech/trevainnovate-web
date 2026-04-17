@@ -1,0 +1,1757 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Trev'ainnovate — Automatización Inteligente 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:      #05050e;
+  --bg2:     #0b0b1c;
+  --bg3:     #111128;
+  --green:   #00e5a0;
+  --blue:    #3b82f6;
+  --purple:  #8b5cf6;
+  --amber:   #f59e0b;
+  --red:     #ef4444;
+  --white:   #f1f5f9;
+  --muted:   #8892a4;
+  --border:  rgba(255,255,255,0.07);
+  --border-g:rgba(0,229,160,0.2);
+  --border-p:rgba(139,92,246,0.2);
+  --border-b:rgba(59,130,246,0.2);
+}
+
+@page { size: A4 landscape; margin: 0; }
+
+body {
+  background: #111;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: var(--white);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── SLIDE ───────────────────────────────────── */
+.slide {
+  width: 297mm; height: 210mm;
+  position: relative; overflow: hidden;
+  display: flex; flex-direction: column;
+  background: var(--bg);
+  page-break-after: always; break-after: page;
+  page-break-inside: avoid;
+}
+.slide::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px);
+  background-size: 26px 26px;
+  pointer-events: none; z-index: 0;
+}
+.slide > * { position: relative; z-index: 1; }
+
+.bar {
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, transparent 0%, var(--green) 25%, var(--blue) 60%, var(--purple) 85%, transparent 100%);
+  z-index: 10;
+}
+.foot {
+  position: absolute; bottom: 0; left: 0; right: 0; height: 7mm;
+  padding: 0 10mm;
+  display: flex; align-items: center; justify-content: space-between;
+  border-top: 1px solid var(--border);
+  background: rgba(5,5,14,0.85); z-index: 10;
+}
+.foot-brand { font-size: 7.5pt; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.25); }
+.foot-num   { font-size: 7.5pt; font-weight: 500; color: rgba(255,255,255,0.18); letter-spacing: 0.08em; }
+
+/* ── TYPOGRAPHY ─────────────────────────────── */
+.label {
+  font-size: 7.5pt; font-weight: 700; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--green); margin-bottom: 7px;
+}
+.label-b { color: var(--blue); }
+.label-p { color: var(--purple); }
+.label-a { color: var(--amber); }
+.label-r { color: var(--red); }
+
+h1 { font-size: 44pt; font-weight: 900; line-height: 1.0; margin-bottom: 4mm; }
+h2 { font-size: 28pt; font-weight: 800; line-height: 1.08; margin-bottom: 4mm; }
+h3 { font-size: 15pt; font-weight: 700; line-height: 1.15; margin-bottom: 2mm; }
+h4 { font-size: 14pt; font-weight: 600; line-height: 1.25; }
+p  { font-size: 13pt; line-height: 1.5; color: var(--muted); }
+
+.grad  { background: linear-gradient(135deg, var(--green), var(--blue));   -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.grad2 { background: linear-gradient(135deg, var(--blue), var(--purple));  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.grad3 { background: linear-gradient(135deg, var(--green), var(--purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+/* ── ICON BOX ────────────────────────────────── */
+.ib {
+  width: 32px; height: 32px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15pt; flex-shrink: 0;
+}
+.ib-sm { width: 24px; height: 24px; border-radius: 6px; font-size: 11pt; }
+.ib-lg { width: 42px; height: 42px; border-radius: 10px; font-size: 20pt; }
+.ib-g  { background: rgba(0,229,160,0.12);  border: 1px solid rgba(0,229,160,0.2); }
+.ib-b  { background: rgba(59,130,246,0.12); border: 1px solid rgba(59,130,246,0.2); }
+.ib-p  { background: rgba(139,92,246,0.12); border: 1px solid rgba(139,92,246,0.2); }
+.ib-a  { background: rgba(245,158,11,0.12); border: 1px solid rgba(245,158,11,0.2); }
+.ib-r  { background: rgba(239,68,68,0.12);  border: 1px solid rgba(239,68,68,0.2); }
+.ib-w  { background: rgba(255,255,255,0.07);border: 1px solid rgba(255,255,255,0.12); }
+
+/* ── COMPONENTS ─────────────────────────────── */
+.card { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 11px 13px; }
+.card-g { background: linear-gradient(135deg,rgba(0,229,160,0.055),rgba(59,130,246,0.03)); border: 1px solid var(--border-g); border-radius: 8px; padding: 11px 13px; }
+.card-p { background: linear-gradient(135deg,rgba(139,92,246,0.06),rgba(139,92,246,0.02)); border: 1px solid var(--border-p); border-radius: 8px; padding: 11px 13px; }
+
+.tag   { display:inline-block; background:rgba(0,229,160,0.09);  border:1px solid rgba(0,229,160,0.22);  border-radius:4px; padding:2px 9px; font-size:7.5pt; font-weight:600; color:var(--green); }
+.tag-b { background:rgba(59,130,246,0.09);  border-color:rgba(59,130,246,0.22);  color:var(--blue); }
+.tag-p { background:rgba(139,92,246,0.09);  border-color:rgba(139,92,246,0.22);  color:var(--purple); }
+.tag-a { background:rgba(245,158,11,0.09);  border-color:rgba(245,158,11,0.22);  color:var(--amber); }
+.tag-r { background:rgba(239,68,68,0.09);   border-color:rgba(239,68,68,0.22);   color:var(--red); }
+
+.dot   { width:6px; height:6px; border-radius:50%; background:var(--green); flex-shrink:0; }
+.dot-b { background:var(--blue); }
+.dot-p { background:var(--purple); }
+.dot-a { background:var(--amber); }
+.dot-r { background:var(--red); }
+
+.row { display:flex; align-items:flex-start; gap:9px; }
+.hr  { height:1px; background:var(--border); margin:7px 0; }
+.hr-g{ height:1px; background:linear-gradient(90deg,var(--green),transparent); margin:7px 0; }
+
+/* ════════════════════════════════════════
+   S1 — PORTADA
+════════════════════════════════════════ */
+#s1 { justify-content:center; padding:13mm 15mm; }
+#s1 .glow-tr { position:absolute; top:-15%; right:-8%; width:190mm; height:190mm; background:radial-gradient(circle,rgba(0,229,160,0.07),transparent 65%); z-index:0; pointer-events:none; }
+#s1 .glow-bl { position:absolute; bottom:-30%; left:-5%; width:160mm; height:160mm; background:radial-gradient(circle,rgba(59,130,246,0.06),transparent 65%); z-index:0; pointer-events:none; }
+#s1 .v-rule  { position:absolute; right:52mm; top:10mm; bottom:10mm; width:1px; background:linear-gradient(to bottom,transparent,var(--border) 20%,var(--border) 80%,transparent); z-index:0; }
+#s1 .ghost-year { position:absolute; right:13mm; bottom:9mm; font-size:70pt; font-weight:900; color:rgba(255,255,255,0.025); line-height:1; pointer-events:none; z-index:0; font-variant-numeric:tabular-nums; }
+#s1 .wordmark { display:flex; align-items:center; gap:10px; font-size:11.5pt; font-weight:700; letter-spacing:0.22em; text-transform:uppercase; color:var(--green); margin-bottom:13px; }
+#s1 .wm-line { width:22px; height:2px; background:var(--green); flex-shrink:0; }
+#s1 h1 { margin-bottom:10px; max-width:215mm; }
+#s1 .tagline { font-size:11.5pt; color:var(--muted); font-weight:400; max-width:170mm; line-height:1.5; margin-bottom:16px; }
+#s1 .badges { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:14px; }
+#s1 .icon-row { display:flex; gap:8px; margin-top:4px; }
+#s1 .icon-pill { display:flex; align-items:center; gap:6px; background:var(--bg2); border:1px solid var(--border); border-radius:6px; padding:5px 10px; font-size:13pt; color:var(--muted); font-weight:500; }
+
+/* ════════════════════════════════════════
+   S2 — EL PROBLEMA
+════════════════════════════════════════ */
+#s2 { padding:10mm 13mm 10mm; }
+#s2 .grid { display:grid; grid-template-columns:1.15fr 0.85fr; gap:9mm; margin-top:5mm; flex:1; }
+#s2 .pain { display:flex; gap:10px; align-items:flex-start; background:var(--bg2); border:1px solid var(--border); border-radius:8px; padding:9px 11px; margin-bottom:7px; }
+#s2 .stat { background:linear-gradient(135deg,rgba(0,229,160,0.07),rgba(0,229,160,0.025)); border:1px solid var(--border-g); border-radius:8px; padding:9px 11px; margin-bottom:7px; display:flex; align-items:center; gap:10px; }
+#s2 .stat .val { font-size:22pt; font-weight:900; color:var(--green); line-height:1; flex-shrink:0; }
+#s2 .stat .desc { font-size:11.5pt; color:var(--muted); line-height:1.4; }
+
+/* ════════════════════════════════════════
+   S3 — LA SOLUCIÓN
+════════════════════════════════════════ */
+#s3 { padding:10mm 13mm 10mm; }
+#s3 .grid { display:grid; grid-template-columns:1.1fr 0.9fr; gap:9mm; margin-top:5mm; flex:1; }
+#s3 .flow-item { display:flex; gap:9px; align-items:flex-start; margin-bottom:6px; }
+#s3 .f-conn { margin-left:11px; width:1px; height:9px; background:linear-gradient(to bottom,var(--green),rgba(0,229,160,0.2)); }
+#s3 .ben { display:flex; gap:8px; align-items:flex-start; margin-bottom:8px; }
+#s3 .step-num { width:26px; height:26px; border-radius:50%; border:1.5px solid var(--green); display:flex; align-items:center; justify-content:center; font-size:11.5pt; font-weight:800; color:var(--green); flex-shrink:0; }
+
+/* ════════════════════════════════════════
+   S4 — CASOS REALES
+════════════════════════════════════════ */
+#s4 { padding:10mm 13mm 10mm; }
+#s4 .grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:5mm; flex:1; }
+#s4 .case { background:var(--bg2); border:1px solid var(--border); border-radius:8px; padding:10px 12px 10px 14px; position:relative; overflow:hidden; }
+#s4 .case::before { content:''; position:absolute; top:0; left:0; bottom:0; width:3px; background:linear-gradient(to bottom,var(--green),var(--blue)); }
+#s4 .case .c-head { display:flex; align-items:center; gap:8px; margin-bottom:5px; }
+#s4 .case .sector { font-size:10.5pt; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--green); }
+#s4 .flow-txt { font-family:'JetBrains Mono',monospace; font-size:11.5pt; color:var(--muted); line-height:1.5; margin:4px 0 6px; }
+#s4 .result { display:flex; align-items:center; gap:6px; background:rgba(0,229,160,0.07); border-radius:4px; padding:4px 8px; font-size:11.5pt; color:var(--green); font-weight:500; }
+
+/* ════════════════════════════════════════
+   S5 — QUÉ AUTOMATIZAMOS
+════════════════════════════════════════ */
+#s5 { padding:10mm 13mm 10mm; }
+#s5 .grid { display:grid; grid-template-columns:repeat(4,1fr); gap:7px; margin-top:5mm; flex:1; }
+#s5 .seg { background:var(--bg2); border:1px solid var(--border); border-radius:8px; padding:10px 10px; }
+#s5 .seg .s-head { display:flex; align-items:center; gap:7px; margin-bottom:5px; }
+#s5 .seg .s-title { font-size:13pt; font-weight:700; margin-bottom:7px; line-height:1.2; }
+#s5 .seg ul { list-style:none; padding:0; }
+#s5 .seg ul li { font-size:11.5pt; color:var(--muted); padding:2.5px 0 2.5px 12px; position:relative; line-height:1.4; }
+#s5 .seg ul li::before { content:'→'; position:absolute; left:0; font-size:10.5pt; }
+
+/* ════════════════════════════════════════
+   S6 — TECH STACK
+════════════════════════════════════════ */
+#s6 { padding:10mm 13mm 10mm; }
+#s6 .grid { display:grid; grid-template-columns:repeat(2,1fr); gap:8px; margin-top:5mm; }
+#s6 .cat { background:var(--bg2); border:1px solid var(--border); border-radius:8px; padding:10px 13px; }
+#s6 .c-head { display:flex; align-items:center; gap:8px; margin-bottom:8px; }
+#s6 .c-title { font-size:12pt; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--muted); }
+#s6 .pills { display:flex; flex-wrap:wrap; gap:4px; }
+#s6 .pill { background:var(--bg3); border:1px solid var(--border); border-radius:4px; padding:3px 9px; font-size:11.5pt; font-weight:500; color:var(--white); }
+#s6 .note { margin-top:7px; padding:6px 12px; background:rgba(0,229,160,0.04); border:1px solid rgba(0,229,160,0.14); border-radius:6px; display:flex; align-items:center; gap:8px; }
+
+/* ════════════════════════════════════════
+   S7 — PROCESO
+════════════════════════════════════════ */
+#s7 { padding:10mm 13mm 10mm; }
+#s7 .steps { display:grid; grid-template-columns:repeat(4,1fr); gap:9px; margin-top:7mm; position:relative; }
+#s7 .steps::before { content:''; position:absolute; top:20px; left:8%; right:8%; height:1px; background:linear-gradient(90deg,var(--green),var(--blue) 50%,var(--purple)); z-index:0; }
+#s7 .step { position:relative; z-index:1; }
+#s7 .step .s-top { display:flex; align-items:center; justify-content:center; gap:8px; margin-bottom:8px; }
+#s7 .step .num { width:40px; height:40px; border-radius:50%; border:2px solid var(--green); background:var(--bg); display:flex; align-items:center; justify-content:center; flex-direction:column; flex-shrink:0; }
+#s7 .step .num .n { font-size:13pt; font-weight:800; color:var(--green); line-height:1; }
+#s7 .step h4 { text-align:center; font-size:13pt; margin-bottom:7px; }
+#s7 .s-card { background:var(--bg2); border:1px solid var(--border); border-radius:8px; padding:9px 11px; }
+#s7 .s-card li { list-style:none; padding:2px 0 2px 9px; position:relative; font-size:11.5pt; color:var(--muted); line-height:1.45; }
+#s7 .s-card li::before { content:'·'; position:absolute; left:1px; color:var(--green); }
+
+/* ════════════════════════════════════════
+   S8 — COMBO
+════════════════════════════════════════ */
+#s8 { padding:10mm 12mm 10mm; }
+#s8 .combo { display:grid; grid-template-columns:1fr 50px 1fr; gap:0; align-items:center; margin-top:5mm; height:calc(100% - 30mm); }
+#s8 .side { border-radius:10px; padding:12px 14px; height:100%; display:flex; flex-direction:column; }
+#s8 .side.ours  { background:linear-gradient(145deg,rgba(0,229,160,0.065),rgba(0,229,160,0.02)); border:1px solid var(--border-g); }
+#s8 .side.theirs{ background:linear-gradient(145deg,rgba(139,92,246,0.065),rgba(139,92,246,0.02)); border:1px solid var(--border-p); }
+#s8 .s-head { display:flex; align-items:center; gap:9px; margin-bottom:8px; }
+#s8 .s-feat { display:flex; gap:7px; align-items:flex-start; margin-bottom:6px; }
+#s8 .s-cta { margin-top:auto; padding-top:8px; border-top:1px solid var(--border); font-size:12pt; color:var(--muted); font-style:italic; }
+#s8 .plus-col { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:5px; }
+#s8 .plus-c { width:36px; height:36px; border-radius:50%; background:linear-gradient(135deg,var(--green),var(--purple)); display:flex; align-items:center; justify-content:center; font-size:15pt; font-weight:900; color:#000; }
+#s8 .plus-l { flex:1; width:1px; background:var(--border); max-height:30px; }
+#s8 .combo-note { text-align:center; margin-top:5mm; padding:7px 16px; background:linear-gradient(135deg,rgba(0,229,160,0.04),rgba(139,92,246,0.04)); border:1px solid rgba(255,255,255,0.07); border-radius:8px; display:inline-block; }
+
+/* ════════════════════════════════════════
+   S9 — CLOUD EMAIL SECURITY
+════════════════════════════════════════ */
+#s9 { padding:9mm 13mm 10mm; }
+#s9 .top { display:grid; grid-template-columns:1fr auto; gap:10mm; align-items:start; margin-bottom:6mm; }
+#s9 .stats-row { display:flex; gap:7px; }
+#s9 .big-stat { background:linear-gradient(135deg,rgba(139,92,246,0.1),rgba(139,92,246,0.04)); border:1px solid var(--border-p); border-radius:8px; padding:8px 12px; text-align:center; min-width:55mm; }
+#s9 .big-stat .v { font-size:26pt; font-weight:900; color:var(--purple); line-height:1; }
+#s9 .big-stat .d { font-size:11.5pt; color:var(--muted); margin-top:2px; line-height:1.35; }
+#s9 .caps { display:grid; grid-template-columns:repeat(4,1fr); gap:7px; }
+#s9 .cap { background:var(--bg2); border:1px solid var(--border); border-radius:8px; padding:9px 10px; display:flex; flex-direction:column; gap:5px; }
+#s9 .cap .cp-head { display:flex; align-items:center; gap:7px; }
+#s9 .cap h4 { font-size:13pt; font-weight:600; line-height:1.2; }
+#s9 .cap p { font-size:11.5pt; color:var(--muted); line-height:1.45; }
+#s9 .how { display:flex; gap:0; margin-top:6mm; align-items:center; }
+#s9 .how-step { flex:1; display:flex; align-items:center; gap:6px; background:var(--bg2); border:1px solid var(--border); border-radius:6px; padding:6px 8px; }
+#s9 .how-step p { font-size:10.5pt; color:var(--muted); line-height:1.3; }
+#s9 .how-arrow { font-size:13pt; color:var(--muted); padding:0 4px; flex-shrink:0; }
+#s9 .pricing { background:linear-gradient(135deg,rgba(139,92,246,0.08),rgba(139,92,246,0.03)); border:1px solid var(--border-p); border-radius:8px; padding:8px 12px; margin-bottom:6mm; }
+#s9 .pricing .p-row { display:flex; align-items:center; gap:8px; margin-bottom:3px; }
+#s9 .pricing .p-row:last-child { margin-bottom:0; }
+
+/* ── CAP (genérico) ─────────────────────────── */
+.cap { background:var(--bg2); border:1px solid var(--border); border-radius:8px; padding:9px 10px; display:flex; flex-direction:column; gap:5px; }
+.cap .cp-head { display:flex; align-items:center; gap:7px; }
+.cap h4 { font-size:13pt; font-weight:600; line-height:1.2; }
+.cap p  { font-size:11.5pt; color:var(--muted); line-height:1.45; }
+
+/* ════════════════════════════════════════
+   S10 — CONTACTO
+════════════════════════════════════════ */
+#s10 { justify-content:center; align-items:center; text-align:center; padding:13mm; }
+#s10 .glow-c { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:200mm; height:140mm; background:radial-gradient(ellipse,rgba(0,229,160,0.07),transparent 68%); pointer-events:none; z-index:0; }
+#s10 .contacts { display:flex; gap:14mm; justify-content:center; margin-top:10mm; }
+#s10 .ci { text-align:center; }
+#s10 .ci .ci-icon { display:flex; justify-content:center; margin-bottom:7px; }
+#s10 .ci .ci-label { font-size:7.5pt; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); margin-bottom:3px; }
+#s10 .ci .ci-val { font-size:13pt; font-weight:600; color:var(--white); }
+#s10 .ci .ci-sub { font-size:12pt; color:var(--muted); margin-top:2px; }
+#s10 .cta-btn { margin-top:10mm; display:inline-flex; align-items:center; gap:8px; padding:10px 24px; background:linear-gradient(135deg,rgba(0,229,160,0.12),rgba(59,130,246,0.08)); border:1px solid rgba(0,229,160,0.3); border-radius:8px; font-size:13pt; font-weight:600; color:var(--green); }
+</style>
+
+<!-- ── SCREEN-ONLY WOW INTERACTIONS ────────────────────── -->
+<style>
+@media screen {
+  html { scroll-behavior: smooth; }
+  body { background: #020209; cursor: none; }
+
+  /* ── Custom scrollbar ─────────────────────────── */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: #05050e; }
+  ::-webkit-scrollbar-thumb { background: linear-gradient(180deg,#00e5a0,#3b82f6,#8b5cf6); border-radius: 2px; }
+
+  /* ── Cursor glow ──────────────────────────────── */
+  #cursor-glow {
+    position: fixed; width: 420px; height: 420px;
+    border-radius: 50%; pointer-events: none; z-index: 99999;
+    transform: translate(-50%,-50%);
+    background: radial-gradient(circle, rgba(0,229,160,0.06) 0%, rgba(59,130,246,0.03) 40%, transparent 70%);
+    transition: opacity 0.3s ease;
+    mix-blend-mode: screen;
+  }
+  #cursor-dot {
+    position: fixed; width: 8px; height: 8px; border-radius: 50%;
+    pointer-events: none; z-index: 99999; transform: translate(-50%,-50%);
+    background: #00e5a0; box-shadow: 0 0 12px rgba(0,229,160,0.8), 0 0 24px rgba(0,229,160,0.4);
+    transition: transform 0.08s ease, width 0.15s ease, height 0.15s ease;
+  }
+  #cursor-ring {
+    position: fixed; width: 32px; height: 32px; border-radius: 50%;
+    pointer-events: none; z-index: 99998; transform: translate(-50%,-50%);
+    border: 1.5px solid rgba(0,229,160,0.5);
+    transition: transform 0.18s cubic-bezier(0.22,1,0.36,1), width 0.15s ease, height 0.15s ease;
+  }
+
+  /* ── Animated top bar shimmer ─────────────────── */
+  @keyframes bar-shimmer {
+    0%   { background-position: -200% center; }
+    100% { background-position: 200% center; }
+  }
+  .bar {
+    background: linear-gradient(90deg,
+      transparent 0%, #00e5a0 15%, #3b82f6 40%, #8b5cf6 60%, #00e5a0 85%, transparent 100%
+    ) !important;
+    background-size: 200% !important;
+    animation: bar-shimmer 3s linear infinite !important;
+    height: 3px !important;
+  }
+
+  /* ── Slide entrance ───────────────────────────── */
+  @keyframes slide-rise {
+    from { opacity: 0; transform: translateY(32px); }
+    to   { opacity: 1; transform: none; }
+  }
+  .slide {
+    opacity: 0;
+    transform: translateY(32px);
+    margin-bottom: 5px;
+  }
+  .slide.anim-in { animation: slide-rise 0.72s cubic-bezier(0.22,1,0.36,1) forwards; }
+  #s1 { opacity: 1; transform: none; animation: none; }
+
+  /* ── Staggered children ───────────────────────── */
+  @keyframes child-rise {
+    from { opacity: 0; transform: translateY(20px) scale(0.97); }
+    to   { opacity: 1; transform: none; }
+  }
+  .slide.anim-in .stagger-child {
+    opacity: 0;
+    animation: child-rise 0.55s cubic-bezier(0.22,1,0.36,1) forwards;
+  }
+  .slide.anim-in .stagger-child:nth-child(1) { animation-delay: 0.1s; }
+  .slide.anim-in .stagger-child:nth-child(2) { animation-delay: 0.2s; }
+  .slide.anim-in .stagger-child:nth-child(3) { animation-delay: 0.3s; }
+  .slide.anim-in .stagger-child:nth-child(4) { animation-delay: 0.4s; }
+  .slide.anim-in .stagger-child:nth-child(5) { animation-delay: 0.5s; }
+  .slide.anim-in .stagger-child:nth-child(6) { animation-delay: 0.6s; }
+
+  /* ── Gradient text animation ─────────────────── */
+  @keyframes gradient-shift {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  .grad-text, h1 .grad {
+    background: linear-gradient(135deg, #00e5a0 0%, #3b82f6 35%, #8b5cf6 65%, #00e5a0 100%);
+    background-size: 300% 300%;
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradient-shift 4s ease infinite;
+    display: inline-block;
+  }
+
+  /* ── Card hover glow ──────────────────────────── */
+  .card, .feat-item, .case-card, .step-card, .proc-step {
+    transition: transform 0.28s cubic-bezier(0.22,1,0.36,1),
+                box-shadow 0.28s ease,
+                border-color 0.28s ease !important;
+  }
+  .card:hover, .feat-item:hover, .case-card:hover, .step-card:hover, .proc-step:hover {
+    transform: translateY(-4px) scale(1.018) !important;
+    box-shadow: 0 8px 32px rgba(0,229,160,0.18), 0 0 0 1px rgba(0,229,160,0.35) !important;
+  }
+  .card-b:hover { box-shadow: 0 8px 32px rgba(59,130,246,0.18), 0 0 0 1px rgba(59,130,246,0.35) !important; }
+  .card-p:hover { box-shadow: 0 8px 32px rgba(139,92,246,0.18), 0 0 0 1px rgba(139,92,246,0.35) !important; }
+  .card-a:hover { box-shadow: 0 8px 32px rgba(245,158,11,0.18), 0 0 0 1px rgba(245,158,11,0.35) !important; }
+
+  /* ── Stat value glow pulse ────────────────────── */
+  @keyframes stat-pulse {
+    0%,100% { text-shadow: 0 0 12px rgba(0,229,160,0.5); }
+    50%      { text-shadow: 0 0 28px rgba(0,229,160,0.9), 0 0 50px rgba(0,229,160,0.4); }
+  }
+  .stat-val, [data-count] { animation: stat-pulse 3s ease-in-out infinite; }
+
+  /* ── Icon hover spin ──────────────────────────── */
+  .icon-box, .tech-icon {
+    transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1), filter 0.3s ease !important;
+  }
+  .icon-box:hover, .tech-icon:hover {
+    transform: rotate(8deg) scale(1.15) !important;
+    filter: drop-shadow(0 0 14px rgba(0,229,160,0.8)) !important;
+  }
+
+  /* ── Typewriter cursor ───────────────────────── */
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+  .tw-cursor {
+    display: inline-block; width: 2px; height: 1em;
+    background: #00e5a0; margin-left: 3px; vertical-align: middle;
+    animation: blink 1s step-end infinite;
+  }
+
+  /* ── Particle canvas (portada) ───────────────── */
+  #particle-canvas {
+    position: absolute; inset: 0; z-index: 0;
+    pointer-events: none; opacity: 0.55;
+  }
+
+  /* ── Nav dots ─────────────────────────────────── */
+  #nav-dots {
+    position: fixed; right: 18px; top: 50%; transform: translateY(-50%);
+    display: flex; flex-direction: column; gap: 9px; z-index: 9999;
+  }
+  .ndot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.22);
+    cursor: pointer; transition: all 0.22s cubic-bezier(0.34,1.56,0.64,1);
+    position: relative;
+  }
+  .ndot:hover { background: rgba(255,255,255,0.45); transform: scale(1.4); }
+  .ndot.active {
+    background: #00e5a0; border-color: #00e5a0;
+    transform: scale(1.6);
+    box-shadow: 0 0 10px rgba(0,229,160,0.7), 0 0 20px rgba(0,229,160,0.3);
+  }
+  .ndot .ndot-tip {
+    position: absolute; right: 18px; top: 50%; transform: translateY(-50%);
+    background: rgba(5,5,14,0.95); border: 1px solid rgba(0,229,160,0.2);
+    border-radius: 6px; padding: 4px 10px; white-space: nowrap;
+    font-size: 9px; color: rgba(255,255,255,0.7); font-family: 'Inter', sans-serif;
+    opacity: 0; pointer-events: none; transition: opacity 0.18s;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+  }
+  .ndot:hover .ndot-tip { opacity: 1; }
+
+  /* ── Keyboard hint ────────────────────────────── */
+  #kbd-hint {
+    position: fixed; bottom: 18px; right: 18px;
+    background: rgba(5,5,14,0.88); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 7px; padding: 5px 12px;
+    font-size: 9px; color: rgba(255,255,255,0.28);
+    font-family: 'JetBrains Mono', monospace; z-index: 9999; pointer-events: none;
+    letter-spacing: 0.07em;
+  }
+
+  /* ── Glowing border on active slide ──────────── */
+  .slide.anim-in {
+    box-shadow: 0 0 60px rgba(0,229,160,0.04) inset;
+  }
+
+  /* ── Table row hover ──────────────────────────── */
+  tr { transition: background 0.18s ease; }
+  tbody tr:hover { background: rgba(0,229,160,0.06) !important; cursor: default; }
+}
+
+@media print {
+  .slide {
+    opacity: 1 !important; transform: none !important;
+    margin-bottom: 0 !important; animation: none !important;
+    box-shadow: none !important;
+  }
+  .stagger-child { opacity: 1 !important; animation: none !important; }
+  .bar { animation: none !important; background: linear-gradient(90deg,transparent,#00e5a0,#3b82f6,#8b5cf6,transparent) !important; }
+  .stat-val, [data-count] { animation: none !important; }
+  #nav-dots, #kbd-hint, #cursor-glow, #cursor-dot, #cursor-ring, #particle-canvas { display: none !important; }
+  .grad-text, h1 .grad { -webkit-text-fill-color: #00e5a0 !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════ S1 — PORTADA ═══════════ -->
+<section class="slide" id="s1">
+  <div class="bar"></div>
+  <div class="glow-tr"></div><div class="glow-bl"></div><div class="v-rule"></div>
+  <div class="ghost-year">2026</div>
+
+  <div class="wordmark"><div class="wm-line"></div>Trev'ainnovate</div>
+
+  <h1><span class="grad">Automatización</span><br>Inteligente</h1>
+
+  <p class="tagline">
+    Transformamos procesos repetitivos en flujos automáticos<br>
+    para que tu equipo se enfoque en lo que realmente importa.
+  </p>
+
+  <div class="badges">
+    <span class="tag">⚙️ n8n Expert</span>
+    <span class="tag">🤖 Integraciones IA</span>
+    <span class="tag">🔗 Flujos No-Code / Low-Code</span>
+    <span class="tag tag-b">📊 CRM &amp; ERP</span>
+    <span class="tag tag-b">🔌 Integraciones API</span>
+    <span class="tag tag-p">🎬 Contenido con IA</span>
+  </div>
+
+  <div class="icon-row" style="margin-top:10px;">
+    <div class="icon-pill">⚡ Primer flujo en 5–10 días hábiles</div>
+    <div class="icon-pill">🛡️ Combo con seguridad en correo</div>
+    <div class="icon-pill">📍 México</div>
+  </div>
+
+  <div class="foot">
+    <span class="foot-brand">Trev'ainnovate — Santiago Juárez Treviño</span>
+    <span class="foot-num">01 / 16</span>
+  </div>
+</section>
+
+<!-- ═══════════ S2 — EL PROBLEMA ═══════════ -->
+<section class="slide" id="s2">
+  <div class="bar"></div>
+  <div style="padding:10mm 13mm 0;">
+    <div class="label">El contexto</div>
+    <h2>Tu equipo pierde horas valiosas<br>en tareas que ya tienen solución.</h2>
+  </div>
+
+  <div class="grid" style="padding:0 13mm; flex:1;">
+    <div>
+      <div class="pain">
+        <div class="ib ib-a">📋</div>
+        <div>
+          <h4>Datos copiados a mano entre sistemas</h4>
+          <p style="font-size:12pt;margin-top:2px;">Formularios, hojas de cálculo, CRM, emails. Información que viaja manualmente entre plataformas decenas de veces al día.</p>
+        </div>
+      </div>
+      <div class="pain">
+        <div class="ib ib-b">📊</div>
+        <div>
+          <h4>Reportes que se arman uno por uno</h4>
+          <p style="font-size:12pt;margin-top:2px;">Cada semana alguien recopila, da formato y envía información que podría generarse y enviarse sola en segundos.</p>
+        </div>
+      </div>
+      <div class="pain">
+        <div class="ib ib-r">🔁</div>
+        <div>
+          <h4>Seguimientos y respuestas repetidas</h4>
+          <p style="font-size:12pt;margin-top:2px;">Las mismas notificaciones, recordatorios y respuestas de atención, todos los días. Tiempo humano en trabajo mecánico.</p>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:7px;justify-content:center;">
+      <div class="stat">
+        <div class="ib ib-g ib-lg">⏱️</div>
+        <div><div class="val" data-count="40" data-suffix="%">40%</div><div class="desc">del tiempo laboral se gasta en tareas repetitivas sin valor diferencial<br><span style="font-size:6.5pt;opacity:0.45;">McKinsey Global Institute, 2023</span></div></div>
+      </div>
+      <div class="stat">
+        <div class="ib ib-r ib-lg">⚠️</div>
+        <div><div class="val" data-count="3" data-suffix="×">3×</div><div class="desc">más errores en procesos manuales vs. flujos automatizados<br><span style="font-size:6.5pt;opacity:0.45;">Salesforce State of Sales, 2024</span></div></div>
+      </div>
+      <div class="stat">
+        <div class="ib ib-g ib-lg">🚀</div>
+        <div><div class="val">5–10 días</div><div class="desc">para el primer flujo funcional en producción<br><span style="font-size:6.5pt;color:var(--green);opacity:0.7;">Promesa Trev'ainnovate</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <span class="foot-brand">Trev'ainnovate</span>
+    <span class="foot-num">02 / 16</span>
+  </div>
+</section>
+
+<!-- ═══════════ S3 — LA SOLUCIÓN ═══════════ -->
+<section class="slide" id="s3">
+  <div class="bar"></div>
+  <div style="padding:10mm 13mm 0;">
+    <div class="label">La solución</div>
+    <h2>Automatización inteligente<br>con <span class="grad">n8n</span> e integraciones IA</h2>
+  </div>
+
+  <div class="grid" style="padding:0 13mm;flex:1;">
+    <div>
+      <p style="margin-bottom:9px;">Flujos visuales que conectan tus herramientas, procesan datos y ejecutan acciones automáticamente — sin que nadie tenga que presionar un botón.</p>
+      <div class="hr"></div>
+      <div class="label" style="margin:7px 0 6px;">🔄 Anatomía de un flujo</div>
+
+      <div class="flow-item">
+        <div class="step-num">1</div>
+        <div><h4>Trigger — Disparo del evento</h4><p style="font-size:12pt;">Formulario · Mensaje · Hora programada · Webhook · Nuevo registro</p></div>
+      </div>
+      <div class="f-conn"></div>
+      <div class="flow-item">
+        <div class="step-num" style="border-color:var(--blue);color:var(--blue);">2</div>
+        <div><h4>Lógica — Procesamiento inteligente</h4><p style="font-size:12pt;">Filtros · Transformaciones · IA · Consultas · Condiciones</p></div>
+      </div>
+      <div class="f-conn" style="background:linear-gradient(to bottom,var(--blue),rgba(59,130,246,0.2));"></div>
+      <div class="flow-item">
+        <div class="step-num" style="border-color:var(--purple);color:var(--purple);">3</div>
+        <div><h4>Acción — Ejecución automática</h4><p style="font-size:12pt;">Notificación · CRM actualizado · Documento · Publicación · Factura</p></div>
+      </div>
+    </div>
+
+    <div>
+      <div class="label" style="margin-bottom:8px;">✅ ¿Por qué n8n?</div>
+      <div class="ben"><div class="ib ib-sm ib-g">🏠</div><div><h4 style="font-size:11.5pt;">Self-hosted — tus datos, tu control</h4><p style="font-size:7.5pt;">Sin vendor lock-in. Instalado en tu infraestructura.</p></div></div>
+      <div class="ben"><div class="ib ib-sm ib-b">🔌</div><div><h4 style="font-size:11.5pt;">+400 integraciones nativas</h4><p style="font-size:7.5pt;">CRM, email, WhatsApp, Google, Notion y más.</p></div></div>
+      <div class="ben"><div class="ib ib-sm ib-p">🤖</div><div><h4 style="font-size:11.5pt;">IA integrada nativamente</h4><p style="font-size:7.5pt;">GPT, Groq, Gemini, Claude, ElevenLabs y más.</p></div></div>
+      <div class="ben"><div class="ib ib-sm ib-a">💻</div><div><h4 style="font-size:11.5pt;">Código cuando hace falta</h4><p style="font-size:7.5pt;">Nodos JS/Python para lógica sin template.</p></div></div>
+      <div class="ben"><div class="ib ib-sm ib-g">🔍</div><div><h4 style="font-size:11.5pt;">Auditable y resiliente</h4><p style="font-size:7.5pt;">Historial, retry automático, alertas de error.</p></div></div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <span class="foot-brand">Trev'ainnovate</span>
+    <span class="foot-num">03 / 16</span>
+  </div>
+</section>
+
+<!-- ═══════════ S4 — CASOS REALES ═══════════ -->
+<section class="slide" id="s4">
+  <div class="bar"></div>
+  <div style="padding:10mm 13mm 0;">
+    <div class="label">Implementaciones reales</div>
+    <h2>Casos que validan<br>nuestra metodología</h2>
+  </div>
+
+  <div class="grid" style="padding:0 13mm;flex:1;">
+    <div class="case">
+      <div class="c-head">
+        <div class="ib ib-sm ib-p">🎬</div>
+        <div class="sector">Proyecto propio · Creación de Contenido · IA Audiovisual</div>
+      </div>
+      <h4>Pipeline de video con IA — de idea a borrador en minutos</h4>
+      <div class="flow-txt">Idea por Telegram → Groq estructura guion + plan cinematográfico → ElevenLabs narración → FFmpeg corta 42 clips DJI → R2 Storage → Shotstack ensambla → Notion + Telegram notifica</div>
+      <div class="result"><span>✓</span> Borrador completo en &lt;10 min · ~14h/semana ahorradas en producción</div>
+    </div>
+    <div class="case">
+      <div class="c-head">
+        <div class="ib ib-sm ib-b">🚗</div>
+        <div class="sector">Automotriz · Carrocería — Parabrisas Cristalu</div>
+      </div>
+      <h4>Landing page + CRM automatizado en Google Sheets</h4>
+      <div class="flow-txt">Lead en landing → n8n captura datos → Google Sheets CRM → alerta Telegram en tiempo real → seguimiento programado → reporte semanal de conversión</div>
+      <div class="result"><span>✓</span> 0 leads perdidos · notificación instantánea · conversión de prospectos +38%</div>
+    </div>
+    <div class="case">
+      <div class="c-head">
+        <div class="ib ib-sm ib-a">🏭</div>
+        <div class="sector">Manufactura B2B · Plásticos — GEC Plastic, Puebla MX</div>
+      </div>
+      <h4>Web + CRM + inventario en tiempo real con ERP Microsip</h4>
+      <div class="flow-txt">Formulario Wix → n8n captura lead → Google Sheets CRM → Gmail notifica equipo → Microsip ERP sincronizado → reporte diario de inventario en tiempo real</div>
+      <div class="result"><span>✓</span> 0 leads sin registrar · inventario en tiempo real desde la web · ~25h/mes liberadas</div>
+    </div>
+    <div class="case">
+      <div class="c-head">
+        <div class="ib ib-sm ib-g">🏨</div>
+        <div class="sector" style="color:var(--amber);">Hospitalidad Premium · 5 Verticales — CASA RAGE</div>
+      </div>
+      <h4>Bot "Adriana" — Atención personalizada 24/7 en 3 canales</h4>
+      <div class="flow-txt">WhatsApp / IG / Messenger → Adriana clasifica → calculadora 26 matrices de precio → agenda visita → recordatorios → seguimiento 8d · 15d · mensual → routing al asesor</div>
+      <div class="result" style="background:rgba(245,158,11,0.09);color:var(--amber);border:1px solid rgba(245,158,11,0.2);border-radius:4px;"><span>✦</span> 49.5h/mes manuales automatizadas · ROI proyectado 695% · payback &lt; 12 meses</div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <span class="foot-brand">Trev'ainnovate</span>
+    <span class="foot-num">04 / 16</span>
+  </div>
+</section>
+
+<!-- ═══════════ S5 — QUÉ AUTOMATIZAMOS ═══════════ -->
+<section class="slide" id="s5">
+  <div class="bar"></div>
+  <div style="padding:10mm 13mm 0;">
+    <div class="label">Servicios por tipo de negocio</div>
+    <h2>¿Qué podemos automatizar <span class="grad">para ti</span>?</h2>
+  </div>
+
+  <div class="grid" style="padding:0 13mm;flex:1;">
+    <div class="seg">
+      <div class="s-head"><div class="ib ib-sm ib-g">🏢</div><div><div style="font-size:10.5pt;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--green);">PyMEs</div></div></div>
+      <div class="s-title">Operaciones Generales</div>
+      <ul>
+        <li>Facturación y cobros automáticos</li>
+        <li>Seguimiento de presupuestos</li>
+        <li>Reportes semanales</li>
+        <li>Alta de clientes en CRM</li>
+        <li>Alertas de stock bajo</li>
+        <li>Onboarding de empleados</li>
+      </ul>
+    </div>
+    <div class="seg">
+      <div class="s-head"><div class="ib ib-sm ib-b">🛒</div><div><div style="font-size:10.5pt;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--blue);">E-commerce</div></div></div>
+      <div class="s-title">Ventas Online</div>
+      <ul>
+        <li>Confirmación de pedidos</li>
+        <li>Actualización de inventario</li>
+        <li>Recupero de carritos</li>
+        <li>Notificaciones de envío</li>
+        <li>Reseñas post-compra</li>
+        <li>Reportes de conversión</li>
+      </ul>
+    </div>
+    <div class="seg">
+      <div class="s-head"><div class="ib ib-sm ib-p">📣</div><div><div style="font-size:10.5pt;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--purple);">Marketing / Agencias</div></div></div>
+      <div class="s-title">Contenido &amp; Clientes</div>
+      <ul>
+        <li>Generación de contenido IA</li>
+        <li>Publicación multi-plataforma</li>
+        <li>Reportes automáticos</li>
+        <li>Lead nurturing</li>
+        <li>Análisis de competencia</li>
+        <li>Flujos de aprobación interna</li>
+      </ul>
+    </div>
+    <div class="seg">
+      <div class="s-head"><div class="ib ib-sm ib-a">🏗️</div><div><div style="font-size:10.5pt;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--amber);">Empresas Medianas</div></div></div>
+      <div class="s-title">Integración de Sistemas</div>
+      <ul>
+        <li>Sincronización entre plataformas</li>
+        <li>Alertas operativas en tiempo real</li>
+        <li>Dashboards que se actualizan solos</li>
+        <li>Flujos de aprobación complejos</li>
+        <li>Integración ERP / CRM / BI</li>
+        <li>Automatización de compliance</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="foot">
+    <span class="foot-brand">Trev'ainnovate</span>
+    <span class="foot-num">05 / 16</span>
+  </div>
+</section>
+
+<!-- ═══════════ S6 (NEW) — EL POTENCIAL ═══════════ -->
+<section class="slide" id="s_pot">
+  <div class="bar"></div>
+
+  <div style="padding:9mm 13mm 4mm;">
+    <div class="label">Capacidades avanzadas</div>
+    <h2>Lo que la automatización puede hacer <span class="grad">para tu negocio</span></h2>
+  </div>
+
+  <div style="padding:0 13mm;flex:1;display:grid;grid-template-columns:repeat(3,1fr);gap:7px;align-content:stretch;">
+    <div class="card-g" style="display:flex;gap:9px;align-items:flex-start;padding:10px 12px;">
+      <div class="ib ib-sm ib-g">🤖</div>
+      <div>
+        <h4 style="font-size:12pt;">Agentes IA autónomos</h4>
+        <p style="font-size:11.5pt;margin-top:3px;">Flujos con múltiples modelos IA que toman decisiones, generan contenido y actúan sin intervención humana — 24/7.</p>
+      </div>
+    </div>
+    <div class="card" style="display:flex;gap:9px;align-items:flex-start;padding:10px 12px;">
+      <div class="ib ib-sm ib-b">📊</div>
+      <div>
+        <h4 style="font-size:12pt;">Pipelines de datos complejos (ETL)</h4>
+        <p style="font-size:11.5pt;margin-top:3px;">Extracción, transformación y carga automatizada. Web scraping, normalización y enriquecimiento de datos a escala.</p>
+      </div>
+    </div>
+    <div class="card" style="display:flex;gap:9px;align-items:flex-start;padding:10px 12px;">
+      <div class="ib ib-sm ib-p">🎬</div>
+      <div>
+        <h4 style="font-size:12pt;">Producción de contenido a escala</h4>
+        <p style="font-size:11.5pt;margin-top:3px;">Video, audio e imágenes generados y publicados automáticamente en múltiples plataformas. Sin equipo editorial completo.</p>
+      </div>
+    </div>
+    <div class="card" style="display:flex;gap:9px;align-items:flex-start;padding:10px 12px;">
+      <div class="ib ib-sm ib-a">🏭</div>
+      <div>
+        <h4 style="font-size:12pt;">Integración con sistemas legacy y ERP</h4>
+        <p style="font-size:11.5pt;margin-top:3px;">Conectamos plataformas antiguas con herramientas modernas mediante APIs, webhooks o scraping estructurado — sin migración costosa.</p>
+      </div>
+    </div>
+    <div class="card" style="display:flex;gap:9px;align-items:flex-start;padding:10px 12px;">
+      <div class="ib ib-sm ib-g">📈</div>
+      <div>
+        <h4 style="font-size:12pt;">Automatización financiera y de mercados</h4>
+        <p style="font-size:11.5pt;margin-top:3px;">Señales de mercado, ejecución de estrategias, alertas y reportes de rendimiento — sin intervención manual.</p>
+      </div>
+    </div>
+    <div class="card-p" style="display:flex;gap:9px;align-items:flex-start;padding:10px 12px;">
+      <div class="ib ib-sm ib-p">🔗</div>
+      <div>
+        <h4 style="font-size:12pt;">Orquestación multi-sistema a escala</h4>
+        <p style="font-size:11.5pt;margin-top:3px;">Un flujo maestro que coordina múltiples sub-flujos, sistemas y equipos simultáneamente. Escalable sin límite de volumen.</p>
+      </div>
+    </div>
+  </div>
+
+  <div style="padding:4mm 13mm 8mm;">
+    <div class="card-g" style="display:flex;align-items:center;gap:10px;padding:7px 14px;">
+      <span style="font-size:14pt;flex-shrink:0;">💡</span>
+      <p style="font-size:12pt;"><span style="color:var(--white);font-weight:600;">Si existe un proceso repetitivo, hay un flujo para eso.</span> Cada integración es un punto potencial de ahorro de tiempo, dinero y errores humanos.</p>
+    </div>
+  </div>
+
+  <div class="foot">
+    <span class="foot-brand">Trev'ainnovate</span>
+    <span class="foot-num">06 / 16</span>
+  </div>
+</section>
+
+<!-- ═══════════ S6 — TECH STACK ═══════════ -->
+<section class="slide" id="s6">
+  <div class="bar"></div>
+  <div style="padding:10mm 13mm 0;">
+    <div class="label">Stack tecnológico</div>
+    <h2>Herramientas que dominamos</h2>
+  </div>
+
+  <div class="grid" style="padding:0 13mm;">
+    <div class="cat">
+      <div class="c-head"><div class="ib ib-sm ib-g">⚙️</div><div class="c-title">Orquestación &amp; Automatización</div></div>
+      <div class="pills">
+        <span class="pill">n8n</span><span class="pill">Webhooks</span><span class="pill">API REST</span>
+        <span class="pill">Cron Jobs</span><span class="pill">GraphQL</span><span class="pill">WebSockets</span>
+      </div>
+    </div>
+    <div class="cat">
+      <div class="c-head"><div class="ib ib-sm ib-b">🧠</div><div class="c-title">Inteligencia Artificial</div></div>
+      <div class="pills">
+        <span class="pill">Groq / Llama</span><span class="pill">GPT-4o</span><span class="pill">Gemini Vision</span>
+        <span class="pill">Claude</span><span class="pill">ElevenLabs TTS</span><span class="pill">Whisper STT</span>
+      </div>
+    </div>
+    <div class="cat">
+      <div class="c-head"><div class="ib ib-sm ib-p">💬</div><div class="c-title">Comunicación &amp; Canales</div></div>
+      <div class="pills">
+        <span class="pill">WhatsApp API</span><span class="pill">Telegram Bot</span><span class="pill">Email SMTP/IMAP</span>
+        <span class="pill">Slack</span><span class="pill">Discord</span><span class="pill">Instagram</span>
+      </div>
+    </div>
+    <div class="cat">
+      <div class="c-head"><div class="ib ib-sm ib-a">🗄️</div><div class="c-title">Data, Storage &amp; Video</div></div>
+      <div class="pills">
+        <span class="pill">Notion</span><span class="pill">Google Sheets</span><span class="pill">PostgreSQL</span>
+        <span class="pill">Cloudflare R2</span><span class="pill">FFmpeg</span><span class="pill">Shotstack</span><span class="pill">Airtable</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="note" style="margin:7px 13mm 0;">
+    <div class="ib ib-sm ib-g">💡</div>
+    <p style="font-size:13pt;"><span style="color:var(--green);font-weight:600;">¿No ves tu herramienta?</span> Si tiene API o webhook, la conectamos. ¿Ya usas Zapier o Make? <span style="color:var(--white);font-weight:600;">Lo migramos a n8n sin fricción.</span></p>
+  </div>
+
+  <div class="foot">
+    <span class="foot-brand">Trev'ainnovate</span>
+    <span class="foot-num">07 / 16</span>
+  </div>
+</section>
+
+<!-- ═══════════ S7 — PROCESO ═══════════ -->
+<section class="slide" id="s7">
+  <div class="bar"></div>
+  <div style="padding:10mm 13mm 0;">
+    <div class="label">Metodología</div>
+    <h2>Del diagnóstico al flujo en producción</h2>
+  </div>
+
+  <div class="steps" style="padding:0 13mm;">
+    <div class="step">
+      <div class="s-top"><div class="num" style="border-color:var(--green);"><div class="n" style="color:var(--green);">1</div></div></div>
+      <div style="text-align:center;margin-bottom:6px;"><div class="ib ib-g" style="margin:0 auto 5px;">🔍</div><h4>Diagnóstico</h4></div>
+      <ul class="s-card">
+        <li>Relevamiento de procesos</li>
+        <li>Identificación de fricciones</li>
+        <li>Priorización por impacto</li>
+        <li>Mapa del flujo actual</li>
+      </ul>
+    </div>
+    <div class="step">
+      <div class="s-top"><div class="num" style="border-color:var(--blue);"><div class="n" style="color:var(--blue);">2</div></div></div>
+      <div style="text-align:center;margin-bottom:6px;"><div class="ib ib-b" style="margin:0 auto 5px;">✏️</div><h4>Diseño</h4></div>
+      <ul class="s-card">
+        <li>Arquitectura del flujo</li>
+        <li>Selección de herramientas</li>
+        <li>Mockup del proceso</li>
+        <li>Validación con el cliente</li>
+      </ul>
+    </div>
+    <div class="step">
+      <div class="s-top"><div class="num" style="border-color:var(--purple);"><div class="n" style="color:var(--purple);">3</div></div></div>
+      <div style="text-align:center;margin-bottom:6px;"><div class="ib ib-p" style="margin:0 auto 5px;">💻</div><h4>Implementación</h4></div>
+      <ul class="s-card">
+        <li>Desarrollo del workflow</li>
+        <li>Testing con casos reales</li>
+        <li>Manejo de errores y logs</li>
+        <li>Documentación técnica</li>
+      </ul>
+    </div>
+    <div class="step">
+      <div class="s-top"><div class="num" style="border-color:var(--amber);"><div class="n" style="color:var(--amber);">4</div></div></div>
+      <div style="text-align:center;margin-bottom:6px;"><div class="ib ib-a" style="margin:0 auto 5px;">🔧</div><h4>Soporte</h4></div>
+      <ul class="s-card">
+        <li>Monitoreo post-lanzamiento</li>
+        <li>Ajustes y mejoras</li>
+        <li>Capacitación del equipo</li>
+        <li>Expansión del ecosistema</li>
+      </ul>
+    </div>
+  </div>
+
+  <div style="text-align:center;padding:0 13mm;margin-top:7mm;">
+    <div class="card-g" style="display:inline-flex;align-items:center;gap:10px;padding:8px 20px;">
+      <span style="font-size:16pt;">⏱️</span>
+      <span style="font-size:11.5pt;color:var(--muted);">Entrega promedio del primer flujo funcional: </span>
+      <span style="font-size:11.5pt;font-weight:700;color:var(--green);">5 a 10 días hábiles</span>
+    </div>
+  </div>
+
+  <div class="foot">
+    <span class="foot-brand">Trev'ainnovate</span>
+    <span class="foot-num">08 / 16</span>
+  </div>
+</section>
+
+<!-- ═══════════ S_ROI — INVERSIÓN & ROI ═══════════ -->
+<section class="slide" id="s_roi">
+  <div class="bar"></div>
+  <div style="padding:9mm 13mm 0;">
+    <div class="label">Inversión &amp; Retorno</div>
+    <h2>Lo que inviertes hoy<br><span class="grad">se recupera en meses</span></h2>
+  </div>
+
+  <div style="padding:0 13mm;flex:1;display:flex;gap:7mm;margin-top:4mm;">
+
+    <div style="flex:1.2;display:flex;flex-direction:column;gap:5px;">
+      <div class="label" style="margin-bottom:3px;">Paquetes de automatización — MXN</div>
+
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:8px 12px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:3px;">
+          <div style="display:flex;align-items:center;gap:7px;"><div class="ib ib-sm ib-g">⚡</div><h4>Starter — 1 a 2 flujos clave</h4></div>
+          <span style="font-size:14pt;font-weight:800;color:var(--green);">$15K – $25K</span>
+        </div>
+        <p style="font-size:12pt;">Automatiza un proceso crítico. Ideal para primer flujo y quick wins inmediatos. <span style="color:var(--white);">~20–40 horas/mes liberadas.</span></p>
+      </div>
+
+      <div style="background:linear-gradient(135deg,rgba(0,229,160,0.065),rgba(59,130,246,0.03));border:1px solid var(--border-g);border-radius:8px;padding:8px 12px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:3px;">
+          <div style="display:flex;align-items:center;gap:7px;"><div class="ib ib-sm ib-b">🚀</div><h4>Business — Ecosistema completo</h4></div>
+          <span style="font-size:14pt;font-weight:800;color:var(--blue);">$35K – $65K</span>
+        </div>
+        <p style="font-size:12pt;">CRM + seguimientos + reportes + IA integrada. El ecosistema más completo. <span style="color:var(--white);">~60–120 horas/mes liberadas.</span></p>
+      </div>
+
+      <div style="background:linear-gradient(135deg,rgba(139,92,246,0.07),rgba(139,92,246,0.02));border:1px solid var(--border-p);border-radius:8px;padding:8px 12px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:3px;">
+          <div style="display:flex;align-items:center;gap:7px;"><div class="ib ib-sm ib-p">🏗️</div><h4>Enterprise — Multi-sistema + IA</h4></div>
+          <span style="font-size:14pt;font-weight:800;color:var(--purple);">$70K+</span>
+        </div>
+        <p style="font-size:12pt;">Integración ERP, agentes IA autónomos, múltiples departamentos. <span style="color:var(--white);">150+ horas/mes liberadas.</span></p>
+      </div>
+    </div>
+
+    <div style="flex:0.9;display:flex;flex-direction:column;gap:5px;">
+      <div class="label" style="margin-bottom:3px;">Ejemplo de ROI — Paquete Business</div>
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:9px 13px;flex:1;display:flex;flex-direction:column;">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid var(--border);">
+          <p style="font-size:12pt;">Costo promedio hora de trabajo</p>
+          <span style="font-size:12pt;font-weight:700;color:var(--white);">$200 MXN / hr</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid var(--border);">
+          <p style="font-size:12pt;">Horas automatizadas al mes</p>
+          <span style="font-size:12pt;font-weight:700;color:var(--white);">50 hrs</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid var(--border);">
+          <p style="font-size:12pt;">Ahorro mensual</p>
+          <span style="font-size:14pt;font-weight:800;color:var(--green);">$10,000 MXN</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid var(--border);">
+          <p style="font-size:12pt;">Inversión inicial</p>
+          <span style="font-size:12pt;font-weight:700;color:var(--white);">$40,000 MXN</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:5px 0;">
+          <p style="font-size:12pt;">Payback estimado</p>
+          <span style="font-size:14pt;font-weight:800;color:var(--green);">4 meses</span>
+        </div>
+        <div style="background:linear-gradient(135deg,rgba(0,229,160,0.09),rgba(0,229,160,0.03));border:1px solid var(--border-g);border-radius:6px;padding:7px 10px;margin-top:7px;">
+          <p style="font-size:12pt;"><span style="color:var(--white);font-weight:700;">Ahorro año 1: </span><span style="color:var(--green);font-weight:800;font-size:15pt;">$120,000 MXN</span><span style="color:var(--muted);"> — 3× la inversión.</span></p>
+        </div>
+      </div>
+      <div style="background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:6px;padding:6px 10px;display:flex;align-items:center;gap:8px;">
+        <span style="font-size:16pt;">🛡️</span>
+        <p style="font-size:11.5pt;"><span style="color:var(--white);font-weight:600;">30 días de soporte incluido</span> — ajustes post-entrega sin costo adicional.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <span class="foot-brand">Trev'ainnovate</span>
+    <span class="foot-num">09 / 16</span>
+  </div>
+</section>
+
+<!-- ═══════════ S_MKTCOST — COSTOS MX 2026 ═══════════ -->
+<section class="slide" id="s_mktcost">
+  <div class="bar"></div>
+
+  <div style="padding:9mm 13mm 3mm;">
+    <div class="label">Mercado mexicano · 2026</div>
+    <h2>¿Cuánto cuesta automatizar <span class="grad">hoy en México</span>?</h2>
+  </div>
+
+  <div style="padding:0 13mm;flex:1;display:flex;flex-direction:column;gap:5px;">
+
+    <!-- Table header -->
+    <div style="display:grid;grid-template-columns:1.7fr 1.2fr 1.3fr 0.9fr 0.9fr 0.7fr;background:var(--bg3);border:1px solid var(--border);border-radius:8px 8px 0 0;padding:7px 13px;gap:0;">
+      <span style="font-size:7pt;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);">Solución</span>
+      <span style="font-size:7pt;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);">Inversión inicial</span>
+      <span style="font-size:7pt;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);">Costo mensual</span>
+      <span style="font-size:7pt;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);">Arranque</span>
+      <span style="font-size:7pt;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);">Soporte</span>
+      <span style="font-size:7pt;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);">Datos tuyos</span>
+    </div>
+
+    <!-- Fila 1: Empleado -->
+    <div style="display:grid;grid-template-columns:1.7fr 1.2fr 1.3fr 0.9fr 0.9fr 0.7fr;background:var(--bg2);border:1px solid var(--border);border-top:none;padding:9px 13px;align-items:center;">
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div class="ib ib-sm ib-w">👤</div>
+        <span style="font-size:11.5pt;font-weight:600;color:var(--white);">Empleado de operaciones</span>
+      </div>
+      <span style="font-size:11pt;color:var(--muted);">Sin costo inicial</span>
+      <div>
+        <span style="font-size:12pt;font-weight:700;color:var(--red);">$15K – 22K MXN</span>
+        <p style="font-size:7.5pt;color:var(--muted);margin-top:1px;">+ IMSS, beneficios, vacaciones</p>
+      </div>
+      <span style="font-size:11pt;color:var(--muted);">Inmediato</span>
+      <span style="font-size:11pt;color:var(--muted);">—</span>
+      <span style="font-size:14pt;color:var(--green);">✓</span>
+    </div>
+
+    <!-- Fila 2: SaaS -->
+    <div style="display:grid;grid-template-columns:1.7fr 1.2fr 1.3fr 0.9fr 0.9fr 0.7fr;background:var(--bg2);border:1px solid var(--border);border-top:none;padding:9px 13px;align-items:center;">
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div class="ib ib-sm ib-b">☁️</div>
+        <span style="font-size:11.5pt;font-weight:600;color:var(--white);">Zapier / Make (SaaS)</span>
+      </div>
+      <span style="font-size:11pt;color:var(--muted);">$0</span>
+      <div>
+        <span style="font-size:12pt;font-weight:700;color:var(--amber);">$1,500 – 10,000 MXN</span>
+        <p style="font-size:7.5pt;color:var(--muted);margin-top:1px;">sube con el volumen de tareas</p>
+      </div>
+      <span style="font-size:11pt;color:var(--muted);">Días</span>
+      <span style="font-size:11pt;color:var(--muted);">Chat / ticket</span>
+      <span style="font-size:14pt;color:var(--red);">✗</span>
+    </div>
+
+    <!-- Fila 3: Agencia IT -->
+    <div style="display:grid;grid-template-columns:1.7fr 1.2fr 1.3fr 0.9fr 0.9fr 0.7fr;background:var(--bg2);border:1px solid var(--border);border-top:none;padding:9px 13px;align-items:center;">
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div class="ib ib-sm ib-p">🏢</div>
+        <span style="font-size:11.5pt;font-weight:600;color:var(--white);">Agencia IT / consultoría</span>
+      </div>
+      <div>
+        <span style="font-size:12pt;font-weight:700;color:var(--red);">$80K – 250K MXN</span>
+        <p style="font-size:7.5pt;color:var(--muted);margin-top:1px;">proyecto completo incluido</p>
+      </div>
+      <span style="font-size:12pt;font-weight:700;color:var(--red);">$15K – 50K MXN</span>
+      <span style="font-size:11pt;color:var(--muted);">2 – 6 meses</span>
+      <span style="font-size:11pt;color:var(--muted);">Variable</span>
+      <span style="font-size:11pt;color:var(--muted);">Variable</span>
+    </div>
+
+    <!-- Fila 4: Freelance -->
+    <div style="display:grid;grid-template-columns:1.7fr 1.2fr 1.3fr 0.9fr 0.9fr 0.7fr;background:var(--bg2);border:1px solid var(--border);border-top:none;padding:9px 13px;align-items:center;">
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div class="ib ib-sm ib-a">💻</div>
+        <span style="font-size:11.5pt;font-weight:600;color:var(--white);">Desarrollador freelance</span>
+      </div>
+      <div>
+        <span style="font-size:12pt;font-weight:700;color:var(--amber);">$40K – 120K MXN</span>
+        <p style="font-size:7.5pt;color:var(--muted);margin-top:1px;">$800 – 1,500 MXN / hora</p>
+      </div>
+      <span style="font-size:11pt;color:var(--muted);">Variable</span>
+      <span style="font-size:11pt;color:var(--muted);">1 – 3 meses</span>
+      <span style="font-size:11pt;color:var(--red);">Sin garantía</span>
+      <span style="font-size:14pt;color:var(--green);">✓</span>
+    </div>
+
+    <!-- Fila 5: Trev'ainnovate — destacada -->
+    <div style="display:grid;grid-template-columns:1.7fr 1.2fr 1.3fr 0.9fr 0.9fr 0.7fr;background:linear-gradient(135deg,rgba(0,229,160,0.09),rgba(59,130,246,0.04));border:1.5px solid rgba(0,229,160,0.35);border-top:none;border-radius:0 0 8px 8px;padding:10px 13px;align-items:center;">
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div class="ib ib-sm ib-g">⚡</div>
+        <div>
+          <div style="display:flex;align-items:center;gap:7px;">
+            <span style="font-size:12pt;font-weight:800;color:var(--green);">Trev'ainnovate</span>
+            <span style="font-size:6.5pt;background:var(--green);color:#030a07;font-weight:800;border-radius:3px;padding:2px 6px;letter-spacing:0.05em;">MEJOR VALOR</span>
+          </div>
+          <p style="font-size:8pt;color:var(--muted);margin-top:1px;">n8n self-hosted · IA integrada</p>
+        </div>
+      </div>
+      <div>
+        <span style="font-size:12pt;font-weight:800;color:var(--green);">$15K – 70K MXN</span>
+        <p style="font-size:7.5pt;color:var(--muted);margin-top:1px;">pago único · sin mensualidad</p>
+      </div>
+      <div>
+        <span style="font-size:12pt;font-weight:800;color:var(--green);">~$500 – 2,000 MXN</span>
+        <p style="font-size:7.5pt;color:var(--muted);margin-top:1px;">solo infraestructura del servidor</p>
+      </div>
+      <span style="font-size:12pt;font-weight:800;color:var(--green);">5 – 10 días</span>
+      <span style="font-size:12pt;font-weight:800;color:var(--green);">30 días ✓</span>
+      <span style="font-size:14pt;color:var(--green);">✓</span>
+    </div>
+
+    <!-- Bottom insight: 3 stats -->
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:4px;">
+      <div style="background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.2);border-radius:7px;padding:8px 11px;display:flex;align-items:flex-start;gap:8px;">
+        <span style="font-size:15pt;flex-shrink:0;">📉</span>
+        <p style="font-size:11pt;line-height:1.45;"><span style="color:var(--white);font-weight:700;">1 empleado/año:</span> $180K – 264K MXN — con errores humanos incluidos</p>
+      </div>
+      <div style="background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.2);border-radius:7px;padding:8px 11px;display:flex;align-items:flex-start;gap:8px;">
+        <span style="font-size:15pt;flex-shrink:0;">🔒</span>
+        <p style="font-size:11pt;line-height:1.45;"><span style="color:var(--white);font-weight:700;">Zapier/año:</span> hasta $120K MXN — con vendor lock-in y sin soporte real</p>
+      </div>
+      <div style="background:rgba(0,229,160,0.06);border:1px solid rgba(0,229,160,0.2);border-radius:7px;padding:8px 11px;display:flex;align-items:flex-start;gap:8px;">
+        <span style="font-size:15pt;flex-shrink:0;">✅</span>
+        <p style="font-size:11pt;line-height:1.45;"><span style="color:var(--white);font-weight:700;">Trev'ainnovate:</span> pago único — el flujo es tuyo desde el día 1, para siempre</p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="foot">
+    <span class="foot-brand">Trev'ainnovate</span>
+    <span class="foot-num">10 / 16</span>
+  </div>
+</section>
+
+<!-- ═══════════ S_CYBINTRO — INTRO CIBERSEGURIDAD ═══════════ -->
+<section class="slide" id="s_cybintro">
+  <div class="bar"></div>
+
+  <!-- Fondo ambiental -->
+  <div style="position:absolute;top:-10%;right:-5%;width:180mm;height:180mm;background:radial-gradient(circle,rgba(139,92,246,0.07),transparent 65%);pointer-events:none;z-index:0;"></div>
+  <div style="position:absolute;bottom:-20%;left:-5%;width:140mm;height:140mm;background:radial-gradient(circle,rgba(239,68,68,0.05),transparent 65%);pointer-events:none;z-index:0;"></div>
+
+  <div style="padding:10mm 13mm 0;position:relative;z-index:1;">
+    <div class="label label-r">El otro lado del negocio digital</div>
+    <h2>Automatizas más. <span class="grad2">Expones más.</span><br>¿Quién protege la puerta de entrada?</h2>
+    <p style="max-width:210mm;margin-top:6px;font-size:13pt;">Cada flujo automatizado, cada integración, cada dato que viaja entre sistemas amplía tu superficie digital. Y el 91% de los ciberataques entran por el mismo lugar: <span style="color:var(--white);font-weight:600;">el correo electrónico.</span></p>
+  </div>
+
+  <div style="padding:0 13mm;flex:1;display:flex;gap:8mm;margin-top:6mm;position:relative;z-index:1;">
+
+    <!-- Columna izq: stats de impacto -->
+    <div style="flex:1;display:flex;flex-direction:column;gap:6px;">
+      <div class="label" style="margin-bottom:2px;">El panorama en México · 2026</div>
+
+      <div style="background:linear-gradient(135deg,rgba(239,68,68,0.09),rgba(239,68,68,0.03));border:1px solid rgba(239,68,68,0.25);border-radius:8px;padding:10px 13px;display:flex;align-items:center;gap:12px;">
+        <div style="font-size:28pt;font-weight:900;color:var(--red);line-height:1;flex-shrink:0;" data-count="91" data-suffix="%">91%</div>
+        <div>
+          <h4 style="font-size:12pt;color:var(--white);">de los ciberataques comienzan por correo</h4>
+          <p style="font-size:11pt;margin-top:2px;">Phishing, malware, ransomware y fraude por correo. El canal más usado — y el menos protegido.</p>
+        </div>
+      </div>
+
+      <div style="background:linear-gradient(135deg,rgba(245,158,11,0.09),rgba(245,158,11,0.03));border:1px solid rgba(245,158,11,0.25);border-radius:8px;padding:10px 13px;display:flex;align-items:center;gap:12px;">
+        <div style="font-size:28pt;font-weight:900;color:var(--amber);line-height:1;flex-shrink:0;" data-count="52" data-prefix="$" data-suffix="M">$52M</div>
+        <div>
+          <h4 style="font-size:12pt;color:var(--white);">MXN: costo promedio de una brecha en México</h4>
+          <p style="font-size:11pt;margin-top:2px;">Según IBM Cost of a Data Breach 2024. PyMEs y medianas son el blanco más frecuente por tener menos defensas.</p>
+        </div>
+      </div>
+
+      <div style="background:linear-gradient(135deg,rgba(139,92,246,0.09),rgba(139,92,246,0.03));border:1px solid rgba(139,92,246,0.25);border-radius:8px;padding:10px 13px;display:flex;align-items:center;gap:12px;">
+        <div style="font-size:28pt;font-weight:900;color:var(--purple);line-height:1;flex-shrink:0;" data-count="74" data-suffix="%">74%</div>
+        <div>
+          <h4 style="font-size:12pt;color:var(--white);">de las empresas en MX sufrieron un incidente en 2024</h4>
+          <p style="font-size:11pt;margin-top:2px;">La mayoría sin saberlo durante semanas. El daño ya está hecho cuando se detecta.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Columna der: narrativa de conexión -->
+    <div style="flex:0.85;display:flex;flex-direction:column;gap:6px;">
+      <div class="label" style="margin-bottom:2px;">¿Por qué importa si ya automatizas?</div>
+
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:10px 13px;display:flex;gap:9px;align-items:flex-start;">
+        <div class="ib ib-sm ib-r">⚠️</div>
+        <div>
+          <h4 style="font-size:12pt;">Más integración = más riesgo</h4>
+          <p style="font-size:11.5pt;margin-top:2px;">Un correo malicioso puede comprometer las credenciales que disparan tus flujos automáticos — afectando CRM, datos y clientes en cadena.</p>
+        </div>
+      </div>
+
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:10px 13px;display:flex;gap:9px;align-items:flex-start;">
+        <div class="ib ib-sm ib-a">🎯</div>
+        <div>
+          <h4 style="font-size:12pt;">Las PyMEs son el objetivo preferido</h4>
+          <p style="font-size:11.5pt;margin-top:2px;">Los atacantes saben que las empresas medianas tienen datos valiosos pero no las defensas de una corporación. Combinación ideal para ellos.</p>
+        </div>
+      </div>
+
+      <div style="background:linear-gradient(135deg,rgba(0,229,160,0.055),rgba(59,130,246,0.03));border:1px solid var(--border-g);border-radius:8px;padding:10px 13px;display:flex;gap:9px;align-items:flex-start;">
+        <div class="ib ib-sm ib-g">🛡️</div>
+        <div>
+          <h4 style="font-size:12pt;">La solución: proteger donde todo empieza</h4>
+          <p style="font-size:11.5pt;margin-top:2px;">No hace falta un equipo de seguridad interno. En las siguientes páginas te mostramos cómo blindar tu correo desde hoy, sin fricción.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="foot">
+    <span class="foot-brand">Trev'ainnovate · Seguridad</span>
+    <span class="foot-num">11 / 16</span>
+  </div>
+</section>
+
+<!-- ═══════════ S8 — COMBO ═══════════ -->
+<section class="slide" id="s8">
+  <div class="bar"></div>
+  <div style="padding:10mm 12mm 0;">
+    <div class="label">Propuesta de valor combinada</div>
+    <h2>Automatización <span class="grad3">+</span> Seguridad en Correo</h2>
+  </div>
+
+  <div class="combo" style="padding:0 12mm;flex:1;">
+    <div class="side ours">
+      <div class="s-head">
+        <div class="ib ib-lg ib-g">⚡</div>
+        <div><div class="label" style="margin-bottom:2px;">Trev'ainnovate</div><h3>Automatización Inteligente</h3></div>
+      </div>
+      <div class="s-feat"><div class="ib ib-sm ib-g">🔄</div><p style="font-size:13pt;">Flujos automáticos para operaciones internas y CRM</p></div>
+      <div class="s-feat"><div class="ib ib-sm ib-g">🔌</div><p style="font-size:13pt;">Integración de sistemas, plataformas y APIs</p></div>
+      <div class="s-feat"><div class="ib ib-sm ib-g">🤖</div><p style="font-size:13pt;">IA aplicada a procesos reales de negocio</p></div>
+      <div class="s-feat"><div class="ib ib-sm ib-g">🔔</div><p style="font-size:13pt;">Notificaciones, reportes y seguimientos 24/7</p></div>
+      <div class="s-cta">Opera más rápido con menos esfuerzo humano</div>
+    </div>
+
+    <div class="plus-col">
+      <div class="plus-l"></div>
+      <div class="plus-c">+</div>
+      <div class="plus-l"></div>
+    </div>
+
+    <div class="side theirs">
+      <div class="s-head">
+        <div class="ib ib-lg ib-p">🛡️</div>
+        <div><div class="label label-p" style="margin-bottom:2px;">Seguridad Administrada</div><h3>Cloud Email Security</h3></div>
+      </div>
+      <div style="display:flex;gap:6px;margin-bottom:8px;">
+        <span class="tag tag-p">99.2% phishing bloqueado</span>
+        <span class="tag tag-p">62× mejor que Google</span>
+      </div>
+      <div class="s-feat"><div class="ib ib-sm ib-p">🧠</div><p style="font-size:12pt;">ML analiza +200 indicadores por correo en tiempo real</p></div>
+      <div class="s-feat"><div class="ib ib-sm ib-p">🦠</div><p style="font-size:12pt;">Antiphishing · Antivirus · Sandboxing · DLP incluidos</p></div>
+      <div class="s-feat"><div class="ib ib-sm ib-p">⚡</div><p style="font-size:12pt;">Integración vía API en minutos — sin modificar DNS</p></div>
+      <div class="s-feat"><div class="ib ib-sm ib-p">👥</div><p style="font-size:12pt;">Equipo SecOps activo + reporte semanal de hallazgos</p></div>
+      <div style="margin-top:6px;padding:5px 9px;background:rgba(139,92,246,0.1);border:1px solid var(--border-p);border-radius:5px;">
+        <span style="font-size:12pt;color:var(--purple);font-weight:700;">Desde $10 USD/mes</span>
+        <span style="font-size:7.5pt;color:var(--muted);"> · con herramientas colaborativas $15 USD/mes</span>
+      </div>
+      <div class="s-cta" style="border-top-color:rgba(139,92,246,0.2);">Protección donde el 91% de los ataques comienzan</div>
+    </div>
+  </div>
+
+  <div style="text-align:center;padding:0 12mm;">
+    <div class="combo-note">
+      <p style="font-size:11.5pt;">Automatiza tus operaciones <span style="color:var(--white);font-weight:600;">y blindas el canal por donde llega el 91% de los ciberataques.</span> Eficiencia y protección en un solo paquete.</p>
+    </div>
+  </div>
+
+  <div class="foot">
+    <span class="foot-brand">Trev'ainnovate</span>
+    <span class="foot-num">12 / 16</span>
+  </div>
+</section>
+
+<!-- ═══════════ S9 — CLOUD EMAIL SECURITY (DETALLE) ═══════════ -->
+<section class="slide" id="s9">
+  <div class="bar"></div>
+  <div style="padding:9mm 13mm 0;">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px;">
+      <div class="ib ib-p">🛡️</div>
+      <div>
+        <div class="label label-p">Servicio de seguridad administrada</div>
+        <h2 style="font-size:20pt;">Cloud Email Security</h2>
+      </div>
+    </div>
+  </div>
+
+  <div style="padding:0 13mm;flex:1;display:flex;flex-direction:column;">
+    <!-- Stats row -->
+    <div style="display:flex;gap:7px;margin-bottom:6mm;">
+      <div class="big-stat" style="flex:1;">
+        <div class="v" data-count="99.2" data-suffix="%">99.2%</div>
+        <div class="d">ataques de phishing<br>bloqueados</div>
+      </div>
+      <div class="big-stat" style="flex:1;background:linear-gradient(135deg,rgba(59,130,246,0.1),rgba(59,130,246,0.04));border-color:var(--border-b);">
+        <div class="v" style="color:var(--blue);" data-count="62" data-suffix="×">62×</div>
+        <div class="d">más eficaz que Google<br><span style="font-size:6.5pt;opacity:0.45;">Fuente: Perception Point · benchmark independiente</span></div>
+      </div>
+      <div class="big-stat" style="flex:1;background:linear-gradient(135deg,rgba(245,158,11,0.1),rgba(245,158,11,0.04));border-color:rgba(245,158,11,0.2);">
+        <div class="v" style="color:var(--amber);">+200</div>
+        <div class="d">indicadores analizados<br>por correo (ML)</div>
+      </div>
+      <div class="big-stat" style="flex:1;background:linear-gradient(135deg,rgba(0,229,160,0.1),rgba(0,229,160,0.04));border-color:var(--border-g);">
+        <div class="v" style="color:var(--green);">API</div>
+        <div class="d">integración en minutos<br>sin cambiar DNS</div>
+      </div>
+    </div>
+
+    <!-- Capabilities grid -->
+    <div class="caps">
+      <div class="cap">
+        <div class="cp-head"><div class="ib ib-sm ib-p">🎣</div><h4>Antiphishing Avanzado</h4></div>
+        <p>Correo entrante e interno. Detecta suplantación y spear phishing con ML.</p>
+      </div>
+      <div class="cap">
+        <div class="cp-head"><div class="ib ib-sm ib-r">🦠</div><h4>Antivirus + Sandboxing</h4></div>
+        <p>Malware conocido y de día cero. Archivos adjuntos analizados en entorno aislado.</p>
+      </div>
+      <div class="cap">
+        <div class="cp-head"><div class="ib ib-sm ib-b">🔗</div><h4>Protección de URLs</h4></div>
+        <p>URL re-writing en tiempo real. Bloqueo de enlaces maliciosos antes del clic.</p>
+      </div>
+      <div class="cap">
+        <div class="cp-head"><div class="ib ib-sm ib-a">🔐</div><h4>Anomaly Detection</h4></div>
+        <p>Prevención de secuestro de cuenta. Detecta comportamiento anómalo de sesión.</p>
+      </div>
+      <div class="cap">
+        <div class="cp-head"><div class="ib ib-sm ib-p">👁️</div><h4>Shadow IT</h4></div>
+        <p>Detecta aplicaciones no autorizadas que acceden al correo corporativo.</p>
+      </div>
+      <div class="cap">
+        <div class="cp-head"><div class="ib ib-sm ib-g">📎</div><h4>Threat Extraction</h4></div>
+        <p>Saneamiento de archivos adjuntos. Entrega versiones limpias al usuario.</p>
+      </div>
+      <div class="cap">
+        <div class="cp-head"><div class="ib ib-sm ib-b">🔒</div><h4>DLP para Correo</h4></div>
+        <p>Prevención de Pérdida de Datos. Evita fuga de información confidencial.</p>
+      </div>
+      <div class="cap" style="background:linear-gradient(135deg,rgba(139,92,246,0.08),var(--bg2));border-color:var(--border-p);">
+        <div class="cp-head"><div class="ib ib-sm ib-p">👥</div><h4>SecOps 24/7</h4></div>
+        <p>Equipo de expertos como extensión de tu equipo. Monitoreo, detección y respuesta.</p>
+      </div>
+    </div>
+
+    <!-- How it works mini flow -->
+    <div class="how" style="margin-top:5mm;">
+      <div class="how-step"><div class="ib ib-sm ib-p">📧</div><p>Selecciona los correos a proteger (dominio o grupo)</p></div>
+      <div class="how-arrow">›</div>
+      <div class="how-step"><div class="ib ib-sm ib-p">📅</div><p>Videollamada con admin global para integrar</p></div>
+      <div class="how-arrow">›</div>
+      <div class="how-step"><div class="ib ib-sm ib-p">⚡</div><p>Integración vía API en minutos</p></div>
+      <div class="how-arrow">›</div>
+      <div class="how-step"><div class="ib ib-sm ib-p">🛡️</div><p>SecOps resuelve toda actividad maliciosa</p></div>
+      <div class="how-arrow">›</div>
+      <div class="how-step"><div class="ib ib-sm ib-p">📊</div><p>Reporte semanal con hallazgos relevantes</p></div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <span class="foot-brand">Trev'ainnovate · Seguridad Administrada</span>
+    <span class="foot-num">13 / 16</span>
+  </div>
+</section>
+
+<!-- ═══════════ S_CLAUDE — IA CON CLAUDE + N8N ═══════════ -->
+<section class="slide" id="s_claude">
+  <div class="bar"></div>
+  <div style="position:absolute;top:-10%;right:-5%;width:160mm;height:160mm;background:radial-gradient(circle,rgba(139,92,246,0.07),transparent 65%);pointer-events:none;z-index:0;"></div>
+
+  <div style="padding:9mm 13mm 3mm;position:relative;z-index:1;">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:3px;">
+      <div class="ib ib-p">🧠</div>
+      <div>
+        <div class="label label-p">Inteligencia artificial aplicada</div>
+        <h2 style="font-size:21pt;">Claude + n8n — <span class="grad2">tu cerebro autónomo 24/7</span></h2>
+      </div>
+    </div>
+  </div>
+
+  <div style="padding:0 13mm;flex:1;display:flex;flex-direction:column;gap:5mm;position:relative;z-index:1;">
+
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:7px;">
+      <div class="cap">
+        <div class="cp-head"><div class="ib ib-sm ib-b">📧</div><h4>Clasificación de correos</h4></div>
+        <p>Claude lee, clasifica y enruta correos entrantes: soporte, ventas, proveedores — sin tocarlos manualmente.</p>
+      </div>
+      <div class="cap">
+        <div class="cp-head"><div class="ib ib-sm ib-a">📄</div><h4>Análisis de documentos</h4></div>
+        <p>Contratos, facturas y PDFs procesados en segundos. Extrae datos clave y los vuelca directo en tu CRM o Sheets.</p>
+      </div>
+      <div class="cap">
+        <div class="cp-head"><div class="ib ib-sm ib-g">📊</div><h4>Reportes en lenguaje natural</h4></div>
+        <p>Tablas de datos crudos convertidas en resúmenes ejecutivos listos para enviar — sin que nadie los redacte.</p>
+      </div>
+      <div class="cap">
+        <div class="cp-head"><div class="ib ib-sm ib-p">🤝</div><h4>Agente de soporte interno</h4></div>
+        <p>Tu equipo pregunta por WhatsApp o Slack. Claude responde sobre procesos, precios y políticas con tu base de conocimiento.</p>
+      </div>
+      <div class="cap">
+        <div class="cp-head"><div class="ib ib-sm ib-r">🔍</div><h4>Inteligencia de mercado</h4></div>
+        <p>Scraping estructurado + síntesis automática. Monitoreo de competencia y precios entregado como resumen accionable.</p>
+      </div>
+      <div class="cap" style="background:linear-gradient(135deg,rgba(139,92,246,0.08),var(--bg2));border-color:var(--border-p);">
+        <div class="cp-head"><div class="ib ib-sm ib-p">✍️</div><h4>Propuestas y seguimientos</h4></div>
+        <p>Lead nuevo en CRM → Claude redacta propuesta personalizada → n8n la envía → registra la respuesta automáticamente.</p>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:7px;">
+      <div style="flex:1.35;background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:9px 13px;">
+        <div class="label" style="margin-bottom:6px;">Ejemplo: atención al cliente 100% automatizada</div>
+        <div style="display:flex;align-items:center;gap:5px;flex-wrap:wrap;">
+          <div style="display:flex;align-items:center;gap:5px;background:var(--bg3);border:1px solid var(--border);border-radius:5px;padding:4px 9px;"><span>📧</span><span style="font-size:8pt;color:var(--muted);">Correo cliente</span></div>
+          <span style="color:var(--muted);">→</span>
+          <div style="display:flex;align-items:center;gap:5px;background:var(--bg3);border:1px solid var(--border-p);border-radius:5px;padding:4px 9px;"><span>🧠</span><span style="font-size:8pt;color:var(--purple);">Claude analiza intención</span></div>
+          <span style="color:var(--muted);">→</span>
+          <div style="display:flex;align-items:center;gap:5px;background:var(--bg3);border:1px solid var(--border);border-radius:5px;padding:4px 9px;"><span>⚙️</span><span style="font-size:8pt;color:var(--muted);">n8n enruta</span></div>
+          <span style="color:var(--muted);">→</span>
+          <div style="display:flex;align-items:center;gap:5px;background:var(--bg3);border:1px solid var(--border);border-radius:5px;padding:4px 9px;"><span>📋</span><span style="font-size:8pt;color:var(--muted);">CRM actualizado</span></div>
+          <span style="color:var(--muted);">→</span>
+          <div style="display:flex;align-items:center;gap:5px;background:var(--bg3);border:1px solid var(--border-g);border-radius:5px;padding:4px 9px;"><span>✅</span><span style="font-size:8pt;color:var(--green);">Respuesta enviada</span></div>
+        </div>
+      </div>
+      <div style="flex:1;background:linear-gradient(135deg,rgba(139,92,246,0.07),rgba(59,130,246,0.03));border:1px solid var(--border-p);border-radius:8px;padding:9px 13px;">
+        <div class="label label-p" style="margin-bottom:6px;">¿Por qué Claude sobre GPT?</div>
+        <div style="display:flex;flex-direction:column;gap:5px;">
+          <div style="display:flex;align-items:flex-start;gap:7px;"><div class="dot dot-p" style="margin-top:5px;flex-shrink:0;"></div><p style="font-size:11pt;"><span style="color:var(--white);font-weight:600;">200K tokens de contexto</span> — procesa documentos completos sin truncar</p></div>
+          <div style="display:flex;align-items:flex-start;gap:7px;"><div class="dot dot-p" style="margin-top:5px;flex-shrink:0;"></div><p style="font-size:11pt;"><span style="color:var(--white);font-weight:600;">Instrucciones complejas</span> — sigue reglas de negocio con alta fidelidad</p></div>
+          <div style="display:flex;align-items:flex-start;gap:7px;"><div class="dot dot-p" style="margin-top:5px;flex-shrink:0;"></div><p style="font-size:11pt;"><span style="color:var(--white);font-weight:600;">Menos alucinaciones</span> — más confiable en tareas estructuradas críticas</p></div>
+          <div style="display:flex;align-items:flex-start;gap:7px;"><div class="dot dot-g" style="margin-top:5px;flex-shrink:0;"></div><p style="font-size:11pt;"><span style="color:var(--white);font-weight:600;">API más económica</span> — ideal para volumen alto en producción</p></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="foot">
+    <span class="foot-brand">Trev'ainnovate · IA Aplicada</span>
+    <span class="foot-num">14 / 16</span>
+  </div>
+</section>
+
+<!-- ═══════════ S_PORQ — ¿POR QUÉ TREV'AINNOVATE? ═══════════ -->
+<section class="slide" id="s_porq">
+  <div class="bar"></div>
+  <div style="padding:9mm 13mm 0;">
+    <div class="label">Diferenciadores clave</div>
+    <h2>¿Por qué <span class="grad">Trev'ainnovate</span>?</h2>
+  </div>
+
+  <div style="padding:0 13mm;flex:1;display:flex;gap:8mm;margin-top:4mm;">
+
+    <div style="flex:1.1;display:flex;flex-direction:column;gap:5px;">
+      <div style="display:flex;gap:9px;align-items:flex-start;background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:8px 11px;">
+        <div class="ib ib-sm ib-g">⚡</div>
+        <div><h4>Primer entregable en 5–10 días hábiles</h4><p style="font-size:12pt;">No meses, no largas planificaciones. El primer flujo funcional entra en producción en menos de dos semanas.</p></div>
+      </div>
+      <div style="display:flex;gap:9px;align-items:flex-start;background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:8px 11px;">
+        <div class="ib ib-sm ib-b">🏠</div>
+        <div><h4>Tus datos en tu infraestructura</h4><p style="font-size:12pt;">n8n self-hosted — sin vendor lock-in. Sin datos de tu empresa en servidores de terceros. Control total tuyo.</p></div>
+      </div>
+      <div style="display:flex;gap:9px;align-items:flex-start;background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:8px 11px;">
+        <div class="ib ib-sm ib-p">📋</div>
+        <div><h4>Documentación completa entregada</h4><p style="font-size:12pt;">Cada workflow documentado con manual de uso. El proyecto y el código son tuyos desde el primer día.</p></div>
+      </div>
+      <div style="display:flex;gap:9px;align-items:flex-start;background:linear-gradient(135deg,rgba(0,229,160,0.055),rgba(59,130,246,0.03));border:1px solid var(--border-g);border-radius:8px;padding:8px 11px;">
+        <div class="ib ib-sm ib-g">🔒</div>
+        <div><h4>Automatización + Seguridad — un solo proveedor</h4><p style="font-size:12pt;">Automatización + Seguridad en un solo proveedor: eficiencia operativa y protección de correo combinadas.</p></div>
+      </div>
+    </div>
+
+    <div style="flex:0.9;display:flex;flex-direction:column;gap:5px;">
+      <div class="label" style="margin-bottom:3px;">Preguntas frecuentes</div>
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:9px 12px;">
+        <h4 style="color:var(--white);margin-bottom:3px;">¿Necesitamos personal técnico para usarlo?</h4>
+        <p style="font-size:12pt;">No. Los flujos corren solos una vez configurados. Se entrega un panel de monitoreo simple para cualquier miembro del equipo.</p>
+      </div>
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:9px 12px;">
+        <h4 style="color:var(--white);margin-bottom:3px;">¿Qué pasa si un flujo falla?</h4>
+        <p style="font-size:12pt;">Alertas automáticas + reintentos integrados. Los 30 días de soporte incluido resuelven cualquier incidencia sin costo adicional.</p>
+      </div>
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:9px 12px;">
+        <h4 style="color:var(--white);margin-bottom:3px;">¿Puedo pagar en partes?</h4>
+        <p style="font-size:12pt;">Sí. Modelos de pago en 2 partes (inicio + entrega) o esquema mensual disponibles según el alcance del proyecto.</p>
+      </div>
+      <div style="background:linear-gradient(135deg,rgba(0,229,160,0.08),rgba(0,229,160,0.03));border:1px solid var(--border-g);border-radius:8px;padding:8px 12px;display:flex;align-items:center;gap:9px;">
+        <span style="font-size:18pt;">🤝</span>
+        <p style="font-size:12pt;"><span style="color:var(--white);font-weight:700;">Primera consulta sin costo.</span> Diagnóstico de tus procesos antes de cualquier compromiso.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <span class="foot-brand">Trev'ainnovate</span>
+    <span class="foot-num">15 / 16</span>
+  </div>
+</section>
+
+<!-- ═══════════ S10 — CONTACTO ═══════════ -->
+<section class="slide" id="s10">
+  <div class="bar"></div>
+  <div class="glow-c"></div>
+
+  <div class="label">¿Listo para dar el siguiente paso?</div>
+  <h2 style="max-width:190mm;">Hablemos sobre los procesos<br>de <span class="grad">tu empresa</span></h2>
+
+  <p style="max-width:160mm;margin:8px auto 0;font-size:13pt;text-align:center;">
+    La primera consulta es sin costo.<br>
+    Analizamos tus procesos y te mostramos qué se puede automatizar de inmediato.
+  </p>
+
+  <div class="contacts">
+    <div class="ci">
+      <div class="ci-icon"><div class="ib ib-g ib-lg">📱</div></div>
+      <div class="ci-label">WhatsApp / Teléfono</div>
+      <div class="ci-val">223 129 4663</div>
+    </div>
+    <div class="ci">
+      <div class="ci-icon"><div class="ib ib-b ib-lg">✉️</div></div>
+      <div class="ci-label">Correo electrónico</div>
+      <div class="ci-val">santiago.juarez042@gmail.com</div>
+    </div>
+    <div class="ci">
+      <div class="ci-icon">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=72x72&data=https://trevainnovate.com/presentacion.html&bgcolor=05050e&color=00e5a0&qzone=1" width="72" height="72" style="border-radius:8px;" alt="QR Presentación"/>
+      </div>
+      <div class="ci-label">Presentación interactiva</div>
+      <div class="ci-val" style="font-size:10pt;">trevainnovate.com/presentacion.html</div>
+    </div>
+    <div class="ci">
+      <div class="ci-icon"><div class="ib ib-a ib-lg">🌐</div></div>
+      <div class="ci-label">Empresa</div>
+      <div class="ci-val">Trev'ainnovate</div>
+      <div class="ci-sub">Automatización · Seguridad</div>
+    </div>
+  </div>
+
+  <div class="cta-btn">
+    <span style="font-size:14pt;">🚀</span>
+    Agenda una demo gratuita de 30 minutos →
+  </div>
+
+  <div class="foot">
+    <span class="foot-brand">Trev'ainnovate — Santiago Juárez Treviño</span>
+    <span class="foot-num">16 / 16</span>
+  </div>
+</section>
+
+
+<script>
+(function () {
+  /* ── Headless detection (skip all animations in Puppeteer PDF) ── */
+  const isHeadless = navigator.webdriver ||
+    /HeadlessChrome/.test(navigator.userAgent) ||
+    navigator.userAgent.includes('Headless');
+
+  if (isHeadless) {
+    /* Make all slides instantly visible for PDF */
+    document.querySelectorAll('.slide').forEach(s => {
+      s.style.opacity = '1';
+      s.style.transform = 'none';
+    });
+    return;
+  }
+
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const slideLabels = ['Portada','El Problema','La Solución','Casos Reales','Qué Automatizamos',
+    'El Potencial','Tech Stack','Proceso','ROI','Costos MX 2026','Intro Ciberseg','Combo',
+    'Cloud Email Security','Claude + n8n','¿Por qué Trev\'ainnovate?','Contacto'];
+
+  /* ── Cursor glow ─────────────────────────────────────── */
+  const cursorGlow = document.createElement('div'); cursorGlow.id = 'cursor-glow';
+  const cursorDot  = document.createElement('div'); cursorDot.id  = 'cursor-dot';
+  const cursorRing = document.createElement('div'); cursorRing.id = 'cursor-ring';
+  document.body.append(cursorGlow, cursorDot, cursorRing);
+
+  let mx = -999, my = -999, rx = -999, ry = -999;
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+  (function animCursor() {
+    rx += (mx - rx) * 0.14; ry += (my - ry) * 0.14;
+    cursorGlow.style.left  = mx + 'px'; cursorGlow.style.top  = my + 'px';
+    cursorDot.style.left   = mx + 'px'; cursorDot.style.top   = my + 'px';
+    cursorRing.style.left  = rx + 'px'; cursorRing.style.top  = ry + 'px';
+    requestAnimationFrame(animCursor);
+  })();
+
+  /* Cursor scale on hover over interactive elements */
+  document.addEventListener('mouseover', e => {
+    if (e.target.closest('a,button,.card,.case-card,.feat-item,.step-card,.proc-step,.ndot')) {
+      cursorDot.style.transform  = 'translate(-50%,-50%) scale(2.2)';
+      cursorRing.style.transform = 'translate(-50%,-50%) scale(1.8)';
+      cursorRing.style.borderColor = 'rgba(0,229,160,0.9)';
+    }
+  });
+  document.addEventListener('mouseout', e => {
+    if (e.target.closest('a,button,.card,.case-card,.feat-item,.step-card,.proc-step,.ndot')) {
+      cursorDot.style.transform  = 'translate(-50%,-50%) scale(1)';
+      cursorRing.style.transform = 'translate(-50%,-50%) scale(1)';
+      cursorRing.style.borderColor = 'rgba(0,229,160,0.5)';
+    }
+  });
+
+  /* ── Particle network on portada ─────────────────────── */
+  (function initParticles() {
+    const s1 = document.getElementById('s1');
+    if (!s1) return;
+    const canvas = document.createElement('canvas');
+    canvas.id = 'particle-canvas';
+    canvas.width  = s1.offsetWidth  || 1122;
+    canvas.height = s1.offsetHeight || 793;
+    s1.insertBefore(canvas, s1.firstChild);
+    const ctx = canvas.getContext('2d');
+    const N = 70;
+    const colors = ['#00e5a0','#3b82f6','#8b5cf6'];
+    const pts = Array.from({length: N}, () => ({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      vx: (Math.random() - 0.5) * 0.45,
+      vy: (Math.random() - 0.5) * 0.45,
+      r: Math.random() * 1.6 + 0.6,
+      c: colors[Math.floor(Math.random() * 3)],
+      o: Math.random() * 0.5 + 0.3
+    }));
+
+    function drawParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      /* Draw connections */
+      for (let i = 0; i < N; i++) {
+        for (let j = i + 1; j < N; j++) {
+          const dx = pts[i].x - pts[j].x, dy = pts[i].y - pts[j].y;
+          const dist = Math.sqrt(dx*dx + dy*dy);
+          if (dist < 130) {
+            ctx.beginPath();
+            ctx.moveTo(pts[i].x, pts[i].y);
+            ctx.lineTo(pts[j].x, pts[j].y);
+            ctx.strokeStyle = `rgba(0,229,160,${0.12 * (1 - dist/130)})`;
+            ctx.lineWidth = 0.7;
+            ctx.stroke();
+          }
+        }
+      }
+      /* Draw dots */
+      pts.forEach(p => {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = p.c + Math.round(p.o * 255).toString(16).padStart(2,'0');
+        ctx.fill();
+        /* Glow */
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r * 2.5, 0, Math.PI * 2);
+        const grad = ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*2.5);
+        grad.addColorStop(0, p.c + '40');
+        grad.addColorStop(1, 'transparent');
+        ctx.fillStyle = grad;
+        ctx.fill();
+        /* Move */
+        p.x += p.vx; p.y += p.vy;
+        if (p.x < 0) p.x = canvas.width;
+        if (p.x > canvas.width) p.x = 0;
+        if (p.y < 0) p.y = canvas.height;
+        if (p.y > canvas.height) p.y = 0;
+      });
+      requestAnimationFrame(drawParticles);
+    }
+    drawParticles();
+  })();
+
+  /* ── Typewriter on portada tagline ───────────────────── */
+  (function typewriter() {
+    const el = document.querySelector('#s1 .tagline') || document.querySelector('#s1 h1 + p');
+    if (!el) return;
+    const original = el.textContent.trim();
+    if (!original) return;
+    el.textContent = '';
+    const cursor = document.createElement('span');
+    cursor.className = 'tw-cursor';
+    el.appendChild(cursor);
+    let i = 0;
+    const interval = setInterval(() => {
+      if (i < original.length) {
+        cursor.insertAdjacentText('beforebegin', original[i]);
+        i++;
+      } else {
+        clearInterval(interval);
+      }
+    }, 28);
+  })();
+
+  /* ── Nav dots ─────────────────────────────────────────── */
+  const dotsWrap = document.createElement('div');
+  dotsWrap.id = 'nav-dots';
+  slides.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'ndot';
+    d.innerHTML = `<span class="ndot-tip">${i+1}. ${slideLabels[i]||''}</span>`;
+    d.addEventListener('click', () => slides[i].scrollIntoView({ behavior: 'smooth' }));
+    dotsWrap.appendChild(d);
+  });
+  document.body.appendChild(dotsWrap);
+
+  const hint = document.createElement('div');
+  hint.id = 'kbd-hint';
+  hint.innerHTML = '↑↓ / ←→ &nbsp; navigate &nbsp;·&nbsp; slides';
+  document.body.appendChild(hint);
+
+  /* ── Active dot tracking ─────────────────────────────── */
+  function activeIdx() {
+    const mid = window.scrollY + window.innerHeight * 0.5;
+    let idx = 0;
+    slides.forEach((s, i) => { if (s.offsetTop <= mid) idx = i; });
+    return idx;
+  }
+  function refreshDots() {
+    const ai = activeIdx();
+    document.querySelectorAll('.ndot').forEach((d, i) => d.classList.toggle('active', i === ai));
+  }
+  window.addEventListener('scroll', refreshDots, { passive: true });
+  refreshDots();
+
+  /* ── Keyboard navigation ─────────────────────────────── */
+  document.addEventListener('keydown', e => {
+    if (['ArrowDown','ArrowRight','ArrowUp','ArrowLeft'].includes(e.key)) e.preventDefault();
+    const cur = activeIdx();
+    if (e.key === 'ArrowDown' || e.key === 'ArrowRight')
+      slides[Math.min(cur + 1, slides.length - 1)]?.scrollIntoView({ behavior: 'smooth' });
+    else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft')
+      slides[Math.max(cur - 1, 0)]?.scrollIntoView({ behavior: 'smooth' });
+  });
+
+  /* ── Number counter animation ────────────────────────── */
+  function animateCount(el) {
+    const target = parseFloat(el.dataset.count);
+    if (isNaN(target)) return;
+    const suffix   = el.dataset.suffix  || '';
+    const prefix   = el.dataset.prefix  || '';
+    const decimals = String(el.dataset.count).includes('.') ? String(el.dataset.count).split('.')[1].length : 0;
+    const dur = 1600, t0 = performance.now();
+    const tick = now => {
+      const p = Math.min((now - t0) / dur, 1);
+      const v = 1 - Math.pow(1 - p, 3);
+      el.textContent = prefix + (v * target).toFixed(decimals) + suffix;
+      if (p < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }
+
+  /* ── IntersectionObserver — slide reveal + stagger ───── */
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('anim-in');
+      /* Stagger direct grid/flex children */
+      const children = entry.target.querySelectorAll(
+        '.card,.feat-item,.case-card,.step-card,.proc-step,.tech-item,.row-item,.diff-item,.faq-item'
+      );
+      children.forEach((c, i) => {
+        c.classList.add('stagger-child');
+      });
+      entry.target.querySelectorAll('[data-count]').forEach(animateCount);
+      observer.unobserve(entry.target);
+    });
+  }, { threshold: 0.1 });
+
+  slides.forEach(s => observer.observe(s));
+
+  /* First slide visible immediately */
+  slides[0]?.classList.add('anim-in');
+  slides[0]?.querySelectorAll('[data-count]').forEach(animateCount);
+})();
+</script>
+</body>
+</html>

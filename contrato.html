@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Contrato de Servicios — Trev'ainnovate</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #111;
+    --muted: #555;
+    --border: #ccc;
+    --accent: #2563eb;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    font-size: 11pt;
+    line-height: 1.65;
+    color: var(--ink);
+    background: #fff;
+    padding: 0;
+  }
+
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 0 auto;
+    padding: 20mm 22mm 18mm;
+    background: #fff;
+  }
+
+  /* Header */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding-bottom: 14px;
+    border-bottom: 2px solid var(--ink);
+    margin-bottom: 20px;
+  }
+  .brand { font-size: 15pt; font-weight: 700; letter-spacing: -0.5px; }
+  .brand span { color: var(--accent); }
+  .contract-meta { text-align: right; font-size: 9pt; color: var(--muted); }
+  .contract-meta strong { color: var(--ink); font-size: 10pt; display: block; }
+
+  /* Title */
+  .contract-title {
+    text-align: center;
+    font-size: 13pt;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    color: var(--ink);
+  }
+
+  /* Parties */
+  .parties {
+    background: #f8f9fa;
+    border-left: 3px solid var(--accent);
+    padding: 12px 16px;
+    margin-bottom: 20px;
+    font-size: 10pt;
+  }
+  .parties p { margin-bottom: 4px; }
+  .parties strong { color: var(--ink); }
+
+  /* Sections */
+  .section { margin-bottom: 16px; }
+  .section-title {
+    font-size: 10pt;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--ink);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 4px;
+    margin-bottom: 8px;
+  }
+  .section p { margin-bottom: 6px; font-size: 10.5pt; color: #222; }
+  .section ul { margin-left: 18px; }
+  .section li { margin-bottom: 4px; font-size: 10.5pt; }
+
+  /* Service table */
+  .service-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 8px 0;
+    font-size: 10pt;
+  }
+  .service-table th {
+    background: #f1f5f9;
+    padding: 7px 10px;
+    text-align: left;
+    font-weight: 600;
+    border: 1px solid var(--border);
+    font-size: 9.5pt;
+  }
+  .service-table td {
+    padding: 7px 10px;
+    border: 1px solid var(--border);
+    vertical-align: top;
+  }
+  .service-table tr:nth-child(even) td { background: #fafafa; }
+  .highlight-row td { font-weight: 600; background: #eff6ff !important; }
+
+  /* Signatures */
+  .signatures {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-top: 24px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+  }
+  .sig-block { }
+  .sig-line {
+    border-bottom: 1px solid var(--ink);
+    height: 36px;
+    margin-bottom: 8px;
+  }
+  .sig-label { font-size: 9pt; color: var(--muted); }
+  .sig-name { font-size: 10pt; font-weight: 600; margin-top: 2px; }
+  .sig-role { font-size: 9pt; color: var(--muted); }
+
+  /* Footer */
+  .footer {
+    margin-top: 20px;
+    padding-top: 10px;
+    border-top: 1px solid var(--border);
+    font-size: 8.5pt;
+    color: var(--muted);
+    text-align: center;
+  }
+
+  /* Inline fields */
+  .field {
+    display: inline-block;
+    min-width: 120px;
+    border-bottom: 1px solid var(--border);
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  @media print {
+    body { background: #fff !important; }
+    .page { margin: 0; padding: 18mm 20mm 16mm; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Header -->
+  <div class="header">
+    <div>
+      <div class="brand">TREV'<span>A</span>INNOVATE</div>
+      <div style="font-size:9pt;color:var(--muted);margin-top:2px;">Automatización e Inteligencia de Negocio</div>
+    </div>
+    <div class="contract-meta">
+      <strong>CONTRATO DE SERVICIOS</strong>
+      No. <span class="field" id="f-num">____-2026</span><br>
+      Fecha: <span class="field" id="f-fecha">__/__/____</span><br>
+      Ciudad de México, México
+    </div>
+  </div>
+
+  <div class="contract-title">Contrato de Prestación de Servicios Tecnológicos</div>
+
+  <!-- Parties -->
+  <div class="parties">
+    <p><strong>PRESTADOR:</strong> Santiago Treviño, operando bajo la marca comercial <strong>Trev'ainnovate</strong> · contacto@trevainnovate.com · trevainnovate.com</p>
+    <p><strong>CLIENTE:</strong> <span class="field" id="f-empresa">Nombre / Razón social</span> · representada por <span class="field" id="f-contacto">Nombre del firmante</span> · <span class="field" id="f-cargo">Cargo</span></p>
+    <p style="margin-top:6px;font-size:9.5pt;">En adelante "las Partes", quienes acuerdan celebrar el presente contrato bajo los términos siguientes:</p>
+  </div>
+
+  <!-- 1. Objeto -->
+  <div class="section">
+    <div class="section-title">1. Objeto del Contrato</div>
+    <p>El PRESTADOR se obliga a proporcionar al CLIENTE los siguientes servicios tecnológicos:</p>
+
+    <table class="service-table">
+      <thead>
+        <tr>
+          <th>Servicio</th>
+          <th>Descripción</th>
+          <th>Entregable</th>
+        </tr>
+      </thead>
+      <tbody id="t-servicios">
+        <tr>
+          <td><strong>Email Security</strong><br><span style="font-size:9pt;color:#666;">DNS Shield</span></td>
+          <td>Protección de correo corporativo: configuración SPF, DMARC, DKIM. Monitoreo 24h de amenazas. Reporte mensual de seguridad.</td>
+          <td>Dashboard activo + reporte mensual</td>
+        </tr>
+        <tr>
+          <td><strong>Automatización</strong><br><span style="font-size:9pt;color:#666;">Workflows n8n</span></td>
+          <td>Diseño e implementación de flujos automatizados según necesidades del cliente. <span class="field" id="f-auto-desc">_______________</span></td>
+          <td>Workflows en producción + documentación</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 2. Vigencia -->
+  <div class="section">
+    <div class="section-title">2. Vigencia</div>
+    <p>El contrato inicia el <span class="field" id="f-inicio">__/__/____</span> y tendrá una duración mínima de <strong>3 meses</strong>, renovándose automáticamente mes a mes a menos que cualquiera de las partes notifique por escrito su terminación con <strong>15 días de anticipación</strong>.</p>
+  </div>
+
+  <!-- 3. Inversión -->
+  <div class="section">
+    <div class="section-title">3. Inversión y Forma de Pago</div>
+    <table class="service-table">
+      <thead>
+        <tr><th>Concepto</th><th>Monto</th><th>Periodicidad</th></tr>
+      </thead>
+      <tbody>
+        <tr id="row-seguridad">
+          <td>Email Security (DNS Shield)</td>
+          <td>$4,990 MXN</td>
+          <td>Mensual</td>
+        </tr>
+        <tr id="row-auto">
+          <td>Automatización / Desarrollo</td>
+          <td><span class="field" id="f-monto-auto">$_____</span> MXN</td>
+          <td>Mensual / Único</td>
+        </tr>
+        <tr class="highlight-row">
+          <td><strong>TOTAL</strong></td>
+          <td id="f-total"><strong>$<span class="field">_____</span> MXN</strong></td>
+          <td>Mensual</td>
+        </tr>
+      </tbody>
+    </table>
+    <p style="margin-top:8px;">Pago mediante <span class="field" id="f-metodo">transferencia bancaria / tarjeta</span>. Los primeros <strong>15 días de cada mes</strong>. El primer pago se realiza al firmar este contrato como confirmación de inicio.</p>
+  </div>
+
+  <!-- 4. Obligaciones -->
+  <div class="section">
+    <div class="section-title">4. Obligaciones de las Partes</div>
+    <p><strong>El PRESTADOR se compromete a:</strong></p>
+    <ul>
+      <li>Entregar los servicios acordados en los plazos establecidos.</li>
+      <li>Mantener confidencialidad absoluta sobre la información del CLIENTE.</li>
+      <li>Proporcionar reporte mensual de actividad y métricas.</li>
+      <li>Responder consultas en un máximo de <strong>24 horas hábiles</strong>.</li>
+    </ul>
+    <p style="margin-top:8px;"><strong>El CLIENTE se compromete a:</strong></p>
+    <ul>
+      <li>Proporcionar accesos necesarios (correo corporativo admin, sistemas) en los primeros 3 días.</li>
+      <li>Realizar los pagos en las fechas acordadas.</li>
+      <li>Designar un interlocutor técnico para coordinación.</li>
+    </ul>
+  </div>
+
+  <!-- 5. Garantía -->
+  <div class="section">
+    <div class="section-title">5. Garantía de Satisfacción</div>
+    <p>Si al término del <strong>primer mes</strong> el CLIENTE no está satisfecho con los resultados, el PRESTADOR reembolsará el pago inicial íntegro sin condiciones. Esta garantía aplica únicamente al primer período.</p>
+  </div>
+
+  <!-- 6. Confidencialidad -->
+  <div class="section">
+    <div class="section-title">6. Confidencialidad y Propiedad Intelectual</div>
+    <p>Ambas partes se obligan a mantener estricta confidencialidad sobre información comercial, técnica y estratégica intercambiada. Los workflows y configuraciones desarrolladas específicamente para el CLIENTE son propiedad del CLIENTE al concluir el contrato, previo pago completo.</p>
+  </div>
+
+  <!-- Signatures -->
+  <div class="signatures">
+    <div class="sig-block">
+      <div class="sig-line"></div>
+      <div class="sig-name">Santiago Treviño</div>
+      <div class="sig-role">Trev'ainnovate — Prestador de Servicios</div>
+      <div class="sig-label" style="margin-top:4px;">Fecha: _______________</div>
+    </div>
+    <div class="sig-block">
+      <div class="sig-line"></div>
+      <div class="sig-name" id="sig-nombre">______________________</div>
+      <div class="sig-role" id="sig-cargo">Cliente — Representante Legal</div>
+      <div class="sig-label" style="margin-top:4px;">Fecha: _______________</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    Trev'ainnovate · contacto@trevainnovate.com · trevainnovate.com · Ciudad de México, México<br>
+    Este documento tiene validez como acuerdo de prestación de servicios entre las partes firmantes.
+  </div>
+
+</div>
+
+<script>
+// Lee URL params para prellenar campos
+const p = new URLSearchParams(window.location.search);
+
+function set(id, val) {
+  const el = document.getElementById(id);
+  if (el && val) el.textContent = val;
+}
+
+// Fecha automática si no se especifica
+const hoy = new Date();
+const fechaStr = hoy.toLocaleDateString('es-MX', { day: '2-digit', month: '2-digit', year: 'numeric' });
+
+set('f-num',      p.get('num')      || `001-${hoy.getFullYear()}`);
+set('f-fecha',    p.get('fecha')    || fechaStr);
+set('f-empresa',  p.get('empresa')  || null);
+set('f-contacto', p.get('contacto') || null);
+set('f-cargo',    p.get('cargo')    || null);
+set('f-inicio',   p.get('inicio')   || fechaStr);
+set('f-auto-desc',p.get('auto')     || null);
+set('f-metodo',   p.get('metodo')   || 'transferencia bancaria');
+set('sig-nombre', p.get('contacto') || null);
+set('sig-cargo',  p.get('cargo')    || null);
+
+// Servicios y montos
+const servicio = p.get('servicio') || 'combo';
+const montoAuto = p.get('mbx') || '';
+const montoSeg = 4990;
+
+if (servicio === 'seguridad') {
+  document.getElementById('row-auto').style.display = 'none';
+  set('f-total', `$${montoSeg.toLocaleString('es-MX')} MXN`);
+} else if (servicio === 'automatizacion') {
+  document.getElementById('row-seguridad').style.display = 'none';
+  if (montoAuto) {
+    set('f-monto-auto', `$${parseInt(montoAuto).toLocaleString('es-MX')}`);
+    set('f-total', `$${parseInt(montoAuto).toLocaleString('es-MX')} MXN`);
+  }
+} else {
+  // combo
+  if (montoAuto) {
+    set('f-monto-auto', `$${parseInt(montoAuto).toLocaleString('es-MX')}`);
+    const total = montoSeg + parseInt(montoAuto);
+    document.getElementById('f-total').innerHTML = `<strong>$${total.toLocaleString('es-MX')} MXN</strong>`;
+  }
+}
+</script>
+</body>
+</html>

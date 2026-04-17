@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Propuesta Comercial — GEC Plastic · Trev'ainnovate</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg:#05050e; --bg2:#0b0b1c; --bg3:#111128;
+  --green:#00e5a0; --blue:#3b82f6; --purple:#8b5cf6;
+  --amber:#f59e0b; --red:#ef4444;
+  --white:#f1f5f9; --muted:#8892a4; --border:rgba(255,255,255,0.07);
+}
+body { background:#0a0a14; font-family:'Inter',sans-serif; color:var(--white); -webkit-font-smoothing:antialiased; }
+.page {
+  width:100%; min-height:100vh; background:var(--bg);
+  display:flex; flex-direction:column;
+  border-bottom:1px solid rgba(255,255,255,.04);
+  position:relative; overflow:hidden;
+}
+@media print { body{background:#05050e;} .page{page-break-after:always;min-height:297mm;} }
+.topbar{height:3px;background:linear-gradient(90deg,var(--green),var(--blue),var(--purple));flex-shrink:0;}
+.ph{display:flex;align-items:center;justify-content:space-between;padding:18px 5vw 16px;border-bottom:1px solid var(--border);flex-shrink:0;}
+.logo{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:800;}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 10px rgba(0,229,160,.7);}
+.meta{font-size:10px;color:var(--muted);font-family:'JetBrains Mono',monospace;text-align:right;line-height:1.6;}
+.pb{flex:1;padding:36px 5vw;max-width:1100px;margin:0 auto;width:100%;display:flex;flex-direction:column;}
+.pf{padding:14px 5vw;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.pf span{font-size:10px;color:rgba(255,255,255,.2);font-family:'JetBrains Mono',monospace;}
+
+/* Typography */
+.lbl{font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--green);margin-bottom:6px;display:block;}
+.lbl.b{color:var(--blue);} .lbl.p{color:var(--purple);} .lbl.r{color:var(--red);} .lbl.a{color:var(--amber);}
+.h1{font-size:44px;font-weight:900;line-height:1.05;letter-spacing:-.02em;}
+.h2{font-size:24px;font-weight:800;line-height:1.1;}
+.h3{font-size:15px;font-weight:700;}
+.body{font-size:13px;color:var(--muted);line-height:1.6;}
+.grad{background:linear-gradient(135deg,var(--green),var(--blue),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.gg{background:linear-gradient(135deg,var(--green),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+
+/* Blocks */
+.bk{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:12px;padding:16px 20px;}
+.bk.g{background:rgba(0,229,160,.04);border-color:rgba(0,229,160,.15);}
+.bk.r{background:rgba(239,68,68,.05);border-color:rgba(239,68,68,.2);}
+.bk.b{background:rgba(59,130,246,.04);border-color:rgba(59,130,246,.15);}
+.bk.a{background:rgba(245,158,11,.05);border-color:rgba(245,158,11,.2);}
+.bk.p{background:rgba(139,92,246,.05);border-color:rgba(139,92,246,.2);}
+.bk.dk{background:rgba(0,0,0,.3);}
+
+/* Lists */
+.ci{display:flex;align-items:flex-start;gap:7px;font-size:12px;color:var(--white);padding:4px 0;}
+.ci::before{content:'✓';color:var(--green);font-weight:800;flex-shrink:0;}
+.ci.x::before{content:'✗';color:var(--red);}
+.ci.w::before{content:'⚠';color:var(--amber);}
+
+/* Grids */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;}
+.g4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:12px;}
+
+/* Tags */
+.tag{display:inline-block;padding:2px 9px;border-radius:99px;font-size:10px;font-weight:700;}
+.tr{background:rgba(239,68,68,.15);color:#fca5a5;border:1px solid rgba(239,68,68,.3);}
+.ta{background:rgba(245,158,11,.12);color:#fcd34d;border:1px solid rgba(245,158,11,.25);}
+.tg{background:rgba(0,229,160,.1);color:var(--green);border:1px solid rgba(0,229,160,.25);}
+.tb{background:rgba(59,130,246,.1);color:#93c5fd;border:1px solid rgba(59,130,246,.25);}
+.tp{background:rgba(139,92,246,.1);color:#c4b5fd;border:1px solid rgba(139,92,246,.25);}
+
+/* DNS cards */
+.dc{border-radius:10px;padding:14px 16px;border:1px solid;}
+.dc.ok{background:rgba(0,229,160,.06);border-color:rgba(0,229,160,.25);}
+.dc.fail{background:rgba(239,68,68,.06);border-color:rgba(239,68,68,.25);}
+.dl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px;}
+.dl.ok{color:var(--green);} .dl.fail{color:var(--red);}
+.ds{font-size:13px;font-weight:700;margin-bottom:4px;}
+.dv{font-size:10px;color:var(--muted);font-family:'JetBrains Mono',monospace;}
+
+/* Timeline */
+.tl-wrap{position:relative;padding-left:20px;}
+.tl-wrap::before{content:'';position:absolute;left:6px;top:8px;bottom:8px;width:2px;background:linear-gradient(180deg,var(--green),var(--blue),var(--purple),var(--muted));}
+.tl-item{position:relative;padding:0 0 20px 20px;}
+.tl-item::before{content:'';position:absolute;left:-14px;top:6px;width:12px;height:12px;border-radius:50%;border:2px solid var(--green);background:var(--bg);}
+.tl-item.b::before{border-color:var(--blue);}
+.tl-item.p::before{border-color:var(--purple);}
+.tl-item.m::before{border-color:var(--muted);}
+.tl-timing{font-size:10px;font-weight:700;font-family:'JetBrains Mono',monospace;color:var(--green);margin-bottom:3px;}
+.tl-timing.b{color:var(--blue);} .tl-timing.p{color:var(--purple);} .tl-timing.m{color:var(--muted);}
+.tl-title{font-size:14px;font-weight:700;margin-bottom:4px;}
+.tl-body{font-size:12px;color:var(--muted);line-height:1.5;}
+
+/* Price */
+.pc{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:14px;padding:22px;}
+.pc.ft{background:rgba(0,229,160,.05);border-color:rgba(0,229,160,.3);}
+.pv{font-size:32px;font-weight:900;color:var(--green);font-family:'JetBrains Mono',monospace;}
+.pp{font-size:11px;color:var(--muted);margin-bottom:14px;}
+.pi{font-size:12px;color:var(--white);padding:5px 0;border-bottom:1px solid var(--border);}
+.pi:last-child{border-bottom:none;}
+.pi::before{content:'→ ';color:var(--green);}
+
+/* Portal mockup */
+.portal{background:#080812;border:1px solid rgba(0,229,160,.2);border-radius:12px;overflow:hidden;}
+.portal-bar{background:#0b0b1c;padding:10px 16px;display:flex;align-items:center;gap:8px;border-bottom:1px solid rgba(255,255,255,.05);}
+.portal-dot{width:8px;height:8px;border-radius:50%;}
+.portal-body{padding:16px;}
+
+/* Cover */
+.cover-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 80% 20%,rgba(0,229,160,.06) 0%,transparent 55%),radial-gradient(ellipse at 20% 80%,rgba(59,130,246,.05) 0%,transparent 55%);pointer-events:none;}
+.cover-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.015) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.015) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;}
+.cover-body{flex:1;display:flex;flex-direction:column;justify-content:center;padding:60px 5vw 48px;max-width:1100px;margin:0 auto;width:100%;position:relative;z-index:1;}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:5px 14px;border-radius:99px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;}
+.bg{background:rgba(0,229,160,.1);border:1px solid rgba(0,229,160,.25);color:var(--green);}
+.bb{background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.25);color:#93c5fd;}
+
+/* Garantía check */
+.gc-item{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--border);}
+.gc-item:last-child{border-bottom:none;}
+.gc-icon{font-size:18px;flex-shrink:0;}
+.gc-title{font-size:13px;font-weight:700;margin-bottom:2px;}
+.gc-body{font-size:12px;color:var(--muted);}
+</style>
+</head>
+<body>
+
+<!-- ══ P1 — PORTADA ══ -->
+<div class="page">
+  <div class="cover-bg"></div><div class="cover-grid"></div>
+  <div class="topbar"></div>
+  <div style="padding:18px 5vw 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);position:relative;z-index:1;">
+    <div class="logo"><div class="dot"></div>TREV'AINNOVATE</div>
+    <span style="font-size:11px;font-weight:700;color:rgba(255,255,255,.2);text-transform:uppercase;letter-spacing:.12em;">Propuesta Comercial · Confidencial</span>
+  </div>
+  <div class="cover-body">
+    <div class="badge bg">✦ Versión 3.0 · Abril 2026</div>
+    <div class="badge bb">GEC Plastic — Tepeaca, Puebla</div>
+    <h1 class="h1" style="margin:16px 0 20px;">Margen y velocidad.<br><span class="grad">Sin parar la planta.</span><br>Sin cambiar el ERP.</h1>
+    <p style="font-size:14px;color:var(--muted);max-width:640px;line-height:1.65;margin-bottom:28px;">Microsip se queda. Construimos el sistema nervioso que convierte operación dispersa en decisiones automáticas — y cotizaciones tardías en órdenes trazadas.</p>
+
+    <div class="g4" style="margin-bottom:28px;">
+      <div class="bk dk" style="text-align:center;padding:16px 10px;">
+        <div style="font-size:24px;font-weight:900;color:var(--green);font-family:'JetBrains Mono',monospace;">4</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:4px;">Bloques de entrega</div>
+      </div>
+      <div class="bk dk" style="text-align:center;padding:16px 10px;">
+        <div style="font-size:24px;font-weight:900;color:var(--blue);font-family:'JetBrains Mono',monospace;">12 M</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:4px;">Horizonte completo</div>
+      </div>
+      <div class="bk dk" style="text-align:center;padding:16px 10px;">
+        <div style="font-size:24px;font-weight:900;color:var(--amber);font-family:'JetBrains Mono',monospace;">$18M+</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:4px;">MXN/año de impacto</div>
+      </div>
+      <div class="bk dk" style="text-align:center;padding:16px 10px;">
+        <div style="font-size:24px;font-weight:900;color:var(--purple);font-family:'JetBrains Mono',monospace;">14–22M</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:4px;">Meses de payback</div>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:12px;align-items:flex-start;padding:14px 18px;background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.2);border-radius:10px;">
+      <span style="font-size:18px;flex-shrink:0;">🔴</span>
+      <div>
+        <div style="font-size:13px;font-weight:700;color:var(--red);margin-bottom:3px;">Desbloqueador urgente — DNS Score: 0/100</div>
+        <div style="font-size:12px;color:var(--muted);">Sin SPF, DMARC ni DKIM. Dominio en lista negra Spamhaus (base de datos global de spam). Cotizaciones y cobranza van a spam. Se resuelve en Semana 1.</div>
+      </div>
+    </div>
+  </div>
+  <div class="pf">
+    <span>trevainnovate.com · contacto@trevainnovate.com · 223 129 4663</span>
+    <span>1 / 6</span>
+  </div>
+</div>
+
+<!-- ══ P2 — DIAGNÓSTICO ══ -->
+<div class="page">
+  <div class="topbar"></div>
+  <div class="ph">
+    <div class="logo"><div class="dot"></div>TREV'AINNOVATE</div>
+    <div class="meta">GEC Plastic · Propuesta Comercial<br>Abril 2026</div>
+  </div>
+  <div class="pb">
+    <span class="lbl r">02 · Diagnóstico</span>
+    <h2 class="h2" style="margin-bottom:6px;">Dónde está GEC hoy — <span style="color:var(--red);">los hechos</span></h2>
+    <p class="body" style="margin-bottom:18px;">Tres problemas reales que limitan el crecimiento y que se resuelven directamente con este proyecto.</p>
+
+    <!-- Problema 1: DNS -->
+    <div class="bk r" style="margin-bottom:12px;">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;">
+        <div>
+          <span class="tag tr" style="margin-bottom:6px;">Urgente</span>
+          <div class="h3">Problema 1 — Correos que van a spam</div>
+        </div>
+        <div style="text-align:right;">
+          <div style="font-size:28px;font-weight:900;color:var(--red);font-family:'JetBrains Mono',monospace;">0/100</div>
+          <div style="font-size:10px;color:var(--muted);">DNS Score</div>
+        </div>
+      </div>
+      <div class="g3" style="margin-bottom:10px;">
+        <div class="dc fail"><div class="dl fail">SPF <span style="font-weight:400;color:var(--muted);">(quién puede enviar)</span></div><div class="ds">❌ Sin configurar</div><div class="dv">Sin registro</div></div>
+        <div class="dc fail"><div class="dl fail">DMARC <span style="font-weight:400;color:var(--muted);">(qué hacer con correos falsos)</span></div><div class="ds">❌ Sin configurar</div><div class="dv">Sin política activa</div></div>
+        <div class="dc fail"><div class="dl fail">Spamhaus <span style="font-weight:400;color:var(--muted);">(lista negra global)</span></div><div class="ds">🔴 Listado</div><div class="dv">gecplastic.shop</div></div>
+      </div>
+      <p style="font-size:12px;color:var(--muted);">Consecuencia: cotizaciones, cobranza y comunicación comercial llegan a la carpeta de spam del cliente. Impacto en ventas y cobro <strong style="color:var(--white);">desde hoy</strong>.</p>
+    </div>
+
+    <!-- Problema 2: Operación -->
+    <div class="bk a" style="margin-bottom:12px;">
+      <span class="tag ta" style="margin-bottom:6px;">Alto impacto</span>
+      <div class="h3" style="margin-bottom:6px;">Problema 2 — Planta sin visibilidad en tiempo real</div>
+      <div class="g2">
+        <div class="clist">
+          <div class="ci x">Paros reportados en Excel al día siguiente</div>
+          <div class="ci x">OEE <span style="color:var(--muted);font-size:11px;">(eficiencia de línea)</span> sin medición formal</div>
+          <div class="ci x">Merma de resina PET sin control por orden</div>
+        </div>
+        <div class="clist">
+          <div class="ci x">Decisiones basadas en percepción, no en datos</div>
+          <div class="ci x">Inventario obsoleto sin alertas proactivas</div>
+          <div class="ci x">Mantenimiento reactivo — sin historial por máquina</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Problema 3: Comercial -->
+    <div class="bk b">
+      <span class="tag tb" style="margin-bottom:6px;">Pérdida de ventas</span>
+      <div class="h3" style="margin-bottom:6px;">Problema 3 — Ciclo comercial lento y sin trazabilidad</div>
+      <div class="g3">
+        <div style="font-size:12px;"><strong style="color:var(--white);">Cotización: 2–24 horas</strong><br><span style="color:var(--muted);">El que cotiza primero, vende. Cada hora perdida es oportunidad para la competencia.</span></div>
+        <div style="font-size:12px;"><strong style="color:var(--white);">DSO <span style="color:var(--muted);font-weight:400;">(días promedio de cobro)</span></strong><br><span style="color:var(--muted);">Sin recordatorios automáticos, el cobro depende de quién llame primero.</span></div>
+        <div style="font-size:12px;"><strong style="color:var(--white);">Leads sin pipeline</strong><br><span style="color:var(--muted);">Sin CRM <span style="color:var(--muted);font-weight:400;">(sistema de seguimiento comercial)</span> — los contactos se pierden en correo.</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="pf">
+    <span>trevainnovate.com · contacto@trevainnovate.com · 223 129 4663</span>
+    <span>2 / 6</span>
+  </div>
+</div>
+
+<!-- ══ P3 — SOLUCIÓN EN TIMELINE ══ -->
+<div class="page">
+  <div class="topbar"></div>
+  <div class="ph">
+    <div class="logo"><div class="dot"></div>TREV'AINNOVATE</div>
+    <div class="meta">GEC Plastic · Propuesta Comercial<br>Abril 2026</div>
+  </div>
+  <div class="pb">
+    <span class="lbl b">03 · Solución</span>
+    <h2 class="h2" style="margin-bottom:6px;">4 Bloques — <span class="gg">en el orden correcto</span></h2>
+    <p class="body" style="margin-bottom:20px;">Cada bloque desbloquea al siguiente. La secuencia no es arbitraria — está dictada por dependencias técnicas reales.</p>
+
+    <div class="tl-wrap">
+
+      <div class="tl-item">
+        <div class="tl-timing">Semanas 1–2 · Inmediato</div>
+        <div class="tl-title">🔧 Bloque 0 — Desbloqueadores <span style="font-size:12px;font-weight:400;color:var(--muted);">(lo que hace posible todo lo demás)</span></div>
+        <div class="tl-body" style="margin-bottom:8px;">DNS limpio · Salida de Spamhaus · n8n <span style="color:var(--muted);font-size:11px;">(automatizador)</span> en servidor Oracle Cloud · Mapa de accesos Microsip</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+          <span class="tag tr">Sin esto nada arranca</span>
+          <span class="tag tg">Correos llegan desde día 14</span>
+        </div>
+      </div>
+
+      <div class="tl-item b">
+        <div class="tl-timing b">Semanas 3–8 · M1–M2</div>
+        <div class="tl-title">📋 Bloque 1 — Cash Flow + Visibilidad <span style="font-size:12px;font-weight:400;color:var(--muted);">(sin integración ERP)</span></div>
+        <div class="tl-body" style="margin-bottom:8px;">Cotizador v1 Wix → Notion en &lt;15 min · CRM <span style="color:var(--muted);font-size:11px;">(pipeline de ventas)</span> básico · Aprobaciones digitales con trazabilidad · CFDI 4.0 <span style="color:var(--muted);font-size:11px;">(factura electrónica)</span> limpio</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+          <span class="tag ta">Primer resultado visible en 30 días</span>
+        </div>
+      </div>
+
+      <div class="tl-item b">
+        <div class="tl-timing b">Semanas 9–20 · M3–M5</div>
+        <div class="tl-title">⚙️ Bloque 2 — Integración Microsip <span style="font-size:12px;font-weight:400;color:var(--muted);">(mayor ROI del proyecto)</span></div>
+        <div class="tl-body" style="margin-bottom:8px;">Cobranza automática D+1/5/10/15 · DSO <span style="color:var(--muted);font-size:11px;">(días de cobro)</span> -25% · Eliminar doble captura de pedidos · Requisiciones automáticas en stock mínimo · Órdenes de producción en tablet</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+          <span class="tag tr">Requiere acceso Microsip confirmado en B0</span>
+          <span class="tag tg">$220–400K MXN flujo liberado por día</span>
+        </div>
+      </div>
+
+      <div class="tl-item p">
+        <div class="tl-timing p">Semanas 21–32 · M6–M8</div>
+        <div class="tl-title">📈 Bloque 3 — Crecimiento + Inteligencia de planta</div>
+        <div class="tl-body" style="margin-bottom:8px;">OEE <span style="color:var(--muted);font-size:11px;">(eficiencia de línea: disponibilidad × rendimiento × calidad)</span> por línea · Control merma PET $500K–1.5M/año · Portal cliente · WhatsApp bot pedidos 24/7 · Recompra predictiva</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+          <span class="tag tb">Depende de datos del Bloque 2</span>
+        </div>
+      </div>
+
+      <div class="tl-item m">
+        <div class="tl-timing m">M9+ · Ongoing</div>
+        <div class="tl-title">🚀 Bloque 4 — Escala y cumplimiento</div>
+        <div class="tl-body">Trazabilidad lote-a-cliente · SEO <span style="color:var(--muted);font-size:11px;">(posicionamiento orgánico)</span> B2B Puebla · IoT <span style="color:var(--muted);font-size:11px;">(sensores de máquina)</span> preventivo · DMARC reject (protección máxima)</div>
+      </div>
+
+    </div>
+
+    <div class="bk g" style="margin-top:16px;">
+      <div style="display:flex;gap:10px;align-items:center;">
+        <span style="font-size:18px;">💡</span>
+        <p style="font-size:12px;color:var(--white);"><strong>Principio rector:</strong> Microsip no se toca — se conecta. GEC no detiene su operación en ningún bloque.</p>
+      </div>
+    </div>
+  </div>
+  <div class="pf">
+    <span>trevainnovate.com · contacto@trevainnovate.com · 223 129 4663</span>
+    <span>3 / 6</span>
+  </div>
+</div>
+
+<!-- ══ P4 — INVERSIÓN ══ -->
+<div class="page">
+  <div class="topbar"></div>
+  <div class="ph">
+    <div class="logo"><div class="dot"></div>TREV'AINNOVATE</div>
+    <div class="meta">GEC Plastic · Propuesta Comercial<br>Abril 2026</div>
+  </div>
+  <div class="pb">
+    <span class="lbl p">04 · Inversión</span>
+    <h2 class="h2" style="margin-bottom:6px;">Por bloques — GEC solo paga lo que ve entregado</h2>
+    <p class="body" style="margin-bottom:18px;">No se cobra el proyecto completo por adelantado. Cada bloque se cotiza y verifica antes del siguiente.</p>
+
+    <div class="g2" style="margin-bottom:14px;">
+      <div class="pc ft">
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:6px;">Setup · Bloque 0 + 1</div>
+        <div style="font-size:15px;font-weight:800;margin-bottom:6px;">Desbloqueadores + Cash Flow</div>
+        <div class="pv">$35,000</div>
+        <div class="pp">MXN · Pago al inicio</div>
+        <div class="pi">DNS: SPF, DMARC, DKIM — dominio protegido</div>
+        <div class="pi">Salida de lista negra Spamhaus</div>
+        <div class="pi">n8n en Oracle Cloud (servidor propio de GEC)</div>
+        <div class="pi">Cotizador Wix → Notion en &lt;15 min</div>
+        <div class="pi">CRM básico con pipeline activo</div>
+        <div class="pi">CFDI 4.0 + conciliación SAT automatizada</div>
+      </div>
+      <div class="pc">
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:6px;">Integración · Bloque 2</div>
+        <div style="font-size:15px;font-weight:800;margin-bottom:6px;">Microsip + Operación digital</div>
+        <div class="pv">$45,000</div>
+        <div class="pp">MXN · Cotizado tras Hito H4</div>
+        <div class="pi">Cobranza automática D+1/5/10/15</div>
+        <div class="pi">Eliminar doble captura de pedidos</div>
+        <div class="pi">Requisiciones en stock mínimo</div>
+        <div class="pi">Órdenes de producción en tablet</div>
+        <div class="pi">Dashboard contable: cierre 8d → 3d</div>
+        <div class="pi">Cotizador v2 con precios Microsip en vivo</div>
+      </div>
+    </div>
+
+    <div class="bk" style="margin-bottom:12px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <div>
+          <div class="h3" style="margin-bottom:4px;">Retainer mensual <span style="font-size:12px;font-weight:400;color:var(--muted);">(mantenimiento + seguridad + desarrollo)</span></div>
+          <p class="body" style="max-width:500px;">Incluye: seguridad administrada activa, soporte técnico y 10h de desarrollo mensual. Activo desde el primer día.</p>
+        </div>
+        <div style="text-align:right;flex-shrink:0;margin-left:20px;">
+          <div style="font-size:28px;font-weight:900;color:var(--green);font-family:'JetBrains Mono',monospace;">$8,500</div>
+          <div style="font-size:11px;color:var(--muted);">MXN / mes</div>
+        </div>
+      </div>
+      <div class="g3" style="margin-top:10px;">
+        <div style="font-size:12px;color:var(--white);">✓ Monitor DNS diario automático</div>
+        <div style="font-size:12px;color:var(--white);">✓ Monitor SSL + Uptime 24/7</div>
+        <div style="font-size:12px;color:var(--white);">✓ Reporte mensual a dirección</div>
+        <div style="font-size:12px;color:var(--white);">✓ Alerta inmediata en incidentes</div>
+        <div style="font-size:12px;color:var(--white);">✓ Soporte técnico prioritario</div>
+        <div style="font-size:12px;color:var(--white);">✓ 10h desarrollo / optimizaciones</div>
+      </div>
+    </div>
+
+    <div class="bk a">
+      <div style="display:flex;gap:10px;align-items:flex-start;">
+        <span style="font-size:18px;flex-shrink:0;">💡</span>
+        <p style="font-size:12px;color:var(--white);">Bloques 3 y 4 se cotizan con datos reales del Bloque 2. La integración con Microsip define el esfuerzo — no estimamos lo que no podemos medir todavía.</p>
+      </div>
+    </div>
+  </div>
+  <div class="pf">
+    <span>trevainnovate.com · contacto@trevainnovate.com · 223 129 4663</span>
+    <span>4 / 6</span>
+  </div>
+</div>
+
+<!-- ══ P5 — ENTREGABLES + PORTAL ══ -->
+<div class="page">
+  <div class="topbar"></div>
+  <div class="ph">
+    <div class="logo"><div class="dot"></div>TREV'AINNOVATE</div>
+    <div class="meta">GEC Plastic · Propuesta Comercial<br>Abril 2026</div>
+  </div>
+  <div class="pb">
+    <span class="lbl">05 · Entregables</span>
+    <h2 class="h2" style="margin-bottom:6px;">Qué recibe GEC — concreto y verificable</h2>
+    <p class="body" style="margin-bottom:18px;">Cada entregable tiene un criterio de aceptación. Si no funciona como se describe, no se cobra.</p>
+
+    <div class="g2" style="margin-bottom:16px;">
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <div class="bk g" style="padding:12px 14px;">
+          <div style="font-size:11px;font-weight:700;color:var(--green);margin-bottom:3px;">🛡️ Seguridad administrada</div>
+          <div style="font-size:12px;">DNS protegido · Monitor diario · Alerta por WhatsApp/Telegram ante cualquier cambio · Reporte mensual automático</div>
+        </div>
+        <div class="bk b" style="padding:12px 14px;">
+          <div style="font-size:11px;font-weight:700;color:#93c5fd;margin-bottom:3px;">⚙️ Automatizaciones operativas</div>
+          <div style="font-size:12px;">Cobranza automática · Cotizador en tiempo real · Órdenes digitales en planta · Flujos de aprobación sin correo</div>
+        </div>
+        <div class="bk p" style="padding:12px 14px;">
+          <div style="font-size:11px;font-weight:700;color:#c4b5fd;margin-bottom:3px;">📊 Dashboards e inteligencia</div>
+          <div style="font-size:12px;">OEE por línea · Control de merma · Dashboard contable · Pipeline comercial visible en tiempo real</div>
+        </div>
+        <div class="bk a" style="padding:12px 14px;">
+          <div style="font-size:11px;font-weight:700;color:var(--amber);margin-bottom:3px;">🌐 Presencia digital nueva</div>
+          <div style="font-size:12px;">Sitio web gecplastic.com reconstruido sobre Cloudflare · Migración .com → nuevo sitio · .shop deprecado</div>
+        </div>
+      </div>
+
+      <!-- Portal mockup -->
+      <div>
+        <div style="font-size:12px;font-weight:700;color:var(--white);margin-bottom:8px;">Portal del cliente — acceso exclusivo GEC</div>
+        <div class="portal">
+          <div class="portal-bar">
+            <div class="portal-dot" style="background:#ef4444;"></div>
+            <div class="portal-dot" style="background:#f59e0b;"></div>
+            <div class="portal-dot" style="background:#00e5a0;"></div>
+            <span style="font-size:10px;color:var(--muted);margin-left:8px;font-family:'JetBrains Mono',monospace;">trevainnovate.com/portal/gec-plastic</span>
+          </div>
+          <div class="portal-body">
+            <div style="font-size:11px;font-weight:700;color:var(--green);margin-bottom:10px;">GEC Plastic — Panel de actividad</div>
+            <div class="g2" style="gap:8px;margin-bottom:10px;">
+              <div style="background:rgba(0,229,160,.06);border:1px solid rgba(0,229,160,.15);border-radius:8px;padding:10px;text-align:center;">
+                <div style="font-size:20px;font-weight:900;color:var(--green);font-family:'JetBrains Mono',monospace;">96</div>
+                <div style="font-size:10px;color:var(--muted);">DNS Score</div>
+              </div>
+              <div style="background:rgba(59,130,246,.06);border:1px solid rgba(59,130,246,.15);border-radius:8px;padding:10px;text-align:center;">
+                <div style="font-size:20px;font-weight:900;color:#93c5fd;font-family:'JetBrains Mono',monospace;">✅</div>
+                <div style="font-size:10px;color:var(--muted);">Sitio en línea</div>
+              </div>
+            </div>
+            <div style="background:rgba(255,255,255,.03);border-radius:6px;padding:8px 10px;margin-bottom:8px;">
+              <div style="font-size:10px;color:var(--muted);margin-bottom:4px;">Últimas alertas</div>
+              <div style="font-size:11px;color:var(--green);">✓ 16 Abr — Sin incidentes</div>
+            </div>
+            <a href="https://trevainnovate.com/portal/gec-plastic" style="display:block;background:var(--green);color:#05050e;text-align:center;padding:8px;border-radius:6px;font-size:12px;font-weight:700;text-decoration:none;">Ver portal en vivo →</a>
+          </div>
+        </div>
+        <div style="margin-top:8px;font-size:11px;color:var(--muted);">Vista en tiempo real · Descarga de reportes PDF · Historial de incidentes · Sin acceso técnico requerido</div>
+      </div>
+    </div>
+
+    <!-- Hitos verificables condensados -->
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;">
+      <div class="bk dk" style="padding:10px 12px;">
+        <div style="font-size:10px;color:var(--green);font-weight:700;font-family:'JetBrains Mono',monospace;margin-bottom:3px;">H0 · 30 Abr</div>
+        <div style="font-size:12px;font-weight:700;">DNS Score &gt;80</div>
+        <div style="font-size:11px;color:var(--muted);">Salida Spamhaus confirmada</div>
+      </div>
+      <div class="bk dk" style="padding:10px 12px;">
+        <div style="font-size:10px;color:var(--blue);font-weight:700;font-family:'JetBrains Mono',monospace;margin-bottom:3px;">H2 · 21 May</div>
+        <div style="font-size:12px;font-weight:700;">Cotizador v1 en vivo</div>
+        <div style="font-size:11px;color:var(--muted);">5 cotizaciones procesadas</div>
+      </div>
+      <div class="bk dk" style="padding:10px 12px;">
+        <div style="font-size:10px;color:var(--purple);font-weight:700;font-family:'JetBrains Mono',monospace;margin-bottom:3px;">H5 · 9 Jul</div>
+        <div style="font-size:12px;font-weight:700;">Cobranza activa</div>
+        <div style="font-size:11px;color:var(--muted);">Primera secuencia D+1 ejecutada</div>
+      </div>
+    </div>
+  </div>
+  <div class="pf">
+    <span>trevainnovate.com · contacto@trevainnovate.com · 223 129 4663</span>
+    <span>5 / 6</span>
+  </div>
+</div>
+
+<!-- ══ P6 — GARANTÍA + CTA ══ -->
+<div class="page">
+  <div class="topbar"></div>
+  <div class="ph">
+    <div class="logo"><div class="dot"></div>TREV'AINNOVATE</div>
+    <div class="meta">GEC Plastic · Propuesta Comercial<br>Abril 2026</div>
+  </div>
+  <div class="pb">
+    <span class="lbl">06 · Garantía y siguiente paso</span>
+    <h2 class="h2" style="margin-bottom:6px;">Compromisos concretos — no promesas</h2>
+    <p class="body" style="margin-bottom:18px;">Si un hito verificable no se cumple en fecha, el siguiente bloque no se cobra hasta que se cumpla.</p>
+
+    <div style="margin-bottom:20px;">
+      <div class="gc-item">
+        <div class="gc-icon">🔒</div>
+        <div>
+          <div class="gc-title">Hitos con criterio de aceptación</div>
+          <div class="gc-body">Cada entrega tiene un criterio objetivo y verificable. GEC aprueba antes de continuar al siguiente bloque.</div>
+        </div>
+      </div>
+      <div class="gc-item">
+        <div class="gc-icon">⚡</div>
+        <div>
+          <div class="gc-title">Respuesta en &lt;4h hábiles</div>
+          <div class="gc-body">Cualquier incidente en producción tiene respuesta garantizada. Alertas automáticas antes de que GEC lo note.</div>
+        </div>
+      </div>
+      <div class="gc-item">
+        <div class="gc-icon">🔄</div>
+        <div>
+          <div class="gc-title">Operación sin interrupciones</div>
+          <div class="gc-body">Ninguna implementación detiene la planta. Microsip sigue operando. Los cambios se hacen en paralelo, no en reemplazo.</div>
+        </div>
+      </div>
+      <div class="gc-item">
+        <div class="gc-icon">📊</div>
+        <div>
+          <div class="gc-title">Transparencia mensual en portal</div>
+          <div class="gc-body">GEC tiene acceso en tiempo real a su estado de seguridad, actividad de sistemas y reportes descargables en PDF.</div>
+        </div>
+      </div>
+      <div class="gc-item">
+        <div class="gc-icon">🏗️</div>
+        <div>
+          <div class="gc-title">Infraestructura propia de GEC</div>
+          <div class="gc-body">n8n <span style="color:var(--muted);font-size:11px;">(automatizador)</span> corre en servidor Oracle Cloud de GEC — gratis, sin costo de licencia, sin dependencia de Trev'ainnovate para operar.</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="background:linear-gradient(135deg,rgba(0,229,160,.08),rgba(59,130,246,.06));border:1px solid rgba(0,229,160,.2);border-radius:16px;padding:28px;">
+      <div style="display:flex;align-items:flex-start;gap:24px;flex-wrap:wrap;">
+        <div style="flex:1;min-width:280px;">
+          <span class="lbl">Kickoff — Semana del 21 de Abril</span>
+          <div class="h2" style="margin-bottom:8px;">Una sesión. 90 minutos.<br><span class="grad">El proyecto arranca.</span></div>
+          <p class="body" style="margin-bottom:16px;">Mapeo de accesos Microsip · Inventario DNS · Confirmación de alcance Bloque 0. Sin esta sesión, el plan no es ejecutable.</p>
+          <div style="display:flex;gap:20px;flex-wrap:wrap;">
+            <div>
+              <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--green);margin-bottom:3px;">Santiago Juárez</div>
+              <div style="font-size:13px;">223 129 4663</div>
+            </div>
+            <div>
+              <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--green);margin-bottom:3px;">Email</div>
+              <div style="font-size:13px;">contacto@trevainnovate.com</div>
+            </div>
+          </div>
+        </div>
+        <div style="text-align:center;flex-shrink:0;">
+          <div style="font-size:11px;color:var(--muted);margin-bottom:4px;">Para arrancar hoy</div>
+          <div style="font-size:30px;font-weight:900;color:var(--green);font-family:'JetBrains Mono',monospace;">$35K</div>
+          <div style="font-size:11px;color:var(--muted);">MXN · Bloque 0 + 1</div>
+          <div style="margin-top:6px;font-size:11px;color:var(--muted);">+ $8,500 / mes</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf">
+    <span>trevainnovate.com · contacto@trevainnovate.com · 223 129 4663</span>
+    <span>6 / 6 · Confidencial · Trev'ainnovate × GEC Plastic</span>
+  </div>
+</div>
+
+</body>
+</html>

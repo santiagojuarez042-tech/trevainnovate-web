@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Propuesta Actualizada — Casa Rage · Trev'ainnovate</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #05050e; --bg2: #0b0b1c; --bg3: #111128;
+  --green: #00e5a0; --blue: #3b82f6; --purple: #8b5cf6;
+  --amber: #f59e0b; --red: #ef4444; --rage: #c8a96e;
+  --white: #f1f5f9; --muted: #8892a4; --border: rgba(255,255,255,0.07);
+}
+body { background: #0a0a14; font-family: 'Inter', sans-serif; color: var(--white); -webkit-font-smoothing: antialiased; }
+.page {
+  width: 100%; min-height: 100vh; position: relative; overflow: hidden;
+  background: var(--bg); display: flex; flex-direction: column;
+  margin: 0; border-bottom: 1px solid rgba(255,255,255,.04);
+}
+@media print {
+  body { background: #05050e; }
+  .page { page-break-after: always; min-height: 297mm; }
+}
+.topbar { height: 3px; background: linear-gradient(90deg,var(--rage),var(--amber),var(--rage)); flex-shrink:0; }
+.page-header {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:18px 5vw 16px; border-bottom:1px solid var(--border); flex-shrink:0; width:100%; box-sizing:border-box;
+}
+.logo { display:flex; align-items:center; gap:8px; font-size:14px; font-weight:800; }
+.logo-dot { width:8px; height:8px; border-radius:50%; background:var(--rage); box-shadow:0 0 10px rgba(200,169,110,.7); }
+.meta { font-size:11px; color:var(--muted); font-family:'JetBrains Mono',monospace; text-align:right; line-height:1.6; }
+.page-body { flex:1; padding:36px 5vw; max-width:1100px; margin:0 auto; width:100%; box-sizing:border-box; display:flex; flex-direction:column; }
+.page-footer {
+  padding:14px 5vw; border-top:1px solid var(--border);
+  display:flex; align-items:center; justify-content:space-between; flex-shrink:0; width:100%; box-sizing:border-box;
+}
+.page-footer span { font-size:10px; color:rgba(255,255,255,.2); font-family:'JetBrains Mono',monospace; }
+
+/* Typography */
+.label { font-size:10px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:var(--rage); margin-bottom:6px; display:block; }
+.label.g { color:var(--green); } .label.b { color:var(--blue); } .label.r { color:var(--red); }
+.h1 { font-size:44px; font-weight:900; line-height:1.06; letter-spacing:-.02em; }
+.h2 { font-size:26px; font-weight:800; line-height:1.1; }
+.h3 { font-size:16px; font-weight:700; }
+.body { font-size:13px; color:var(--muted); line-height:1.65; }
+.grad { background:linear-gradient(135deg,var(--rage),var(--amber),#fff8e7); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+.grad-g { background:linear-gradient(135deg,var(--green),var(--blue)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+
+/* Blocks */
+.block { background:rgba(255,255,255,.03); border:1px solid var(--border); border-radius:12px; padding:18px 20px; }
+.block.gold { background:rgba(200,169,110,.05); border-color:rgba(200,169,110,.2); }
+.block.green { background:rgba(0,229,160,.04); border-color:rgba(0,229,160,.15); }
+.block.red { background:rgba(239,68,68,.05); border-color:rgba(239,68,68,.2); }
+.block.blue { background:rgba(59,130,246,.04); border-color:rgba(59,130,246,.15); }
+.block.dark { background:rgba(0,0,0,.3); }
+
+/* Check list */
+.clist { display:flex; flex-direction:column; gap:7px; }
+.ci { display:flex; align-items:flex-start; gap:7px; font-size:12px; color:var(--white); }
+.ci::before { content:'✓'; color:var(--green); font-weight:800; flex-shrink:0; margin-top:1px; }
+.ci.x::before { content:'✗'; color:var(--red); }
+.ci.w::before { content:'⚠'; color:var(--amber); }
+
+/* Two col */
+.two-col { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+.three-col { display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; }
+
+/* Stat row */
+.stat { text-align:center; }
+.stat-val { font-size:28px; font-weight:900; font-family:'JetBrains Mono',monospace; }
+.stat-lbl { font-size:11px; color:var(--muted); margin-top:4px; }
+
+/* Comparison table */
+.comp-table { width:100%; border-collapse:collapse; font-size:12px; }
+.comp-table th { padding:10px 12px; font-weight:700; font-size:11px; text-transform:uppercase; letter-spacing:.08em; }
+.comp-table td { padding:10px 12px; border-top:1px solid var(--border); vertical-align:top; line-height:1.5; }
+.comp-table .col-old { background:rgba(239,68,68,.04); color:var(--muted); }
+.comp-table .col-new { background:rgba(0,229,160,.04); color:var(--white); }
+.comp-table .col-feat { color:var(--muted); font-size:11px; }
+.comp-table .th-old { background:rgba(239,68,68,.08); color:rgba(239,68,68,.8); border-bottom:2px solid rgba(239,68,68,.2); }
+.comp-table .th-new { background:rgba(0,229,160,.08); color:var(--green); border-bottom:2px solid rgba(0,229,160,.2); }
+.comp-table .th-feat { background:rgba(255,255,255,.03); }
+
+/* Price cards */
+.price-card { background:rgba(255,255,255,.03); border:1px solid var(--border); border-radius:14px; padding:22px; }
+.price-card.featured { background:rgba(200,169,110,.06); border-color:rgba(200,169,110,.3); }
+.price-tag { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.12em; color:var(--muted); margin-bottom:8px; }
+.price-name { font-size:16px; font-weight:800; margin-bottom:6px; }
+.price-val { font-size:30px; font-weight:900; color:var(--green); font-family:'JetBrains Mono',monospace; }
+.price-period { font-size:11px; color:var(--muted); margin-bottom:14px; }
+.pi { font-size:12px; color:var(--white); padding:5px 0; border-bottom:1px solid var(--border); }
+.pi:last-child { border-bottom:none; }
+.pi::before { content:'→ '; color:var(--rage); }
+
+/* DNS cards */
+.dns-card { border-radius:10px; padding:14px 16px; border:1px solid; }
+.dns-card.ok { background:rgba(0,229,160,.06); border-color:rgba(0,229,160,.25); }
+.dns-card.warn { background:rgba(245,158,11,.06); border-color:rgba(245,158,11,.25); }
+.dns-card.fail { background:rgba(239,68,68,.06); border-color:rgba(239,68,68,.25); }
+.dns-label { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.1em; margin-bottom:4px; }
+.dns-label.ok { color:var(--green); } .dns-label.warn { color:var(--amber); } .dns-label.fail { color:var(--red); }
+.dns-status { font-size:13px; font-weight:700; margin-bottom:4px; }
+.dns-val { font-size:10px; color:var(--muted); font-family:'JetBrains Mono',monospace; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+
+/* Timeline */
+.tl { display:flex; flex-direction:column; gap:14px; }
+.tl-item { display:grid; grid-template-columns:14px 1fr; gap:10px; padding-left:2px; }
+.tl-dot { width:12px; height:12px; border-radius:50%; margin-top:4px; flex-shrink:0; }
+.tl-dot.g { background:var(--green); } .tl-dot.r { background:var(--rage); } .tl-dot.b { background:var(--blue); }
+.tl-h { font-size:13px; font-weight:700; margin-bottom:3px; }
+.tl-p { font-size:12px; color:var(--muted); line-height:1.5; }
+.tl-tag { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); margin-bottom:4px; }
+
+/* CTA */
+.cta-box { background:linear-gradient(135deg,rgba(200,169,110,.1),rgba(0,229,160,.06)); border:1px solid rgba(200,169,110,.25); border-radius:16px; padding:36px 28px; margin-top:16px; }
+.cta-h { font-size:24px; font-weight:800; margin-bottom:8px; }
+.cta-sub { font-size:13px; color:var(--muted); margin-bottom:16px; }
+.cta-row { display:flex; gap:20px; flex-wrap:wrap; }
+.cta-item { font-size:13px; } .cta-item strong { color:var(--white); display:block; font-size:11px; color:var(--rage); }
+
+/* Cover */
+.cover-bg { position:absolute; inset:0; background:radial-gradient(ellipse at 80% 20%,rgba(200,169,110,.07) 0%,transparent 55%),radial-gradient(ellipse at 20% 80%,rgba(0,229,160,.04) 0%,transparent 55%); pointer-events:none; }
+.cover-grid { position:absolute; inset:0; background-image:linear-gradient(rgba(255,255,255,.015) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.015) 1px,transparent 1px); background-size:40px 40px; pointer-events:none; }
+.cover-body { flex:1; display:flex; flex-direction:column; justify-content:center; padding:60px 5vw 48px; max-width:1100px; margin:0 auto; width:100%; position:relative; z-index:1; }
+
+/* Badge update */
+.badge-update { display:inline-flex; align-items:center; gap:6px; padding:5px 14px; border-radius:99px; background:rgba(0,229,160,.1); border:1px solid rgba(0,229,160,.25); font-size:11px; font-weight:700; color:var(--green); letter-spacing:.1em; text-transform:uppercase; margin-bottom:8px; }
+.badge-rage { display:inline-flex; align-items:center; gap:6px; padding:5px 14px; border-radius:99px; background:rgba(200,169,110,.1); border:1px solid rgba(200,169,110,.25); font-size:11px; font-weight:700; color:var(--rage); letter-spacing:.1em; text-transform:uppercase; margin-bottom:20px; }
+
+@media print {
+  body { background:#fff !important; }
+  .page { margin:0; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══ PÁGINA 1 — PORTADA ══ -->
+<div class="page">
+  <div class="cover-bg"></div><div class="cover-grid"></div>
+  <div class="topbar"></div>
+  <div style="padding:18px 5vw 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);position:relative;z-index:1;width:100%;box-sizing:border-box;">
+    <div class="logo"><div class="logo-dot"></div>TREV'AINNOVATE</div>
+    <span style="font-size:11px;font-weight:700;color:rgba(255,255,255,.2);text-transform:uppercase;letter-spacing:.12em;">Propuesta Comercial Confidencial</span>
+  </div>
+  <div class="cover-body">
+    <div class="badge-update">✦ Propuesta Revisada — Enfocada en resultados</div>
+    <div class="badge-rage">Exclusivo para Casa Rage</div>
+    <h1 class="h1" style="margin-bottom:20px;">Tu negocio,<br><span class="grad">automatizado.</span><br>Más bodas. Menos trabajo.</h1>
+    <p style="font-size:15px;color:var(--muted);max-width:680px;line-height:1.6;margin-bottom:32px;">Cada lead que llega a Casa Rage y no recibe respuesta en menos de 1 hora tiene un 70% más de probabilidad de irse con la competencia. Este ecosistema lo convierte en reservación — automáticamente, incluso a las 2am.</p>
+
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:32px;">
+      <div class="block dark" style="text-align:center;padding:18px 10px;">
+        <div style="font-size:28px;font-weight:900;color:var(--green);font-family:'JetBrains Mono',monospace;">7</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:4px;">Flujos automáticos</div>
+      </div>
+      <div class="block dark" style="text-align:center;padding:18px 10px;">
+        <div style="font-size:28px;font-weight:900;color:var(--rage);font-family:'JetBrains Mono',monospace;">&lt;2min</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:4px;">Respuesta a cualquier lead</div>
+      </div>
+      <div class="block dark" style="text-align:center;padding:18px 10px;">
+        <div style="font-size:28px;font-weight:900;color:var(--amber);font-family:'JetBrains Mono',monospace;">49.5h</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:4px;">Ahorradas al mes</div>
+      </div>
+      <div class="block dark" style="text-align:center;padding:18px 10px;">
+        <div style="font-size:28px;font-weight:900;color:var(--purple);font-family:'JetBrains Mono',monospace;">$26K</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:4px;">Desde · setup completo</div>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:14px;align-items:center;padding:16px 20px;background:rgba(0,229,160,.05);border:1px solid rgba(0,229,160,.2);border-radius:12px;">
+      <span style="font-size:24px;">💡</span>
+      <div>
+        <div style="font-size:13px;font-weight:700;color:var(--green);margin-bottom:4px;">ROI desde el primer mes</div>
+        <div style="font-size:12px;color:var(--muted);">1 evento adicional cerrado por automatización cubre la inversión completa. El ecosistema trabaja mientras tú duermes.</div>
+      </div>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span>trevainnovate.com · contacto@trevainnovate.com · 223 129 4663</span>
+    <span>Abril 2026 · Revisada</span>
+  </div>
+</div>
+
+<!-- ══ PÁGINA 2 — COMPARATIVA ══ -->
+<div class="page">
+  <div class="topbar"></div>
+  <div class="page-header">
+    <div class="logo"><div class="logo-dot"></div>TREV'AINNOVATE</div>
+    <div class="meta">Casa Rage · Propuesta Revisada<br>Abril 2026</div>
+  </div>
+  <div class="page-body">
+    <span class="label">Qué incluye cada plan</span>
+    <h2 class="h2" style="margin-bottom:5px;">Elige tu punto de <span class="grad">entrada</span></h2>
+    <p class="body" style="margin-bottom:14px;">Ambos planes incluyen retainer mensual — no es un proyecto que se entrega y se olvida. El ecosistema mejora y crece contigo mes a mes.</p>
+
+    <table class="comp-table" style="margin-bottom:12px;">
+      <thead>
+        <tr>
+          <th class="th-feat" style="width:35%;text-align:left;padding:8px 10px;">Módulo</th>
+          <th class="th-old" style="width:32.5%;text-align:center;">Opción A — Flujos Core</th>
+          <th class="th-new" style="width:32.5%;text-align:center;">Opción B — Ecosistema ⭐</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="col-feat"><strong style="color:var(--white);">Bot Adriana (WhatsApp)</strong><br>Atención 24/7, 5 verticales, 22 subtipos</td>
+          <td class="col-old" style="text-align:center;">✅ Incluido</td>
+          <td class="col-new" style="text-align:center;">✅ Incluido</td>
+        </tr>
+        <tr>
+          <td class="col-feat"><strong style="color:var(--white);">Calculadora de precios</strong><br>26 matrices, tarifa × invitados</td>
+          <td class="col-old" style="text-align:center;">✅ Incluido</td>
+          <td class="col-new" style="text-align:center;">✅ Incluido</td>
+        </tr>
+        <tr>
+          <td class="col-feat"><strong style="color:var(--white);">Seguimiento automático</strong><br>8d / 15d / mensual por tipo de evento</td>
+          <td class="col-old" style="text-align:center;">✅ Incluido</td>
+          <td class="col-new" style="text-align:center;">✅ Incluido</td>
+        </tr>
+        <tr>
+          <td class="col-feat"><strong style="color:var(--white);">Confirmaciones de reservación</strong><br>Reduce no-shows y aumenta compromiso</td>
+          <td class="col-old" style="text-align:center;">✅ Incluido</td>
+          <td class="col-new" style="text-align:center;">✅ Incluido</td>
+        </tr>
+        <tr>
+          <td class="col-feat"><strong style="color:var(--white);">Routing al asesor correcto</strong><br>Notificación automática por servicio</td>
+          <td class="col-old" style="text-align:center;color:var(--muted);">— No incluido</td>
+          <td class="col-new" style="text-align:center;font-weight:700;color:var(--green);">✅ Incluido</td>
+        </tr>
+        <tr>
+          <td class="col-feat"><strong style="color:var(--white);">Sugerencias post-cotización</strong><br>Upsell automático de servicios complementarios</td>
+          <td class="col-old" style="text-align:center;color:var(--muted);">— No incluido</td>
+          <td class="col-new" style="text-align:center;font-weight:700;color:var(--green);">✅ Incluido</td>
+        </tr>
+        <tr>
+          <td class="col-feat"><strong style="color:var(--white);">Reporte semanal de métricas</strong><br>Leads, conversión, seguimientos activos</td>
+          <td class="col-old" style="text-align:center;color:var(--muted);">— No incluido</td>
+          <td class="col-new" style="text-align:center;font-weight:700;color:var(--green);">✅ Incluido</td>
+        </tr>
+        <tr>
+          <td class="col-feat"><strong style="color:var(--white);">Soporte y optimizaciones</strong><br>Mejoras continuas mes a mes</td>
+          <td class="col-old" style="text-align:center;">✅ Incluido</td>
+          <td class="col-new" style="text-align:center;">✅ Incluido</td>
+        </tr>
+        <tr style="border-top:2px solid var(--border);">
+          <td class="col-feat"><strong style="color:var(--white);">Inversión</strong></td>
+          <td class="col-old" style="text-align:center;">
+            <div style="font-size:18px;font-weight:900;color:var(--white);">$16,000 MXN</div>
+            <div style="font-size:11px;color:var(--muted);">setup · + $1,990/mes retainer</div>
+          </td>
+          <td class="col-new" style="text-align:center;">
+            <div style="font-size:18px;font-weight:900;color:var(--green);">$26,000 MXN</div>
+            <div style="font-size:11px;color:var(--muted);">setup · + $2,490/mes retainer</div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="block gold">
+      <div style="display:flex;gap:12px;align-items:center;">
+        <span style="font-size:22px;">💡</span>
+        <div>
+          <div class="h3" style="margin-bottom:4px;color:var(--rage);">¿Por qué el retainer mensual cambia todo?</div>
+          <p class="body">No pagas por un proyecto que termina — pagas por un socio que optimiza. Cada mes el bot se afina, los flujos mejoran con datos reales y se agregan automatizaciones nuevas. Casa Rage no se queda con tecnología estática.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span>trevainnovate.com · contacto@trevainnovate.com · 223 129 4663</span>
+    <span>2 / 6</span>
+  </div>
+</div>
+
+<!-- ══ PÁGINA 3 — DIAGNÓSTICO DNS ══ -->
+<div class="page">
+  <div class="topbar"></div>
+  <div class="page-header">
+    <div class="logo"><div class="logo-dot"></div>TREV'AINNOVATE</div>
+    <div class="meta">Casa Rage · Propuesta Revisada<br>Abril 2026</div>
+  </div>
+  <div class="page-body">
+    <span class="label r">Diagnóstico en tiempo real</span>
+    <h2 class="h2" style="margin-bottom:5px;">Así está <span style="color:var(--rage);">casarage.com</span> hoy.</h2>
+    <p class="body" style="margin-bottom:14px;">Auditoría DNS ejecutada en tiempo real el 13 de abril de 2026 vía Cloudflare DNS-over-HTTPS. Datos públicos y verificables.</p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px;">
+      <div class="dns-card warn">
+        <div class="dns-label warn">SPF — Remitente</div>
+        <div class="dns-status">⚠️ Débil</div>
+        <div class="dns-val">v=spf1 +a +mx ~all</div>
+        <p style="font-size:12px;color:var(--muted);margin-top:8px;">Existe pero permisivo. El <code style="color:var(--amber);">~all</code> solo marca como sospechoso, no rechaza. El <code style="color:var(--amber);">+a +mx</code> abre demasiadas puertas.</p>
+      </div>
+      <div class="dns-card warn">
+        <div class="dns-label warn">DMARC — Política</div>
+        <div class="dns-status">⚠️ Sin aplicación</div>
+        <div class="dns-val">v=DMARC1; p=none</div>
+        <p style="font-size:12px;color:var(--muted);margin-top:8px;"><strong style="color:var(--red);">p=none es equivalente a no tener DMARC.</strong> Los proveedores de correo ignoran la política — un correo falso de casarage.com llega sin advertencias.</p>
+      </div>
+      <div class="dns-card fail">
+        <div class="dns-label fail">DKIM — Firma</div>
+        <div class="dns-status">❌ No configurado</div>
+        <div class="dns-val">(sin selector activo)</div>
+        <p style="font-size:12px;color:var(--muted);margin-top:8px;">Sin firma criptográfica, tus correos legítimos no tienen verificación de autenticidad. Gmail y Outlook los tratan como sospechosos.</p>
+      </div>
+    </div>
+
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+      <div style="flex:1;">
+        <div style="font-size:11px;color:var(--muted);margin-bottom:6px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;">Score de seguridad actual</div>
+        <div style="height:10px;background:rgba(255,255,255,.06);border-radius:99px;overflow:hidden;">
+          <div style="width:25%;height:100%;background:linear-gradient(90deg,#ef4444,#f59e0b);border-radius:99px;"></div>
+        </div>
+      </div>
+      <div style="font-size:24px;font-weight:900;color:var(--red);font-family:'JetBrains Mono',monospace;flex-shrink:0;">25/100</div>
+    </div>
+
+    <div class="block red">
+      <div class="h3" style="color:var(--red);margin-bottom:8px;">¿Qué puede pasar HOY con esta configuración?</div>
+      <div class="two-col">
+        <div class="clist">
+          <div class="ci x">Un atacante manda un correo desde <strong>confirmacion@casarage.com</strong> — falso — pidiendo el depósito de una boda a otra cuenta</div>
+          <div class="ci x">El correo llega a la bandeja principal del cliente, sin spam, sin advertencias</div>
+        </div>
+        <div class="clist">
+          <div class="ci x">El cliente transfiere $30,000–$80,000 MXN pensando que es Casa Rage</div>
+          <div class="ci x">Reputación destruida, demanda legal posible, reservación perdida</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block green" style="margin-top:10px;">
+      <div class="h3" style="color:var(--green);margin-bottom:8px;">Con DNS Shield activo — en 24 horas:</div>
+      <div class="two-col">
+        <div class="clist">
+          <div class="ci">SPF estricto con <code style="color:var(--green);font-size:9px;">-all</code> — solo tus servidores pueden enviar</div>
+          <div class="ci">DKIM configurado — firma criptográfica en cada correo</div>
+        </div>
+        <div class="clist">
+          <div class="ci">DMARC en <code style="color:var(--green);font-size:9px;">p=reject</code> — correos falsos bloqueados automáticamente</div>
+          <div class="ci">Monitor diario — alerta si algo cambia</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span>trevainnovate.com · contacto@trevainnovate.com · 223 129 4663</span>
+    <span>3 / 6</span>
+  </div>
+</div>
+
+<!-- ══ PÁGINA 4 — EL ECOSISTEMA COMPLETO ══ -->
+<div class="page">
+  <div class="topbar"></div>
+  <div class="page-header">
+    <div class="logo"><div class="logo-dot"></div>TREV'AINNOVATE</div>
+    <div class="meta">Casa Rage · Propuesta Revisada<br>Abril 2026</div>
+  </div>
+  <div class="page-body">
+    <span class="label">Lo que se entrega</span>
+    <h2 class="h2" style="margin-bottom:5px;">Un ecosistema digital <span class="grad">completamente operado.</span></h2>
+    <p class="body" style="margin-bottom:14px;">No herramientas sueltas. Un sistema integrado donde la automatización trae clientes y la seguridad protege cada transacción.</p>
+
+    <div class="two-col" style="margin-bottom:10px;">
+      <div>
+        <div class="block" style="margin-bottom:8px;">
+          <span class="label" style="margin-bottom:8px;">Módulo 1 — Automatización</span>
+          <div class="h3" style="margin-bottom:8px;">Bot Adriana + 6 flujos de operación</div>
+          <div class="clist">
+            <div class="ci">WF1 — Bot conversacional 24/7 (WhatsApp · 5 verticales · 22 subtipos)</div>
+            <div class="ci">WF2 — Captura automática de datos de visita → Google Sheets</div>
+            <div class="ci">WF3 — Calculadora pre-visita (26 matrices tarifa × invitados)</div>
+            <div class="ci">WF4 — Recordatorios automáticos de cita (cron diario)</div>
+            <div class="ci">WF5 — Seguimiento 3 etapas: 8d · 15d · mensual</div>
+            <div class="ci">WF6 — Sugerencia post-cotización (servicios complementarios)</div>
+            <div class="ci">WF7 — Routing al asesor correcto según servicio</div>
+          </div>
+        </div>
+        <div class="block dark" style="padding:16px 18px;">
+          <div style="font-size:11px;color:var(--muted);margin-bottom:8px;font-weight:600;text-transform:uppercase;">Tiempo ahorrado</div>
+          <div style="display:flex;gap:20px;">
+            <div><div style="font-size:24px;font-weight:900;color:var(--green);font-family:'JetBrains Mono',monospace;">49.5h</div><div style="font-size:11px;color:var(--muted);">al mes liberadas</div></div>
+            <div><div style="font-size:24px;font-weight:900;color:var(--blue);font-family:'JetBrains Mono',monospace;">&lt;12m</div><div style="font-size:11px;color:var(--muted);">payback estimado</div></div>
+            <div><div style="font-size:24px;font-weight:900;color:var(--purple);font-family:'JetBrains Mono',monospace;">695%</div><div style="font-size:11px;color:var(--muted);">ROI año 1</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="block green" style="margin-bottom:8px;">
+          <span class="label g" style="margin-bottom:8px;">Módulo 2 — Seguridad</span>
+          <div class="h3" style="margin-bottom:8px;">DNS Shield — Correo corporativo blindado</div>
+          <div class="clist">
+            <div class="ci">SPF estricto configurado y documentado</div>
+            <div class="ci">DKIM activo — firma en cada correo saliente</div>
+            <div class="ci">DMARC en <code style="color:var(--green);font-size:9px;">p=reject</code> — cero suplantaciones</div>
+            <div class="ci">Monitor automático diario a las 7am</div>
+            <div class="ci">Alerta inmediata si algo cambia o falla</div>
+            <div class="ci">Reporte semanal de seguridad al equipo</div>
+            <div class="ci">Reporte mensual con score y tendencia</div>
+          </div>
+        </div>
+        <div class="block dark" style="padding:16px 18px;">
+          <div style="font-size:11px;color:var(--muted);margin-bottom:8px;font-weight:600;text-transform:uppercase;">Valor protegido</div>
+          <div style="display:flex;gap:20px;">
+            <div><div style="font-size:24px;font-weight:900;color:var(--red);font-family:'JetBrains Mono',monospace;">$180K+</div><div style="font-size:11px;color:var(--muted);">costo prom. incidente BEC</div></div>
+            <div><div style="font-size:24px;font-weight:900;color:var(--green);font-family:'JetBrains Mono',monospace;">30x</div><div style="font-size:11px;color:var(--muted);">ROI si evita 1 incidente/año</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block gold">
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;text-align:center;">
+        <div><div style="font-size:12px;font-weight:700;color:var(--rage);margin-bottom:4px;">Plataforma</div><div style="font-size:12px;color:var(--muted);">n8n self-hosted · VPS propio · sin dependencia de SaaS</div></div>
+        <div style="border-left:1px solid var(--border);border-right:1px solid var(--border);"><div style="font-size:12px;font-weight:700;color:var(--rage);margin-bottom:4px;">DNS</div><div style="font-size:12px;color:var(--muted);">Cloudflare · verificación externa · cambios auditados</div></div>
+        <div><div style="font-size:12px;font-weight:700;color:var(--rage);margin-bottom:4px;">Soporte</div><div style="font-size:12px;color:var(--muted);">Respuesta &lt;4h días hábiles · en español · directo con Santiago</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span>trevainnovate.com · contacto@trevainnovate.com · 223 129 4663</span>
+    <span>4 / 6</span>
+  </div>
+</div>
+
+<!-- ══ PÁGINA 5 — INVERSIÓN ══ -->
+<div class="page">
+  <div class="topbar"></div>
+  <div class="page-header">
+    <div class="logo"><div class="logo-dot"></div>TREV'AINNOVATE</div>
+    <div class="meta">Casa Rage · Propuesta Revisada<br>Abril 2026</div>
+  </div>
+  <div class="page-body">
+    <span class="label">Inversión</span>
+    <h2 class="h2" style="margin-bottom:5px;">Accesible al inicio. <span class="grad">Resultados desde el día 1.</span></h2>
+    <p class="body" style="margin-bottom:14px;">Dos opciones según el alcance. Ambas incluyen retainer mensual — no es un proyecto que se entrega y se olvida, es una relación continua donde el sistema mejora mes a mes.</p>
+
+    <div class="two-col" style="margin-bottom:12px;">
+      <div class="price-card">
+        <div class="price-tag">Opción A — Entrada fácil</div>
+        <div class="price-name">Flujos Core</div>
+        <div class="price-val" style="color:var(--muted);">$16,000</div>
+        <div class="price-period">MXN · setup en 2 partes</div>
+        <div style="margin:4px 0 6px;">
+          <div class="pi">$8,000 MXN al iniciar</div>
+          <div class="pi">$8,000 MXN al entregar</div>
+        </div>
+        <div style="font-size:20px;font-weight:900;color:var(--white);font-family:'JetBrains Mono',monospace;">+ $1,990<span style="font-size:13px;font-weight:500;color:var(--muted);">/mes</span></div>
+        <div class="price-period" style="margin-bottom:6px;">retainer · soporte + optimizaciones</div>
+        <div>
+          <div class="pi">WF1 — Bot WhatsApp 24/7</div>
+          <div class="pi">WF2 — Calculadora automática (26 matrices)</div>
+          <div class="pi">WF3 — Seguimiento 8d · 15d · mensual</div>
+          <div class="pi">WF4 — Confirmaciones de reservación</div>
+          <div class="pi" style="color:var(--muted);border-color:rgba(255,255,255,.05);">· Sin workflows avanzados</div>
+          <div class="pi" style="color:var(--muted);border-color:rgba(255,255,255,.05);">· DNS Shield disponible como add-on</div>
+        </div>
+      </div>
+
+      <div class="price-card featured">
+        <div class="price-tag">★ Recomendado — Ecosistema completo</div>
+        <div class="price-name">7 Workflows Completos</div>
+        <div class="price-val">$26,000</div>
+        <div class="price-period">MXN · setup en 2 partes</div>
+        <div style="margin:4px 0 6px;">
+          <div class="pi">$13,000 MXN al iniciar</div>
+          <div class="pi">$13,000 MXN al entregar</div>
+        </div>
+        <div style="font-size:20px;font-weight:900;color:var(--rage);font-family:'JetBrains Mono',monospace;">+ $2,490<span style="font-size:13px;font-weight:500;color:var(--muted);">/mes</span></div>
+        <div class="price-period" style="margin-bottom:6px;">retainer · soporte + nuevas automatizaciones</div>
+        <div>
+          <div class="pi">Los 4 workflows Core del plan A</div>
+          <div class="pi">WF5 — Routing al asesor correcto</div>
+          <div class="pi">WF6 — Sugerencias post-cotización</div>
+          <div class="pi">WF7 — Reporte semanal de métricas</div>
+          <div class="pi" style="color:var(--green);">Nuevas automatizaciones cada mes</div>
+          <div class="pi" style="color:var(--green);">Socio digital de largo plazo</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROI justificación -->
+    <div class="block dark" style="margin-bottom:8px;">
+      <div class="h3" style="margin-bottom:12px;">¿Por qué el ecosistema se paga solo desde el mes 1?</div>
+      <div class="three-col">
+        <div style="text-align:center;padding:10px;">
+          <div style="font-size:24px;font-weight:900;color:var(--red);font-family:'JetBrains Mono',monospace;">70%</div>
+          <div style="font-size:12px;color:var(--muted);margin-top:4px;">de leads que no reciben respuesta en &lt;1h se van con la competencia</div>
+        </div>
+        <div style="text-align:center;padding:10px;border-left:1px solid var(--border);border-right:1px solid var(--border);">
+          <div style="font-size:24px;font-weight:900;color:var(--amber);font-family:'JetBrains Mono',monospace;">&lt;2min</div>
+          <div style="font-size:12px;color:var(--muted);margin-top:4px;">Tiempo de respuesta del bot vs. 4-8h promedio sin automatización</div>
+        </div>
+        <div style="text-align:center;padding:10px;">
+          <div style="font-size:24px;font-weight:900;color:var(--green);font-family:'JetBrains Mono',monospace;">1 evento</div>
+          <div style="font-size:12px;color:var(--muted);margin-top:4px;">extra cerrado por mes cubre el setup completo y genera ganancia</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block gold">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;">
+        <div>
+          <div class="h3" style="margin-bottom:4px;color:var(--rage);">Add-on opcional: DNS Shield</div>
+          <p style="font-size:12px;color:var(--muted);line-height:1.6;">Cuando Casa Rage esté lista para el siguiente nivel: protección completa de correo corporativo — SPF, DKIM, DMARC en p=reject + monitor 24/7 + alertas. Se activa en cualquier momento sin interrumpir los flujos ya activos.</p>
+        </div>
+        <div style="text-align:right;flex-shrink:0;">
+          <div style="font-size:11px;color:var(--muted);margin-bottom:4px;">Precio add-on</div>
+          <div style="font-size:26px;font-weight:900;color:var(--rage);font-family:'JetBrains Mono',monospace;">+$1,490</div>
+          <div style="font-size:11px;color:var(--muted);">MXN/mes · se suma al retainer</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span>trevainnovate.com · contacto@trevainnovate.com · 223 129 4663</span>
+    <span>5 / 7</span>
+  </div>
+</div>
+
+<!-- ══ PÁGINA 6 — PORTAL DE CLIENTE ══ -->
+<div class="page">
+  <div class="topbar"></div>
+  <div class="page-header">
+    <div class="logo"><div class="logo-dot"></div>TREV'AINNOVATE</div>
+    <div class="meta">Casa Rage · Propuesta Revisada<br>Abril 2026</div>
+  </div>
+  <div class="page-body" style="padding-bottom:24px;">
+    <!-- Header row -->
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:16px;flex-shrink:0">
+      <div>
+        <span class="label g" style="margin-bottom:4px;">Exclusivo para clientes</span>
+        <div style="font-size:24px;font-weight:900;color:#fff;line-height:1.1">Portal de cliente <span style="color:var(--rage)">Casa Rage</span></div>
+        <div style="font-size:12px;color:var(--muted);margin-top:4px;">Acceso 24/7 · DNS · Automatizaciones · Reportes · Solo disponible para clientes de Trev'ainnovate</div>
+      </div>
+      <div style="background:rgba(0,229,160,.08);border:1px solid rgba(0,229,160,.2);border-radius:99px;padding:6px 16px;display:flex;align-items:center;gap:8px;flex-shrink:0">
+        <div style="width:7px;height:7px;border-radius:50%;background:#00e5a0;box-shadow:0 0 8px #00e5a0;animation:pulse 2s infinite"></div>
+        <span style="font-size:12px;font-weight:700;color:#00e5a0">Sistema en vivo</span>
+      </div>
+    </div>
+
+    <!-- Portal mockup — flex:1 fills remaining height -->
+    <div style="flex:1;background:#05050e;border:1px solid rgba(200,169,110,.3);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;min-height:0">
+
+      <!-- Navbar -->
+      <div style="background:#0b0b1c;border-bottom:1px solid rgba(255,255,255,.07);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0">
+        <div style="display:flex;align-items:center;gap:16px">
+          <div style="font-size:13px;font-weight:900;color:#fff;letter-spacing:.04em">TREV'<span style="color:#00e5a0">A</span>INNOVATE</div>
+          <div style="width:1px;height:18px;background:rgba(255,255,255,.08)"></div>
+          <div style="display:flex;align-items:center;gap:10px">
+            <div style="width:28px;height:28px;border-radius:7px;background:#c8a96e;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:#05050e">CR</div>
+            <div>
+              <div style="font-size:12px;font-weight:700;color:#fff">Casa Rage</div>
+              <div style="font-size:10px;color:#8892a4;font-family:monospace">casarage.com</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:6px">
+            <div style="padding:4px 12px;border-radius:6px;background:rgba(255,255,255,.05);font-size:11px;color:#8892a4;cursor:pointer">Panel</div>
+            <div style="padding:4px 12px;border-radius:6px;background:rgba(0,229,160,.1);border:1px solid rgba(0,229,160,.2);font-size:11px;color:#00e5a0">DNS</div>
+            <div style="padding:4px 12px;border-radius:6px;background:rgba(255,255,255,.05);font-size:11px;color:#8892a4">Flujos</div>
+            <div style="padding:4px 12px;border-radius:6px;background:rgba(255,255,255,.05);font-size:11px;color:#8892a4">Reportes</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px">
+          <div style="padding:5px 14px;border-radius:99px;background:rgba(0,229,160,.1);border:1px solid rgba(0,229,160,.25);font-size:11px;font-weight:700;color:#00e5a0">🛡 DNS Shield · Activo</div>
+          <div style="width:32px;height:32px;border-radius:50%;background:rgba(200,169,110,.15);border:1px solid rgba(200,169,110,.3);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#c8a96e">S</div>
+        </div>
+      </div>
+
+      <!-- Dashboard content -->
+      <div style="flex:1;padding:16px 20px;display:flex;flex-direction:column;gap:14px;min-height:0;overflow:hidden">
+
+        <!-- Row 1: Score + 4 métricas + Automatizaciones -->
+        <div style="display:grid;grid-template-columns:1fr 1.6fr 1fr;gap:14px;flex-shrink:0">
+
+          <!-- DNS Score card -->
+          <div style="background:rgba(0,229,160,.05);border:1px solid rgba(0,229,160,.2);border-radius:10px;padding:18px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px">
+            <div style="position:relative;width:80px;height:80px">
+              <svg viewBox="0 0 80 80" style="width:80px;height:80px;transform:rotate(-90deg)">
+                <circle cx="40" cy="40" r="34" fill="none" stroke="rgba(0,229,160,.12)" stroke-width="7"/>
+                <circle cx="40" cy="40" r="34" fill="none" stroke="#00e5a0" stroke-width="7" stroke-dasharray="213.6" stroke-dashoffset="10.7" stroke-linecap="round"/>
+              </svg>
+              <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column">
+                <div style="font-size:20px;font-weight:900;color:#00e5a0;line-height:1">95</div>
+                <div style="font-size:8px;color:#8892a4">/100</div>
+              </div>
+            </div>
+            <div style="text-align:center">
+              <div style="font-size:13px;font-weight:800;color:#fff;margin-bottom:2px">Postura fuerte</div>
+              <div style="font-size:10px;color:#8892a4">Score DNS en tiempo real</div>
+            </div>
+            <div style="display:flex;gap:5px;flex-wrap:wrap;justify-content:center">
+              <span style="font-size:10px;padding:3px 8px;border-radius:99px;background:rgba(0,229,160,.1);border:1px solid rgba(0,229,160,.2);color:#00e5a0">✓ SPF</span>
+              <span style="font-size:10px;padding:3px 8px;border-radius:99px;background:rgba(0,229,160,.1);border:1px solid rgba(0,229,160,.2);color:#00e5a0">✓ DKIM</span>
+              <span style="font-size:10px;padding:3px 8px;border-radius:99px;background:rgba(0,229,160,.1);border:1px solid rgba(0,229,160,.2);color:#00e5a0">✓ DMARC</span>
+            </div>
+          </div>
+
+          <!-- 4 métricas en grid -->
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+            <div style="background:#0b0b1c;border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:16px">
+              <div style="font-size:10px;font-weight:600;color:#8892a4;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">Amenazas bloqueadas</div>
+              <div style="font-size:28px;font-weight:900;color:#00e5a0;font-family:'JetBrains Mono',monospace;line-height:1">147</div>
+              <div style="font-size:10px;color:rgba(0,229,160,.5);margin-top:4px">↑ 12 esta semana</div>
+            </div>
+            <div style="background:#0b0b1c;border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:16px">
+              <div style="font-size:10px;font-weight:600;color:#8892a4;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">Correos analizados</div>
+              <div style="font-size:28px;font-weight:900;color:#3b82f6;font-family:'JetBrains Mono',monospace;line-height:1">1,840</div>
+              <div style="font-size:10px;color:rgba(59,130,246,.5);margin-top:4px">↑ 340 este mes</div>
+            </div>
+            <div style="background:#0b0b1c;border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:16px">
+              <div style="font-size:10px;font-weight:600;color:#8892a4;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">Uptime sistema</div>
+              <div style="font-size:28px;font-weight:900;color:#00e5a0;font-family:'JetBrains Mono',monospace;line-height:1">99.9%</div>
+              <div style="font-size:10px;color:rgba(0,229,160,.5);margin-top:4px">30 días sin incidentes</div>
+            </div>
+            <div style="background:#0b0b1c;border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:16px">
+              <div style="font-size:10px;font-weight:600;color:#8892a4;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">Reportes enviados</div>
+              <div style="font-size:28px;font-weight:900;color:#8b5cf6;font-family:'JetBrains Mono',monospace;line-height:1">4</div>
+              <div style="font-size:10px;color:rgba(139,92,246,.5);margin-top:4px">Próximo: lunes 9am</div>
+            </div>
+          </div>
+
+          <!-- Automatizaciones activas -->
+          <div style="background:#0b0b1c;border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:16px;display:flex;flex-direction:column">
+            <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#8892a4;margin-bottom:12px">Flujos activos</div>
+            <div style="display:flex;flex-direction:column;gap:8px;flex:1">
+              <div style="display:flex;align-items:center;justify-content:space-between">
+                <div style="font-size:11px;color:#f1f5f9">Bot Adriana 24/7</div>
+                <div style="display:flex;align-items:center;gap:5px"><div style="width:6px;height:6px;border-radius:50%;background:#00e5a0"></div><span style="font-size:10px;color:#00e5a0">On</span></div>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between">
+                <div style="font-size:11px;color:#f1f5f9">Calculadora tarifas</div>
+                <div style="display:flex;align-items:center;gap:5px"><div style="width:6px;height:6px;border-radius:50%;background:#00e5a0"></div><span style="font-size:10px;color:#00e5a0">On</span></div>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between">
+                <div style="font-size:11px;color:#f1f5f9">Seguimiento leads</div>
+                <div style="display:flex;align-items:center;gap:5px"><div style="width:6px;height:6px;border-radius:50%;background:#00e5a0"></div><span style="font-size:10px;color:#00e5a0">On</span></div>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between">
+                <div style="font-size:11px;color:#f1f5f9">Monitor DNS</div>
+                <div style="display:flex;align-items:center;gap:5px"><div style="width:6px;height:6px;border-radius:50%;background:#00e5a0"></div><span style="font-size:10px;color:#00e5a0">On</span></div>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between">
+                <div style="font-size:11px;color:#f1f5f9">Reporte semanal</div>
+                <div style="display:flex;align-items:center;gap:5px"><div style="width:6px;height:6px;border-radius:50%;background:#f59e0b"></div><span style="font-size:10px;color:#f59e0b">Lun</span></div>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between">
+                <div style="font-size:11px;color:#f1f5f9">Recordatorios cita</div>
+                <div style="display:flex;align-items:center;gap:5px"><div style="width:6px;height:6px;border-radius:50%;background:#00e5a0"></div><span style="font-size:10px;color:#00e5a0">On</span></div>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between">
+                <div style="font-size:11px;color:#f1f5f9">Routing asesores</div>
+                <div style="display:flex;align-items:center;gap:5px"><div style="width:6px;height:6px;border-radius:50%;background:#00e5a0"></div><span style="font-size:10px;color:#00e5a0">On</span></div>
+              </div>
+            </div>
+            <div style="margin-top:12px;padding-top:10px;border-top:1px solid rgba(255,255,255,.06);font-size:10px;color:#8892a4;text-align:center">7 / 7 flujos operando</div>
+          </div>
+        </div>
+
+        <!-- Row 2: Actividad reciente + Barra semanal + URL portal -->
+        <div style="display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:14px;flex:1;min-height:0">
+
+          <!-- Feed actividad -->
+          <div style="background:#0b0b1c;border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:16px;display:flex;flex-direction:column;overflow:hidden">
+            <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#8892a4;margin-bottom:12px;flex-shrink:0">Actividad reciente</div>
+            <div style="display:flex;flex-direction:column;gap:8px;flex:1;overflow:hidden">
+              <div style="display:flex;align-items:center;gap:10px">
+                <div style="width:30px;height:30px;border-radius:7px;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.2);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0">🛡</div>
+                <div style="flex:1;min-width:0">
+                  <div style="font-size:11px;color:#f1f5f9;font-weight:600">Intento de suplantación bloqueado</div>
+                  <div style="font-size:10px;color:#8892a4">confirmacion@casarage.com · IP externa · Hace 2h</div>
+                </div>
+                <div style="font-size:9px;padding:2px 8px;border-radius:99px;background:rgba(239,68,68,.1);color:#ef4444;flex-shrink:0">Bloqueado</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:10px">
+                <div style="width:30px;height:30px;border-radius:7px;background:rgba(0,229,160,.08);border:1px solid rgba(0,229,160,.15);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0">✅</div>
+                <div style="flex:1;min-width:0">
+                  <div style="font-size:11px;color:#f1f5f9;font-weight:600">Verificación DNS diaria completada</div>
+                  <div style="font-size:10px;color:#8892a4">SPF · DKIM · DMARC: sin cambios · Hace 7h</div>
+                </div>
+                <div style="font-size:9px;padding:2px 8px;border-radius:99px;background:rgba(0,229,160,.08);color:#00e5a0;flex-shrink:0">OK</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:10px">
+                <div style="width:30px;height:30px;border-radius:7px;background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.15);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0">📊</div>
+                <div style="flex:1;min-width:0">
+                  <div style="font-size:11px;color:#f1f5f9;font-weight:600">Reporte semanal enviado a dirección</div>
+                  <div style="font-size:10px;color:#8892a4">12 amenazas · 3 flujos optimizados · Hace 1 día</div>
+                </div>
+                <div style="font-size:9px;padding:2px 8px;border-radius:99px;background:rgba(139,92,246,.08);color:#8b5cf6;flex-shrink:0">Enviado</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:10px">
+                <div style="width:30px;height:30px;border-radius:7px;background:rgba(59,130,246,.08);border:1px solid rgba(59,130,246,.15);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0">🤖</div>
+                <div style="flex:1;min-width:0">
+                  <div style="font-size:11px;color:#f1f5f9;font-weight:600">Bot Adriana — 3 leads calificados</div>
+                  <div style="font-size:10px;color:#8892a4">Boda 150 pax · Quince · Corporativo · Hace 14h</div>
+                </div>
+                <div style="font-size:9px;padding:2px 8px;border-radius:99px;background:rgba(59,130,246,.08);color:#3b82f6;flex-shrink:0">3 leads</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Leads esta semana (barras) -->
+          <div style="background:#0b0b1c;border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:16px;display:flex;flex-direction:column">
+            <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#8892a4;margin-bottom:4px">Leads esta semana</div>
+            <div style="font-size:22px;font-weight:900;color:#c8a96e;margin-bottom:12px">18 <span style="font-size:11px;color:#8892a4;font-weight:400">contactos</span></div>
+            <div style="flex:1;display:flex;align-items:flex-end;gap:6px">
+              <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px">
+                <div style="width:100%;background:rgba(200,169,110,.35);border-radius:4px 4px 0 0;height:40%"></div>
+                <div style="font-size:9px;color:#8892a4">L</div>
+              </div>
+              <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px">
+                <div style="width:100%;background:rgba(200,169,110,.55);border-radius:4px 4px 0 0;height:60%"></div>
+                <div style="font-size:9px;color:#8892a4">M</div>
+              </div>
+              <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px">
+                <div style="width:100%;background:rgba(200,169,110,.45);border-radius:4px 4px 0 0;height:50%"></div>
+                <div style="font-size:9px;color:#8892a4">M</div>
+              </div>
+              <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px">
+                <div style="width:100%;background:rgba(200,169,110,.8);border-radius:4px 4px 0 0;height:85%"></div>
+                <div style="font-size:9px;color:#8892a4">J</div>
+              </div>
+              <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px">
+                <div style="width:100%;background:rgba(200,169,110,.65);border-radius:4px 4px 0 0;height:70%"></div>
+                <div style="font-size:9px;color:#8892a4">V</div>
+              </div>
+              <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px">
+                <div style="width:100%;background:#c8a96e;border-radius:4px 4px 0 0;height:100%"></div>
+                <div style="font-size:9px;color:#c8a96e;font-weight:700">S</div>
+              </div>
+              <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px">
+                <div style="width:100%;background:rgba(200,169,110,.3);border-radius:4px 4px 0 0;height:30%"></div>
+                <div style="font-size:9px;color:#8892a4">D</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Acceso portal -->
+          <div style="background:linear-gradient(135deg,rgba(200,169,110,.08),rgba(0,229,160,.05));border:1px solid rgba(200,169,110,.25);border-radius:10px;padding:16px;display:flex;flex-direction:column;justify-content:space-between">
+            <div>
+              <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#c8a96e;margin-bottom:8px">Su acceso exclusivo</div>
+              <div style="font-size:13px;font-weight:700;color:#fff;margin-bottom:6px">Portal en vivo — disponible desde el día 1 del contrato</div>
+              <div style="font-size:11px;color:#8892a4;line-height:1.6;margin-bottom:12px">Actualizado automáticamente cada 24h. Sin instalar nada, sin credenciales extra.</div>
+            </div>
+            <div>
+              <div style="font-size:9px;color:#8892a4;margin-bottom:4px">URL personalizada</div>
+              <div style="background:#05050e;border:1px solid rgba(255,255,255,.08);border-radius:7px;padding:8px 10px;font-size:10px;font-family:monospace;color:#c8a96e;word-break:break-all">trevainnovate.com/portal<br>?cliente=Casa+Rage</div>
+              <div style="margin-top:10px;display:flex;gap:6px">
+                <div style="flex:1;text-align:center;padding:7px;background:rgba(0,229,160,.1);border:1px solid rgba(0,229,160,.2);border-radius:7px;font-size:11px;font-weight:700;color:#00e5a0">🔒 Score DNS</div>
+                <div style="flex:1;text-align:center;padding:7px;background:rgba(200,169,110,.08);border:1px solid rgba(200,169,110,.2);border-radius:7px;font-size:11px;font-weight:700;color:#c8a96e">📄 PDF</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span>Trev'ainnovate · Santiago Juárez Treviño · trevainnovate.com</span>
+    <span>6 / 7</span>
+  </div>
+</div>
+
+<!-- ══ PÁGINA 7 — GARANTÍA + PRÓXIMOS PASOS ══ -->
+<div class="page">
+  <div class="topbar"></div>
+  <div class="page-header">
+    <div class="logo"><div class="logo-dot"></div>TREV'AINNOVATE</div>
+    <div class="meta">Casa Rage · Propuesta Revisada<br>Abril 2026</div>
+  </div>
+  <div class="page-body">
+    <div class="two-col" style="margin-bottom:12px;">
+      <div>
+        <span class="label g">Garantía</span>
+        <div class="block green" style="padding:14px 16px;">
+          <div style="font-size:22px;margin-bottom:8px;">🛡️</div>
+          <div class="h3" style="margin-bottom:8px;">30 días. Sin letra chica.</div>
+          <p class="body" style="margin-bottom:10px;">Si en los primeros 30 días no pueden medir un impacto concreto en seguridad o eficiencia operativa, devolvemos el 100% de la inversión inicial. Sin preguntas, sin trámites.</p>
+          <div class="clist">
+            <div class="ci">Seguridad activa en menos de 24 horas</div>
+            <div class="ci">Sin interrupciones del correo actual</div>
+            <div class="ci">Sin contratos anuales forzosos</div>
+            <div class="ci">Respuesta en menos de 4h días hábiles</div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <span class="label">Próximos pasos</span>
+        <div class="tl">
+          <div class="tl-item">
+            <div class="tl-dot r"></div>
+            <div>
+              <div class="tl-tag">Hoy</div>
+              <div class="tl-h">Aprobación de propuesta</div>
+              <div class="tl-p">Confirmación por WhatsApp o correo. No se necesita firma formal para arrancar.</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot r"></div>
+            <div>
+              <div class="tl-tag">Día 1</div>
+              <div class="tl-h">Kickoff call — 30 min</div>
+              <div class="tl-p">Accesos al servidor Oracle, admin de correo. Definir canal de comunicación (WhatsApp recomendado).</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot g"></div>
+            <div>
+              <div class="tl-tag">Día 1–2</div>
+              <div class="tl-h">DNS Shield activo</div>
+              <div class="tl-p">SPF · DKIM · DMARC configurados. casarage.com pasa de score 25 → 95+. Monitor y reportes activos.</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot r"></div>
+            <div>
+              <div class="tl-tag">Semana 1–4</div>
+              <div class="tl-h">HTTPS + Bot Adriana</div>
+              <div class="tl-p">Certbot en n8n.casarage.com → Meta API → bot en producción para WhatsApp.</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot b"></div>
+            <div>
+              <div class="tl-tag">Mes 1</div>
+              <div class="tl-h">Operación completa</div>
+              <div class="tl-p">Bot activo, seguridad operando, primer reporte de impacto: leads atendidos, horas ahorradas, amenazas neutralizadas.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-box">
+      <div class="cta-h">¿Arrancamos esta semana?</div>
+      <div class="cta-sub">El correo de Casa Rage está expuesto hoy. La seguridad se activa en 24 horas. El bot puede estar en producción antes de que termine abril.</div>
+      <div class="cta-row">
+        <div class="cta-item"><strong>WhatsApp</strong>223 129 4663</div>
+        <div class="cta-item"><strong>Email</strong>contacto@trevainnovate.com</div>
+        <div class="cta-item"><strong>Web</strong>trevainnovate.com</div>
+        <div class="cta-item" style="margin-left:auto;text-align:right;">
+          <strong>Vigencia</strong>
+          <span style="font-size:12px;color:var(--muted);">30 días desde hoy</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span>Trev'ainnovate · Santiago Juárez Treviño · trevainnovate.com</span>
+    <span>7 / 7</span>
+  </div>
+</div>
+
+</body>
+</html>

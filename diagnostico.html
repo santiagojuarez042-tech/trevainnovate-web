@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diagnóstico de Digitalización — Trev'ainnovate</title>
+<meta name="robots" content="noindex, nofollow">
+<style>
+  :root {
+    --bg: #05050e;
+    --surface: #0b0b1c;
+    --surface2: #111128;
+    --border: rgba(255,255,255,0.07);
+    --accent: #00e5a0;
+    --accent2: #3b82f6;
+    --accent3: #8b5cf6;
+    --text: #f1f5f9;
+    --text2: #8892a4;
+    --red: #ef4444;
+    --yellow: #f59e0b;
+    --green: #00e5a0;
+    --radius: 14px;
+    --font: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font);
+    min-height: 100vh;
+    line-height: 1.6;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(135deg, #0d0d18 0%, #161625 50%, #0d0d18 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 60% 50% at 80% 50%, rgba(0,229,160,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-inner {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 56px 24px 48px;
+    position: relative;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 40px;
+  }
+  .brand-logo {
+    width: 40px;
+    height: 40px;
+    background: var(--accent);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: 800;
+    color: #000;
+    letter-spacing: -1px;
+    flex-shrink: 0;
+  }
+  .brand-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+    letter-spacing: 0.5px;
+  }
+  .brand-tagline {
+    font-size: 11px;
+    color: var(--text2);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .hero-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(0,229,160,0.08);
+    border: 1px solid rgba(0,229,160,0.25);
+    color: var(--accent);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 100px;
+    margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-size: clamp(28px, 5vw, 42px);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 16px;
+    letter-spacing: -1px;
+  }
+  .hero h1 span { color: var(--accent); }
+  .hero-sub {
+    font-size: 16px;
+    color: var(--text2);
+    max-width: 560px;
+    line-height: 1.7;
+  }
+  .hero-client {
+    margin-top: 32px;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .hero-pill {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 8px 16px;
+    font-size: 13px;
+  }
+  .hero-pill .label { color: var(--text2); }
+  .hero-pill .val { font-weight: 600; color: var(--text); }
+
+  /* ── PROGRESS BAR ── */
+  .progress-bar-wrap {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(5,5,14,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 24px;
+  }
+  .progress-inner {
+    max-width: 820px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .progress-label { font-size: 12px; color: var(--text2); white-space: nowrap; }
+  .progress-track {
+    flex: 1;
+    height: 4px;
+    background: var(--border);
+    border-radius: 100px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent3));
+    border-radius: 100px;
+    transition: width 0.4s ease;
+    width: 0%;
+  }
+  .progress-pct { font-size: 12px; font-weight: 600; color: var(--accent); min-width: 32px; text-align: right; }
+
+  /* ── MAIN ── */
+  .main {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+
+  /* ── DATOS DEL CLIENTE ── */
+  .datos-card {
+    background: var(--surface2);
+    border: 1px solid rgba(0,229,160,0.2);
+    border-radius: var(--radius);
+    padding: 28px;
+    margin-bottom: 40px;
+  }
+  .datos-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .datos-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  @media (max-width: 560px) { .datos-grid { grid-template-columns: 1fr; } }
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .field label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text2);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  .field input {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    color: var(--text);
+    font-family: var(--font);
+    font-size: 14px;
+    transition: border-color 0.2s;
+    outline: none;
+  }
+  .field input:focus { border-color: var(--accent); }
+  .field input::placeholder { color: var(--text2); opacity: 0.5; }
+
+  /* ── BLOQUE CARD ── */
+  .bloque {
+    margin-bottom: 24px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .bloque.has-answer { border-color: rgba(0,229,160,0.25); }
+  .bloque-header {
+    padding: 20px 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    user-select: none;
+    position: relative;
+  }
+  .bloque-header:hover { background: rgba(255,255,255,0.02); }
+  .bloque-num {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    flex-shrink: 0;
+    background: var(--surface2);
+  }
+  .bloque-info { flex: 1 }
+  .bloque-titulo {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.3;
+  }
+  .bloque-quote {
+    font-size: 12px;
+    color: var(--text2);
+    font-style: italic;
+    margin-top: 3px;
+  }
+  .bloque-badge {
+    flex-shrink: 0;
+    display: none;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 5px 12px;
+    border-radius: 100px;
+    background: var(--surface2);
+  }
+  .bloque.has-answer .bloque-badge { display: flex; }
+  .bloque-badge.critico { background: rgba(255,71,87,0.15); color: var(--red); }
+  .bloque-badge.moderado { background: rgba(255,165,2,0.15); color: var(--yellow); }
+  .bloque-badge.noapl { background: rgba(46,213,115,0.15); color: var(--green); }
+  .chevron {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    color: var(--text2);
+    transition: transform 0.25s;
+  }
+  .bloque.open .chevron { transform: rotate(180deg); }
+
+  .bloque-body {
+    display: none;
+    padding: 0 24px 24px;
+    border-top: 1px solid var(--border);
+  }
+  .bloque.open .bloque-body { display: block; }
+
+  .problems-list {
+    list-style: none;
+    margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .problems-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 14px;
+    color: var(--text2);
+    padding: 10px 14px;
+    background: var(--surface2);
+    border-radius: 8px;
+    line-height: 1.5;
+  }
+  .problems-list li::before {
+    content: '→';
+    color: var(--accent);
+    flex-shrink: 0;
+    margin-top: 1px;
+    font-size: 13px;
+  }
+
+  .severidad-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text2);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-top: 20px;
+    margin-bottom: 12px;
+  }
+
+  .severidad-options {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+  @media (max-width: 560px) { .severidad-options { grid-template-columns: 1fr; } }
+
+  .sev-option { display: none; }
+  .sev-option + label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 16px 12px;
+    background: var(--surface2);
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+    user-select: none;
+  }
+  .sev-option + label:hover { border-color: var(--text2); }
+  .sev-option + label .sev-icon { font-size: 24px; }
+  .sev-option + label .sev-name { font-size: 13px; font-weight: 700; }
+  .sev-option + label .sev-desc { font-size: 11px; color: var(--text2); line-height: 1.4; }
+
+  .sev-option.critico:checked + label { border-color: var(--red); background: rgba(255,71,87,0.08); }
+  .sev-option.moderado:checked + label { border-color: var(--yellow); background: rgba(255,165,2,0.08); }
+  .sev-option.noapl:checked + label { border-color: var(--green); background: rgba(46,213,115,0.08); }
+
+  .sev-option.critico + label .sev-name { color: var(--red); }
+  .sev-option.moderado + label .sev-name { color: var(--yellow); }
+  .sev-option.noapl + label .sev-name { color: var(--green); }
+
+  .comentario-wrap { margin-top: 16px; }
+  .comentario-wrap textarea {
+    width: 100%;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+    color: var(--text);
+    font-family: var(--font);
+    font-size: 13px;
+    resize: vertical;
+    min-height: 72px;
+    outline: none;
+    transition: border-color 0.2s;
+    line-height: 1.5;
+  }
+  .comentario-wrap textarea:focus { border-color: var(--accent); }
+  .comentario-wrap textarea::placeholder { color: var(--text2); opacity: 0.5; }
+  .comentario-label { font-size: 11px; color: var(--text2); margin-bottom: 6px; }
+
+  /* ── RESUMEN ── */
+  .resumen-section {
+    margin-top: 48px;
+    margin-bottom: 40px;
+  }
+  .resumen-title {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .resumen-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-bottom: 24px;
+  }
+  @media (max-width: 560px) { .resumen-grid { grid-template-columns: 1fr 1fr; } }
+  .resumen-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    text-align: center;
+  }
+  .resumen-card .count {
+    font-size: 36px;
+    font-weight: 800;
+    display: block;
+    margin-bottom: 4px;
+  }
+  .resumen-card.r-critico .count { color: var(--red); }
+  .resumen-card.r-moderado .count { color: var(--yellow); }
+  .resumen-card.r-noapl .count { color: var(--green); }
+  .resumen-card .rlabel { font-size: 12px; color: var(--text2); }
+
+  .resumen-bloques {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .res-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 13px;
+  }
+  .res-row .bname { color: var(--text2); }
+  .res-row .bval { font-weight: 600; font-size: 12px; padding: 3px 10px; border-radius: 100px; }
+  .res-row .bval.critico { background: rgba(255,71,87,0.15); color: var(--red); }
+  .res-row .bval.moderado { background: rgba(255,165,2,0.15); color: var(--yellow); }
+  .res-row .bval.noapl { background: rgba(46,213,115,0.15); color: var(--green); }
+  .res-row .bval.pending { background: var(--surface); color: var(--text2); }
+
+  /* ── SUBMIT ── */
+  .submit-section {
+    background: linear-gradient(135deg, var(--surface2), #1a1a2e);
+    border: 1px solid rgba(0,229,160,0.2);
+    border-radius: var(--radius);
+    padding: 32px;
+    text-align: center;
+  }
+  .submit-title { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+  .submit-sub { font-size: 14px; color: var(--text2); margin-bottom: 28px; }
+  .submit-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--accent);
+    color: #000;
+    font-family: var(--font);
+    font-size: 15px;
+    font-weight: 700;
+    padding: 16px 36px;
+    border: none;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.3px;
+  }
+  .submit-btn:hover { background: var(--accent2); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,229,160,0.2); }
+  .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+  .submit-note { font-size: 12px; color: var(--text2); margin-top: 16px; }
+  .submit-note a { color: var(--accent); text-decoration: none; }
+
+  /* ── SUCCESS ── */
+  .success-screen {
+    display: none;
+    text-align: center;
+    padding: 80px 24px;
+    max-width: 560px;
+    margin: 0 auto;
+  }
+  .success-icon { font-size: 64px; margin-bottom: 24px; display: block; }
+  .success-title { font-size: 28px; font-weight: 800; margin-bottom: 12px; }
+  .success-sub { font-size: 16px; color: var(--text2); line-height: 1.7; }
+  .success-contact { margin-top: 32px; font-size: 13px; color: var(--text2); }
+  .success-contact strong { color: var(--accent); }
+
+  /* ── FOOTER ── */
+  .page-footer {
+    border-top: 1px solid var(--border);
+    padding: 24px;
+    text-align: center;
+    font-size: 12px;
+    color: var(--text2);
+    background: var(--surface);
+  }
+  .page-footer a { color: var(--accent); text-decoration: none; }
+
+  /* ── REQUIRED WARNING ── */
+  .warning-msg {
+    display: none;
+    background: rgba(255,71,87,0.1);
+    border: 1px solid rgba(255,71,87,0.3);
+    color: var(--red);
+    font-size: 13px;
+    padding: 12px 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="brand">
+      <div class="brand-logo">T'</div>
+      <div>
+        <div class="brand-name">Trev'ainnovate</div>
+        <div class="brand-tagline">Automatización · Inteligencia · Resultados</div>
+      </div>
+    </div>
+    <div class="hero-label">⛽ Diagnóstico Confidencial</div>
+    <h1>Diagnóstico de <span>Digitalización</span><br>para Cadenas de Gasolineras</h1>
+    <p class="hero-sub">Este documento nos permite identificar exactamente dónde la tecnología puede liberar tiempo, dinero y control en tu operación. Tarda menos de 10 minutos.</p>
+    <div class="hero-client" id="heroClient" style="display:none">
+      <div class="hero-pill">
+        <span class="label">Empresa</span>
+        <span class="val" id="heroEmpresa"></span>
+      </div>
+      <div class="hero-pill">
+        <span class="label">Responsable</span>
+        <span class="val" id="heroNombre"></span>
+      </div>
+      <div class="hero-pill">
+        <span class="label">Estaciones</span>
+        <span class="val" id="heroEstaciones"></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PROGRESS -->
+<div class="progress-bar-wrap">
+  <div class="progress-inner">
+    <span class="progress-label">Progreso del diagnóstico</span>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <span class="progress-pct" id="progressPct">0%</span>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main" id="mainContent">
+
+  <!-- Datos del cliente -->
+  <div class="datos-card">
+    <div class="datos-title">📋 Datos del diagnóstico</div>
+    <div class="datos-grid">
+      <div class="field">
+        <label>Empresa / Razón Social</label>
+        <input type="text" id="fEmpresa" placeholder="Ej. Grupo Gasolinero XYZ" />
+      </div>
+      <div class="field">
+        <label>Nombre del responsable</label>
+        <input type="text" id="fNombre" placeholder="Nombre completo" />
+      </div>
+      <div class="field">
+        <label>Teléfono / WhatsApp</label>
+        <input type="tel" id="fTel" placeholder="+52 55 0000 0000" />
+      </div>
+      <div class="field">
+        <label>Número de estaciones</label>
+        <input type="number" id="fEstaciones" placeholder="Ej. 15" min="1" />
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOQUES -->
+
+  <!-- BLOQUE 1 -->
+  <div class="bloque" id="bloque-1">
+    <div class="bloque-header" onclick="toggleBloque(1)">
+      <div class="bloque-num">🔴</div>
+      <div class="bloque-info">
+        <div class="bloque-titulo">Control de Ventas y Caja</div>
+        <div class="bloque-quote">"No sé si lo que venden mis despachadores coincide con lo que entra a caja."</div>
+      </div>
+      <div class="bloque-badge" id="badge-1"></div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="bloque-body">
+      <ul class="problems-list">
+        <li>Los cierres de turno se hacen a mano y con papel</li>
+        <li>Es difícil cruzar los litros despachados vs. el efectivo cobrado</li>
+        <li>Hay diferencias de caja frecuentes sin causa clara</li>
+        <li>No existe un registro digital de ventas por isla o despachador</li>
+        <li>El dueño no puede ver el resumen del día desde fuera de la estación</li>
+      </ul>
+      <div class="severidad-label">¿Cuánto te afecta esto?</div>
+      <div class="severidad-options">
+        <input type="radio" class="sev-option critico" name="sev-1" id="s1-c" value="critico" onchange="onSeveridad(1,'critico')">
+        <label for="s1-c"><span class="sev-icon">🔴</span><span class="sev-name">Crítico</span><span class="sev-desc">Me afecta directamente y de forma frecuente</span></label>
+        <input type="radio" class="sev-option moderado" name="sev-1" id="s1-m" value="moderado" onchange="onSeveridad(1,'moderado')">
+        <label for="s1-m"><span class="sev-icon">🟡</span><span class="sev-name">Moderado</span><span class="sev-desc">Existe pero podría mejorar</span></label>
+        <input type="radio" class="sev-option noapl" name="sev-1" id="s1-n" value="noapl" onchange="onSeveridad(1,'noapl')">
+        <label for="s1-n"><span class="sev-icon">🟢</span><span class="sev-name">No aplica</span><span class="sev-desc">Esto no es un problema en mi operación</span></label>
+      </div>
+      <div class="comentario-wrap">
+        <div class="comentario-label">Comentario adicional (opcional)</div>
+        <textarea id="com-1" placeholder="Describe brevemente la situación en tu empresa..."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOQUE 2 -->
+  <div class="bloque" id="bloque-2">
+    <div class="bloque-header" onclick="toggleBloque(2)">
+      <div class="bloque-num">🟠</div>
+      <div class="bloque-info">
+        <div class="bloque-titulo">Inventarios y Abastecimiento</div>
+        <div class="bloque-quote">"No sé exactamente cuánto combustible tengo hasta que reviso los tanques físicamente."</div>
+      </div>
+      <div class="bloque-badge" id="badge-2"></div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="bloque-body">
+      <ul class="problems-list">
+        <li>No hay alertas automáticas cuando el nivel de combustible baja</li>
+        <li>Los pedidos de abastecimiento se hacen por teléfono sin historial claro</li>
+        <li>Se han dado casos de desabasto que afectan operaciones del día</li>
+        <li>No se puede comparar el consumo estimado vs. el real por tanque</li>
+        <li>El control de mermas y fugas no está automatizado</li>
+      </ul>
+      <div class="severidad-label">¿Cuánto te afecta esto?</div>
+      <div class="severidad-options">
+        <input type="radio" class="sev-option critico" name="sev-2" id="s2-c" value="critico" onchange="onSeveridad(2,'critico')">
+        <label for="s2-c"><span class="sev-icon">🔴</span><span class="sev-name">Crítico</span><span class="sev-desc">Me afecta directamente y de forma frecuente</span></label>
+        <input type="radio" class="sev-option moderado" name="sev-2" id="s2-m" value="moderado" onchange="onSeveridad(2,'moderado')">
+        <label for="s2-m"><span class="sev-icon">🟡</span><span class="sev-name">Moderado</span><span class="sev-desc">Existe pero podría mejorar</span></label>
+        <input type="radio" class="sev-option noapl" name="sev-2" id="s2-n" value="noapl" onchange="onSeveridad(2,'noapl')">
+        <label for="s2-n"><span class="sev-icon">🟢</span><span class="sev-name">No aplica</span><span class="sev-desc">Esto no es un problema en mi operación</span></label>
+      </div>
+      <div class="comentario-wrap">
+        <div class="comentario-label">Comentario adicional (opcional)</div>
+        <textarea id="com-2" placeholder="Describe brevemente la situación en tu empresa..."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOQUE 3 -->
+  <div class="bloque" id="bloque-3">
+    <div class="bloque-header" onclick="toggleBloque(3)">
+      <div class="bloque-num">🟡</div>
+      <div class="bloque-info">
+        <div class="bloque-titulo">Administración y Finanzas</div>
+        <div class="bloque-quote">"Generar reportes me toma horas y no siempre confío en los números."</div>
+      </div>
+      <div class="bloque-badge" id="badge-3"></div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="bloque-body">
+      <ul class="problems-list">
+        <li>Los reportes financieros se construyen en Excel y toman horas</li>
+        <li>No hay visibilidad en tiempo real de la rentabilidad por estación</li>
+        <li>Los gastos de mantenimiento no están centralizados ni categorizados</li>
+        <li>El proceso de nómina tiene errores o retrasos frecuentes</li>
+        <li>La facturación se hace de forma manual o semi-manual</li>
+      </ul>
+      <div class="severidad-label">¿Cuánto te afecta esto?</div>
+      <div class="severidad-options">
+        <input type="radio" class="sev-option critico" name="sev-3" id="s3-c" value="critico" onchange="onSeveridad(3,'critico')">
+        <label for="s3-c"><span class="sev-icon">🔴</span><span class="sev-name">Crítico</span><span class="sev-desc">Me afecta directamente y de forma frecuente</span></label>
+        <input type="radio" class="sev-option moderado" name="sev-3" id="s3-m" value="moderado" onchange="onSeveridad(3,'moderado')">
+        <label for="s3-m"><span class="sev-icon">🟡</span><span class="sev-name">Moderado</span><span class="sev-desc">Existe pero podría mejorar</span></label>
+        <input type="radio" class="sev-option noapl" name="sev-3" id="s3-n" value="noapl" onchange="onSeveridad(3,'noapl')">
+        <label for="s3-n"><span class="sev-icon">🟢</span><span class="sev-name">No aplica</span><span class="sev-desc">Esto no es un problema en mi operación</span></label>
+      </div>
+      <div class="comentario-wrap">
+        <div class="comentario-label">Comentario adicional (opcional)</div>
+        <textarea id="com-3" placeholder="Describe brevemente la situación en tu empresa..."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOQUE 4 -->
+  <div class="bloque" id="bloque-4">
+    <div class="bloque-header" onclick="toggleBloque(4)">
+      <div class="bloque-num">🔵</div>
+      <div class="bloque-info">
+        <div class="bloque-titulo">Personal y Operaciones</div>
+        <div class="bloque-quote">"No tengo control real sobre asistencias, turnos y productividad de mi equipo."</div>
+      </div>
+      <div class="bloque-badge" id="badge-4"></div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="bloque-body">
+      <ul class="problems-list">
+        <li>El control de asistencias y turnos no está digitalizado</li>
+        <li>No hay forma de comparar el desempeño entre estaciones o despachadores</li>
+        <li>La comunicación con encargados de otras estaciones es por WhatsApp informal</li>
+        <li>Los procesos operativos no están documentados ni son replicables</li>
+        <li>Las incidencias (robos, fallas, accidentes) se reportan sin un sistema centralizado</li>
+      </ul>
+      <div class="severidad-label">¿Cuánto te afecta esto?</div>
+      <div class="severidad-options">
+        <input type="radio" class="sev-option critico" name="sev-4" id="s4-c" value="critico" onchange="onSeveridad(4,'critico')">
+        <label for="s4-c"><span class="sev-icon">🔴</span><span class="sev-name">Crítico</span><span class="sev-desc">Me afecta directamente y de forma frecuente</span></label>
+        <input type="radio" class="sev-option moderado" name="sev-4" id="s4-m" value="moderado" onchange="onSeveridad(4,'moderado')">
+        <label for="s4-m"><span class="sev-icon">🟡</span><span class="sev-name">Moderado</span><span class="sev-desc">Existe pero podría mejorar</span></label>
+        <input type="radio" class="sev-option noapl" name="sev-4" id="s4-n" value="noapl" onchange="onSeveridad(4,'noapl')">
+        <label for="s4-n"><span class="sev-icon">🟢</span><span class="sev-name">No aplica</span><span class="sev-desc">Esto no es un problema en mi operación</span></label>
+      </div>
+      <div class="comentario-wrap">
+        <div class="comentario-label">Comentario adicional (opcional)</div>
+        <textarea id="com-4" placeholder="Describe brevemente la situación en tu empresa..."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOQUE 5 -->
+  <div class="bloque" id="bloque-5">
+    <div class="bloque-header" onclick="toggleBloque(5)">
+      <div class="bloque-num">🟣</div>
+      <div class="bloque-info">
+        <div class="bloque-titulo">Experiencia del Cliente y Fidelización</div>
+        <div class="bloque-quote">"Mis clientes no tienen ninguna razón diferente para regresar a mi estación."</div>
+      </div>
+      <div class="bloque-badge" id="badge-5"></div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="bloque-body">
+      <ul class="problems-list">
+        <li>No existe un programa de lealtad o recompensas para clientes frecuentes</li>
+        <li>No se recopilan reseñas ni retroalimentación de los clientes</li>
+        <li>No hay forma de comunicarle promos o novedades a los clientes habituales</li>
+        <li>La experiencia en tienda de conveniencia (si aplica) no está optimizada</li>
+        <li>No hay diferenciación visible frente a las estaciones de la competencia</li>
+      </ul>
+      <div class="severidad-label">¿Cuánto te afecta esto?</div>
+      <div class="severidad-options">
+        <input type="radio" class="sev-option critico" name="sev-5" id="s5-c" value="critico" onchange="onSeveridad(5,'critico')">
+        <label for="s5-c"><span class="sev-icon">🔴</span><span class="sev-name">Crítico</span><span class="sev-desc">Me afecta directamente y de forma frecuente</span></label>
+        <input type="radio" class="sev-option moderado" name="sev-5" id="s5-m" value="moderado" onchange="onSeveridad(5,'moderado')">
+        <label for="s5-m"><span class="sev-icon">🟡</span><span class="sev-name">Moderado</span><span class="sev-desc">Existe pero podría mejorar</span></label>
+        <input type="radio" class="sev-option noapl" name="sev-5" id="s5-n" value="noapl" onchange="onSeveridad(5,'noapl')">
+        <label for="s5-n"><span class="sev-icon">🟢</span><span class="sev-name">No aplica</span><span class="sev-desc">Esto no es un problema en mi operación</span></label>
+      </div>
+      <div class="comentario-wrap">
+        <div class="comentario-label">Comentario adicional (opcional)</div>
+        <textarea id="com-5" placeholder="Describe brevemente la situación en tu empresa..."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOQUE 6 -->
+  <div class="bloque" id="bloque-6">
+    <div class="bloque-header" onclick="toggleBloque(6)">
+      <div class="bloque-num">⚙️</div>
+      <div class="bloque-info">
+        <div class="bloque-titulo">Tecnología y Sistemas Actuales</div>
+        <div class="bloque-quote">"Tengo varios sistemas que no se hablan entre sí, o simplemente no tengo ninguno."</div>
+      </div>
+      <div class="bloque-badge" id="badge-6"></div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="bloque-body">
+      <ul class="problems-list">
+        <li>Los sistemas de punto de venta, contabilidad y operaciones no están integrados</li>
+        <li>Los datos de diferentes estaciones están en sistemas distintos o desconectados</li>
+        <li>No hay automatizaciones activas (alertas, reportes, flujos automáticos)</li>
+        <li>El equipo directivo no tiene un panel de control para ver todo en un solo lugar</li>
+        <li>Las actualizaciones o cambios de sistema han sido lentos o costosos</li>
+      </ul>
+      <div class="severidad-label">¿Cuánto te afecta esto?</div>
+      <div class="severidad-options">
+        <input type="radio" class="sev-option critico" name="sev-6" id="s6-c" value="critico" onchange="onSeveridad(6,'critico')">
+        <label for="s6-c"><span class="sev-icon">🔴</span><span class="sev-name">Crítico</span><span class="sev-desc">Me afecta directamente y de forma frecuente</span></label>
+        <input type="radio" class="sev-option moderado" name="sev-6" id="s6-m" value="moderado" onchange="onSeveridad(6,'moderado')">
+        <label for="s6-m"><span class="sev-icon">🟡</span><span class="sev-name">Moderado</span><span class="sev-desc">Existe pero podría mejorar</span></label>
+        <input type="radio" class="sev-option noapl" name="sev-6" id="s6-n" value="noapl" onchange="onSeveridad(6,'noapl')">
+        <label for="s6-n"><span class="sev-icon">🟢</span><span class="sev-name">No aplica</span><span class="sev-desc">Esto no es un problema en mi operación</span></label>
+      </div>
+      <div class="comentario-wrap">
+        <div class="comentario-label">Comentario adicional (opcional)</div>
+        <textarea id="com-6" placeholder="Describe brevemente la situación en tu empresa..."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESUMEN -->
+  <div class="resumen-section" id="resumenSection">
+    <div class="resumen-title">📊 Resumen del diagnóstico</div>
+    <div class="resumen-grid">
+      <div class="resumen-card r-critico">
+        <span class="count" id="rCritico">0</span>
+        <span class="rlabel">Áreas críticas</span>
+      </div>
+      <div class="resumen-card r-moderado">
+        <span class="count" id="rModerado">0</span>
+        <span class="rlabel">Áreas moderadas</span>
+      </div>
+      <div class="resumen-card r-noapl">
+        <span class="count" id="rNoapl">0</span>
+        <span class="rlabel">No aplica</span>
+      </div>
+    </div>
+    <div class="resumen-bloques" id="resumenBloques">
+      <!-- Populated by JS -->
+    </div>
+  </div>
+
+  <!-- SUBMIT -->
+  <div class="submit-section">
+    <div class="submit-title">Enviar diagnóstico</div>
+    <div class="submit-sub">Al enviar, recibirás una propuesta personalizada en menos de 48 horas basada en lo que marcaste.</div>
+    <div class="warning-msg" id="warningMsg">⚠️ Completa al menos 4 de los 6 bloques y los datos básicos antes de enviar.</div>
+    <button class="submit-btn" onclick="enviarDiagnostico()">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/></svg>
+      Enviar diagnóstico
+    </button>
+    <div class="submit-note">
+      Confidencial — solo lo verá el equipo de <a href="https://trevainnovate.com" target="_blank">Trev'ainnovate</a><br>
+      📧 contacto@trevainnovate.com · trevainnovate.com
+    </div>
+  </div>
+
+</div><!-- /main -->
+
+<!-- SUCCESS SCREEN -->
+<div class="success-screen" id="successScreen">
+  <span class="success-icon">✅</span>
+  <div class="success-title">¡Diagnóstico enviado!</div>
+  <div class="success-sub">Gracias por tu tiempo. Hemos recibido tu diagnóstico y en menos de <strong>48 horas</strong> te contactaremos con una propuesta personalizada para tu operación.</div>
+  <div class="success-contact">
+    ¿Preguntas inmediatas? Escríbenos a<br>
+    <strong>contacto@trevainnovate.com</strong><br>
+    o visita <strong>trevainnovate.com</strong>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="page-footer">
+  Diagnóstico confidencial preparado por <a href="https://trevainnovate.com" target="_blank">Trev'ainnovate</a> &nbsp;·&nbsp; Automatizaciones a la medida para operaciones que quieren crecer.
+</div>
+
+<script>
+const BLOQUES = [
+  { id: 1, nombre: 'Control de Ventas y Caja' },
+  { id: 2, nombre: 'Inventarios y Abastecimiento' },
+  { id: 3, nombre: 'Administración y Finanzas' },
+  { id: 4, nombre: 'Personal y Operaciones' },
+  { id: 5, nombre: 'Experiencia del Cliente' },
+  { id: 6, nombre: 'Tecnología y Sistemas' },
+];
+
+const state = {};
+const SEV_LABELS = { critico: '🔴 Crítico', moderado: '🟡 Moderado', noapl: '🟢 No aplica' };
+
+// URL params pre-fill
+const params = new URLSearchParams(location.search);
+const pEmpresa = params.get('empresa') || '';
+const pNombre = params.get('nombre') || '';
+const pEstaciones = params.get('estaciones') || '';
+const pTel = params.get('tel') || '';
+
+if (pEmpresa) document.getElementById('fEmpresa').value = pEmpresa;
+if (pNombre) document.getElementById('fNombre').value = pNombre;
+if (pEstaciones) document.getElementById('fEstaciones').value = pEstaciones;
+if (pTel) document.getElementById('fTel').value = pTel;
+
+if (pEmpresa || pNombre || pEstaciones) {
+  document.getElementById('heroClient').style.display = 'flex';
+  if (pEmpresa) document.getElementById('heroEmpresa').textContent = pEmpresa;
+  if (pNombre) document.getElementById('heroNombre').textContent = pNombre;
+  if (pEstaciones) document.getElementById('heroEstaciones').textContent = pEstaciones + (pEstaciones == 1 ? ' estación' : ' estaciones');
+}
+
+function toggleBloque(id) {
+  const el = document.getElementById(`bloque-${id}`);
+  const isOpen = el.classList.contains('open');
+  // Close all
+  document.querySelectorAll('.bloque.open').forEach(b => b.classList.remove('open'));
+  if (!isOpen) el.classList.add('open');
+}
+
+function onSeveridad(id, val) {
+  state[id] = val;
+  const bloque = document.getElementById(`bloque-${id}`);
+  bloque.classList.add('has-answer');
+
+  const badge = document.getElementById(`badge-${id}`);
+  badge.className = `bloque-badge ${val}`;
+  badge.innerHTML = `${val === 'critico' ? '🔴' : val === 'moderado' ? '🟡' : '🟢'} ${val === 'critico' ? 'Crítico' : val === 'moderado' ? 'Moderado' : 'No aplica'}`;
+
+  updateProgress();
+  updateResumen();
+
+  // Auto-advance: close current, open next
+  setTimeout(() => {
+    bloque.classList.remove('open');
+    const nextId = id + 1;
+    if (nextId <= 6 && !state[nextId]) {
+      document.getElementById(`bloque-${nextId}`).classList.add('open');
+      document.getElementById(`bloque-${nextId}`).scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, 600);
+}
+
+function updateProgress() {
+  const answered = Object.keys(state).length;
+  const pct = Math.round((answered / 6) * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressPct').textContent = pct + '%';
+}
+
+function updateResumen() {
+  let critico = 0, moderado = 0, noapl = 0;
+  Object.values(state).forEach(v => {
+    if (v === 'critico') critico++;
+    else if (v === 'moderado') moderado++;
+    else noapl++;
+  });
+  document.getElementById('rCritico').textContent = critico;
+  document.getElementById('rModerado').textContent = moderado;
+  document.getElementById('rNoapl').textContent = noapl;
+
+  const rows = BLOQUES.map(b => {
+    const ans = state[b.id];
+    const cls = ans || 'pending';
+    const label = ans ? SEV_LABELS[ans] : 'Pendiente';
+    return `<div class="res-row"><span class="bname">${b.nombre}</span><span class="bval ${cls}">${label}</span></div>`;
+  }).join('');
+  document.getElementById('resumenBloques').innerHTML = rows;
+}
+
+// Initialize resumen
+updateResumen();
+
+// Open bloque 1 by default
+toggleBloque(1);
+
+function enviarDiagnostico() {
+  const empresa = document.getElementById('fEmpresa').value.trim();
+  const nombre = document.getElementById('fNombre').value.trim();
+  const answered = Object.keys(state).length;
+
+  if (!empresa || !nombre || answered < 4) {
+    const w = document.getElementById('warningMsg');
+    w.style.display = 'block';
+    w.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return;
+  }
+  document.getElementById('warningMsg').style.display = 'none';
+
+  const tel = document.getElementById('fTel').value.trim();
+  const estaciones = document.getElementById('fEstaciones').value.trim();
+
+  // Build email body
+  let body = `DIAGNÓSTICO DE DIGITALIZACIÓN — GASOLINERAS\n`;
+  body += `${'─'.repeat(50)}\n\n`;
+  body += `DATOS DEL CLIENTE\n`;
+  body += `Empresa: ${empresa}\n`;
+  body += `Nombre: ${nombre}\n`;
+  body += `Teléfono: ${tel || 'No especificado'}\n`;
+  body += `Estaciones: ${estaciones || 'No especificado'}\n\n`;
+  body += `RESULTADOS\n`;
+  body += `${'─'.repeat(30)}\n`;
+
+  BLOQUES.forEach(b => {
+    const ans = state[b.id] || 'Sin responder';
+    const label = SEV_LABELS[ans] || 'Sin responder';
+    const com = (document.getElementById(`com-${b.id}`)?.value || '').trim();
+    body += `\n${b.id}. ${b.nombre}: ${label}\n`;
+    if (com) body += `   Comentario: ${com}\n`;
+  });
+
+  body += `\n${'─'.repeat(30)}\n`;
+  const critico = Object.values(state).filter(v => v === 'critico').length;
+  const moderado = Object.values(state).filter(v => v === 'moderado').length;
+  body += `RESUMEN: 🔴 Crítico: ${critico} · 🟡 Moderado: ${moderado} · 🟢 No aplica: ${Object.values(state).filter(v => v === 'noapl').length}\n\n`;
+  body += `Enviado desde diagnóstico.trevainnovate.com\n`;
+
+  const subject = `Diagnóstico de Digitalización — ${empresa} (${estaciones ? estaciones + ' estaciones' : 'Gasolineras'})`;
+  const mailto = `mailto:contacto@trevainnovate.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+  // Try webhook first, always show mailto
+  fetch('https://n8n.trevainnovate.com/webhook/gasolineras-diagnostico', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      empresa, nombre, tel, estaciones,
+      resultados: BLOQUES.map(b => ({
+        bloque: b.nombre,
+        severidad: state[b.id] || null,
+        comentario: document.getElementById(`com-${b.id}`)?.value?.trim() || ''
+      })),
+      fecha: new Date().toISOString()
+    })
+  }).catch(() => {});
+
+  // Open mailto
+  window.location.href = mailto;
+
+  // Show success after short delay
+  setTimeout(() => {
+    document.getElementById('mainContent').style.display = 'none';
+    document.getElementById('successScreen').style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, 800);
+}
+</script>
+</body>
+</html>

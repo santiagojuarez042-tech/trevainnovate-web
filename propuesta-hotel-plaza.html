@@ -1,0 +1,1436 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Propuesta Comercial — Hotel Plaza de Armas · Trev'ainnovate</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --hotel: #c4933f;
+  --hotel-d: #9a7230;
+  --hotel-l: rgba(196,147,63,.12);
+  --hotel-b: rgba(196,147,63,.22);
+  --bg:    #05050e;
+  --bg2:   #0b0b1c;
+  --bg3:   #111128;
+  --green: #00e5a0;
+  --red:   #ef4444;
+  --amber: #f59e0b;
+  --blue:  #3b82f6;
+  --white: #f1f5f9;
+  --muted: #8892a4;
+  --border:rgba(255,255,255,.07);
+}
+html { font-family:'Inter',sans-serif; background:#fff; }
+body { background:#0a0a14; }
+
+/* PAGE */
+.page {
+  width:100%; min-height:100vh;
+  background:var(--bg);
+  color:var(--white);
+  margin:0;
+  position:relative;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  border-bottom:1px solid rgba(255,255,255,.04);
+}
+@media print {
+  body { background:#05050e; }
+  .page { page-break-after:always; min-height:297mm; }
+}
+
+/* TOPBAR */
+.topbar { height:3px; background:linear-gradient(90deg,var(--hotel),var(--hotel-d),var(--green)); }
+
+/* HEADER */
+.page-header {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:18px 5vw 16px;
+  border-bottom:1px solid var(--border);
+  width:100%;
+  box-sizing:border-box;
+}
+.logo { display:flex; align-items:center; gap:8px; }
+.logo-dot { width:8px; height:8px; border-radius:50%; background:var(--hotel); }
+.logo-txt { font-size:13px; font-weight:800; color:var(--white); letter-spacing:.06em; }
+.meta { font-size:10px; color:var(--muted); text-align:right; font-family:'JetBrains Mono',monospace; line-height:1.6; }
+
+/* BODY */
+.page-body { flex:1; padding:36px 5vw; max-width:1100px; margin:0 auto; width:100%; box-sizing:border-box; }
+
+/* FOOTER */
+.page-footer {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:14px 5vw;
+  border-top:1px solid var(--border);
+  font-size:10px; color:rgba(255,255,255,.18);
+  font-family:'JetBrains Mono',monospace;
+  width:100%; box-sizing:border-box;
+}
+
+/* TYPOGRAPHY */
+.label { display:inline-block; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:1.2px; margin-bottom:10px; }
+.label.g { color:var(--green); }
+.label.h { color:var(--hotel); }
+.label.r { color:var(--red); }
+.label.b { color:var(--blue); }
+h1 { font-size:38px; font-weight:900; line-height:1.05; color:var(--white); }
+h2 { font-size:22px; font-weight:900; line-height:1.1; color:var(--white); margin-bottom:8px; }
+h3 { font-size:16px; font-weight:800; color:var(--white); margin-bottom:6px; }
+p  { font-size:13px; color:var(--muted); line-height:1.7; }
+
+/* BLOCKS */
+.block { border-radius:12px; padding:18px 20px; margin-bottom:14px; }
+.block.gold  { background:var(--hotel-l); border:1px solid var(--hotel-b); }
+.block.green { background:rgba(0,229,160,.06); border:1px solid rgba(0,229,160,.18); }
+.block.red   { background:rgba(239,68,68,.06); border:1px solid rgba(239,68,68,.15); }
+.block.dark  { background:var(--bg2); border:1px solid var(--border); }
+.block.blue  { background:rgba(59,130,246,.06); border:1px solid rgba(59,130,246,.15); }
+
+/* GRID */
+.two-col { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.three-col { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
+.four-col { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; }
+
+/* COVER */
+.cover-bg {
+  position:absolute; inset:0; z-index:0;
+  background:
+    radial-gradient(ellipse 70% 60% at 80% 20%, rgba(196,147,63,.14) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 50% at 20% 80%, rgba(0,229,160,.06) 0%, transparent 60%);
+}
+.cover-grid {
+  position:absolute; inset:0; z-index:0;
+  background-image:
+    linear-gradient(rgba(196,147,63,.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(196,147,63,.03) 1px, transparent 1px);
+  background-size:32px 32px;
+}
+.cover-body { position:relative; z-index:1; flex:1; padding:60px 5vw 48px; max-width:1100px; margin:0 auto; width:100%; box-sizing:border-box; display:flex; flex-direction:column; justify-content:center; }
+.badge-update { display:inline-flex; align-items:center; gap:6px; font-size:11px; font-weight:700; padding:5px 14px; border-radius:100px; background:var(--hotel-l); border:1px solid var(--hotel-b); color:var(--hotel); margin-bottom:12px; letter-spacing:.04em; }
+.badge-hotel { display:inline-flex; align-items:center; gap:6px; font-size:11px; font-weight:700; padding:5px 14px; border-radius:100px; background:rgba(0,229,160,.08); border:1px solid rgba(0,229,160,.2); color:var(--green); margin-bottom:24px; width:fit-content; }
+.cover-title { font-size:52px; font-weight:900; line-height:1.03; margin-bottom:14px; }
+.cover-title .accent { color:var(--hotel); }
+.cover-sub { font-size:15px; color:var(--muted); line-height:1.75; max-width:540px; margin-bottom:36px; }
+.kpis { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:20px; }
+.kpi { background:var(--bg2); border:1px solid var(--border); border-radius:12px; padding:18px; }
+.kpi-val { font-size:26px; font-weight:900; line-height:1; margin-bottom:5px; }
+.kpi-label { font-size:11px; color:var(--muted); line-height:1.45; }
+.cover-alert { margin-top:24px; background:rgba(239,68,68,.08); border:1px solid rgba(239,68,68,.2); border-radius:12px; padding:16px 20px; display:flex; align-items:center; gap:14px; }
+.cover-alert-icon { font-size:22px; flex-shrink:0; }
+.cover-alert-text { font-size:13px; color:rgba(255,255,255,.75); line-height:1.65; }
+.cover-alert-text strong { color:#ef4444; }
+
+/* DNS CARDS */
+.dns-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:8px; margin-bottom:10px; }
+.dns-card { background:var(--bg2); border-radius:9px; padding:12px; border:1px solid; }
+.dns-card.ok   { border-color:rgba(0,229,160,.2); }
+.dns-card.warn { border-color:rgba(245,158,11,.2); background:rgba(245,158,11,.04); }
+.dns-card.fail { border-color:rgba(239,68,68,.2);  background:rgba(239,68,68,.04); }
+.dns-label { font-size:9px; font-weight:800; text-transform:uppercase; letter-spacing:.8px; margin-bottom:4px; }
+.dns-label.ok   { color:var(--green); }
+.dns-label.warn { color:var(--amber); }
+.dns-label.fail { color:var(--red); }
+.dns-status { font-size:11px; font-weight:700; color:var(--white); margin-bottom:4px; }
+.dns-val { font-size:8px; font-family:'JetBrains Mono',monospace; color:var(--muted); word-break:break-all; line-height:1.5; }
+
+/* CHECKLIST */
+.clist { display:flex; flex-direction:column; gap:7px; }
+.ci { font-size:12px; color:var(--muted); line-height:1.55; display:flex; align-items:flex-start; gap:8px; }
+.ci::before { content:'✓'; color:var(--green); font-weight:800; font-size:11px; flex-shrink:0; margin-top:1px; }
+.ci.x::before { content:'✗'; color:var(--red); }
+.ci.w::before { content:'⚠'; color:var(--amber); }
+.ci strong { color:var(--white); font-weight:700; }
+
+/* FLOW */
+.flow { display:flex; align-items:stretch; gap:0; margin:12px 0; }
+.flow-step { flex:1; background:var(--bg2); border:1px solid var(--border); border-radius:0; padding:14px 10px; text-align:center; position:relative; }
+.flow-step:first-child { border-radius:10px 0 0 10px; }
+.flow-step:last-child  { border-radius:0 10px 10px 0; }
+.flow-step + .flow-step { border-left:none; }
+.flow-icon { font-size:20px; margin-bottom:6px; }
+.flow-title { font-size:11px; font-weight:700; color:var(--white); margin-bottom:3px; }
+.flow-desc  { font-size:10px; color:var(--muted); line-height:1.4; }
+.flow-arrow { position:absolute; right:-9px; top:50%; transform:translateY(-50%); z-index:2; font-size:12px; color:var(--hotel); font-weight:900; }
+
+/* PRICE */
+.price-box { border-radius:14px; padding:22px 24px; }
+.price-box.main { background:linear-gradient(135deg,var(--hotel-l),rgba(0,229,160,.04)); border:1px solid var(--hotel-b); }
+.price-box.sec  { background:var(--bg2); border:1px solid var(--border); }
+.price-num { font-size:34px; font-weight:900; line-height:1; }
+.price-period { font-size:11px; color:var(--muted); margin-left:4px; }
+.price-desc { font-size:12px; color:var(--muted); margin:6px 0 12px; line-height:1.6; }
+.price-items { display:flex; flex-direction:column; gap:6px; }
+.pi { font-size:11px; color:rgba(255,255,255,.65); display:flex; align-items:flex-start; gap:6px; line-height:1.5; }
+.pi::before { content:'✓'; color:var(--green); font-size:10px; font-weight:800; flex-shrink:0; }
+.discount-tag { display:inline-block; font-size:10px; font-weight:700; padding:4px 12px; border-radius:100px; background:rgba(0,229,160,.1); border:1px solid rgba(0,229,160,.2); color:var(--green); margin-top:8px; }
+
+/* TIMELINE */
+.tl { display:flex; flex-direction:column; gap:0; }
+.tl-item { display:flex; gap:12px; padding-bottom:12px; position:relative; }
+.tl-item:last-child { padding-bottom:0; }
+.tl-item::before { content:''; position:absolute; left:10px; top:20px; bottom:0; width:1px; background:var(--border); }
+.tl-item:last-child::before { display:none; }
+.tl-dot { width:20px; height:20px; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:9px; font-weight:800; z-index:1; }
+.tl-dot.h { background:var(--hotel-l); border:1.5px solid var(--hotel); color:var(--hotel); }
+.tl-dot.g { background:rgba(0,229,160,.1); border:1.5px solid var(--green); color:var(--green); }
+.tl-dot.b { background:rgba(59,130,246,.1); border:1.5px solid var(--blue); color:var(--blue); }
+.tl-body { flex:1; padding-top:2px; }
+.tl-tag { font-size:8px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:.8px; margin-bottom:2px; }
+.tl-h   { font-size:11px; font-weight:800; color:var(--white); margin-bottom:2px; }
+.tl-p   { font-size:9px; color:var(--muted); line-height:1.55; }
+
+/* CTA */
+.cta-box { background:linear-gradient(135deg,var(--hotel-l),rgba(0,229,160,.05)); border:1px solid var(--hotel-b); border-radius:16px; padding:40px 32px; text-align:center; }
+.cta-h   { font-size:26px; font-weight:900; color:var(--white); margin-bottom:10px; }
+.cta-sub { font-size:14px; color:var(--muted); line-height:1.7; margin-bottom:24px; max-width:480px; margin-left:auto; margin-right:auto; }
+.cta-contacts { display:flex; justify-content:center; gap:32px; flex-wrap:wrap; }
+.cta-item { font-size:13px; color:var(--muted); }
+.cta-item strong { display:block; color:var(--hotel); font-size:10px; text-transform:uppercase; letter-spacing:.6px; margin-bottom:2px; }
+
+/* SCENARIO BOX */
+.scenario { background:rgba(239,68,68,.05); border:1px solid rgba(239,68,68,.15); border-radius:9px; padding:14px 16px; margin:10px 0; }
+.scenario-title { font-size:10px; font-weight:800; color:#ef4444; margin-bottom:8px; display:flex; align-items:center; gap:6px; }
+
+/* PORTAL MOCKUP */
+.portal-mock { background:#05050e; border:1px solid rgba(196,147,63,.25); border-radius:10px; overflow:hidden; }
+.pm-topbar { background:#0b0b1c; border-bottom:1px solid rgba(255,255,255,.07); padding:7px 12px; display:flex; align-items:center; justify-content:space-between; }
+.pm-content { padding:9px 12px; display:grid; grid-template-columns:1fr 1fr; gap:7px; }
+
+/* PERF BAR */
+.perf-bar { display:flex; align-items:center; gap:8px; margin-bottom:6px; }
+.perf-label { font-size:9px; color:var(--muted); width:80px; flex-shrink:0; }
+.perf-track { flex:1; height:6px; background:rgba(255,255,255,.06); border-radius:100px; overflow:hidden; }
+.perf-fill { height:100%; border-radius:100px; }
+.perf-val { font-size:9px; font-weight:700; width:40px; text-align:right; flex-shrink:0; }
+
+/* ── NAVEGACIÓN INTERACTIVA ── */
+html { scroll-behavior: smooth; }
+
+/* Floating side nav */
+.fnav { position:fixed; right:28px; top:50%; transform:translateY(-50%); z-index:1000; display:flex; flex-direction:column; gap:11px; align-items:flex-end; }
+.fnav-item { display:flex; align-items:center; gap:10px; cursor:pointer; text-decoration:none; }
+.fnav-label { font-size:11px; font-weight:600; color:var(--white); background:rgba(5,5,14,.94); border:1px solid rgba(255,255,255,.09); padding:4px 12px; border-radius:7px; opacity:0; transform:translateX(8px); transition:opacity .18s,transform .18s; white-space:nowrap; pointer-events:none; letter-spacing:.01em; }
+.fnav-item:hover .fnav-label { opacity:1; transform:translateX(0); }
+.fnav-dot { width:7px; height:7px; border-radius:50%; background:rgba(255,255,255,.15); border:1.5px solid rgba(255,255,255,.1); transition:all .22s; flex-shrink:0; }
+.fnav-item:hover .fnav-dot { background:var(--hotel); border-color:var(--hotel); box-shadow:0 0 8px rgba(196,147,63,.45); }
+.fnav-item.fnav-active .fnav-dot { background:var(--hotel); border-color:var(--hotel); width:10px; height:10px; box-shadow:0 0 14px rgba(196,147,63,.55); }
+.fnav-item.fnav-active .fnav-label { opacity:1; transform:translateX(0); color:var(--hotel); }
+
+/* Inline CTA buttons */
+.nav-btn { display:inline-flex; align-items:center; gap:6px; font-size:12px; font-weight:700; text-decoration:none; border-radius:8px; padding:8px 16px; transition:background .18s,border-color .18s; cursor:pointer; }
+.nav-btn.gold { color:var(--hotel); border:1px solid var(--hotel-b); background:var(--hotel-l); }
+.nav-btn.gold:hover { background:rgba(196,147,63,.22); border-color:rgba(196,147,63,.36); }
+.nav-btn.green { color:var(--green); border:1px solid rgba(0,229,160,.2); background:rgba(0,229,160,.07); }
+.nav-btn.green:hover { background:rgba(0,229,160,.15); }
+
+/* Footer arrows */
+.nav-arrow { font-size:10px; color:rgba(255,255,255,.22); text-decoration:none; font-weight:600; transition:color .18s; letter-spacing:.02em; font-family:'JetBrains Mono',monospace; }
+.nav-arrow:hover { color:var(--hotel); }
+</style>
+</head>
+<body>
+
+<!-- ══ PÁGINA 1 — PORTADA ══ -->
+<div class="page" id="portada">
+  <div class="topbar"></div>
+  <div class="cover-bg"></div>
+  <div class="cover-grid"></div>
+
+  <div class="page-header" style="position:relative;z-index:1">
+    <div class="logo">
+      <div class="logo-dot"></div>
+      <div class="logo-txt">TREV'AINNOVATE</div>
+    </div>
+    <div class="meta">Propuesta Comercial<br>Abril 2026 · Confidencial</div>
+  </div>
+
+  <div class="cover-body">
+    <div class="badge-update">✦ Hotel · Restaurante · Ecosistema Digital Completo</div>
+    <div class="badge-hotel">Exclusivo para Hotel Plaza de Armas</div>
+
+    <h1 class="cover-title">
+      Dos negocios, un<br>ecosistema.<br>
+      <span class="accent">Más mesas. Más cuartos.</span>
+    </h1>
+    <p class="cover-sub">Hotel Plaza de Armas opera dos negocios con audiencias distintas — el hotel y el restaurante. Cada uno tiene sus propios clientes, sus propias búsquedas en Google y sus propias oportunidades sin capturar. Lo automatizamos todo.</p>
+
+    <div class="kpis">
+      <div class="kpi">
+        <div class="kpi-val" style="color:var(--red)">2 en 1</div>
+        <div class="kpi-label">Bot único para reservas de hotel y mesas del restaurante</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-val" style="color:var(--amber)">&lt;2 min</div>
+        <div class="kpi-label">Respuesta automática a cualquier consulta, 24/7</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-val" style="color:var(--green)">×2</div>
+        <div class="kpi-label">Perfiles Google optimizados — hotel y restaurante</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-val" style="color:var(--hotel)">+Cross</div>
+        <div class="kpi-label">Cliente del restaurante → prospecto de hospedaje</div>
+      </div>
+    </div>
+
+    <div class="cover-alert" style="background:rgba(196,147,63,.08);border-color:rgba(196,147,63,.25)">
+      <div class="cover-alert-icon">🎯</div>
+      <div class="cover-alert-text" style="color:rgba(255,255,255,.8)">
+        <strong style="color:var(--hotel)">Ventaja estratégica:</strong> el restaurante atrae clientes que no buscan hotel — pero que pueden convertirse en huéspedes. La automatización conecta ambos negocios y convierte cada interacción en una oportunidad de venta cruzada.
+      </div>
+    </div>
+    <div style="display:flex;gap:12px;margin-top:28px;flex-wrap:wrap;align-items:center">
+      <a href="#analisis" class="nav-btn gold">Ver diagnóstico ↓</a>
+      <a href="#solucion" class="nav-btn green">La solución ↓</a>
+      <a href="#inversion" class="nav-btn gold">Inversión ↓</a>
+      <a href="#garantia" class="nav-btn green" style="margin-left:auto">Garantía 30 días →</a>
+    </div>
+  </div>
+
+  <div class="page-footer" style="position:relative;z-index:1">
+    <span>Trev'ainnovate · Santiago Juárez Treviño · trevainnovate.com</span>
+    <span>1 / 10</span>
+  </div>
+</div>
+
+<!-- ══ PÁGINA 2 — DIAGNÓSTICO REAL ══ -->
+<div class="page" id="analisis">
+  <div class="topbar"></div>
+  <div class="page-header">
+    <div class="logo"><div class="logo-dot"></div><div class="logo-txt">TREV'AINNOVATE</div></div>
+    <div class="meta">Hotel Plaza de Armas · Propuesta Comercial<br>Abril 2026</div>
+  </div>
+  <div class="page-body">
+
+    <span class="label h">Análisis de presencia digital — Hotel + Restaurante</span>
+    <h2 style="margin-bottom:4px">Dos negocios. Dos conjuntos de oportunidades sin capturar.</h2>
+    <p style="margin-bottom:14px">El hotel y el restaurante comparten dominio pero compiten por audiencias distintas en Google. Cada punto identificado representa clientes reales que llegan, no encuentran lo que buscan y se van con la competencia.</p>
+
+    <div class="two-col" style="margin-bottom:10px">
+
+      <!-- Columna 1 -->
+      <div style="display:flex;flex-direction:column;gap:8px">
+
+        <div class="block dark" style="padding:12px;margin:0">
+          <div style="display:flex;align-items:center;gap:7px;margin-bottom:6px">
+            <span style="font-size:14px">📧</span>
+            <div style="font-size:10px;font-weight:800;color:var(--white)">Sin captura de leads</div>
+          </div>
+          <p style="margin-bottom:5px">No existe formulario de newsletter ni mecanismo de captura. Cada visitante que no reserva se pierde para siempre — sin posibilidad de reimpacto.</p>
+          <div style="font-size:8.5px;font-weight:700;color:var(--hotel)">→ Oportunidad: base de datos propia de prospectos + nurturing automatizado</div>
+        </div>
+
+        <div class="block dark" style="padding:12px;margin:0">
+          <div style="display:flex;align-items:center;gap:7px;margin-bottom:6px">
+            <span style="font-size:14px">🔍</span>
+            <div style="font-size:10px;font-weight:800;color:var(--white)">SEO sin contenido</div>
+          </div>
+          <p style="margin-bottom:5px">Sin blog ni artículos. Keywords como "hotel centro histórico Querétaro", "hotel para eventos Querétaro" tienen miles de búsquedas mensuales sin ser capturadas.</p>
+          <div style="font-size:8.5px;font-weight:700;color:var(--hotel)">→ Oportunidad: contenido SEO que atrae tráfico orgánico sin costo por clic</div>
+        </div>
+
+        <div class="block dark" style="padding:12px;margin:0">
+          <div style="display:flex;align-items:center;gap:7px;margin-bottom:6px">
+            <span style="font-size:14px">📊</span>
+            <div style="font-size:10px;font-weight:800;color:var(--white)">Sin Analytics ni píxeles</div>
+          </div>
+          <p style="margin-bottom:5px">No hay seguimiento de comportamiento en el sitio. No se sabe qué páginas convierten, de dónde viene el tráfico, ni qué visitantes abandonan el proceso de reservación.</p>
+          <div style="font-size:8.5px;font-weight:700;color:var(--hotel)">→ Oportunidad: remarketing a visitantes que no completaron la reservación</div>
+        </div>
+
+        <div class="block dark" style="padding:12px;margin:0">
+          <div style="display:flex;align-items:center;gap:7px;margin-bottom:6px">
+            <span style="font-size:14px">🌐</span>
+            <div style="font-size:10px;font-weight:800;color:var(--white)">Multilenguaje sin SEO</div>
+          </div>
+          <p style="margin-bottom:5px">GTranslate genera traducciones que Google no indexa. El hotel es invisible para búsquedas en inglés — turismo extranjero desaprovechado completamente.</p>
+          <div style="font-size:8.5px;font-weight:700;color:var(--hotel)">→ Oportunidad: versiones en inglés indexadas por Google</div>
+        </div>
+
+      </div>
+
+      <!-- Columna 2 -->
+      <div style="display:flex;flex-direction:column;gap:8px">
+
+        <div class="block dark" style="padding:12px;margin:0">
+          <div style="display:flex;align-items:center;gap:7px;margin-bottom:6px">
+            <span style="font-size:14px">🏨</span>
+            <div style="font-size:10px;font-weight:800;color:var(--white)">Sin Schema.org Hotel</div>
+          </div>
+          <p style="margin-bottom:5px">No hay datos estructurados. Google no puede mostrar precio, calificación, horario de check-in/out ni disponibilidad directamente en los resultados de búsqueda.</p>
+          <div style="font-size:8.5px;font-weight:700;color:var(--hotel)">→ Oportunidad: rich results en Google con rating y precio visible</div>
+        </div>
+
+        <div class="block dark" style="padding:12px;margin:0">
+          <div style="display:flex;align-items:center;gap:7px;margin-bottom:6px">
+            <span style="font-size:14px">🛒</span>
+            <div style="font-size:10px;font-weight:800;color:var(--white)">Booking sin optimización de conversión</div>
+          </div>
+          <p style="margin-bottom:5px">El flujo de reservación no tiene indicadores de urgencia, disponibilidad limitada ni testimoniales en el checkout. Visitantes que llegan al paso de pago y abandonan no son recuperados.</p>
+          <div style="font-size:8.5px;font-weight:700;color:var(--hotel)">→ Oportunidad: recuperación automática de reservaciones abandonadas</div>
+        </div>
+
+        <div class="block dark" style="padding:12px;margin:0">
+          <div style="display:flex;align-items:center;gap:7px;margin-bottom:6px">
+            <span style="font-size:14px">⭐</span>
+            <div style="font-size:10px;font-weight:800;color:var(--white)">Reseñas sin gestión activa</div>
+          </div>
+          <p style="margin-bottom:5px">El badge de TripAdvisor es estático. Sin sistema de generación activa de reseñas post-estadía, el volumen crece lento y sin control sobre qué reseñas llegan primero.</p>
+          <div style="font-size:8.5px;font-weight:700;color:var(--hotel)">→ Oportunidad: flujo automatizado que triplica el volumen de reseñas positivas</div>
+        </div>
+
+        <div class="block dark" style="padding:12px;margin:0">
+          <div style="display:flex;align-items:center;gap:7px;margin-bottom:6px">
+            <span style="font-size:14px">⚡</span>
+            <div style="font-size:10px;font-weight:800;color:var(--white)">Velocidad — penalización Google</div>
+          </div>
+          <p style="margin-bottom:5px">TTFB de 1.26s y carga total de 2.3s penalizan activamente el ranking en Google Maps y búsquedas móviles. Cada segundo adicional reduce conversiones ~7%.</p>
+          <div style="font-size:8.5px;font-weight:700;color:var(--hotel)">→ Oportunidad: optimización que mejora posición orgánica sin inversión en ads</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Oportunidades restaurante -->
+    <div style="margin-bottom:10px">
+      <span class="label b">Oportunidades exclusivas del restaurante</span>
+      <div class="three-col" style="margin-top:6px">
+        <div class="block dark" style="padding:10px;margin:0">
+          <div style="font-size:13px;margin-bottom:4px">🍽️</div>
+          <div style="font-size:9px;font-weight:800;color:var(--white);margin-bottom:3px">Sin reservaciones online</div>
+          <p>El restaurante no tiene sistema de reservación de mesas. Clientes que buscan "donde comer en Querétaro" no pueden reservar — llaman o simplemente van a otro lugar.</p>
+          <div style="font-size:8px;font-weight:700;color:var(--blue);margin-top:5px">→ Bot WhatsApp reserva mesas 24/7</div>
+        </div>
+        <div class="block dark" style="padding:10px;margin:0">
+          <div style="font-size:13px;margin-bottom:4px">🔍</div>
+          <div style="font-size:9px;font-weight:800;color:var(--white);margin-bottom:3px">Invisible como restaurante en Google</div>
+          <p>El restaurante no aparece separado del hotel en búsquedas como "restaurante centro histórico Querétaro" — keywords con volumen posiblemente mayor que las del hotel.</p>
+          <div style="font-size:8px;font-weight:700;color:var(--blue);margin-top:5px">→ Perfil Google + Schema Restaurant</div>
+        </div>
+        <div class="block dark" style="padding:10px;margin:0">
+          <div style="font-size:13px;margin-bottom:4px">🔄</div>
+          <div style="font-size:9px;font-weight:800;color:var(--white);margin-bottom:3px">Cero cross-sell entre negocios</div>
+          <p>Un comensal del restaurante que viene de fuera de Querétaro es un lead caliente de hospedaje. Hoy esa conversación no existe — se va sin saber que hay habitaciones disponibles.</p>
+          <div style="font-size:8px;font-weight:700;color:var(--blue);margin-top:5px">→ Automatización de venta cruzada</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Resumen de impacto -->
+    <div class="block gold" style="padding:12px 16px;margin:0">
+      <div style="display:flex;align-items:center;gap:16px">
+        <div style="font-size:22px;flex-shrink:0">💡</div>
+        <div>
+          <div style="font-size:10px;font-weight:800;color:var(--hotel);margin-bottom:3px">Conclusión del análisis</div>
+          <p>El hotel y el restaurante están capturando quizá el 30–40% de los clientes que podrían generar. La ventaja real está en conectar ambos negocios — cada comensal es un potencial huésped, y cada huésped es un potencial cliente del restaurante. Hoy esa conexión no existe.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="page-footer">
+    <span>Trev'ainnovate · Santiago Juárez Treviño · trevainnovate.com</span>
+    <span>2 / 10</span>
+  </div>
+</div>
+
+<!-- ══ PÁGINA 4 — EL RIESGO REAL ══ -->
+<div class="page" id="solucion">
+  <div class="topbar"></div>
+  <div class="page-header">
+    <div class="logo"><div class="logo-dot"></div><div class="logo-txt">TREV'AINNOVATE</div></div>
+    <div class="meta">Hotel Plaza de Armas · Propuesta Comercial<br>Abril 2026</div>
+  </div>
+  <div class="page-body">
+
+    <span class="label g">Lo que implementamos</span>
+    <h2 style="margin-bottom:4px">Tres módulos. Un ecosistema operativo completo.</h2>
+    <p style="margin-bottom:12px">Diseñado e implementado por Trev'ainnovate — automatización B2B con n8n, Cloudflare y WhatsApp Business API. Cada entregable está documentado, probado y respaldado por garantía de 30 días.</p>
+
+    <!-- Módulo 1: Bot WhatsApp -->
+    <div class="block gold" style="margin-bottom:10px">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+        <div style="font-size:18px">🤖</div>
+        <div>
+          <div style="font-size:12px;font-weight:900;color:var(--hotel)">Módulo 1 — Bot de atención · Hotel y Restaurante</div>
+          <div style="font-size:8.5px;color:var(--muted)">Un solo WhatsApp — dos flujos inteligentes: reservaciones de habitación y reservas de mesa</div>
+        </div>
+      </div>
+
+      <div style="margin-bottom:10px">
+        <div style="font-size:8.5px;font-weight:700;color:var(--white);margin-bottom:6px">🏨 Flujo Hotel:</div>
+        <div class="flow" style="margin-bottom:8px">
+          <div class="flow-step">
+            <div class="flow-icon">💬</div>
+            <div class="flow-title">Cliente escribe</div>
+            <div class="flow-desc">WhatsApp, cualquier hora</div>
+            <div class="flow-arrow">→</div>
+          </div>
+          <div class="flow-step">
+            <div class="flow-icon">🤖</div>
+            <div class="flow-title">Menú inicial</div>
+            <div class="flow-desc">Hospedaje / Restaurante</div>
+            <div class="flow-arrow">→</div>
+          </div>
+          <div class="flow-step">
+            <div class="flow-icon">📅</div>
+            <div class="flow-title">Disponibilidad</div>
+            <div class="flow-desc">Fechas + tarifas</div>
+            <div class="flow-arrow">→</div>
+          </div>
+          <div class="flow-step">
+            <div class="flow-icon">💳</div>
+            <div class="flow-title">Pago</div>
+            <div class="flow-desc">Mercado Pago directo</div>
+            <div class="flow-arrow">→</div>
+          </div>
+          <div class="flow-step">
+            <div class="flow-icon">⏰</div>
+            <div class="flow-title">Recordatorio</div>
+            <div class="flow-desc">24h antes check-in</div>
+          </div>
+        </div>
+        <div style="font-size:8.5px;font-weight:700;color:var(--white);margin-bottom:6px">🍽️ Flujo Restaurante:</div>
+        <div class="flow">
+          <div class="flow-step">
+            <div class="flow-icon">💬</div>
+            <div class="flow-title">Cliente escribe</div>
+            <div class="flow-desc">Quiere reservar mesa</div>
+            <div class="flow-arrow">→</div>
+          </div>
+          <div class="flow-step">
+            <div class="flow-icon">📆</div>
+            <div class="flow-title">Fecha y hora</div>
+            <div class="flow-desc">+ número de personas</div>
+            <div class="flow-arrow">→</div>
+          </div>
+          <div class="flow-step">
+            <div class="flow-icon">✅</div>
+            <div class="flow-title">Confirmación</div>
+            <div class="flow-desc">Mesa reservada</div>
+            <div class="flow-arrow">→</div>
+          </div>
+          <div class="flow-step">
+            <div class="flow-icon">🏨</div>
+            <div class="flow-title">Cross-sell</div>
+            <div class="flow-desc">¿Necesitas hospedaje?</div>
+            <div class="flow-arrow">→</div>
+          </div>
+          <div class="flow-step">
+            <div class="flow-icon">⭐</div>
+            <div class="flow-title">Post-visita</div>
+            <div class="flow-desc">Solicitud de reseña</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="two-col">
+        <div class="clist">
+          <div class="ci">Un solo número de WhatsApp — dos flujos según lo que el cliente necesita</div>
+          <div class="ci">Reservaciones de habitación con pago integrado (Mercado Pago)</div>
+          <div class="ci">Reservas de mesa del restaurante — confirmación automática</div>
+        </div>
+        <div class="clist">
+          <div class="ci">Cross-sell automático: comensal foráneo → oferta de hospedaje</div>
+          <div class="ci">Follow-up post-estadía y post-cena + solicitud de reseña Google</div>
+          <div class="ci">Reporte diario de ocupación y reservas al director vía Telegram</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Módulo 2: Web + Visibilidad -->
+    <div class="block blue" style="margin-bottom:10px">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+        <div style="font-size:18px">🌐</div>
+        <div>
+          <div style="font-size:12px;font-weight:900;color:var(--blue)">Módulo 2 — Rediseño Web · Visibilidad y Conversión</div>
+          <div style="font-size:8.5px;color:var(--muted)">Nuevo sitio HTML en Cloudflare Pages — velocidad máxima, SEO técnico y captura de leads desde el día 1</div>
+        </div>
+      </div>
+      <div class="two-col">
+        <div class="clist">
+          <div class="ci">Sitio construido en HTML puro — sin WordPress, sin plugins, TTFB &lt;0.3s</div>
+          <div class="ci">Schema Hotel + Event — Google muestra precio y rating en resultados</div>
+          <div class="ci">Captura de leads con nurturing automático de 3 emails</div>
+        </div>
+        <div class="clist">
+          <div class="ci">GA4 + Meta Pixel — remarketing a visitantes que no reservaron</div>
+          <div class="ci">Google Business Profile optimizado + posts semanales automáticos</div>
+          <div class="ci">Hreflang EN — turismo extranjero indexado por Google</div>
+        </div>
+      </div>
+      <div style="margin-top:8px;font-size:8px;color:var(--blue);font-weight:700">→ Detalle completo en la página siguiente</div>
+    </div>
+
+    <!-- Módulo 3: DNS Shield -->
+    <div class="block green">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+        <div style="font-size:18px">🔒</div>
+        <div>
+          <div style="font-size:12px;font-weight:900;color:var(--green)">Módulo 3 — DNS Shield · Correo 100% blindado <span style="font-size:8px;font-weight:500;color:var(--muted)">(Opción C)</span></div>
+          <div style="font-size:8.5px;color:var(--muted)">SPF estricto + DKIM + DMARC p=quarantine — nadie suplanta el dominio del hotel</div>
+        </div>
+      </div>
+      <div class="two-col">
+        <div class="clist">
+          <div class="ci">DMARC elevado de p=none a p=quarantine — activo en &lt;24h</div>
+          <div class="ci">SPF optimizado — solo orígenes autorizados pueden enviar</div>
+          <div class="ci">Monitor diario + alerta inmediata si algo cambia</div>
+        </div>
+        <div class="clist">
+          <div class="ci">Reporte semanal de seguridad enviado a dirección</div>
+          <div class="ci">Headers de seguridad web corregidos (HSTS, X-Frame, stack oculto)</div>
+          <div class="ci">Portal de cliente 24/7 — score DNS y amenazas en tiempo real</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="page-footer">
+    <span>Trev'ainnovate · Santiago Juárez Treviño · trevainnovate.com</span>
+    <span>3 / 10</span>
+  </div>
+</div>
+
+<!-- ══ PÁGINA 6 — MÓDULO 2 DETALLE: WEB + VISIBILIDAD ══ -->
+<div class="page" id="web">
+  <div class="topbar"></div>
+  <div class="page-header">
+    <div class="logo"><div class="logo-dot"></div><div class="logo-txt">TREV'AINNOVATE</div></div>
+    <div class="meta">Hotel Plaza de Armas · Propuesta Comercial<br>Abril 2026</div>
+  </div>
+  <div class="page-body">
+
+    <span class="label h">Módulo 2 — Web · Hotel y Restaurante integrados</span>
+    <h2 style="margin-bottom:4px">Un sitio, dos negocios, una sola experiencia que convierte.</h2>
+    <p style="margin-bottom:14px">El sitio actual habla solo del hotel. Rediseñamos la arquitectura completa para que el restaurante tenga su propia presencia, sus propios CTAs y su propio flujo de conversión — sin dejar de ser parte del mismo ecosistema.</p>
+
+    <!-- 4 pilares -->
+    <div class="two-col" style="margin-bottom:10px">
+
+      <!-- Columna 1 -->
+      <div style="display:flex;flex-direction:column;gap:8px">
+
+        <div class="block gold" style="padding:12px;margin:0">
+          <div style="display:flex;align-items:center;gap:7px;margin-bottom:6px">
+            <span style="font-size:16px">🏗️</span>
+            <div style="font-size:10px;font-weight:800;color:var(--hotel)">Arquitectura dual — Hotel + Restaurante</div>
+          </div>
+          <p style="margin-bottom:6px">HTML puro en Cloudflare Pages. Dos secciones independientes con sus propios CTAs, galería, menú y flujos de conversión — pero bajo un mismo dominio y experiencia visual coherente.</p>
+          <div class="clist" style="margin-top:6px">
+            <div class="ci">Página hotel: reservar habitación, salones para eventos, galería</div>
+            <div class="ci">Página restaurante: menú digital, horarios, reservar mesa vía WhatsApp</div>
+            <div class="ci">Sección cross-sell visible en ambas: "¿También necesitas hospedaje / una mesa?"</div>
+            <div class="ci">WhatsApp floating button inteligente — detecta sección y abre flujo correcto</div>
+          </div>
+        </div>
+
+        <div class="block dark" style="padding:12px;margin:0">
+          <div style="display:flex;align-items:center;gap:7px;margin-bottom:6px">
+            <span style="font-size:16px">🔍</span>
+            <div style="font-size:10px;font-weight:800;color:var(--white)">SEO dual — dos negocios indexados</div>
+          </div>
+          <p style="margin-bottom:6px">Schema separado para hotel y restaurante. Google puede mostrar cada negocio de forma independiente en resultados de búsqueda — dos fichas ricas, dos audiencias capturadas.</p>
+          <div class="clist" style="margin-top:6px">
+            <div class="ci">Schema.org Hotel + Restaurant + Event + LocalBusiness</div>
+            <div class="ci">Keywords hotel: "hotel centro histórico Querétaro", "hotel para eventos"</div>
+            <div class="ci">Keywords restaurante: "restaurante Querétaro centro", "donde comer Querétaro"</div>
+            <div class="ci">Velocidad TTFB &lt;0.3s + Hreflang EN para turismo extranjero</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Columna 2 -->
+      <div style="display:flex;flex-direction:column;gap:8px">
+
+        <div class="block dark" style="padding:12px;margin:0">
+          <div style="display:flex;align-items:center;gap:7px;margin-bottom:6px">
+            <span style="font-size:16px">📧</span>
+            <div style="font-size:10px;font-weight:800;color:var(--white)">Captura de leads + nurturing segmentado</div>
+          </div>
+          <p style="margin-bottom:6px">Dos tipos de lead, dos secuencias distintas. Un visitante del restaurante recibe emails sobre promociones de cena + oferta de hospedaje. Un visitante del hotel recibe oferta de mesa para su estadía.</p>
+          <div class="clist" style="margin-top:6px">
+            <div class="ci">Lead magnet hotel: descuento primera noche o guía de Querétaro</div>
+            <div class="ci">Lead magnet restaurante: menú de temporada o promoción especial</div>
+            <div class="ci">Secuencia de 3 emails por segmento — con cross-sell integrado</div>
+          </div>
+        </div>
+
+        <div class="block dark" style="padding:12px;margin:0">
+          <div style="display:flex;align-items:center;gap:7px;margin-bottom:6px">
+            <span style="font-size:16px">📊</span>
+            <div style="font-size:10px;font-weight:800;color:var(--white)">2 perfiles Google Business optimizados</div>
+          </div>
+          <p style="margin-bottom:6px">Hotel y restaurante tienen audiencias distintas en Google Maps. Optimizamos ambos perfiles con fotos, posts y respuestas automáticas — duplicando la presencia local del negocio.</p>
+          <div class="clist" style="margin-top:6px">
+            <div class="ci">Google Business Hotel: rating, precio, check-in/out visible en resultados</div>
+            <div class="ci">Google Business Restaurante: menú, horarios, fotos de platillos</div>
+            <div class="ci">Posts semanales automáticos en ambos perfiles</div>
+            <div class="ci">GA4 + Meta Pixel con eventos separados por negocio</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Resultado esperado -->
+    <div class="block gold" style="padding:12px 16px;margin-bottom:10px">
+      <div style="display:flex;align-items:center;gap:16px">
+        <div style="font-size:24px;flex-shrink:0">📈</div>
+        <div>
+          <div style="font-size:10px;font-weight:800;color:var(--hotel);margin-bottom:3px">Resultado esperado — 60 días post-lanzamiento</div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:6px">
+            <div>
+              <div style="font-size:16px;font-weight:900;color:var(--green)">+40%</div>
+              <div style="font-size:8px;color:var(--muted)">Tasa de conversión visita → contacto o reserva</div>
+            </div>
+            <div>
+              <div style="font-size:16px;font-weight:900;color:var(--hotel)">↑ SEO</div>
+              <div style="font-size:8px;color:var(--muted)">Mejora sostenida de posición orgánica en Google Maps y búsquedas locales</div>
+            </div>
+            <div>
+              <div style="font-size:16px;font-weight:900;color:var(--blue)">100%</div>
+              <div style="font-size:8px;color:var(--muted)">Leads capturados — nunca más un visitante perdido para siempre</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Preguntas kickoff -->
+    <div class="block dark" style="padding:12px 16px;margin:0">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+        <div style="font-size:14px">📋</div>
+        <div style="font-size:9px;font-weight:800;color:var(--white)">Lo que definimos juntos en la llamada de kickoff</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+        <div class="ci" style="font-size:8.5px">¿El restaurante tiene nombre propio o solo "Restaurante Hotel Plaza de Armas"?</div>
+        <div class="ci" style="font-size:8.5px">¿Manejan reservaciones de mesa actualmente? ¿Por WhatsApp, teléfono o walk-in?</div>
+        <div class="ci" style="font-size:8.5px">¿Tienen menú digital o solo físico? ¿Con qué frecuencia cambia?</div>
+        <div class="ci" style="font-size:8.5px">¿El restaurante tiene su propio perfil en Google Maps separado del hotel?</div>
+        <div class="ci" style="font-size:8.5px">¿Tienen fotos profesionales del restaurante y platillos, o necesitan sesión?</div>
+        <div class="ci" style="font-size:8.5px">¿A quién llegan las reservas de mesa — recepción del hotel o cocina/gerente?</div>
+      </div>
+    </div>
+
+  </div>
+  <div class="page-footer">
+    <span>Trev'ainnovate · Santiago Juárez Treviño · trevainnovate.com</span>
+    <span>4 / 10</span>
+  </div>
+</div>
+
+<!-- ══ PÁGINA 5 — INVERSIÓN ══ -->
+<div class="page" id="inversion">
+  <div class="topbar"></div>
+  <div class="page-header">
+    <div class="logo"><div class="logo-dot"></div><div class="logo-txt">TREV'AINNOVATE</div></div>
+    <div class="meta">Hotel Plaza de Armas · Propuesta Comercial<br>Abril 2026</div>
+  </div>
+  <div class="page-body">
+
+    <span class="label h">Inversión</span>
+    <h2 style="margin-bottom:4px">Una inversión. Dos negocios automatizados.</h2>
+    <p style="margin-bottom:12px">El bot, el sitio y el SEO cubren hotel y restaurante al mismo precio — no cobramos doble por dos flujos. Trabajamos sin agencia ni subcontratos, lo que nos permite cobrar lo que vale el trabajo.</p>
+
+    <!-- Por qué estos precios -->
+    <div class="block dark" style="padding:12px 16px;margin-bottom:12px">
+      <div style="font-size:9px;font-weight:800;color:var(--hotel);margin-bottom:8px;text-transform:uppercase;letter-spacing:.6px">¿Por qué estos precios?</div>
+      <div class="three-col" style="gap:12px">
+        <div>
+          <div style="font-size:9px;font-weight:700;color:var(--muted);margin-bottom:3px">Agencia tradicional</div>
+          <div style="font-size:15px;font-weight:900;color:var(--red)">$80–150K</div>
+          <div style="font-size:7.5px;color:var(--muted);line-height:1.5;margin-top:2px">Setup + 4–6 meses de entrega. Pagas su renta, su equipo de ventas y sus márgenes.</div>
+        </div>
+        <div>
+          <div style="font-size:9px;font-weight:700;color:var(--muted);margin-bottom:3px">Freelancer suelto</div>
+          <div style="font-size:15px;font-weight:900;color:var(--amber)">$8–15K</div>
+          <div style="font-size:7.5px;color:var(--muted);line-height:1.5;margin-top:2px">Barato al inicio, caro después. Sin garantía, sin soporte, sin continuidad cuando algo falla.</div>
+        </div>
+        <div>
+          <div style="font-size:9px;font-weight:700;color:var(--hotel);margin-bottom:3px">Trev'ainnovate</div>
+          <div style="font-size:15px;font-weight:900;color:var(--green)">$15–24K</div>
+          <div style="font-size:7.5px;color:var(--muted);line-height:1.5;margin-top:2px">Entrega en semanas, no meses. Soporte real, garantía de 30 días y retainer claro de lo que incluye cada mes.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Opciones en 3 columnas -->
+    <div class="three-col" style="margin-bottom:10px;align-items:start">
+
+      <!-- Opción A -->
+      <div class="price-box sec" style="height:100%">
+        <div style="font-size:8.5px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px">Opción A · Arranque</div>
+        <div style="display:flex;align-items:baseline;gap:4px;margin-bottom:4px">
+          <div class="price-num" style="color:var(--white);font-size:22px">$15,000</div>
+          <div class="price-period">MXN · pago único</div>
+        </div>
+        <div class="price-desc">Bot de reservaciones y seguimiento operativo. Sin mensualidad — pago único y listo.</div>
+        <div class="price-items">
+          <div class="pi">Bot WhatsApp 24/7 · reservaciones y consultas</div>
+          <div class="pi">Confirmación automática + link de pago</div>
+          <div class="pi">Recordatorio 24h antes del check-in</div>
+          <div class="pi">Follow-up post-estadía + solicitud de reseña</div>
+          <div class="pi">Reporte de ocupación diario vía Telegram</div>
+          <div class="pi">Soporte y ajustes durante el primer mes</div>
+        </div>
+        <div style="margin-top:10px;padding-top:8px;border-top:1px solid var(--border);font-size:8px;color:var(--muted)">
+          Sin mensualidad. Sin web ni seguridad de correo.
+        </div>
+      </div>
+
+      <!-- Opción B -->
+      <div class="price-box sec" style="height:100%;border-color:rgba(59,130,246,.3);background:rgba(59,130,246,.05)">
+        <div style="font-size:8.5px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px">Opción B · Visibilidad + Conversión</div>
+        <div style="display:flex;align-items:baseline;gap:4px;margin-bottom:2px">
+          <div class="price-num" style="color:var(--blue);font-size:22px">$19,000</div>
+          <div class="price-period">MXN · único</div>
+        </div>
+        <div style="display:flex;align-items:baseline;gap:4px;margin-bottom:6px">
+          <div style="font-size:13px;font-weight:800;color:var(--blue)">+ $1,990</div>
+          <div class="price-period">MXN / mes</div>
+        </div>
+        <div class="price-desc">Bot + nuevo sitio orientado a reservar + SEO activo cada mes.</div>
+        <div class="price-items">
+          <div class="pi">Todo lo de Opción A</div>
+          <div class="pi">Rediseño web — arquitectura enfocada en conversión</div>
+          <div class="pi">SEO técnico: Schema Hotel, velocidad, hreflang EN</div>
+          <div class="pi">Captura de leads + nurturing automático (3 emails)</div>
+          <div class="pi">Google Analytics 4 + Meta Pixel configurados</div>
+          <div class="pi">Google Business Profile + posts semanales automáticos</div>
+        </div>
+        <div style="margin-top:8px;font-size:7.5px;color:var(--muted);line-height:1.5;padding-top:8px;border-top:1px solid var(--border)">
+          Mensual incluye: monitoreo SEO, ajustes de contenido, reporte mensual de tráfico y conversiones.
+        </div>
+      </div>
+
+      <!-- Opción C (recomendada) -->
+      <div class="price-box main" style="height:100%">
+        <div style="font-size:8.5px;font-weight:700;color:var(--hotel);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px">Opción C · Ecosistema Completo ✦</div>
+        <div style="display:flex;align-items:baseline;gap:4px;margin-bottom:2px">
+          <div class="price-num" style="color:var(--hotel);font-size:22px">$29,000</div>
+          <div class="price-period">MXN · único</div>
+        </div>
+        <div style="display:flex;align-items:baseline;gap:4px;margin-bottom:6px">
+          <div style="font-size:13px;font-weight:800;color:var(--green)">+ $2,499</div>
+          <div class="price-period">MXN / mes</div>
+        </div>
+        <div class="price-desc">Todo incluido: bot, web, SEO y correo corporativo blindado contra fraude.</div>
+        <div class="price-items">
+          <div class="pi">Todo lo de Opción B</div>
+          <div class="pi">DNS Shield — DMARC p=quarantine activo en &lt;24h</div>
+          <div class="pi">Monitor DNS diario + alerta inmediata si algo cambia</div>
+          <div class="pi">Reporte semanal de seguridad para dirección</div>
+          <div class="pi">Portal de cliente 24/7 — score, amenazas, flujos activos</div>
+          <div class="pi">Headers de seguridad web corregidos</div>
+        </div>
+        <div style="margin-top:8px;font-size:7.5px;color:var(--muted);line-height:1.5;padding-top:8px;border-top:1px solid rgba(196,147,63,.2)">
+          Mensual incluye: DNS Shield + SEO + soporte continuo + reportes de dirección.
+        </div>
+        <div class="discount-tag">La opción más completa · Recomendada</div>
+      </div>
+    </div>
+
+    <!-- ROI reference -->
+    <div class="three-col">
+      <div class="block dark" style="padding:10px;margin:0">
+        <div style="font-size:8px;font-weight:700;color:var(--muted);margin-bottom:3px;text-transform:uppercase;letter-spacing:.6px">Bot recupera 1 reservación perdida</div>
+        <div style="font-size:16px;font-weight:900;color:var(--green)">$1,500–4,000</div>
+        <div style="font-size:7.5px;color:var(--muted);margin-top:2px">MXN · 1 noche que antes se perdía fuera de horario</div>
+      </div>
+      <div class="block dark" style="padding:10px;margin:0">
+        <div style="font-size:8px;font-weight:700;color:var(--muted);margin-bottom:3px;text-transform:uppercase;letter-spacing:.6px">1 evento cotizado y cerrado</div>
+        <div style="font-size:16px;font-weight:900;color:var(--hotel)">$40–80K</div>
+        <div style="font-size:7.5px;color:var(--muted);margin-top:2px">MXN · anticipo de salón — cubre el setup completo</div>
+      </div>
+      <div class="block gold" style="padding:10px;margin:0">
+        <div style="font-size:8px;font-weight:700;color:var(--hotel);margin-bottom:3px;text-transform:uppercase;letter-spacing:.6px">ROI en el primer mes</div>
+        <div style="font-size:16px;font-weight:900;color:var(--hotel)">Desde día 1</div>
+        <div style="font-size:7.5px;color:var(--muted);margin-top:2px">El bot trabaja desde que se activa — sin esperar 3 meses</div>
+      </div>
+    </div>
+
+  </div>
+  <div class="page-footer">
+    <span>Trev'ainnovate · Santiago Juárez Treviño · trevainnovate.com</span>
+    <span>5 / 10</span>
+  </div>
+</div>
+
+<!-- ══ PÁGINA 8 — TIMELINE DE ENTREGA ══ -->
+<div class="page" id="timeline">
+  <div class="topbar"></div>
+  <div class="page-header">
+    <div class="logo"><div class="logo-dot"></div><div class="logo-txt">TREV'AINNOVATE</div></div>
+    <div class="meta">Hotel Plaza de Armas · Propuesta Comercial<br>Abril 2026</div>
+  </div>
+  <div class="page-body">
+
+    <span class="label h">Línea de tiempo de entrega</span>
+    <h2 style="margin-bottom:4px">De la firma al ecosistema completo — menos de 6 semanas.</h2>
+    <p style="margin-bottom:16px">Cada fase tiene entregables concretos y verificables. No empezamos la siguiente hasta que la anterior esté aprobada por el hotel.</p>
+
+    <!-- Timeline visual -->
+    <div style="position:relative;padding-left:28px">
+
+      <!-- Línea vertical -->
+      <div style="position:absolute;left:8px;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--hotel),var(--blue),var(--green));border-radius:2px"></div>
+
+      <!-- DÍA 0 -->
+      <div style="position:relative;margin-bottom:14px">
+        <div style="position:absolute;left:-24px;top:2px;width:18px;height:18px;border-radius:50%;background:var(--hotel);display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:900;color:#05050e">0</div>
+        <div style="background:var(--hotel-l);border:1px solid var(--hotel-b);border-radius:9px;padding:12px 14px">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+            <div style="font-size:11px;font-weight:900;color:var(--hotel)">Kickoff · Día 0</div>
+            <div style="font-size:8px;font-weight:700;padding:2px 8px;border-radius:100px;background:rgba(196,147,63,.15);color:var(--hotel)">30 min · videollamada</div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+            <div class="clist">
+              <div class="ci">Revisión de accesos: DNS, WhatsApp Business, hosting</div>
+              <div class="ci">Definición de flujos del bot (preguntas frecuentes, tarifas)</div>
+            </div>
+            <div class="clist">
+              <div class="ci">Recopilación de contenido: fotos, textos, logo</div>
+              <div class="ci">Confirmación de opción contratada y forma de pago</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DÍA 1 -->
+      <div style="position:relative;margin-bottom:14px">
+        <div style="position:absolute;left:-24px;top:2px;width:18px;height:18px;border-radius:50%;background:var(--hotel);display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:900;color:#05050e">1</div>
+        <div style="background:rgba(0,229,160,.06);border:1px solid rgba(0,229,160,.18);border-radius:9px;padding:12px 14px">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+            <div style="font-size:11px;font-weight:900;color:var(--green)">DNS Shield activo · Día 1 <span style="font-size:9px;font-weight:500;color:var(--muted)">(Opción C)</span></div>
+            <div style="font-size:8px;font-weight:700;padding:2px 8px;border-radius:100px;background:rgba(0,229,160,.12);color:var(--green)">Entregable inmediato</div>
+          </div>
+          <div class="clist">
+            <div class="ci">SPF estricto + DKIM + DMARC p=quarantine configurados — hotelplazadearmas.com pasa de score 55 → 95+</div>
+            <div class="ci">Headers de seguridad corregidos (HSTS, X-Frame, stack oculto)</div>
+            <div class="ci">Monitor DNS activo — primera alerta configurada</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SEMANA 1 -->
+      <div style="position:relative;margin-bottom:14px">
+        <div style="position:absolute;left:-24px;top:2px;width:18px;height:18px;border-radius:50%;background:var(--blue);display:flex;align-items:center;justify-content:center;font-size:7px;font-weight:900;color:#fff">S1</div>
+        <div style="background:rgba(59,130,246,.06);border:1px solid rgba(59,130,246,.18);border-radius:9px;padding:12px 14px">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+            <div style="font-size:11px;font-weight:900;color:var(--blue)">Bot WhatsApp — Construcción · Semana 1</div>
+            <div style="font-size:8px;font-weight:700;padding:2px 8px;border-radius:100px;background:rgba(59,130,246,.12);color:var(--blue)">Días 2–7</div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+            <div class="clist">
+              <div class="ci">WhatsApp Business API + menú dual hotel / restaurante</div>
+              <div class="ci">Flujo hotel: disponibilidad, tarifas, pago, recordatorio 24h</div>
+              <div class="ci">Flujo restaurante: fecha, personas, confirmación de mesa</div>
+            </div>
+            <div class="clist">
+              <div class="ci">Cross-sell automático: comensal foráneo → oferta de hospedaje</div>
+              <div class="ci">Follow-up post-estadía y post-cena + solicitud de reseña</div>
+              <div class="ci">Reporte diario de ocupación y reservas a Telegram</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SEMANA 2 -->
+      <div style="position:relative;margin-bottom:14px">
+        <div style="position:absolute;left:-24px;top:2px;width:18px;height:18px;border-radius:50%;background:var(--blue);display:flex;align-items:center;justify-content:center;font-size:7px;font-weight:900;color:#fff">S2</div>
+        <div style="background:rgba(59,130,246,.06);border:1px solid rgba(59,130,246,.18);border-radius:9px;padding:12px 14px">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+            <div style="font-size:11px;font-weight:900;color:var(--blue)">Bot en producción + Diseño web · Semana 2</div>
+            <div style="font-size:8px;font-weight:700;padding:2px 8px;border-radius:100px;background:rgba(59,130,246,.12);color:var(--blue)">Días 8–14</div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+            <div class="clist">
+              <div class="ci">Bot live — pruebas con reservaciones reales del hotel</div>
+              <div class="ci">Ajustes de flujo según feedback del equipo</div>
+            </div>
+            <div class="clist">
+              <div class="ci">Mockup del nuevo sitio web — aprobación de diseño</div>
+              <div class="ci">Arquitectura de páginas definida y validada</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SEMANA 3-4 -->
+      <div style="position:relative;margin-bottom:14px">
+        <div style="position:absolute;left:-24px;top:2px;width:18px;height:18px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;font-size:7px;font-weight:900;color:#05050e">S3</div>
+        <div style="background:rgba(0,229,160,.06);border:1px solid rgba(0,229,160,.18);border-radius:9px;padding:12px 14px">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+            <div style="font-size:11px;font-weight:900;color:var(--green)">Desarrollo web + SEO técnico · Semanas 3–4</div>
+            <div style="font-size:8px;font-weight:700;padding:2px 8px;border-radius:100px;background:rgba(0,229,160,.12);color:var(--green)">Días 15–28</div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+            <div class="clist">
+              <div class="ci">Construcción en HTML + Cloudflare Pages — secciones hotel y restaurante</div>
+              <div class="ci">Schema Hotel + Restaurant + Event implementados</div>
+              <div class="ci">Velocidad TTFB &lt;0.3s — menú digital del restaurante integrado</div>
+            </div>
+            <div class="clist">
+              <div class="ci">Captura de leads segmentada + nurturing hotel / restaurante</div>
+              <div class="ci">GA4 + Meta Pixel con eventos por sección y cross-sell</div>
+              <div class="ci">Hreflang EN + 2 perfiles Google Business optimizados</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SEMANA 5 -->
+      <div style="position:relative;margin-bottom:14px">
+        <div style="position:absolute;left:-24px;top:2px;width:18px;height:18px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;font-size:7px;font-weight:900;color:#05050e">S5</div>
+        <div style="background:rgba(0,229,160,.06);border:1px solid rgba(0,229,160,.18);border-radius:9px;padding:12px 14px">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+            <div style="font-size:11px;font-weight:900;color:var(--green)">QA, lanzamiento y Google Business · Semana 5</div>
+            <div style="font-size:8px;font-weight:700;padding:2px 8px;border-radius:100px;background:rgba(0,229,160,.12);color:var(--green)">Días 29–35</div>
+          </div>
+          <div class="clist">
+            <div class="ci">Revisión completa del sitio con el equipo del hotel — aprobación final</div>
+            <div class="ci">Migración del dominio al nuevo sitio — tiempo de inactividad: cero</div>
+            <div class="ci">Google Business Profile optimizado + publicaciones automáticas semanales activadas</div>
+            <div class="ci">Primer reporte de impacto: bot activo, sitio en producción, DNS blindado</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MES 2+ -->
+      <div style="position:relative">
+        <div style="position:absolute;left:-24px;top:2px;width:18px;height:18px;border-radius:50%;background:var(--hotel-d);display:flex;align-items:center;justify-content:center;font-size:7px;font-weight:900;color:#fff">∞</div>
+        <div style="background:var(--hotel-l);border:1px solid var(--hotel-b);border-radius:9px;padding:12px 14px">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+            <div style="font-size:11px;font-weight:900;color:var(--hotel)">Operación continua · Mes 2 en adelante</div>
+            <div style="font-size:8px;font-weight:700;padding:2px 8px;border-radius:100px;background:rgba(196,147,63,.15);color:var(--hotel)">Retainer mensual</div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+            <div class="clist">
+              <div class="ci">Monitoreo SEO mensual + ajustes de contenido</div>
+              <div class="ci">Reporte mensual de tráfico, conversiones y leads capturados</div>
+            </div>
+            <div class="clist">
+              <div class="ci">Monitor DNS 24/7 + reporte semanal de seguridad (Opción C)</div>
+              <div class="ci">Ajustes al bot según estacionalidad y tarifas del hotel</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+  <div class="page-footer">
+    <span>Trev'ainnovate · Santiago Juárez Treviño · trevainnovate.com</span>
+    <span>6 / 10</span>
+  </div>
+</div>
+
+<!-- ══ PÁGINA 6 — PORTAL DE CLIENTE ══ -->
+<div class="page" id="diagnostico">
+  <div class="topbar"></div>
+  <div class="page-header">
+    <div class="logo"><div class="logo-dot"></div><div class="logo-txt">TREV'AINNOVATE</div></div>
+    <div class="meta">Hotel Plaza de Armas · Propuesta Comercial<br>Abril 2026</div>
+  </div>
+  <div class="page-body">
+
+    <span class="label r">Diagnóstico en vivo — hotelplazadearmas.com</span>
+    <h2 style="margin-bottom:10px">El estado real de su infraestructura digital hoy.</h2>
+
+    <!-- DNS -->
+    <div class="dns-grid" style="margin-bottom:12px">
+      <div class="dns-card warn">
+        <div class="dns-label warn">SPF — Remitente</div>
+        <div class="dns-status">⚠️ Permisivo</div>
+        <div class="dns-val">v=spf1 ip4:192.154.227.210 ip4:192.154.255.158 +a +mx ~all</div>
+      </div>
+      <div class="dns-card ok">
+        <div class="dns-label ok">DKIM — Firma digital</div>
+        <div class="dns-status">✅ Configurado</div>
+        <div class="dns-val">v=DKIM1; k=rsa; p=MIIBIjAN... (selector default activo)</div>
+      </div>
+      <div class="dns-card fail">
+        <div class="dns-label fail">DMARC — Política de aplicación</div>
+        <div class="dns-status">🚨 Sin enforcement</div>
+        <div class="dns-val">v=DMARC1; p=none; — política vacía, cero protección real</div>
+      </div>
+      <div class="dns-card warn">
+        <div class="dns-label warn">MX — Servidor de correo</div>
+        <div class="dns-status">⚠️ Servidor propio</div>
+        <div class="dns-val">Correo alojado en servidor propio — mayor superficie de ataque</div>
+      </div>
+    </div>
+
+    <!-- Perf -->
+    <span class="label b">Rendimiento web</span>
+    <div class="block dark" style="margin-bottom:10px">
+      <div class="perf-bar">
+        <div class="perf-label">TTFB</div>
+        <div class="perf-track"><div class="perf-fill" style="width:85%;background:#ef4444"></div></div>
+        <div class="perf-val" style="color:#ef4444">1.26s</div>
+      </div>
+      <div class="perf-bar">
+        <div class="perf-label">Carga total</div>
+        <div class="perf-track"><div class="perf-fill" style="width:76%;background:#f59e0b"></div></div>
+        <div class="perf-val" style="color:#f59e0b">2.3s</div>
+      </div>
+      <div class="perf-bar">
+        <div class="perf-label">Benchmark Google</div>
+        <div class="perf-track"><div class="perf-fill" style="width:15%;background:#00e5a0"></div></div>
+        <div class="perf-val" style="color:#00e5a0">&lt;0.2s</div>
+      </div>
+      <p style="margin-top:8px;font-size:8.5px">Un TTFB de 1.26s penaliza el ranking en Google Maps y búsquedas de hotel en Querétaro. Cada segundo adicional de carga reduce las conversiones directas en ~7%.</p>
+    </div>
+
+    <!-- Headers missing -->
+    <span class="label r">Headers de seguridad web</span>
+    <div class="three-col" style="margin-bottom:0">
+      <div class="block red" style="padding:10px;margin:0">
+        <div style="font-size:9px;font-weight:800;color:#ef4444;margin-bottom:2px">❌ Sin HSTS</div>
+        <div style="font-size:8px;color:var(--muted)">Sin forzado de HTTPS — conexiones inseguras posibles</div>
+      </div>
+      <div class="block red" style="padding:10px;margin:0">
+        <div style="font-size:9px;font-weight:800;color:#ef4444;margin-bottom:2px">❌ Sin X-Frame</div>
+        <div style="font-size:8px;color:var(--muted)">Vulnerable a clickjacking — iframes maliciosos</div>
+      </div>
+      <div class="block red" style="padding:10px;margin:0">
+        <div style="font-size:9px;font-weight:800;color:#ef4444;margin-bottom:2px">❌ Stack expuesto</div>
+        <div style="font-size:8px;color:var(--muted)">PHP/8.1 y LiteSpeed visibles en headers públicos</div>
+      </div>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span>Trev'ainnovate · Santiago Juárez Treviño · trevainnovate.com</span>
+    <span>7 / 10</span>
+  </div>
+</div>
+
+<!-- ══ PÁGINA 3 — OPORTUNIDADES DE MEJORA DIGITAL ══ -->
+<div class="page" id="riesgo">
+  <div class="topbar"></div>
+  <div class="page-header">
+    <div class="logo"><div class="logo-dot"></div><div class="logo-txt">TREV'AINNOVATE</div></div>
+    <div class="meta">Hotel Plaza de Armas · Propuesta Comercial<br>Abril 2026</div>
+  </div>
+  <div class="page-body">
+
+    <span class="label r">Por qué esto importa para un hotel</span>
+    <h2 style="margin-bottom:8px">Su correo puede usarse para desviar pagos de reservaciones.</h2>
+    <p style="margin-bottom:12px">Con DMARC en p=none, cualquier atacante puede enviar correos desde recepcion@hotelplazadearmas.com sin hackear nada. El destinatario no ve diferencia con un correo legítimo.</p>
+
+    <!-- Scenario -->
+    <div class="scenario" style="margin-bottom:12px">
+      <div class="scenario-title">⚠️ Escenario de fraude — Reservación grupal o evento</div>
+      <div class="two-col">
+        <div class="clist">
+          <div class="ci x">Organizador de evento contacta al hotel para cotizar salón para 60 personas</div>
+          <div class="ci x">Atacante intercepta el hilo y envía correo falso desde <strong>recepcion@hotelplazadearmas.com</strong> con confirmación y datos bancarios alterados</div>
+        </div>
+        <div class="clist">
+          <div class="ci x">El organizador transfiere el anticipo — $40,000–$120,000 MXN — a la cuenta del atacante</div>
+          <div class="ci x">El hotel nunca recibió el pago. El organizador llega al evento sin reservación. Conflicto legal, reputación destruida en TripAdvisor</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Oportunidades operativas -->
+    <span class="label h">Brechas operativas identificadas</span>
+    <div class="two-col">
+      <div class="clist">
+        <div class="ci x">Reservaciones por WhatsApp respondidas manualmente — tiempo de respuesta variable, leads perdidos fuera de horario</div>
+        <div class="ci x">Sin seguimiento automático post-estadía — huéspedes satisfechos que no dejan reseña</div>
+        <div class="ci x">Sin captura de emails — base de datos de clientes sin explotar</div>
+      </div>
+      <div class="clist">
+        <div class="ci x">Sin recordatorios de check-in — cancelaciones de último minuto sin aviso previo</div>
+        <div class="ci x">Sin reporte de ocupación automático para dirección</div>
+        <div class="ci x">Sin nurturing a prospectos que cotizaron pero no reservaron</div>
+      </div>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span>Trev'ainnovate · Santiago Juárez Treviño · trevainnovate.com</span>
+    <span>8 / 10</span>
+  </div>
+</div>
+
+<!-- ══ PÁGINA 4 — SOLUCIÓN ══ -->
+<div class="page" id="portal">
+  <div class="topbar"></div>
+  <div class="page-header">
+    <div class="logo"><div class="logo-dot"></div><div class="logo-txt">TREV'AINNOVATE</div></div>
+    <div class="meta">Hotel Plaza de Armas · Propuesta Comercial<br>Abril 2026</div>
+  </div>
+  <div class="page-body">
+    <span class="label g">Exclusivo para clientes</span>
+    <div style="margin-bottom:10px">
+      <div style="font-size:17px;font-weight:900;color:#fff;margin-bottom:4px">Su portal personalizado de seguridad</div>
+      <div style="font-size:10px;color:var(--muted);line-height:1.6">Acceso 24/7 al estado real de su dominio, amenazas bloqueadas y automatizaciones activas. Solo disponible para clientes de Trev'ainnovate.</div>
+    </div>
+
+    <!-- Portal mockup -->
+    <div class="portal-mock" style="margin-bottom:12px">
+      <div class="pm-topbar">
+        <div style="display:flex;align-items:center;gap:10px">
+          <div style="font-size:9px;font-weight:800;color:#fff;letter-spacing:.04em">TREV'<span style="color:#00e5a0">A</span>INNOVATE</div>
+          <div style="width:1px;height:14px;background:rgba(255,255,255,.07)"></div>
+          <div style="display:flex;align-items:center;gap:7px">
+            <div style="width:20px;height:20px;border-radius:5px;background:#c4933f;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:800;color:#05050e">HP</div>
+            <div>
+              <div style="font-size:9px;font-weight:700;color:#fff">Hotel Plaza de Armas</div>
+              <div style="font-size:8px;color:#8892a4;font-family:monospace">hotelplazadearmas.com</div>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <div style="font-size:8px;font-weight:700;padding:2px 8px;border-radius:100px;background:rgba(0,229,160,.1);border:1px solid rgba(0,229,160,.25);color:#00e5a0">DNS Shield</div>
+          <div style="display:flex;align-items:center;gap:4px;font-size:8px;color:#8892a4"><div style="width:5px;height:5px;border-radius:50%;background:#00e5a0;box-shadow:0 0 5px #00e5a0"></div>En vivo</div>
+        </div>
+      </div>
+      <div class="pm-content">
+        <div style="background:rgba(0,229,160,.05);border:1px solid rgba(0,229,160,.15);border-radius:7px;padding:10px;display:flex;align-items:center;gap:10px">
+          <div style="width:40px;height:40px;border-radius:50%;border:3px solid #00e5a0;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+            <span style="font-size:11px;font-weight:900;color:#00e5a0">95</span>
+          </div>
+          <div>
+            <div style="font-size:9px;font-weight:800;color:#fff;margin-bottom:2px">Postura fuerte</div>
+            <div style="font-size:8px;color:#8892a4">Score DNS en tiempo real</div>
+            <div style="display:flex;gap:4px;margin-top:4px">
+              <span style="font-size:7px;padding:1px 5px;border-radius:100px;background:rgba(0,229,160,.1);border:1px solid rgba(0,229,160,.2);color:#00e5a0">✓ SPF</span>
+              <span style="font-size:7px;padding:1px 5px;border-radius:100px;background:rgba(0,229,160,.1);border:1px solid rgba(0,229,160,.2);color:#00e5a0">✓ DKIM</span>
+              <span style="font-size:7px;padding:1px 5px;border-radius:100px;background:rgba(0,229,160,.1);border:1px solid rgba(0,229,160,.2);color:#00e5a0">✓ DMARC</span>
+            </div>
+          </div>
+        </div>
+        <div style="background:#0b0b1c;border:1px solid rgba(255,255,255,.07);border-radius:7px;padding:10px;display:grid;grid-template-columns:1fr 1fr;gap:6px">
+          <div><div style="font-size:14px;font-weight:900;color:#00e5a0">183</div><div style="font-size:7px;color:#8892a4">Amenazas bloqueadas</div></div>
+          <div><div style="font-size:14px;font-weight:900;color:#3b82f6">2,340</div><div style="font-size:7px;color:#8892a4">Correos analizados</div></div>
+          <div><div style="font-size:14px;font-weight:900;color:#00e5a0">99.9%</div><div style="font-size:7px;color:#8892a4">Uptime sistema</div></div>
+          <div><div style="font-size:14px;font-weight:900;color:#8b5cf6">4</div><div style="font-size:7px;color:#8892a4">Reportes enviados</div></div>
+        </div>
+        <div style="background:#0b0b1c;border:1px solid rgba(255,255,255,.07);border-radius:7px;padding:8px;grid-column:span 2">
+          <div style="font-size:7px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#475569;margin-bottom:6px">Actividad reciente</div>
+          <div style="display:flex;align-items:center;gap:7px;margin-bottom:5px">
+            <div style="width:20px;height:20px;border-radius:5px;background:rgba(0,229,160,.1);border:1px solid rgba(0,229,160,.15);display:flex;align-items:center;justify-content:center;font-size:9px;flex-shrink:0">🛡</div>
+            <div style="flex:1"><div style="font-size:8px;color:#f1f5f9">Intento de suplantación bloqueado</div><div style="font-size:7px;color:#8892a4">recepcion@hotelplazadearmas.com · IP externa · Hace 3h</div></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:7px">
+            <div style="width:20px;height:20px;border-radius:5px;background:rgba(0,229,160,.1);border:1px solid rgba(0,229,160,.15);display:flex;align-items:center;justify-content:center;font-size:9px;flex-shrink:0">✅</div>
+            <div style="flex:1"><div style="font-size:8px;color:#f1f5f9">Verificación DNS diaria completada</div><div style="font-size:7px;color:#8892a4">SPF · DKIM · DMARC: sin cambios · Hace 9h</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="three-col" style="margin-bottom:8px">
+      <div class="block dark" style="padding:10px;margin:0">
+        <div style="font-size:14px;margin-bottom:4px">🔒</div>
+        <div style="font-size:9px;font-weight:700;color:#fff;margin-bottom:3px">Score DNS en vivo</div>
+        <div style="font-size:8px;color:#8892a4;line-height:1.5">Estado real de SPF, DKIM y DMARC actualizado cada día</div>
+      </div>
+      <div class="block dark" style="padding:10px;margin:0">
+        <div style="font-size:14px;margin-bottom:4px">⚡</div>
+        <div style="font-size:9px;font-weight:700;color:#fff;margin-bottom:3px">Automatizaciones activas</div>
+        <div style="font-size:8px;color:#8892a4;line-height:1.5">Ver qué flujos corren y cuándo en tiempo real</div>
+      </div>
+      <div class="block dark" style="padding:10px;margin:0">
+        <div style="font-size:14px;margin-bottom:4px">📊</div>
+        <div style="font-size:9px;font-weight:700;color:#fff;margin-bottom:3px">Reportes descargables</div>
+        <div style="font-size:8px;color:#8892a4;line-height:1.5">Historial de amenazas y métricas del mes en PDF</div>
+      </div>
+    </div>
+
+    <div style="background:var(--hotel-l);border:1px solid var(--hotel-b);border-radius:8px;padding:10px;display:flex;align-items:center;gap:10px">
+      <div style="font-size:18px">🔗</div>
+      <div>
+        <div style="font-size:9px;font-weight:700;color:var(--hotel);margin-bottom:2px">Su portal exclusivo</div>
+        <div style="font-size:8px;font-family:monospace;color:#8892a4">trevainnovate.com/portal?cliente=Hotel+Plaza+de+Armas&dominio=hotelplazadearmas.com&plan=dns</div>
+      </div>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span>Trev'ainnovate · Santiago Juárez Treviño · trevainnovate.com</span>
+    <span>9 / 10</span>
+  </div>
+</div>
+
+<!-- ══ PÁGINA 7 — GARANTÍA + SIGUIENTES PASOS ══ -->
+<div class="page" id="garantia">
+  <div class="topbar"></div>
+  <div class="page-header">
+    <div class="logo"><div class="logo-dot"></div><div class="logo-txt">TREV'AINNOVATE</div></div>
+    <div class="meta">Hotel Plaza de Armas · Propuesta Comercial<br>Abril 2026</div>
+  </div>
+  <div class="page-body">
+
+    <div class="two-col" style="margin-bottom:14px">
+      <!-- Garantía -->
+      <div>
+        <span class="label g">Garantía</span>
+        <div class="block green" style="padding:14px 16px">
+          <div style="font-size:13px;font-weight:900;color:var(--green);margin-bottom:6px">30 días o le devolvemos su inversión.</div>
+          <p style="margin-bottom:8px">Si en los primeros 30 días no cumplimos los entregables acordados — correo blindado activo, bot funcionando, reportes enviados — devolvemos el 100% sin preguntas.</p>
+          <div class="clist">
+            <div class="ci">Sin contratos de permanencia mínima</div>
+            <div class="ci">Cancelación en cualquier momento con 15 días de aviso</div>
+            <div class="ci">Soporte en español, respuesta &lt; 4h en días hábiles</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Timeline -->
+      <div>
+        <span class="label h">Línea de tiempo</span>
+        <div class="tl">
+          <div class="tl-item">
+            <div class="tl-dot h">1</div>
+            <div class="tl-body">
+              <div class="tl-tag">Día 0–1</div>
+              <div class="tl-h">Kickoff + DNS Shield activo</div>
+              <div class="tl-p">30 minutos de sesión. SPF, DKIM, DMARC configurados. hotelplazadearmas.com pasa de score 55 → 95+. Monitor y alertas activos.</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot h">2</div>
+            <div class="tl-body">
+              <div class="tl-tag">Semana 1</div>
+              <div class="tl-h">Bot WhatsApp en construcción</div>
+              <div class="tl-p">Discovery de flujos del hotel. Mapeo de preguntas frecuentes, tarifas y disponibilidad. Integración con sistema de reservaciones actual.</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot g">3</div>
+            <div class="tl-body">
+              <div class="tl-tag">Semana 2–3</div>
+              <div class="tl-h">Bot en producción</div>
+              <div class="tl-p">Bot live en WhatsApp del hotel. Flujos de confirmación, link de pago y recordatorio activos. Pruebas con reservaciones reales.</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot b">4</div>
+            <div class="tl-body">
+              <div class="tl-tag">Mes 1</div>
+              <div class="tl-h">Operación completa + primer reporte</div>
+              <div class="tl-p">Bot activo, seguridad operando. Primer reporte de impacto: reservaciones atendidas automáticamente, reseñas generadas, amenazas bloqueadas.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-box">
+      <div class="cta-h">¿Arrancamos esta semana?</div>
+      <div class="cta-sub">El DNS se activa en 24h, el bot en 2 semanas y el nuevo sitio en un mes. Cada día sin esto es tráfico perdido y leads que no regresan.</div>
+      <div class="cta-contacts">
+        <div class="cta-item"><strong>WhatsApp</strong>223 129 4663</div>
+        <div class="cta-item"><strong>Email</strong>contacto@trevainnovate.com</div>
+        <div class="cta-item"><strong>Web</strong>trevainnovate.com</div>
+      </div>
+      <div style="margin-top:14px;padding-top:12px;border-top:1px solid rgba(196,147,63,.2);font-size:8.5px;color:var(--muted)">
+        Esta propuesta es válida por 15 días · <span style="font-size:8.5px;color:rgba(255,255,255,.2)">Generada el 14 de abril de 2026</span>
+        <span style="font-size:10px;color:rgba(255,255,255,.2);margin-left:12px">30 días desde hoy</span>
+      </div>
+    </div>
+
+  </div>
+  <div class="page-footer">
+    <span>Trev'ainnovate · Santiago Juárez Treviño · trevainnovate.com</span>
+    <span>10 / 10</span>
+  </div>
+</div>
+
+<!-- ── FLOATING NAV ── -->
+<nav class="fnav" aria-label="Secciones de la propuesta">
+  <a class="fnav-item fnav-active" href="#portada" data-page="portada">
+    <span class="fnav-label">Inicio</span><div class="fnav-dot"></div>
+  </a>
+  <a class="fnav-item" href="#analisis" data-page="analisis">
+    <span class="fnav-label">Diagnóstico</span><div class="fnav-dot"></div>
+  </a>
+  <a class="fnav-item" href="#solucion" data-page="solucion">
+    <span class="fnav-label">Solución</span><div class="fnav-dot"></div>
+  </a>
+  <a class="fnav-item" href="#web" data-page="web">
+    <span class="fnav-label">Web</span><div class="fnav-dot"></div>
+  </a>
+  <a class="fnav-item" href="#inversion" data-page="inversion">
+    <span class="fnav-label">Inversión</span><div class="fnav-dot"></div>
+  </a>
+  <a class="fnav-item" href="#timeline" data-page="timeline">
+    <span class="fnav-label">Timeline</span><div class="fnav-dot"></div>
+  </a>
+  <a class="fnav-item" href="#diagnostico" data-page="diagnostico">
+    <span class="fnav-label">DNS Score</span><div class="fnav-dot"></div>
+  </a>
+  <a class="fnav-item" href="#riesgo" data-page="riesgo">
+    <span class="fnav-label">Riesgo BEC</span><div class="fnav-dot"></div>
+  </a>
+  <a class="fnav-item" href="#portal" data-page="portal">
+    <span class="fnav-label">Portal</span><div class="fnav-dot"></div>
+  </a>
+  <a class="fnav-item" href="#garantia" data-page="garantia">
+    <span class="fnav-label">Garantía</span><div class="fnav-dot"></div>
+  </a>
+</nav>
+
+<script>
+(function(){
+  var ids=['portada','analisis','solucion','web','inversion','timeline','diagnostico','riesgo','portal','garantia'];
+
+  /* ── Active dot tracking via IntersectionObserver ── */
+  var items=document.querySelectorAll('.fnav-item');
+  function setActive(id){
+    items.forEach(function(el){el.classList.remove('fnav-active');});
+    var a=document.querySelector('.fnav-item[data-page="'+id+'"]');
+    if(a) a.classList.add('fnav-active');
+  }
+  if('IntersectionObserver' in window){
+    var obs=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting) setActive(e.target.id);
+      });
+    },{threshold:0.45});
+    ids.forEach(function(id){var el=document.getElementById(id);if(el)obs.observe(el);});
+  }
+
+  /* ── Logo click → portada ── */
+  document.querySelectorAll('.logo').forEach(function(el){
+    el.style.cursor='pointer';
+    el.addEventListener('click',function(){
+      var p=document.getElementById('portada');
+      if(p) p.scrollIntoView({behavior:'smooth'});
+    });
+  });
+
+  /* ── Footer prev / next arrows ── */
+  ids.forEach(function(id,i){
+    var page=document.getElementById(id);
+    if(!page) return;
+    var footer=page.querySelector('.page-footer');
+    if(!footer) return;
+    var spans=footer.querySelectorAll('span');
+    var numSpan=spans[spans.length-1];
+    if(!numSpan) return;
+    var prevId=ids[i-1], nextId=ids[i+1];
+    var wrap=document.createElement('div');
+    wrap.style.cssText='display:flex;align-items:center;gap:18px;';
+    if(prevId) wrap.innerHTML+='<a href="#'+prevId+'" class="nav-arrow">← Anterior</a>';
+    var clone=numSpan.cloneNode(true);
+    wrap.appendChild(clone);
+    if(nextId) wrap.innerHTML+='<a href="#'+nextId+'" class="nav-arrow">Siguiente →</a>';
+    numSpan.replaceWith(wrap);
+  });
+})();
+</script>
+
+</body>
+</html>

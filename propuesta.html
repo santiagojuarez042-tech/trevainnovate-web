@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Propuesta Comercial — Trev'ainnovate</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:    #05050e; --bg2: #0b0b1c; --bg3: #111128;
+  --green: #00e5a0; --blue: #3b82f6; --purple: #8b5cf6;
+  --amber: #f59e0b; --red: #ef4444;
+  --white: #f1f5f9; --muted: #8892a4;
+  --border: rgba(255,255,255,0.07);
+}
+
+@page { size: A4 portrait; margin: 0; }
+
+body {
+  background: #111;
+  font-family: 'Inter', sans-serif;
+  color: var(--white);
+  -webkit-font-smoothing: antialiased;
+}
+
+.page {
+  width: 210mm; height: 297mm;
+  position: relative; overflow: hidden;
+  background: var(--bg);
+  display: flex; flex-direction: column;
+  margin: 0 auto 2mm;
+  page-break-after: always;
+}
+
+/* ── TOP BAR ── */
+.topbar { height: 3px; background: linear-gradient(90deg, var(--green), var(--blue), var(--purple)); flex-shrink: 0; }
+
+/* ── HEADER STRIP ── */
+.page-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 6mm 10mm 5mm;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.page-header-logo { display: flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 800; color: var(--white); }
+.logo-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 8px rgba(0,229,160,.7); }
+.page-header-meta { font-size: 9px; color: var(--muted); font-family: 'JetBrains Mono', monospace; text-align: right; line-height: 1.6; }
+.page-header-confidential { font-size: 8px; font-weight: 700; color: rgba(255,255,255,.2); text-transform: uppercase; letter-spacing: .12em; }
+
+/* ── CONTENT AREA ── */
+.page-body { flex: 1; padding: 8mm 10mm; display: flex; flex-direction: column; }
+
+/* ── FOOTER ── */
+.page-footer {
+  padding: 4mm 10mm;
+  border-top: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  flex-shrink: 0;
+}
+.page-footer span { font-size: 8px; color: rgba(255,255,255,.2); font-family: 'JetBrains Mono', monospace; }
+.page-num { font-size: 8px; color: rgba(255,255,255,.2); font-family: 'JetBrains Mono', monospace; }
+
+/* ── TYPOGRAPHY ── */
+.label { font-size: 9px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--green); margin-bottom: 6px; display: block; }
+.label.b { color: var(--blue); }
+.label.p { color: var(--purple); }
+.h1 { font-size: 32px; font-weight: 900; line-height: 1.06; letter-spacing: -.02em; }
+.h2 { font-size: 20px; font-weight: 800; line-height: 1.1; }
+.h3 { font-size: 13px; font-weight: 700; }
+.body { font-size: 11px; color: var(--muted); line-height: 1.65; }
+.grad { background: linear-gradient(135deg,#00e5a0,#3b82f6,#8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+/* ── COVER ── */
+.cover-bg { position: absolute; inset: 0; background: radial-gradient(ellipse at 80% 20%, rgba(0,229,160,.06) 0%, transparent 55%), radial-gradient(ellipse at 20% 80%, rgba(59,130,246,.05) 0%, transparent 55%); pointer-events: none; }
+.cover-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.02) 1px, transparent 1px); background-size: 20mm 20mm; pointer-events: none; }
+.cover-body { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 12mm 12mm 8mm; position: relative; z-index: 1; }
+.cover-tag { display: inline-flex; align-items: center; gap: 8px; padding: 5px 12px; border-radius: 99px; background: rgba(0,229,160,.08); border: 1px solid rgba(0,229,160,.2); font-size: 9px; font-weight: 700; color: var(--green); letter-spacing: .12em; text-transform: uppercase; margin-bottom: 20px; width: fit-content; }
+.cover-tag-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--green); }
+.cover-h { font-size: 38px; font-weight: 900; line-height: 1.04; letter-spacing: -.02em; margin-bottom: 16px; }
+.cover-sub { font-size: 13px; color: var(--muted); line-height: 1.6; max-width: 120mm; margin-bottom: 28px; }
+.cover-client-box { background: var(--bg2); border: 1px solid rgba(0,229,160,.2); border-radius: 12px; padding: 14px 18px; display: inline-block; margin-bottom: 28px; }
+.cover-client-label { font-size: 8px; font-weight: 700; color: var(--green); letter-spacing: .15em; text-transform: uppercase; margin-bottom: 5px; }
+.cover-client-name { font-size: 18px; font-weight: 800; color: var(--white); }
+.cover-client-contact { font-size: 10px; color: var(--muted); margin-top: 3px; }
+.cover-meta { display: flex; gap: 24px; }
+.cover-meta-item label { display: block; font-size: 8px; color: rgba(255,255,255,.3); text-transform: uppercase; letter-spacing: .1em; margin-bottom: 3px; }
+.cover-meta-item span { font-size: 11px; color: rgba(255,255,255,.6); font-family: 'JetBrains Mono', monospace; }
+
+/* ── STATUS CARDS (diagnosis) ── */
+.status-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 12px; }
+.status-card { border-radius: 10px; padding: 12px 14px; border: 1px solid; }
+.status-card.ok { background: rgba(0,229,160,.05); border-color: rgba(0,229,160,.2); }
+.status-card.fail { background: rgba(239,68,68,.05); border-color: rgba(239,68,68,.2); }
+.status-card.warn { background: rgba(245,158,11,.05); border-color: rgba(245,158,11,.2); }
+.status-card.unknown { background: rgba(255,255,255,.03); border-color: var(--border); }
+.sc-label { font-size: 9px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .1em; margin-bottom: 6px; }
+.sc-status { font-size: 13px; font-weight: 800; margin-bottom: 4px; }
+.sc-status.ok { color: var(--green); }
+.sc-status.fail { color: #ef4444; }
+.sc-status.warn { color: var(--amber); }
+.sc-status.unknown { color: rgba(255,255,255,.3); }
+.sc-desc { font-size: 10px; color: var(--muted); line-height: 1.5; }
+.score-bar-wrap { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; }
+.score-bar-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.score-bar-label { font-size: 9px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .1em; }
+.score-bar-val { font-size: 16px; font-weight: 900; font-family: 'JetBrains Mono', monospace; }
+.score-track { height: 6px; background: rgba(255,255,255,.07); border-radius: 99px; overflow: hidden; }
+.score-fill-bar { height: 100%; border-radius: 99px; transition: width .5s; }
+
+/* ── FEATURE ROWS ── */
+.feature-row { display: flex; gap: 10px; margin-bottom: 8px; }
+.feature-icon { font-size: 16px; flex-shrink: 0; width: 28px; }
+.feature-body .feature-title { font-size: 11px; font-weight: 700; color: var(--white); margin-bottom: 2px; }
+.feature-body .feature-desc { font-size: 10px; color: var(--muted); line-height: 1.5; }
+
+/* ── INCLUDE LIST ── */
+.include-list { display: flex; flex-direction: column; gap: 6px; }
+.include-item { display: flex; align-items: flex-start; gap: 8px; font-size: 10.5px; color: rgba(255,255,255,.75); line-height: 1.5; }
+.include-item::before { content: '✓'; color: var(--green); font-weight: 800; font-size: 10px; flex-shrink: 0; margin-top: 1px; }
+
+/* ── TWO COLUMNS ── */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 10mm; }
+.three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6mm; }
+
+/* ── SECTION BLOCK ── */
+.section-block { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; }
+.section-block.green { border-color: rgba(0,229,160,.2); }
+.section-block.blue { border-color: rgba(59,130,246,.2); }
+.section-block.purple { border-color: rgba(139,92,246,.2); }
+
+/* ── TIMELINE ── */
+.tl { position: relative; padding-left: 20px; }
+.tl::before { content: ''; position: absolute; left: 5px; top: 6px; bottom: 6px; width: 2px; background: linear-gradient(to bottom, var(--green), var(--blue), var(--purple)); border-radius: 2px; opacity: .3; }
+.tl-item { position: relative; margin-bottom: 14px; }
+.tl-item:last-child { margin-bottom: 0; }
+.tl-dot { position: absolute; left: -17px; top: 3px; width: 8px; height: 8px; border-radius: 50%; border: 2px solid; background: var(--bg); }
+.tl-dot.g { border-color: var(--green); }
+.tl-dot.b { border-color: var(--blue); }
+.tl-dot.p { border-color: var(--purple); }
+.tl-tag { font-size: 8px; font-weight: 700; font-family: 'JetBrains Mono', monospace; color: var(--muted); text-transform: uppercase; letter-spacing: .1em; margin-bottom: 3px; }
+.tl-h { font-size: 11px; font-weight: 700; color: var(--white); margin-bottom: 2px; }
+.tl-p { font-size: 10px; color: var(--muted); line-height: 1.5; }
+
+/* ── PRICING ── */
+.price-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 16px; }
+.price-card.featured { border-color: rgba(0,229,160,.3); background: rgba(0,229,160,.03); }
+.price-tag { font-size: 8px; font-weight: 700; color: var(--green); text-transform: uppercase; letter-spacing: .12em; margin-bottom: 8px; }
+.price-name { font-size: 13px; font-weight: 800; color: var(--white); margin-bottom: 4px; }
+.price-val { font-size: 24px; font-weight: 900; color: var(--green); line-height: 1; margin-bottom: 2px; font-family: 'JetBrains Mono', monospace; }
+.price-period { font-size: 9px; color: var(--muted); margin-bottom: 10px; }
+.price-includes { display: flex; flex-direction: column; gap: 5px; }
+.price-include-item { font-size: 9.5px; color: rgba(255,255,255,.65); display: flex; align-items: flex-start; gap: 6px; line-height: 1.4; }
+.price-include-item::before { content: '✓'; color: var(--green); font-size: 9px; font-weight: 800; flex-shrink: 0; }
+
+/* ── GUARANTEE ── */
+.guarantee-box { background: linear-gradient(135deg, rgba(0,229,160,.05), rgba(59,130,246,.04)); border: 1px solid rgba(0,229,160,.2); border-radius: 12px; padding: 16px 18px; text-align: center; }
+.guarantee-icon { font-size: 28px; margin-bottom: 8px; }
+.guarantee-title { font-size: 14px; font-weight: 900; margin-bottom: 6px; }
+.guarantee-body { font-size: 10px; color: var(--muted); line-height: 1.6; max-width: 100mm; margin: 0 auto; }
+.guarantee-badges { display: flex; justify-content: center; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.gbadge { font-size: 9px; font-weight: 700; padding: 4px 10px; border-radius: 6px; background: rgba(255,255,255,.05); border: 1px solid var(--border); color: rgba(255,255,255,.6); }
+
+/* ── NEXT STEPS ── */
+.next-step { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 10px; }
+.ns-num { width: 24px; height: 24px; border-radius: 50%; background: linear-gradient(135deg, var(--green), var(--blue)); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 900; color: var(--bg); flex-shrink: 0; }
+.ns-body .ns-title { font-size: 11px; font-weight: 700; color: var(--white); margin-bottom: 2px; }
+.ns-body .ns-desc { font-size: 10px; color: var(--muted); line-height: 1.5; }
+
+/* ── INFRA CARD ── */
+.infra-item { display: flex; gap: 10px; align-items: flex-start; padding: 10px 12px; background: rgba(255,255,255,.02); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 6px; }
+.infra-icon-sm { font-size: 16px; flex-shrink: 0; }
+.infra-item-name { font-size: 10.5px; font-weight: 700; color: var(--white); margin-bottom: 2px; }
+.infra-item-desc { font-size: 9.5px; color: var(--muted); line-height: 1.4; }
+.infra-item-badge { font-size: 8px; font-weight: 700; padding: 2px 6px; border-radius: 4px; background: rgba(0,229,160,.1); color: var(--green); border: 1px solid rgba(0,229,160,.2); font-family: 'JetBrains Mono', monospace; margin-top: 4px; display: inline-block; }
+
+/* ── CONTACT CTA ── */
+.cta-box { background: linear-gradient(135deg, rgba(0,229,160,.08), rgba(59,130,246,.06)); border: 1px solid rgba(0,229,160,.25); border-radius: 14px; padding: 20px 22px; text-align: center; }
+.cta-h { font-size: 18px; font-weight: 900; margin-bottom: 8px; }
+.cta-sub { font-size: 11px; color: var(--muted); margin-bottom: 16px; }
+.cta-contacts { display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; }
+.cta-contact { font-size: 11px; color: rgba(255,255,255,.7); font-family: 'JetBrains Mono', monospace; }
+.cta-contact strong { color: var(--white); display: block; margin-bottom: 2px; font-family: 'Inter', sans-serif; font-size: 10px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .08em; }
+
+@media print {
+  body { background: var(--bg) !important; }
+  .page { margin: 0; }
+}
+</style>
+</head>
+<body>
+
+<script>
+// ── Parámetros de URL ───────────────────────────────────────────
+const P = new URLSearchParams(window.location.search);
+const cliente  = P.get('cliente')  || 'Su Empresa';
+const contacto = P.get('contacto') || 'Estimado cliente';
+const dominio  = P.get('dominio')  || null;
+const spf      = P.get('spf')      || 'unknown'; // ok | warn | fail | unknown
+const dmarc    = P.get('dmarc')    || 'unknown';
+const dkim     = P.get('dkim')     || 'unknown';
+const score    = parseInt(P.get('score') || '0');
+const servicio = P.get('servicio') || 'combo';   // seguridad | automatizacion | combo
+const autoDesc = P.get('auto')     || '';         // descripción del proceso a automatizar
+const mailboxes= parseInt(P.get('mbx') || '20'); // número de correos
+const fecha    = P.get('fecha')    || new Date().toLocaleDateString('es-MX',{day:'numeric',month:'long',year:'numeric'});
+
+const hasSeg   = servicio === 'seguridad' || servicio === 'combo';
+const hasAuto  = servicio === 'automatizacion' || servicio === 'combo';
+const hasDiag  = dominio !== null;
+
+// Precios fijos MXN
+const priceDNSShield  = 4990;  // DNS Shield mensual
+const priceAIShield   = 9990;  // AI Shield mensual
+const priceAuto       = parseInt(P.get('auto_price') || '0'); // automatización mensual/único
+const setupFee        = 0;     // sin cargo de setup
+
+function scoreColor(s){ return s>=70?'var(--green)':s>=35?'var(--amber)':'#ef4444'; }
+function scoreLabel(s){ return s>=70?'BAJO':'RIESGO'; }
+
+function statusLabel(v){
+  if(v==='ok') return { text:'✅ Correcto', cls:'ok' };
+  if(v==='warn') return { text:'⚠️ Parcial', cls:'warn' };
+  if(v==='fail') return { text:'❌ Expuesto', cls:'fail' };
+  return { text:'— Sin datos', cls:'unknown' };
+}
+
+window.onload = () => {
+  // Rellenar campos dinámicos
+  document.querySelectorAll('[data-cliente]').forEach(el => el.textContent = cliente);
+  document.querySelectorAll('[data-contacto]').forEach(el => el.textContent = contacto);
+  document.querySelectorAll('[data-dominio]').forEach(el => el.textContent = dominio || 'su dominio');
+  document.querySelectorAll('[data-fecha]').forEach(el => el.textContent = fecha);
+  document.querySelectorAll('[data-mailboxes]').forEach(el => el.textContent = mailboxes);
+
+  // Status cards
+  ['spf','dmarc','dkim'].forEach(k => {
+    const val = k==='spf'?spf:k==='dmarc'?dmarc:dkim;
+    const st = statusLabel(val);
+    const card = document.getElementById('sc-'+k);
+    if(!card) return;
+    card.classList.add(st.cls);
+    card.querySelector('.sc-status').textContent = st.text;
+    card.querySelector('.sc-status').className = 'sc-status '+st.cls;
+  });
+
+  // Score
+  const fill = document.getElementById('score-fill');
+  const scVal = document.getElementById('score-val');
+  if(fill){ fill.style.width = score+'%'; fill.style.background = `linear-gradient(90deg,${scoreColor(score)},${scoreColor(score)}88)`; }
+  if(scVal){ scVal.textContent = score+'/100'; scVal.style.color = scoreColor(score); }
+
+  // Mostrar/ocultar páginas según servicio
+  document.querySelectorAll('.page-auto').forEach(p => p.style.display = hasAuto ? '' : 'none');
+  document.querySelectorAll('.page-diag').forEach(p => p.style.display = hasDiag ? '' : 'none');
+
+  // Combo total dinámico
+  const comboEl = document.getElementById('combo-total');
+  if(comboEl){
+    let total = 0;
+    if(hasSeg) total += priceDNSShield;
+    if(hasAuto && priceAuto) total += priceAuto;
+    if(total > 0) comboEl.textContent = '$' + total.toLocaleString('es-MX') + ' MXN';
+  }
+};
+</script>
+
+<!-- ══════════════════════════════════════════════════════
+     PÁGINA 1 — PORTADA
+══════════════════════════════════════════════════════ -->
+<div class="page">
+  <div class="topbar"></div>
+  <div class="cover-bg"></div>
+  <div class="cover-grid"></div>
+
+  <div style="padding:6mm 10mm 5mm; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid var(--border); position:relative; z-index:1;">
+    <div class="page-header-logo">
+      <div class="logo-dot"></div>
+      <span>TREV'AINNOVATE</span>
+    </div>
+    <span class="page-header-confidential">Propuesta Comercial Confidencial</span>
+  </div>
+
+  <div class="cover-body">
+    <div class="cover-tag"><div class="cover-tag-dot"></div>Propuesta Comercial · <span data-fecha></span></div>
+    <h1 class="cover-h">Eficiencia operativa.<br><span class="grad">Seguridad real.</span><br>Sin compromisos.</h1>
+    <p class="cover-sub">Automatización inteligente + seguridad de correo administrada para empresas en México que quieren crecer sin riesgos.</p>
+
+    <div class="cover-client-box">
+      <div class="cover-client-label">Preparado para</div>
+      <div class="cover-client-name" data-cliente></div>
+      <div class="cover-client-contact" data-contacto></div>
+    </div>
+
+    <div class="cover-meta">
+      <div class="cover-meta-item">
+        <label>Elaborado por</label>
+        <span>Santiago Juárez T.</span>
+      </div>
+      <div class="cover-meta-item">
+        <label>Fecha</label>
+        <span data-fecha></span>
+      </div>
+      <div class="cover-meta-item">
+        <label>Validez</label>
+        <span>30 días</span>
+      </div>
+      <div class="cover-meta-item">
+        <label>Versión</label>
+        <span>1.0</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>trevainnovate.com · contacto@trevainnovate.com · 223 129 4663</span>
+    <span>1 / 8</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     PÁGINA 2 — DIAGNÓSTICO (solo si viene con dominio)
+══════════════════════════════════════════════════════ -->
+<div class="page page-diag">
+  <div class="topbar"></div>
+  <div class="page-header">
+    <div class="page-header-logo"><div class="logo-dot"></div>TREV'AINNOVATE</div>
+    <div class="page-header-meta"><span data-cliente></span><br><span data-fecha></span></div>
+  </div>
+  <div class="page-body">
+    <span class="label">Diagnóstico de seguridad</span>
+    <h2 class="h2" style="margin-bottom:5px;">Así está <span class="grad" data-dominio></span> hoy</h2>
+    <p class="body" style="margin-bottom:14px;">Auditoría DNS realizada en tiempo real. Los datos a continuación son el estado actual y público de su correo corporativo.</p>
+
+    <div class="status-grid">
+      <div class="status-card" id="sc-spf">
+        <div class="sc-label">SPF — Remitente autorizado</div>
+        <div class="sc-status">—</div>
+        <div class="sc-desc">Controla qué servidores pueden enviar correo usando su dominio</div>
+      </div>
+      <div class="status-card" id="sc-dmarc">
+        <div class="sc-label">DMARC — Política anti-fraude</div>
+        <div class="sc-status">—</div>
+        <div class="sc-desc">Define qué hacer cuando alguien intenta suplantar su dominio</div>
+      </div>
+      <div class="status-card" id="sc-dkim">
+        <div class="sc-label">DKIM — Firma criptográfica</div>
+        <div class="sc-status">—</div>
+        <div class="sc-desc">Firma digital que verifica que el correo salió de sus servidores</div>
+      </div>
+      <div class="score-bar-wrap">
+        <div class="score-bar-top">
+          <span class="score-bar-label">Puntuación de seguridad</span>
+          <span class="score-bar-val" id="score-val">—</span>
+        </div>
+        <div class="score-track"><div class="score-fill-bar" id="score-fill" style="width:0%"></div></div>
+      </div>
+    </div>
+
+    <div class="section-block" style="margin-top:10px;">
+      <div class="h3" style="margin-bottom:8px;">¿Qué significa esto en la práctica?</div>
+      <div class="two-col">
+        <div class="include-list">
+          <div class="include-item" style="color:rgba(239,68,68,.9);">Sin SPF estricto: cualquiera puede enviar correos usando <strong data-dominio style="color:#ef4444"></strong></div>
+          <div class="include-item" style="color:rgba(239,68,68,.9);">Sin DMARC activo: los correos falsos llegan a la bandeja de sus clientes y proveedores</div>
+        </div>
+        <div class="include-list">
+          <div class="include-item" style="color:rgba(239,68,68,.9);">Sin DKIM: sus correos legítimos no tienen firma verificable — son tratados como sospechosos</div>
+          <div class="include-item" style="color:rgba(245,158,11,.8);">Phishing por suplantación de dominio: vector #1 de fraude a empresas en México</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span>trevainnovate.com · contacto@trevainnovate.com · 223 129 4663</span>
+    <span>2 / 8</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     PÁGINA 3 — LA SOLUCIÓN
+══════════════════════════════════════════════════════ -->
+<div class="page">
+  <div class="topbar"></div>
+  <div class="page-header">
+    <div class="page-header-logo"><div class="logo-dot"></div>TREV'AINNOVATE</div>
+    <div class="page-header-meta"><span data-cliente></span><br><span data-fecha></span></div>
+  </div>
+  <div class="page-body">
+    <span class="label">La solución</span>
+    <h2 class="h2" style="margin-bottom:5px;">Un ecosistema diseñado para <span class="grad">proteger y escalar.</span></h2>
+    <p class="body" style="margin-bottom:16px;">No vendemos software. Entregamos un servicio administrado: configuramos, monitoreamos, automatizamos y reportamos. Su empresa opera sin riesgos y con más eficiencia desde el primer mes.</p>
+
+    <div class="two-col">
+      <div class="section-block green" style="display:flex;flex-direction:column;gap:10px;">
+        <div>
+          <span class="label" style="margin-bottom:4px;">Módulo 1</span>
+          <div class="h3" style="margin-bottom:6px;">Seguridad de Correo Administrada</div>
+          <p class="body">Blindaje completo de su correo corporativo contra phishing, suplantación y fraude. Activo en menos de 24 horas sin cambiar su proveedor.</p>
+        </div>
+        <div class="include-list">
+          <div class="include-item">Configuración SPF / DKIM / DMARC — activación &lt;24h</div>
+          <div class="include-item">Monitor automatizado diario — verifica integridad DNS cada mañana</div>
+          <div class="include-item">Alerta inmediata si algo cambia o falla</div>
+          <div class="include-item">Reporte semanal de seguridad enviado a su equipo</div>
+          <div class="include-item">Reporte mensual con score, tendencia y recomendaciones</div>
+          <div class="include-item">Sin cambiar su proveedor de correo · Sin downtime</div>
+          <div class="include-item">Portal de cliente 24/7 — score DNS, amenazas y automatizaciones en tiempo real</div>
+        </div>
+      </div>
+      <div class="section-block blue" style="display:flex;flex-direction:column;gap:10px;">
+        <div>
+          <span class="label b" style="margin-bottom:4px;">Módulo 2</span>
+          <div class="h3" style="margin-bottom:6px;">Automatización Inteligente</div>
+          <p class="body">Identificamos el proceso que más tiempo consume en su empresa y lo automatizamos. Menos errores, cero capturas manuales, horas liberadas desde la primera semana.</p>
+        </div>
+        <div class="include-list">
+          <div class="include-item">Discovery session — mapeo de procesos</div>
+          <div class="include-item">Flujos n8n a medida para su operación</div>
+          <div class="include-item">Integraciones con sus herramientas actuales</div>
+          <div class="include-item">ROI documentado y medible</div>
+          <div class="include-item">Soporte y mantenimiento incluidos</div>
+          <div class="include-item">Sin límite de ejecuciones</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-block" style="margin-top:10px; background:rgba(255,255,255,.02);">
+      <div style="display:flex; justify-content:space-around; text-align:center; gap:10px;">
+        <div><div style="font-size:22px;font-weight:900;color:var(--green);font-family:'JetBrains Mono',monospace;">&lt;24h</div><div style="font-size:9px;color:var(--muted);">Activación seguridad</div></div>
+        <div><div style="font-size:22px;font-weight:900;color:var(--blue);font-family:'JetBrains Mono',monospace;">3 capas</div><div style="font-size:9px;color:var(--muted);">SPF · DKIM · DMARC</div></div>
+        <div><div style="font-size:22px;font-weight:900;color:var(--purple);font-family:'JetBrains Mono',monospace;">695%</div><div style="font-size:9px;color:var(--muted);">ROI automatización</div></div>
+        <div><div style="font-size:22px;font-weight:900;color:var(--amber);font-family:'JetBrains Mono',monospace;">30d</div><div style="font-size:9px;color:var(--muted);">Garantía de resultados</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span>trevainnovate.com · contacto@trevainnovate.com · 223 129 4663</span>
+    <span>3 / 8</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     PÁGINA 4 — INFRAESTRUCTURA TÉCNICA
+══════════════════════════════════════════════════════ -->
+<div class="page">
+  <div class="topbar"></div>
+  <div class="page-header">
+    <div class="page-header-logo"><div class="logo-dot"></div>TREV'AINNOVATE</div>
+    <div class="page-header-meta"><span data-cliente></span><br><span data-fecha></span></div>
+  </div>
+  <div class="page-body">
+    <span class="label">Stack técnico</span>
+    <h2 class="h2" style="margin-bottom:5px;">La infraestructura <span class="grad">detrás de cada entrega.</span></h2>
+    <p class="body" style="margin-bottom:14px;">No promesas genéricas. Herramientas reales, configuración precisa, cero margen de error. Esta es la arquitectura que se despliega para su empresa.</p>
+
+    <div class="two-col">
+      <div>
+        <div class="infra-item">
+          <div class="infra-icon-sm">🛡️</div>
+          <div>
+            <div class="infra-item-name">Motor AI de Email Security</div>
+            <div class="infra-item-desc">Analiza 200+ indicadores por mensaje. Detecta phishing, BEC y spear phishing antes de que lleguen a la bandeja de entrada.</div>
+            <div class="infra-item-badge">OPERACIONAL · 99.2% detección</div>
+          </div>
+        </div>
+        <div class="infra-item">
+          <div class="infra-icon-sm">📋</div>
+          <div>
+            <div class="infra-item-name">DMARC Analytics Engine</div>
+            <div class="infra-item-desc">SPF + DKIM + DMARC configurados en modo estricto (p=reject). Reportes XML procesados automáticamente.</div>
+            <div class="infra-item-badge">Aggregate + Forensic reports</div>
+          </div>
+        </div>
+        <div class="infra-item">
+          <div class="infra-icon-sm">☁️</div>
+          <div>
+            <div class="infra-item-name">Cloudflare DNS</div>
+            <div class="infra-item-desc">DNS administrado con registros SPF/DKIM/DMARC controlados. CDN global, zero-downtime.</div>
+            <div class="infra-item-badge">Proxied DNS · Global CDN</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="infra-item">
+          <div class="infra-icon-sm">⚙️</div>
+          <div>
+            <div class="infra-item-name">n8n Orchestration (self-hosted)</div>
+            <div class="infra-item-desc">Motor de automatización propio en VPS. Sin límites de ejecuciones. Lógica de negocio personalizada. Conecta cualquier sistema.</div>
+            <div class="infra-item-badge">Self-hosted · Sin costo por ops</div>
+          </div>
+        </div>
+        <div class="infra-item">
+          <div class="infra-icon-sm">🔔</div>
+          <div>
+            <div class="infra-item-name">Sistema de Alertas en Tiempo Real</div>
+            <div class="infra-item-desc">Ante cualquier amenaza detectada, usted recibe alerta inmediata por Telegram o email. Sin llamadas innecesarias — solo cuando importa.</div>
+            <div class="infra-item-badge">Telegram · Email · Tiempo real</div>
+          </div>
+        </div>
+        <div class="infra-item">
+          <div class="infra-icon-sm">📊</div>
+          <div>
+            <div class="infra-item-name">Dashboard de Reportes Mensual</div>
+            <div class="infra-item-desc">Reporte automático el día 1 de cada mes: amenazas bloqueadas, orígenes, tendencias. Lenguaje claro, sin tecnicismos.</div>
+            <div class="infra-item-badge">Automático · PDF · On-demand</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span>trevainnovate.com · contacto@trevainnovate.com · 223 129 4663</span>
+    <span>4 / 8</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     PÁGINA 5 — AUTOMATIZACIÓN (condicional)
+══════════════════════════════════════════════════════ -->
+<div class="page page-auto">
+  <div class="topbar"></div>
+  <div class="page-header">
+    <div class="page-header-logo"><div class="logo-dot"></div>TREV'AINNOVATE</div>
+    <div class="page-header-meta"><span data-cliente></span><br><span data-fecha></span></div>
+  </div>
+  <div class="page-body">
+    <span class="label b">Módulo 2 — Personalizado</span>
+    <h2 class="h2" style="margin-bottom:5px;">Automatización <span class="grad">específica para <span data-cliente></span>.</span></h2>
+    <p class="body" style="margin-bottom:14px;" id="auto-desc-el">Flujos diseñados para eliminar las tareas manuales más costosas de su operación.</p>
+
+    <div class="two-col" style="margin-bottom:12px;">
+      <div>
+        <div class="h3" style="margin-bottom:10px;">Qué automatizamos primero</div>
+        <div class="include-list" id="auto-list">
+          <div class="include-item">Captura y clasificación automática de leads</div>
+          <div class="include-item">Notificaciones y seguimiento sin intervención humana</div>
+          <div class="include-item">Sincronización entre sus sistemas actuales (CRM, ERP, correo)</div>
+          <div class="include-item">Reportes y métricas generados automáticamente</div>
+          <div class="include-item">Respuestas automáticas a consultas frecuentes</div>
+        </div>
+      </div>
+      <div>
+        <div class="h3" style="margin-bottom:10px;">El proceso</div>
+        <div class="tl">
+          <div class="tl-item">
+            <div class="tl-dot g"></div>
+            <div class="tl-tag">Semana 1</div>
+            <div class="tl-h">Discovery session</div>
+            <div class="tl-p">Mapeo de procesos actuales, identificación de quick wins y estimación de horas ahorradas.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot g"></div>
+            <div class="tl-tag">Semanas 1–2</div>
+            <div class="tl-h">Construcción e implementación</div>
+            <div class="tl-p">Desarrollo de los flujos n8n, pruebas controladas e implementación en producción.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot b"></div>
+            <div class="tl-tag">Mes 1</div>
+            <div class="tl-h">ROI documentado</div>
+            <div class="tl-p">Reporte con horas automatizadas, errores eliminados y valor económico generado.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-block blue">
+      <div class="h3" style="margin-bottom:6px;">Integraciones disponibles</div>
+      <div style="display:flex; flex-wrap:wrap; gap:6px; margin-top:6px;">
+        <span style="font-size:9px;padding:3px 8px;border-radius:4px;background:rgba(255,255,255,.05);border:1px solid var(--border);color:rgba(255,255,255,.5);font-family:'JetBrains Mono',monospace;">Google Workspace</span>
+        <span style="font-size:9px;padding:3px 8px;border-radius:4px;background:rgba(255,255,255,.05);border:1px solid var(--border);color:rgba(255,255,255,.5);font-family:'JetBrains Mono',monospace;">Microsoft 365</span>
+        <span style="font-size:9px;padding:3px 8px;border-radius:4px;background:rgba(255,255,255,.05);border:1px solid var(--border);color:rgba(255,255,255,.5);font-family:'JetBrains Mono',monospace;">WhatsApp Business</span>
+        <span style="font-size:9px;padding:3px 8px;border-radius:4px;background:rgba(255,255,255,.05);border:1px solid var(--border);color:rgba(255,255,255,.5);font-family:'JetBrains Mono',monospace;">Notion</span>
+        <span style="font-size:9px;padding:3px 8px;border-radius:4px;background:rgba(255,255,255,.05);border:1px solid var(--border);color:rgba(255,255,255,.5);font-family:'JetBrains Mono',monospace;">HubSpot</span>
+        <span style="font-size:9px;padding:3px 8px;border-radius:4px;background:rgba(255,255,255,.05);border:1px solid var(--border);color:rgba(255,255,255,.5);font-family:'JetBrains Mono',monospace;">Salesforce</span>
+        <span style="font-size:9px;padding:3px 8px;border-radius:4px;background:rgba(255,255,255,.05);border:1px solid var(--border);color:rgba(255,255,255,.5);font-family:'JetBrains Mono',monospace;">SAP / Microsip</span>
+        <span style="font-size:9px;padding:3px 8px;border-radius:4px;background:rgba(255,255,255,.05);border:1px solid var(--border);color:rgba(255,255,255,.5);font-family:'JetBrains Mono',monospace;">Google Sheets</span>
+        <span style="font-size:9px;padding:3px 8px;border-radius:4px;background:rgba(255,255,255,.05);border:1px solid var(--border);color:rgba(255,255,255,.5);font-family:'JetBrains Mono',monospace;">Telegram</span>
+        <span style="font-size:9px;padding:3px 8px;border-radius:4px;background:rgba(255,255,255,.05);border:1px solid var(--border);color:rgba(255,255,255,.5);font-family:'JetBrains Mono',monospace;">Slack</span>
+        <span style="font-size:9px;padding:3px 8px;border-radius:4px;background:rgba(255,255,255,.05);border:1px solid var(--border);color:rgba(255,255,255,.5);font-family:'JetBrains Mono',monospace;">+40 más</span>
+      </div>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span>trevainnovate.com · contacto@trevainnovate.com · 223 129 4663</span>
+    <span>5 / 8</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     PÁGINA 6 — PLAN DE IMPLEMENTACIÓN
+══════════════════════════════════════════════════════ -->
+<div class="page">
+  <div class="topbar"></div>
+  <div class="page-header">
+    <div class="page-header-logo"><div class="logo-dot"></div>TREV'AINNOVATE</div>
+    <div class="page-header-meta"><span data-cliente></span><br><span data-fecha></span></div>
+  </div>
+  <div class="page-body">
+    <span class="label">Plan de implementación</span>
+    <h2 class="h2" style="margin-bottom:5px;">De cero a operando. <span class="grad">En días, no meses.</span></h2>
+    <p class="body" style="margin-bottom:16px;">Esto es exactamente lo que ocurre desde que aprueban esta propuesta. Sin sorpresas, sin retrasos no comunicados.</p>
+
+    <div class="two-col">
+      <div class="tl">
+        <div class="tl-item">
+          <div class="tl-dot g"></div>
+          <div class="tl-tag">Día 1 — Activación</div>
+          <div class="tl-h">Kickoff + accesos</div>
+          <div class="tl-p">Llamada de kickoff, recopilación de accesos necesarios (admin de correo). Sin downtime en ningún punto del proceso.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot g"></div>
+          <div class="tl-tag">Día 1–2 — Seguridad</div>
+          <div class="tl-h">Blindaje de correo activo</div>
+          <div class="tl-p">SPF / DKIM / DMARC configurados. Motor de IA activo. Primeras alertas funcionando. Su empresa pasa de expuesta a protegida.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot b"></div>
+          <div class="tl-tag">Semana 1–2 — Automatización</div>
+          <div class="tl-h">Primer flujo en producción</div>
+          <div class="tl-p">Discovery session → diseño → implementación → pruebas → producción. Su equipo libera horas desde la primera semana.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot p"></div>
+          <div class="tl-tag">Mes 1 — Consolidación</div>
+          <div class="tl-h">ROI documentado</div>
+          <div class="tl-p">Primer reporte mensual: amenazas bloqueadas, horas automatizadas, valor económico generado. Número real, no proyección.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot p"></div>
+          <div class="tl-tag">Mes 2+ — Escalada</div>
+          <div class="tl-h">Ecosistema autónomo</div>
+          <div class="tl-p">Nuevos flujos según prioridades. Propuesta de expansión basada en datos reales del mes anterior.</div>
+        </div>
+      </div>
+      <div>
+        <div class="section-block" style="margin-bottom:10px;">
+          <div class="h3" style="margin-bottom:10px;">Lo que necesitamos de su parte</div>
+          <div class="include-list">
+            <div class="include-item">Acceso de administrador global a Google Workspace o Microsoft 365</div>
+            <div class="include-item">30 minutos para el kickoff call</div>
+            <div class="include-item">Definir el proceso prioritario a automatizar</div>
+            <div class="include-item">Canal de comunicación preferido (WhatsApp, email, Telegram)</div>
+          </div>
+        </div>
+        <div class="section-block green">
+          <div class="h3" style="margin-bottom:8px;">Lo que garantizamos nosotros</div>
+          <div class="include-list">
+            <div class="include-item">Seguridad activa en menos de 24 horas</div>
+            <div class="include-item">Sin tiempo fuera de servicio durante la implementación</div>
+            <div class="include-item">Comunicación proactiva — usted siempre sabe qué está pasando</div>
+            <div class="include-item">Primer flujo de automatización en producción antes de 15 días</div>
+            <div class="include-item">Soporte en español, respuesta en menos de 4 horas en días hábiles</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span>trevainnovate.com · contacto@trevainnovate.com · 223 129 4663</span>
+    <span>6 / 8</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     PÁGINA 7 — INVERSIÓN
+══════════════════════════════════════════════════════ -->
+<div class="page">
+  <div class="topbar"></div>
+  <div class="page-header">
+    <div class="page-header-logo"><div class="logo-dot"></div>TREV'AINNOVATE</div>
+    <div class="page-header-meta"><span data-cliente></span><br><span data-fecha></span></div>
+  </div>
+  <div class="page-body">
+    <span class="label">Inversión</span>
+    <h2 class="h2" style="margin-bottom:5px;">Estructura clara. <span class="grad">Sin letra chica.</span></h2>
+    <p class="body" style="margin-bottom:14px;">Precios fijos, sin sorpresas en la factura mensual. Todos los costos operativos de infraestructura están incluidos.</p>
+
+    <div class="three-col" style="margin-bottom:12px;">
+      <div class="price-card">
+        <div class="price-tag">Seguridad · Base</div>
+        <div class="price-name">DNS Shield</div>
+        <div class="price-val">$4,990</div>
+        <div class="price-period">MXN / mes · hasta 20 correos</div>
+        <div class="price-includes">
+          <div class="price-include-item">SPF / DKIM / DMARC configurado</div>
+          <div class="price-include-item">Monitoring DMARC automatizado</div>
+          <div class="price-include-item">Alertas en tiempo real</div>
+          <div class="price-include-item">Reporte mensual automático</div>
+          <div class="price-include-item">Soporte prioritario</div>
+        </div>
+      </div>
+      <div class="price-card featured">
+        <div class="price-tag">Seguridad · Avanzado ★</div>
+        <div class="price-name">AI Shield</div>
+        <div class="price-val">$9,990</div>
+        <div class="price-period">MXN / mes · hasta 20 correos</div>
+        <div class="price-includes">
+          <div class="price-include-item">Todo lo de DNS Shield</div>
+          <div class="price-include-item">Motor IA — análisis avanzado por correo</div>
+          <div class="price-include-item">Filtrado de adjuntos sospechosos</div>
+          <div class="price-include-item">Análisis de URLs en tiempo real</div>
+          <div class="price-include-item">Dashboard de amenazas mensual</div>
+          <div class="price-include-item">Revisión quincenal de configuración</div>
+        </div>
+      </div>
+      <div class="price-card">
+        <div class="price-tag">Automatización</div>
+        <div class="price-name">Flujos a medida</div>
+        <div class="price-val">Desde $15K</div>
+        <div class="price-period">MXN · proyecto único o retainer</div>
+        <div class="price-includes">
+          <div class="price-include-item">Discovery + mapeo de procesos</div>
+          <div class="price-include-item">Flujos n8n ilimitados</div>
+          <div class="price-include-item">Integraciones personalizadas</div>
+          <div class="price-include-item">Soporte y mantenimiento</div>
+          <div class="price-include-item">ROI documentado</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- JUSTIFICACIÓN DE PRECIO -->
+    <div class="section-block" style="background:rgba(0,229,160,.04);border-color:rgba(0,229,160,.15);margin-bottom:10px;">
+      <div class="h3" style="margin-bottom:8px;font-size:11px;">¿Por qué $4,990 MXN al mes?</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
+        <div style="background:rgba(0,0,0,.2);border-radius:6px;padding:8px 10px;">
+          <div style="font-size:9px;color:var(--muted);margin-bottom:3px;text-transform:uppercase;letter-spacing:.08em;">Consultor IT independiente</div>
+          <div style="font-size:14px;font-weight:800;color:var(--red);font-family:'JetBrains Mono',monospace;">$8,000–15,000</div>
+          <div style="font-size:8px;color:var(--muted);">MXN/mes · solo monitoreo básico</div>
+        </div>
+        <div style="background:rgba(0,0,0,.2);border-radius:6px;padding:8px 10px;">
+          <div style="font-size:9px;color:var(--muted);margin-bottom:3px;text-transform:uppercase;letter-spacing:.08em;">Costo promedio 1 incidente BEC</div>
+          <div style="font-size:14px;font-weight:800;color:var(--amber);font-family:'JetBrains Mono',monospace;">$180,000+</div>
+          <div style="font-size:8px;color:var(--muted);">MXN · fuente: IBM / ESET México 2024</div>
+        </div>
+        <div style="background:rgba(0,229,160,.08);border-radius:6px;padding:8px 10px;border:1px solid rgba(0,229,160,.2);">
+          <div style="font-size:9px;color:var(--green);margin-bottom:3px;text-transform:uppercase;letter-spacing:.08em;">DNS Shield — servicio completo</div>
+          <div style="font-size:14px;font-weight:800;color:var(--green);font-family:'JetBrains Mono',monospace;">$4,990</div>
+          <div style="font-size:8px;color:var(--muted);">MXN/mes · monitor + alertas + reportes</div>
+        </div>
+      </div>
+      <p style="font-size:9px;color:var(--muted);margin-top:7px;">Si en un año se previene <strong style="color:var(--white);">un solo intento de fraude</strong>, el ROI del servicio es <strong style="color:var(--green);">30x o más.</strong> El costo de no tenerlo es exponencialmente mayor.</p>
+    </div>
+
+    <!-- COMBO RECOMENDADO -->
+    <div class="section-block" style="background:rgba(255,255,255,.02);">
+      <div style="display:flex; gap:24px; align-items:flex-start; flex-wrap:wrap;">
+        <div style="flex:1;">
+          <div class="h3" style="margin-bottom:6px;">Recomendado para <span data-cliente></span></div>
+          <p class="body">DNS Shield + Automatización: protección activa desde el día 1, eficiencia operativa desde la primera semana. El ahorro de tiempo de la automatización cubre el costo de seguridad en los primeros 90 días.</p>
+        </div>
+        <div style="text-align:right; flex-shrink:0;">
+          <div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px;">Inversión mensual</div>
+          <div style="font-size:28px;font-weight:900;color:var(--green);font-family:'JetBrains Mono',monospace;" id="combo-total">$4,990 MXN</div>
+          <div style="font-size:9px;color:var(--muted);">seguridad + operación garantizada</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span>trevainnovate.com · contacto@trevainnovate.com · 223 129 4663</span>
+    <span>7 / 8</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     PÁGINA 8 — GARANTÍA + PRÓXIMOS PASOS
+══════════════════════════════════════════════════════ -->
+<div class="page">
+  <div class="topbar"></div>
+  <div class="page-header">
+    <div class="page-header-logo"><div class="logo-dot"></div>TREV'AINNOVATE</div>
+    <div class="page-header-meta"><span data-cliente></span><br><span data-fecha></span></div>
+  </div>
+  <div class="page-body">
+    <div class="two-col" style="margin-bottom:12px;">
+      <div>
+        <span class="label">Garantía</span>
+        <div class="guarantee-box" style="text-align:left; padding:14px 16px;">
+          <div style="font-size:24px;margin-bottom:8px;">🛡️</div>
+          <div class="h3" style="margin-bottom:8px;">30 días. Sin letra chica.</div>
+          <p class="body" style="margin-bottom:10px;">Si en los primeros 30 días no puede medir un impacto concreto en seguridad o eficiencia, le devolvemos el 100% de su inversión. Sin preguntas.</p>
+          <div style="display:flex;flex-direction:column;gap:5px;">
+            <div class="include-item" style="font-size:10px;">Activación en menos de 24 horas</div>
+            <div class="include-item" style="font-size:10px;">Sin contratos anuales forzosos</div>
+            <div class="include-item" style="font-size:10px;">Soporte en español, respuesta &lt;4h</div>
+            <div class="include-item" style="font-size:10px;">ROI documentado mensualmente</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <span class="label">Próximos pasos</span>
+        <div class="next-step">
+          <div class="ns-num">1</div>
+          <div class="ns-body">
+            <div class="ns-title">Aprobar esta propuesta</div>
+            <div class="ns-desc">Responder a este documento con confirmación por correo o WhatsApp. No se requiere firma formal para arrancar.</div>
+          </div>
+        </div>
+        <div class="next-step">
+          <div class="ns-num">2</div>
+          <div class="ns-body">
+            <div class="ns-title">Kickoff call — 30 minutos</div>
+            <div class="ns-desc">Definimos canal de comunicación, recopilamos accesos y agendamos el primer entregable. Puede ser el mismo día.</div>
+          </div>
+        </div>
+        <div class="next-step">
+          <div class="ns-num">3</div>
+          <div class="ns-body">
+            <div class="ns-title">Seguridad activa en 24h</div>
+            <div class="ns-desc">Con acceso al admin de correo, el blindaje queda activo antes de que termine el día siguiente.</div>
+          </div>
+        </div>
+        <div class="next-step">
+          <div class="ns-num">4</div>
+          <div class="ns-body">
+            <div class="ns-title">Primer reporte al mes</div>
+            <div class="ns-desc">Recibirá métricas reales: amenazas bloqueadas, horas ahorradas, ROI calculado. Número real, no estimación.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-box">
+      <div class="cta-h">¿Comenzamos esta semana?</div>
+      <div class="cta-sub">Esta propuesta tiene vigencia de 30 días a partir de la fecha de emisión. Estamos listos para arrancar en 24 horas.</div>
+      <div class="cta-contacts">
+        <div class="cta-contact"><strong>WhatsApp</strong>223 129 4663</div>
+        <div class="cta-contact"><strong>Email</strong>contacto@trevainnovate.com</div>
+        <div class="cta-contact"><strong>Web</strong>trevainnovate.com</div>
+      </div>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span>Trev'ainnovate · Santiago Juárez Treviño · trevainnovate.com</span>
+    <span>8 / 8</span>
+  </div>
+</div>
+
+</body>
+</html>

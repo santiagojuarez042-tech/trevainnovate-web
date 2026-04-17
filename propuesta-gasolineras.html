@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Propuesta de Automatización — Trev'ainnovate</title>
+<meta name="robots" content="noindex, nofollow">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+:root {
+  --bg:#080810; --s1:#0f0f1a; --s2:#161625; --s3:#1e1e30;
+  --border:#252535; --border2:#2e2e48;
+  --accent:#e8a020; --a2:#f5c842; --a3:rgba(232,160,32,0.12);
+  --text:#eeeef8; --t2:#8888aa; --t3:#5555770;
+  --red:#ff4757; --yellow:#ffa502; --green:#2ed573; --blue:#5352ed;
+  --r: 'Inter', system-ui, sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--r);line-height:1.6;min-height:100vh}
+
+/* ─── NAV ─── */
+.nav{position:sticky;top:0;z-index:200;background:rgba(8,8,16,0.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:14px 24px;display:flex;align-items:center;justify-content:space-between}
+.nav-brand{display:flex;align-items:center;gap:10px}
+.nav-logo{width:34px;height:34px;background:var(--accent);border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:14px;color:#000;letter-spacing:-1px}
+.nav-name{font-size:14px;font-weight:700;letter-spacing:0.3px}
+.nav-links{display:flex;gap:6px}
+.nav-link{font-size:12px;color:var(--t2);padding:6px 12px;border-radius:6px;cursor:pointer;border:none;background:none;font-family:var(--r);transition:all .2s}
+.nav-link:hover{background:var(--s2);color:var(--text)}
+.nav-cta{font-size:12px;font-weight:700;background:var(--accent);color:#000;padding:8px 16px;border-radius:100px;cursor:pointer;border:none;font-family:var(--r);transition:all .2s;text-decoration:none}
+.nav-cta:hover{background:var(--a2)}
+
+/* ─── SECTIONS ─── */
+section{padding:80px 24px;max-width:960px;margin:0 auto}
+section.full{max-width:100%;padding:0}
+
+/* ─── COVER ─── */
+.cover{min-height:100vh;display:flex;flex-direction:column;justify-content:center;background:linear-gradient(160deg,#0a0a18 0%,#0f0f22 40%,#080810 100%);position:relative;overflow:hidden;padding:0 24px}
+.cover::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 75% 40%,rgba(232,160,32,0.06) 0%,transparent 65%);pointer-events:none}
+.cover-grid{display:grid;grid-template-columns:1fr 420px;gap:60px;align-items:center;max-width:1100px;margin:0 auto;width:100%;padding:80px 0}
+@media(max-width:860px){.cover-grid{grid-template-columns:1fr}.cover-aside{display:none}}
+.cover-eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(232,160,32,0.1);border:1px solid rgba(232,160,32,0.25);color:var(--accent);font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:6px 14px;border-radius:100px;margin-bottom:28px}
+.cover h1{font-size:clamp(32px,5vw,54px);font-weight:900;line-height:1.05;letter-spacing:-1.5px;margin-bottom:12px}
+.cover h1 span{color:var(--accent)}
+.cover-empresa{font-size:clamp(18px,3vw,26px);font-weight:700;color:var(--t2);margin-bottom:24px}
+.cover-empresa em{color:var(--text);font-style:normal}
+.cover-desc{font-size:16px;color:var(--t2);max-width:480px;line-height:1.8;margin-bottom:40px}
+.cover-actions{display:flex;gap:14px;flex-wrap:wrap}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#000;font-weight:700;font-size:14px;padding:14px 28px;border-radius:100px;text-decoration:none;border:none;cursor:pointer;font-family:var(--r);transition:all .2s}
+.btn-primary:hover{background:var(--a2);transform:translateY(-2px);box-shadow:0 12px 36px rgba(232,160,32,0.25)}
+.btn-ghost{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--border2);color:var(--text);font-weight:600;font-size:14px;padding:14px 28px;border-radius:100px;text-decoration:none;cursor:pointer;font-family:var(--r);background:none;transition:all .2s}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+
+/* KPI cards */
+.cover-aside{display:flex;flex-direction:column;gap:16px}
+.kpi-card{background:var(--s1);border:1px solid var(--border2);border-radius:16px;padding:24px;position:relative;overflow:hidden}
+.kpi-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--a2))}
+.kpi-val{font-size:40px;font-weight:900;letter-spacing:-2px;color:var(--text);line-height:1}
+.kpi-val.red{color:var(--red)}
+.kpi-val.yellow{color:var(--yellow)}
+.kpi-val.green{color:var(--green)}
+.kpi-label{font-size:12px;color:var(--t2);margin-top:8px;font-weight:500}
+.kpi-sub{font-size:11px;color:var(--t2);margin-top:4px;opacity:.7}
+.kpi-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+
+/* ─── SECTION HEADER ─── */
+.sec-header{margin-bottom:48px}
+.sec-eyebrow{font-size:11px;font-weight:700;color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px}
+.sec-title{font-size:clamp(24px,4vw,38px);font-weight:800;letter-spacing:-0.5px;line-height:1.2}
+.sec-title span{color:var(--accent)}
+.sec-sub{font-size:15px;color:var(--t2);margin-top:12px;max-width:560px;line-height:1.8}
+
+/* ─── DIAGNOSTIC SUMMARY ─── */
+.diag-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.diag-card{background:var(--s1);border:1px solid var(--border);border-radius:14px;padding:24px;display:flex;gap:16px;align-items:flex-start}
+.diag-card.critico{border-color:rgba(255,71,87,0.3);background:rgba(255,71,87,0.04)}
+.diag-card.moderado{border-color:rgba(255,165,2,0.3);background:rgba(255,165,2,0.04)}
+.diag-card.noapl{border-color:rgba(46,213,115,0.2)}
+.diag-icon{font-size:24px;flex-shrink:0;margin-top:2px}
+.diag-body{}
+.diag-name{font-size:14px;font-weight:700;margin-bottom:4px}
+.diag-badge{display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:100px;margin-bottom:6px}
+.critico .diag-badge{background:rgba(255,71,87,0.15);color:var(--red)}
+.moderado .diag-badge{background:rgba(255,165,2,0.15);color:var(--yellow)}
+.noapl .diag-badge{background:rgba(46,213,115,0.12);color:var(--green)}
+.diag-comment{font-size:12px;color:var(--t2);font-style:italic;margin-top:4px;line-height:1.5}
+
+/* ─── SOLUTIONS ─── */
+.solutions{display:flex;flex-direction:column;gap:48px}
+.sol-block{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+@media(max-width:700px){.sol-block{grid-template-columns:1fr}}
+.sol-block.flip{direction:rtl}.sol-block.flip>*{direction:ltr}
+.sol-pain{background:var(--s1);border:1px solid var(--border);border-radius:14px;padding:28px;border-left:3px solid var(--red)}
+.sol-pain.mod{border-left-color:var(--yellow)}
+.sol-pain-label{font-size:10px;font-weight:700;color:var(--t2);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:12px}
+.sol-pain-title{font-size:17px;font-weight:700;margin-bottom:16px}
+.sol-pain-items{display:flex;flex-direction:column;gap:8px}
+.sol-pain-item{font-size:13px;color:var(--t2);display:flex;gap:8px;align-items:flex-start;line-height:1.5}
+.sol-pain-item::before{content:'→';color:var(--red);flex-shrink:0;font-size:12px;margin-top:1px}
+.sol-pain.mod .sol-pain-item::before{color:var(--yellow)}
+.sol-solution{}
+.sol-label{font-size:10px;font-weight:700;color:var(--accent);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:12px}
+.sol-title{font-size:19px;font-weight:800;margin-bottom:12px;letter-spacing:-0.3px}
+.sol-desc{font-size:14px;color:var(--t2);line-height:1.8;margin-bottom:20px}
+.sol-features{display:flex;flex-direction:column;gap:8px}
+.sol-feat{display:flex;align-items:flex-start;gap:10px;font-size:13px;background:var(--s2);border-radius:8px;padding:10px 14px}
+.sol-feat-icon{color:var(--accent);flex-shrink:0;font-size:14px;margin-top:1px}
+
+/* ─── INVESTMENT ─── */
+.inv-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin-top:40px}
+.inv-card{background:var(--s1);border:1px solid var(--border);border-radius:16px;padding:32px;position:relative;overflow:hidden;display:flex;flex-direction:column}
+.inv-card.featured{border-color:var(--accent);background:linear-gradient(145deg,#131323,#1a1a30)}
+.inv-card.featured::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--a2))}
+.inv-badge{display:inline-block;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 12px;border-radius:100px;margin-bottom:20px}
+.inv-card.featured .inv-badge{background:rgba(232,160,32,0.2);color:var(--accent)}
+.inv-card:not(.featured) .inv-badge{background:var(--s2);color:var(--t2)}
+.inv-rec{position:absolute;top:20px;right:20px;background:var(--accent);color:#000;font-size:10px;font-weight:700;padding:4px 10px;border-radius:100px}
+.inv-name{font-size:20px;font-weight:800;margin-bottom:8px;letter-spacing:-0.3px}
+.inv-desc{font-size:13px;color:var(--t2);margin-bottom:24px;line-height:1.6}
+.inv-price{margin-bottom:8px}
+.inv-setup{font-size:13px;color:var(--t2);margin-bottom:4px}
+.inv-setup strong{color:var(--text);font-weight:700}
+.inv-monthly{font-size:32px;font-weight:900;letter-spacing:-1px;color:var(--text)}
+.inv-monthly span{font-size:14px;font-weight:500;color:var(--t2)}
+.inv-features{margin-top:24px;display:flex;flex-direction:column;gap:8px;flex:1}
+.inv-feat{font-size:13px;color:var(--t2);display:flex;gap:8px;align-items:flex-start}
+.inv-feat::before{content:'✓';color:var(--green);flex-shrink:0;font-weight:700}
+.inv-card:not(.featured) .inv-feat::before{color:var(--t2)}
+.inv-cta{margin-top:28px;padding:14px 0;background:var(--accent);color:#000;font-weight:700;font-size:14px;border-radius:100px;text-align:center;cursor:pointer;border:none;font-family:var(--r);transition:all .2s;text-decoration:none;display:block}
+.inv-cta:hover{background:var(--a2)}
+.inv-card:not(.featured) .inv-cta{background:var(--s2);color:var(--text)}
+.inv-card:not(.featured) .inv-cta:hover{background:var(--border2)}
+.inv-note{margin-top:32px;text-align:center;font-size:12px;color:var(--t2);line-height:1.8}
+
+/* ─── TIMELINE ─── */
+.timeline{display:flex;gap:0;overflow-x:auto;padding-bottom:8px}
+.tl-step{flex:1;min-width:180px;padding:24px 20px;background:var(--s1);border-top:1px solid var(--border);border-bottom:1px solid var(--border);border-right:1px solid var(--border);position:relative}
+.tl-step:first-child{border-left:1px solid var(--border);border-radius:14px 0 0 14px}
+.tl-step:last-child{border-radius:0 14px 14px 0}
+.tl-week{font-size:10px;font-weight:700;color:var(--accent);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px}
+.tl-title{font-size:14px;font-weight:700;margin-bottom:8px}
+.tl-items{display:flex;flex-direction:column;gap:4px}
+.tl-item{font-size:12px;color:var(--t2);display:flex;gap:6px}
+.tl-item::before{content:'·';color:var(--accent)}
+
+/* ─── GUARANTEE ─── */
+.guarantee{background:linear-gradient(135deg,var(--s2) 0%,#1a1a2e 100%);border:1px solid rgba(232,160,32,0.2);border-radius:20px;padding:48px;text-align:center;position:relative;overflow:hidden}
+.guarantee::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 50% 100%,rgba(232,160,32,0.05) 0%,transparent 60%);pointer-events:none}
+.guar-icon{font-size:56px;display:block;margin-bottom:20px}
+.guar-title{font-size:28px;font-weight:800;letter-spacing:-0.5px;margin-bottom:12px}
+.guar-desc{font-size:16px;color:var(--t2);max-width:560px;margin:0 auto;line-height:1.8;margin-bottom:32px}
+.guar-pills{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:40px}
+.guar-pill{display:flex;align-items:center;gap:8px;background:var(--s1);border:1px solid var(--border2);border-radius:100px;padding:10px 20px;font-size:13px;font-weight:500}
+
+/* ─── CTA FINAL ─── */
+.cta-final{background:var(--s1);border:1px solid var(--border2);border-radius:20px;padding:48px;text-align:center}
+.cta-title{font-size:30px;font-weight:800;letter-spacing:-0.5px;margin-bottom:12px}
+.cta-sub{font-size:15px;color:var(--t2);margin-bottom:32px;line-height:1.8}
+.cta-contact{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:28px}
+.contact-item{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--t2)}
+.contact-item strong{color:var(--accent)}
+
+/* ─── DIVIDER ─── */
+.divider{height:1px;background:var(--border);margin:0 24px}
+
+/* ─── FOOTER ─── */
+footer{border-top:1px solid var(--border);padding:24px;text-align:center;font-size:12px;color:var(--t2)}
+footer a{color:var(--accent);text-decoration:none}
+
+/* scrollbar */
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-brand">
+    <div class="nav-logo">T'</div>
+    <div>
+      <div class="nav-name">Trev'ainnovate</div>
+    </div>
+  </div>
+  <div class="nav-links">
+    <button class="nav-link" onclick="scrollTo('diagnostico')">Diagnóstico</button>
+    <button class="nav-link" onclick="scrollTo('soluciones')">Soluciones</button>
+    <button class="nav-link" onclick="scrollTo('inversion')">Inversión</button>
+  </div>
+  <a class="nav-cta" href="mailto:contacto@trevainnovate.com" id="navCta">Agendar llamada</a>
+</nav>
+
+<!-- COVER -->
+<div class="cover full">
+  <div class="cover-grid">
+    <div class="cover-main">
+      <div class="cover-eyebrow">⛽ Propuesta de Automatización · <span id="coverFecha"></span></div>
+      <h1>Operación más <span>inteligente</span>,<br>control total.</h1>
+      <div class="cover-empresa">Para <em id="coverEmpresa">su empresa</em></div>
+      <p class="cover-desc">Basado en el diagnóstico de digitalización que completó su equipo, diseñamos una solución a la medida que conecta todas sus estaciones en un solo ecosistema de control en tiempo real.</p>
+      <div class="cover-actions">
+        <button class="btn-primary" onclick="scrollTo('inversion')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/></svg>
+          Ver inversión
+        </button>
+        <a class="btn-ghost" href="mailto:contacto@trevainnovate.com">Agendar llamada</a>
+      </div>
+    </div>
+    <div class="cover-aside">
+      <div class="kpi-card">
+        <div class="kpi-row">
+          <div>
+            <div class="kpi-val" id="kpiEstaciones">—</div>
+            <div class="kpi-label">Estaciones gestionadas</div>
+          </div>
+          <div>
+            <div class="kpi-val red" id="kpiCriticos">—</div>
+            <div class="kpi-label">Áreas críticas</div>
+            <div class="kpi-sub">detectadas en diagnóstico</div>
+          </div>
+        </div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-val" id="kpiPotencial">85%</div>
+        <div class="kpi-label">Procesos automatizables identificados</div>
+        <div class="kpi-sub">sobre los bloques evaluados</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-row">
+          <div>
+            <div class="kpi-val" style="color:var(--accent)">48h</div>
+            <div class="kpi-label">Tiempo para inicio</div>
+          </div>
+          <div>
+            <div class="kpi-val green">30</div>
+            <div class="kpi-label">Días garantía</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DIAGNÓSTICO RECIBIDO -->
+<section id="diagnostico">
+  <div class="sec-header">
+    <div class="sec-eyebrow">01 — Diagnóstico recibido</div>
+    <div class="sec-title">Lo que <span>encontramos</span> en su operación</div>
+    <p class="sec-sub" id="diagSub">Estos son los resultados del diagnóstico de digitalización completado por su equipo.</p>
+  </div>
+  <div class="diag-grid" id="diagGrid">
+    <!-- populated by JS -->
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SOLUCIONES -->
+<section id="soluciones">
+  <div class="sec-header">
+    <div class="sec-eyebrow">02 — Soluciones a la medida</div>
+    <div class="sec-title">Automatizaciones diseñadas <span>para su operación</span></div>
+    <p class="sec-sub">Cada solución resuelve directamente uno de los puntos críticos identificados en su diagnóstico.</p>
+  </div>
+  <div class="solutions" id="solutionsContainer">
+    <!-- populated by JS -->
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- INVERSIÓN -->
+<section id="inversion">
+  <div class="sec-header">
+    <div class="sec-eyebrow">03 — Inversión</div>
+    <div class="sec-title">Planes diseñados para <span id="invEst">su red</span></div>
+    <p class="sec-sub">Sin costos ocultos. Sin contratos de 3 años. Resultados medibles desde el primer mes.</p>
+  </div>
+  <div class="inv-grid">
+
+    <div class="inv-card">
+      <div class="inv-badge">Esencial</div>
+      <div class="inv-name">Control + Reportes</div>
+      <div class="inv-desc">Dashboard unificado, reportes automáticos y alertas para los bloques prioritarios.</div>
+      <div class="inv-price">
+        <div class="inv-setup">Configuración: <strong id="pSetupA">—</strong></div>
+        <div class="inv-monthly" id="pMensualA">—<span>/mes</span></div>
+      </div>
+      <div class="inv-features">
+        <div class="inv-feat">Dashboard en tiempo real por estación</div>
+        <div class="inv-feat">Reportes automáticos diarios y semanales</div>
+        <div class="inv-feat">Alertas por WhatsApp / correo</div>
+        <div class="inv-feat">Reconciliación automática de caja</div>
+        <div class="inv-feat">Soporte mensual incluido</div>
+      </div>
+      <a href="mailto:contacto@trevainnovate.com" class="inv-cta">Solicitar información</a>
+    </div>
+
+    <div class="inv-card featured">
+      <div class="inv-badge">Recomendado</div>
+      <div class="inv-rec">⭐ Para su operación</div>
+      <div class="inv-name">Ecosistema Completo</div>
+      <div class="inv-desc">Automatización total: control, inventarios, finanzas, personal y experiencia del cliente conectados.</div>
+      <div class="inv-price">
+        <div class="inv-setup">Configuración: <strong id="pSetupB">—</strong></div>
+        <div class="inv-monthly" id="pMensualB">—<span>/mes</span></div>
+      </div>
+      <div class="inv-features">
+        <div class="inv-feat">Todo el plan Esencial</div>
+        <div class="inv-feat">Integración de todos los sistemas existentes</div>
+        <div class="inv-feat">Panel directivo unificado (todas las estaciones)</div>
+        <div class="inv-feat">Automatización de inventarios y alertas de abasto</div>
+        <div class="inv-feat">Control de turnos y métricas por despachador</div>
+        <div class="inv-feat">IA para detección de anomalías y mermas</div>
+        <div class="inv-feat">Soporte prioritario 7 días · reunión mensual</div>
+      </div>
+      <a href="mailto:contacto@trevainnovate.com" class="inv-cta">Solicitar propuesta final</a>
+    </div>
+
+    <div class="inv-card">
+      <div class="inv-badge">Enterprise</div>
+      <div class="inv-name">A la medida</div>
+      <div class="inv-desc">Para operaciones con necesidades específicas de integración, ERP, o expansión de red.</div>
+      <div class="inv-price">
+        <div class="inv-setup">Evaluación inicial: <strong>Sin costo</strong></div>
+        <div class="inv-monthly">Cotización<span> personalizada</span></div>
+      </div>
+      <div class="inv-features">
+        <div class="inv-feat">Todo el plan Completo</div>
+        <div class="inv-feat">Integración con ERP / SAP / sistemas PEMEX</div>
+        <div class="inv-feat">Capacitación del equipo directivo y encargados</div>
+        <div class="inv-feat">SLA personalizado y soporte dedicado</div>
+        <div class="inv-feat">Roadmap de expansión tecnológica a 12 meses</div>
+      </div>
+      <a href="mailto:contacto@trevainnovate.com" class="inv-cta">Agendar reunión</a>
+    </div>
+
+  </div>
+  <div class="inv-note">
+    Precios en MXN + IVA · El plan recomendado incluye todos los bloques marcados como críticos en su diagnóstico.<br>
+    Primer mes de implementación sin costo de mensualidad en plan Completo.
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- TIMELINE -->
+<section>
+  <div class="sec-header">
+    <div class="sec-eyebrow">04 — Implementación</div>
+    <div class="sec-title">De 0 a operando en <span>30 días</span></div>
+  </div>
+  <div class="timeline">
+    <div class="tl-step">
+      <div class="tl-week">Semana 1</div>
+      <div class="tl-title">Diagnóstico técnico</div>
+      <div class="tl-items">
+        <div class="tl-item">Mapeo de sistemas actuales</div>
+        <div class="tl-item">Accesos y credenciales</div>
+        <div class="tl-item">Reunión con encargados</div>
+      </div>
+    </div>
+    <div class="tl-step">
+      <div class="tl-week">Semana 2</div>
+      <div class="tl-title">Construcción</div>
+      <div class="tl-items">
+        <div class="tl-item">Desarrollo de flujos automáticos</div>
+        <div class="tl-item">Integraciones con sistemas</div>
+        <div class="tl-item">Dashboard configurado</div>
+      </div>
+    </div>
+    <div class="tl-step">
+      <div class="tl-week">Semana 3</div>
+      <div class="tl-title">Pruebas y ajustes</div>
+      <div class="tl-items">
+        <div class="tl-item">Pruebas en 2 estaciones piloto</div>
+        <div class="tl-item">Ajustes según retroalimentación</div>
+        <div class="tl-item">Validación con equipo</div>
+      </div>
+    </div>
+    <div class="tl-step">
+      <div class="tl-week">Semana 4</div>
+      <div class="tl-title">Lanzamiento total</div>
+      <div class="tl-items">
+        <div class="tl-item">Activación en todas las estaciones</div>
+        <div class="tl-item">Capacitación del equipo</div>
+        <div class="tl-item">Monitoreo en vivo 30 días</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- GARANTÍA -->
+<section>
+  <div class="guarantee">
+    <span class="guar-icon">🛡️</span>
+    <div class="guar-title">Garantía de 30 días</div>
+    <p class="guar-desc">Si en los primeros 30 días de operación no ve mejoras concretas y medibles en los procesos automatizados, le devolvemos el 100% de la inversión de implementación — sin preguntas.</p>
+    <div class="guar-pills">
+      <div class="guar-pill">✅ Sin contratos de largo plazo</div>
+      <div class="guar-pill">✅ Resultados medibles desde el día 1</div>
+      <div class="guar-pill">✅ Soporte incluido</div>
+      <div class="guar-pill">✅ Sin costos ocultos</div>
+    </div>
+    <button class="btn-primary" onclick="window.location.href='mailto:contacto@trevainnovate.com'">
+      Quiero empezar
+    </button>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section>
+  <div class="cta-final">
+    <div class="cta-title" id="ctaTitle">¿Platicamos esta semana?</div>
+    <p class="cta-sub">Una llamada de 30 minutos es suficiente para definir por dónde empezar y qué impacto puede tener en su operación desde el primer mes.</p>
+    <button class="btn-primary" onclick="window.location.href='mailto:contacto@trevainnovate.com?subject=Propuesta Gasolineras — Agendar llamada'">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/></svg>
+      Agendar llamada
+    </button>
+    <div class="cta-contact">
+      <div class="contact-item">📧 <strong>contacto@trevainnovate.com</strong></div>
+      <div class="contact-item">🌐 <strong>trevainnovate.com</strong></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Propuesta confidencial preparada por <a href="https://trevainnovate.com" target="_blank">Trev'ainnovate</a> &nbsp;·&nbsp; Automatización · Inteligencia · Resultados
+</footer>
+
+<script>
+// ─────────────────────────────────────────
+// DATOS DE BLOQUES
+// ─────────────────────────────────────────
+const BLOQUES = {
+  1: {
+    icon: '🔴',
+    nombre: 'Control de Ventas y Caja',
+    problems: ['Cierres de turno manuales y en papel','Cruce de litros vs. efectivo imposible de rastrear','Diferencias de caja sin causa clara','Sin registro digital por isla o despachador'],
+    sol_title: 'Dashboard de ventas en tiempo real',
+    sol_desc: 'Sistema de reconciliación automática que cruza litros despachados, efectivo recibido y diferencias — por turno, por isla y por estación, visible desde cualquier dispositivo.',
+    sol_features: ['Cierre de turno digital en 2 minutos','Alerta inmediata si hay diferencias de caja','Reporte automático al dueño cada fin de turno','Historial completo por despachador']
+  },
+  2: {
+    icon: '🟠',
+    nombre: 'Inventarios y Abastecimiento',
+    problems: ['Sin alertas de nivel bajo de combustible','Pedidos por teléfono sin historial','Desabastos que afectan operaciones','Mermas no monitoreadas'],
+    sol_title: 'Monitor de inventarios con alertas automáticas',
+    sol_desc: 'Sistema de seguimiento en tiempo real de niveles de combustible por tanque, con alertas automáticas cuando se acerca el punto de reorden y predicción de consumo basada en histórico.',
+    sol_features: ['Alerta a WhatsApp cuando el tanque llega al 25%','Predicción de demanda por estación','Historial de pedidos y proveedores centralizado','Detección automática de mermas inusuales']
+  },
+  3: {
+    icon: '🟡',
+    nombre: 'Administración y Finanzas',
+    problems: ['Reportes financieros en Excel que toman horas','Sin visibilidad por estación en tiempo real','Gastos de mantenimiento no centralizados','Facturación semi-manual'],
+    sol_title: 'Reportes financieros automáticos',
+    sol_desc: 'Generación automática de reportes diarios, semanales y mensuales de rentabilidad por estación, con dashboard financiero unificado para dirección.',
+    sol_features: ['Reporte del día en tu correo cada noche','P&L automático por estación y consolidado','Categorización automática de gastos','Tablero de KPIs financieros en tiempo real']
+  },
+  4: {
+    icon: '🔵',
+    nombre: 'Personal y Operaciones',
+    problems: ['Control de asistencias sin digitalizar','Sin comparación de desempeño entre estaciones','Comunicación informal por WhatsApp','Incidencias sin sistema centralizado'],
+    sol_title: 'Sistema operativo centralizado',
+    sol_desc: 'Panel de control de recursos humanos y operaciones que consolida asistencias, turnos, métricas de productividad e incidencias de todas las estaciones en un solo lugar.',
+    sol_features: ['Registro de asistencia digital (QR o app)','Métricas de desempeño por despachador','Sistema de incidencias con foto y geolocalización','Comunicación oficial con encargados integrada']
+  },
+  5: {
+    icon: '🟣',
+    nombre: 'Experiencia del Cliente y Fidelización',
+    problems: ['Sin programa de lealtad','Sin recopilación de reseñas','Sin comunicación con clientes frecuentes','Sin diferenciación vs. competencia'],
+    sol_title: 'Ecosistema de fidelización automático',
+    sol_desc: 'Programa de puntos y beneficios para clientes frecuentes, con recopilación automática de reseñas, comunicaciones por WhatsApp y métricas de retención.',
+    sol_features: ['Programa de puntos por litro cargado','Reseñas automáticas post-visita por WhatsApp','Notificaciones de promociones a clientes frecuentes','Métricas de satisfacción y retención']
+  },
+  6: {
+    icon: '⚙️',
+    nombre: 'Tecnología y Sistemas',
+    problems: ['Sistemas que no se comunican entre sí','Datos en silos por estación','Sin automatizaciones activas','Sin panel directivo unificado'],
+    sol_title: 'Integración total de sistemas',
+    sol_desc: 'Capa de integración que conecta todos los sistemas existentes (punto de venta, contabilidad, PEMEX, etc.) en una API central, con panel ejecutivo para dirección general.',
+    sol_features: ['Integración con sistemas POS existentes','API central que conecta todas las fuentes de datos','Panel ejecutivo multi-estación','Migraciones sin interrumpir operaciones']
+  }
+};
+
+// ─────────────────────────────────────────
+// URL PARAMS
+// ─────────────────────────────────────────
+const p = new URLSearchParams(location.search);
+const empresa = p.get('empresa') || 'su empresa';
+const nombre = p.get('nombre') || '';
+const estaciones = p.get('estaciones') || '—';
+const criticoIds = (p.get('critico') || '').split(',').filter(Boolean).map(Number);
+const moderadoIds = (p.get('moderado') || '').split(',').filter(Boolean).map(Number);
+const noaplIds = (p.get('noapl') || '').split(',').filter(Boolean).map(Number);
+const comments = {};
+for (let i = 1; i <= 6; i++) {
+  const c = p.get(`c${i}`);
+  if (c) comments[i] = decodeURIComponent(c);
+}
+
+// Pricing params (configurable or defaults)
+const est = parseInt(estaciones) || 5;
+const baseSetupA = p.get('sa') ? parseInt(p.get('sa')) : Math.max(45000, est * 3500);
+const baseMensA  = p.get('ma') ? parseInt(p.get('ma')) : Math.max(18000, est * 1200);
+const baseSetupB = p.get('sb') ? parseInt(p.get('sb')) : Math.max(95000, est * 6500);
+const baseMensB  = p.get('mb') ? parseInt(p.get('mb')) : Math.max(32000, est * 2200);
+
+function fmx(n) { return '$' + n.toLocaleString('es-MX') + ' MXN'; }
+
+// ─────────────────────────────────────────
+// POPULATE UI
+// ─────────────────────────────────────────
+document.getElementById('coverEmpresa').textContent = empresa;
+document.getElementById('coverFecha').textContent = new Date().toLocaleDateString('es-MX', { day:'numeric', month:'long', year:'numeric' });
+document.getElementById('kpiEstaciones').textContent = estaciones;
+document.getElementById('kpiCriticos').textContent = criticoIds.length || (criticoIds.length + moderadoIds.length) || '—';
+document.getElementById('invEst').textContent = `${estaciones} estaciones`;
+document.getElementById('pSetupA').textContent = fmx(baseSetupA);
+document.getElementById('pMensualA').innerHTML = fmx(baseMensA) + '<span>/mes</span>';
+document.getElementById('pSetupB').textContent = fmx(baseSetupB);
+document.getElementById('pMensualB').innerHTML = fmx(baseMensB) + '<span>/mes</span>';
+if (nombre) {
+  document.getElementById('ctaTitle').textContent = `¿Platicamos esta semana, ${nombre}?`;
+  document.getElementById('navCta').textContent = `Contactar a ${nombre.split(' ')[0]}`;
+}
+
+// ─────── DIAGNOSTIC GRID ───────
+const allAnswered = [...criticoIds.map(i=>({id:i,sev:'critico'})), ...moderadoIds.map(i=>({id:i,sev:'moderado'})), ...noaplIds.map(i=>({id:i,sev:'noapl'}))].sort((a,b)=>a.id-b.id);
+
+if (allAnswered.length === 0) {
+  // No params — show generic grid
+  const grid = document.getElementById('diagGrid');
+  grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;color:var(--t2);padding:40px;font-size:14px">Esta propuesta se personaliza automáticamente una vez que el diagnóstico haya sido completado.</div>';
+  document.getElementById('diagSub').textContent = 'Esta propuesta se personalizará automáticamente una vez recibido el diagnóstico completado.';
+} else {
+  const sevLabel = { critico:'🔴 Crítico', moderado:'🟡 Moderado', noapl:'🟢 No aplica' };
+  const grid = document.getElementById('diagGrid');
+  // Also add unanswered ones
+  const answeredIds = allAnswered.map(a=>a.id);
+  for (let i = 1; i <= 6; i++) {
+    if (!answeredIds.includes(i)) allAnswered.push({id:i, sev:'pending'});
+  }
+  allAnswered.sort((a,b)=>a.id-b.id);
+
+  grid.innerHTML = allAnswered.map(({id, sev}) => {
+    const b = BLOQUES[id];
+    const com = comments[id] || '';
+    const cls = sev === 'pending' ? 'noapl' : sev;
+    const badge = sev === 'pending' ? 'Sin responder' : sevLabel[sev];
+    return `<div class="diag-card ${cls}">
+      <div class="diag-icon">${b.icon}</div>
+      <div class="diag-body">
+        <div class="diag-name">${b.nombre}</div>
+        <div class="diag-badge">${badge}</div>
+        ${com ? `<div class="diag-comment">"${com}"</div>` : ''}
+      </div>
+    </div>`;
+  }).join('');
+
+  const potencial = Math.round(((criticoIds.length * 1 + moderadoIds.length * 0.6) / 6) * 100);
+  document.getElementById('kpiPotencial').textContent = potencial + '%';
+  document.getElementById('diagSub').textContent = `${criticoIds.length} área${criticoIds.length !== 1 ? 's' : ''} crítica${criticoIds.length !== 1 ? 's' : ''} y ${moderadoIds.length} moderada${moderadoIds.length !== 1 ? 's' : ''} identificadas en su operación de ${estaciones} estaciones.`;
+}
+
+// ─────── SOLUTIONS ───────
+const solPriority = [...criticoIds, ...moderadoIds].slice(0, 5); // max 5 solutions
+const container = document.getElementById('solutionsContainer');
+if (solPriority.length === 0) {
+  container.innerHTML = `<div style="text-align:center;color:var(--t2);padding:40px;font-size:14px">Las soluciones se personalizarán de acuerdo al diagnóstico recibido.</div>`;
+} else {
+  container.innerHTML = solPriority.map((id, idx) => {
+    const b = BLOQUES[id];
+    const isMod = moderadoIds.includes(id);
+    const flip = idx % 2 === 1 ? 'flip' : '';
+    return `<div class="sol-block ${flip}">
+      <div class="sol-pain ${isMod ? 'mod' : ''}">
+        <div class="sol-pain-label">${isMod ? '🟡 Área moderada' : '🔴 Área crítica'} — Bloque ${id}</div>
+        <div class="sol-pain-title">${b.nombre}</div>
+        <div class="sol-pain-items">
+          ${b.problems.map(pr => `<div class="sol-pain-item">${pr}</div>`).join('')}
+        </div>
+      </div>
+      <div class="sol-solution">
+        <div class="sol-label">Solución propuesta</div>
+        <div class="sol-title">${b.sol_title}</div>
+        <div class="sol-desc">${b.sol_desc}</div>
+        <div class="sol-features">
+          ${b.sol_features.map(f => `<div class="sol-feat"><span class="sol-feat-icon">✦</span>${f}</div>`).join('')}
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ─────────────────────────────────────────
+function scrollTo(id) {
+  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+</script>
+</body>
+</html>

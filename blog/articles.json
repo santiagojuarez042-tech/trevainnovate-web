@@ -1,0 +1,40 @@
+[
+  {
+    "title": "Protege tu negocio del fraude BEC en México",
+    "slug": "protege-tu-negocio-del-fraude-bec-en-mexico",
+    "description": "Aprende a proteger tu negocio del fraude BEC en México, un tipo de ataque cibernético que puede costarte miles de pesos, y descubre cómo Trev'ainnovate puede ayudarte a prevenirlo",
+    "date": "2026-04-14",
+    "readTime": 5,
+    "tags": [
+      "Seguridad de correo empresarial",
+      "Protección contra BEC",
+      "Phishing",
+      "Ciberseguridad en México"
+    ]
+  },
+  {
+    "title": "DMARC para empresas en México: ¿Qué es y cómo implementarlo?",
+    "slug": "dmarc-para-empresas-en-mexico",
+    "description": "Aprende a proteger tu correo empresarial con DMARC. Conoce qué es DMARC, cómo funciona y cómo implementarlo en tu empresa mexicana para prevenir el phishing y BEC.",
+    "date": "2026-04-14",
+    "readTime": 5,
+    "tags": [
+      "DMARC",
+      "Seguridad de correo empresarial",
+      "Phishing",
+      "BEC"
+    ]
+  },
+  {
+    "title": "Protege tu correo empresarial de suplantación",
+    "slug": "protege-tu-correo-empresarial-de-supalacion",
+    "description": "Aprende a identificar y prevenir la suplantación de correo electrónico en tu empresa, protege tus datos y previene pérdidas financieras con nuestras soluciones de seguridad",
+    "date": "2026-04-14",
+    "readTime": 5,
+    "tags": [
+      "seguridad-de-correo",
+      "suplantacion-de-correo",
+      "proteccion-contra-phishing"
+    ]
+  }
+]

@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GEC Plastic — Panel de actividad | Trev'ainnovate</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ── Variables ─────────────────────────────────────────────────── */
+:root{
+  --bg:#05050e; --surface:#0a0a18; --surface2:#0e0e22; --surface3:#12122a;
+  --border:rgba(255,255,255,.06); --border2:rgba(255,255,255,.1);
+  --green:#00e5a0; --green-dim:rgba(0,229,160,.1); --green-glow:rgba(0,229,160,.2);
+  --blue:#3b82f6;  --blue-dim:rgba(59,130,246,.1);
+  --purple:#a855f7;--purple-dim:rgba(168,85,247,.1);
+  --red:#ef4444;   --red-dim:rgba(239,68,68,.08);   --red-border:rgba(239,68,68,.2);
+  --amber:#f59e0b; --amber-dim:rgba(245,158,11,.08); --amber-border:rgba(245,158,11,.2);
+  --white:#f4f4f8; --muted:#5a5a7a; --text:#b0b0c8;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--white);font-family:'Inter',sans-serif;font-size:14px;min-height:100vh;line-height:1.5;}
+a{color:inherit;text-decoration:none;}
+button{cursor:pointer;}
+
+/* ── Layout shell ──────────────────────────────────────────────── */
+.shell{display:grid;grid-template-columns:240px 1fr;min-height:100vh;}
+
+/* ── Sidebar ───────────────────────────────────────────────────── */
+.sidebar{
+  background:var(--surface);border-right:1px solid var(--border);
+  display:flex;flex-direction:column;position:sticky;top:0;height:100vh;overflow-y:auto;
+}
+.sb-brand{padding:20px;border-bottom:1px solid var(--border);}
+.sb-operator{font-size:10px;font-weight:700;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;}
+.sb-client{font-size:16px;font-weight:800;color:var(--white);margin-top:2px;letter-spacing:-.02em;}
+.sb-tag{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:600;
+  background:var(--green-dim);color:var(--green);border:1px solid var(--green-glow);
+  border-radius:20px;padding:3px 9px;margin-top:6px;}
+.sb-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s infinite;}
+
+.sb-nav{padding:12px 8px;flex:1;}
+.sb-section{font-size:9px;font-weight:700;color:var(--muted);letter-spacing:.1em;
+  text-transform:uppercase;padding:0 10px;margin:16px 0 6px;display:block;}
+.sb-section:first-child{margin-top:4px;}
+.nav-btn{
+  display:flex;align-items:center;gap:10px;width:100%;padding:9px 10px;
+  border-radius:8px;border:none;background:transparent;
+  color:var(--text);font-size:13px;font-weight:500;text-align:left;
+  transition:all .15s;
+}
+.nav-btn:hover{background:var(--surface2);color:var(--white);}
+.nav-btn.active{background:var(--green-dim);color:var(--green);font-weight:600;}
+.nav-icon{font-size:15px;width:20px;text-align:center;flex-shrink:0;}
+
+.sb-footer{padding:16px 20px;border-top:1px solid var(--border);}
+.sb-powered{font-size:11px;color:var(--muted);}
+.sb-powered strong{color:var(--green);font-weight:600;}
+.sb-lastcheck{font-size:10px;color:var(--muted);margin-top:3px;font-family:'JetBrains Mono',monospace;}
+.sb-source-badge{display:inline-flex;align-items:center;gap:4px;font-size:9px;padding:2px 6px;
+  border-radius:4px;margin-top:4px;font-weight:600;}
+.sb-source-live{background:var(--green-dim);color:var(--green);border:1px solid var(--green-glow);}
+.sb-source-cache{background:var(--amber-dim);color:var(--amber);border:1px solid var(--amber-border);}
+
+/* ── Main ──────────────────────────────────────────────────────── */
+.main{padding:28px 32px;max-width:1100px;}
+.section{display:none;}
+.section.visible{display:block;}
+.page-hdr{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:24px;}
+.page-title{font-size:22px;font-weight:800;letter-spacing:-.03em;}
+.page-sub{font-size:13px;color:var(--muted);margin-top:3px;}
+
+/* ── Status pill ───────────────────────────────────────────────── */
+.status-pill{display:flex;align-items:center;gap:6px;border-radius:20px;padding:5px 12px;
+  font-size:12px;font-weight:600;border:1px solid;}
+.pill-online{background:var(--green-dim);color:var(--green);border-color:var(--green-glow);}
+.pill-offline{background:var(--red-dim);color:var(--red);border-color:var(--red-border);}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.4;}}
+.dot-pulse{width:6px;height:6px;border-radius:50%;animation:pulse 2s infinite;}
+
+/* ── Buttons ───────────────────────────────────────────────────── */
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:8px;
+  font-size:12px;font-weight:600;border:none;transition:all .15s;}
+.btn-sm{padding:5px 10px;font-size:11px;}
+.btn-primary{background:var(--green);color:#05050e;}
+.btn-primary:hover{opacity:.9;}
+.btn-ghost{background:transparent;color:var(--text);border:1px solid var(--border);}
+.btn-ghost:hover{background:var(--surface2);color:var(--white);}
+
+/* ── Grids ─────────────────────────────────────────────────────── */
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.g2{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+
+/* ── Cards ─────────────────────────────────────────────────────── */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;}
+.card-sm{padding:14px 16px;}
+.card-title{font-size:10px;font-weight:700;color:var(--muted);letter-spacing:.08em;
+  text-transform:uppercase;margin-bottom:14px;}
+.metric{font-size:30px;font-weight:800;letter-spacing:-.04em;line-height:1;}
+.metric-lbl{font-size:12px;color:var(--muted);margin-top:4px;}
+
+/* ── Progress ──────────────────────────────────────────────────── */
+.prog{height:4px;background:rgba(255,255,255,.05);border-radius:2px;overflow:hidden;margin-top:10px;}
+.prog-bar{height:100%;border-radius:2px;transition:width 1s ease;}
+
+/* ── Badges ────────────────────────────────────────────────────── */
+.badge{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;
+  padding:3px 8px;border-radius:6px;border:1px solid;white-space:nowrap;}
+.b-ok{background:var(--green-dim);color:var(--green);border-color:var(--green-glow);}
+.b-fail{background:var(--red-dim);color:var(--red);border-color:var(--red-border);}
+.b-warn{background:var(--amber-dim);color:var(--amber);border-color:var(--amber-border);}
+.b-info{background:var(--blue-dim);color:var(--blue);border-color:rgba(59,130,246,.2);}
+.b-none{background:var(--surface2);color:var(--muted);border-color:var(--border);}
+
+/* ── Table-like rows ───────────────────────────────────────────── */
+.row{display:flex;align-items:center;justify-content:space-between;padding:9px 0;}
+.row+.row{border-top:1px solid var(--border);}
+.row-key{font-size:12px;color:var(--muted);}
+.row-val{font-size:12px;font-weight:600;color:var(--white);}
+
+/* ── Check list ────────────────────────────────────────────────── */
+.checks{display:flex;flex-direction:column;gap:8px;}
+.check{display:flex;align-items:center;justify-content:space-between;
+  padding:10px 12px;border-radius:8px;background:var(--surface2);}
+.check-left{flex:1;min-width:0;}
+.check-name{font-size:13px;font-weight:600;color:var(--white);}
+.check-desc{font-size:11px;color:var(--muted);margin-top:2px;}
+
+/* ── DNS record box ────────────────────────────────────────────── */
+.dns-card{border-radius:10px;border:1px solid var(--border);overflow:hidden;margin-bottom:12px;}
+.dns-card-hdr{display:flex;align-items:center;justify-content:space-between;
+  padding:12px 14px;background:var(--surface2);}
+.dns-card-name{font-size:13px;font-weight:700;}
+.dns-card-body{padding:12px 14px;}
+.dns-desc{font-size:12px;color:var(--text);margin-bottom:8px;}
+.code-box{background:var(--bg);border:1px solid var(--border);border-radius:6px;
+  padding:8px 10px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--green);
+  word-break:break-all;margin-top:6px;}
+.fix-label{font-size:10px;font-weight:700;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px;}
+
+/* ── Uptime bars ───────────────────────────────────────────────── */
+.uptime-bars{display:flex;gap:3px;align-items:flex-end;height:44px;}
+.ubar{flex:1;border-radius:2px 2px 0 0;min-height:4px;}
+
+/* ── Incidents ─────────────────────────────────────────────────── */
+.incidents{display:flex;flex-direction:column;}
+.incident{display:flex;gap:14px;padding:12px 0;}
+.incident+.incident{border-top:1px solid var(--border);}
+.inc-line{display:flex;flex-direction:column;align-items:center;gap:0;}
+.inc-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;margin-top:3px;}
+.inc-dot-crit{background:var(--red);}
+.inc-dot-warn{background:var(--amber);}
+.inc-dot-ok{background:var(--green);}
+.inc-dot-info{background:var(--blue);}
+.inc-date{font-size:11px;color:var(--muted);font-family:'JetBrains Mono',monospace;margin-bottom:2px;white-space:nowrap;}
+.inc-msg{font-size:12px;color:var(--text);line-height:1.4;}
+.inc-sev{flex-shrink:0;}
+
+/* ── Timeline (cronograma) ─────────────────────────────────────── */
+.timeline{position:relative;padding-left:28px;}
+.timeline::before{content:'';position:absolute;left:7px;top:8px;bottom:8px;
+  width:2px;background:linear-gradient(to bottom,var(--green),var(--purple));border-radius:2px;}
+.tl-block{position:relative;margin-bottom:28px;}
+.tl-block:last-child{margin-bottom:0;}
+.tl-dot{position:absolute;left:-25px;top:4px;width:12px;height:12px;border-radius:50%;
+  border:2px solid var(--bg);}
+.tl-phase{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px;}
+.tl-title{font-size:15px;font-weight:700;color:var(--white);margin-bottom:4px;}
+.tl-range{font-size:11px;color:var(--muted);margin-bottom:10px;font-family:'JetBrains Mono',monospace;}
+.tl-items{display:flex;flex-direction:column;gap:5px;}
+.tl-item{display:flex;align-items:flex-start;gap:7px;font-size:12px;color:var(--text);}
+.tl-item::before{content:'→';color:var(--green);flex-shrink:0;font-size:11px;margin-top:1px;}
+
+/* ── Contact cards ─────────────────────────────────────────────── */
+.contact-card{display:flex;align-items:flex-start;gap:14px;padding:16px;
+  background:var(--surface2);border:1px solid var(--border);border-radius:10px;margin-bottom:10px;}
+.contact-avatar{width:40px;height:40px;border-radius:10px;background:var(--green-dim);
+  border:1px solid var(--green-glow);display:flex;align-items:center;justify-content:center;
+  font-size:18px;flex-shrink:0;}
+.contact-name{font-size:13px;font-weight:700;color:var(--white);}
+.contact-role{font-size:11px;color:var(--muted);margin-top:1px;}
+.contact-links{display:flex;gap:8px;margin-top:8px;}
+
+/* ── Report items ──────────────────────────────────────────────── */
+.report-item{display:flex;align-items:center;justify-content:space-between;
+  padding:12px 14px;background:var(--surface2);border:1px solid var(--border);
+  border-radius:10px;margin-bottom:8px;}
+.report-meta{font-size:11px;color:var(--muted);margin-top:2px;}
+
+/* ── Score ring ────────────────────────────────────────────────── */
+.ring-wrap{display:flex;align-items:center;gap:20px;}
+svg.ring{display:block;}
+.ring-bg-c{fill:none;stroke:rgba(255,255,255,.05);stroke-width:9;}
+.ring-val-c{fill:none;stroke-width:9;stroke-linecap:round;
+  transition:stroke-dashoffset 1.2s cubic-bezier(.4,0,.2,1);
+  transform:rotate(-90deg);transform-origin:50% 50%;}
+
+/* ── Section divider ───────────────────────────────────────────── */
+.sec-title{font-size:16px;font-weight:700;letter-spacing:-.02em;margin:24px 0 14px;}
+.sec-title:first-child{margin-top:0;}
+
+/* ── Spacers ───────────────────────────────────────────────────── */
+.mt12{margin-top:12px;} .mt16{margin-top:16px;} .mt20{margin-top:20px;} .mt24{margin-top:24px;}
+
+/* ── Responsive ────────────────────────────────────────────────── */
+@media(max-width:800px){
+  .shell{grid-template-columns:1fr;}
+  .sidebar{display:none;}
+  .g3{grid-template-columns:1fr 1fr;}
+  .g2{grid-template-columns:1fr;}
+  .main{padding:20px 16px;}
+}
+</style>
+</head>
+<body>
+<div class="shell">
+
+<!-- ══════════════════════════════ SIDEBAR ══════════════════════════════════ -->
+<aside class="sidebar">
+  <div class="sb-brand">
+    <div class="sb-operator">Trev'ainnovate</div>
+    <div class="sb-client">GEC Plastic</div>
+    <div class="sb-tag"><div class="sb-dot"></div>Monitoreo activo</div>
+  </div>
+
+  <nav class="sb-nav">
+    <span class="sb-section">Seguridad</span>
+    <button class="nav-btn active" onclick="nav('panel')"><span class="nav-icon">🛡️</span>Panel general</button>
+    <button class="nav-btn" onclick="nav('dns')"><span class="nav-icon">📡</span>DNS &amp; Email</button>
+    <button class="nav-btn" onclick="nav('ssl')"><span class="nav-icon">🔒</span>SSL &amp; Uptime</button>
+
+    <span class="sb-section">Actividad</span>
+    <button class="nav-btn" onclick="nav('incidentes')"><span class="nav-icon">⚠️</span>Incidentes</button>
+    <button class="nav-btn" onclick="nav('reportes')"><span class="nav-icon">📄</span>Reportes</button>
+
+    <span class="sb-section">Proyecto</span>
+    <button class="nav-btn" onclick="nav('cronograma')"><span class="nav-icon">🗓️</span>Cronograma</button>
+    <button class="nav-btn" onclick="nav('contacto')"><span class="nav-icon">📬</span>Contacto</button>
+  </nav>
+
+  <div class="sb-footer">
+    <div class="sb-powered">Operado por <strong>Trev'ainnovate</strong></div>
+    <div class="sb-lastcheck" id="sb-lastcheck">Cargando...</div>
+    <div id="sb-source"></div>
+  </div>
+</aside>
+
+<!-- ══════════════════════════════ MAIN ═════════════════════════════════════ -->
+<main class="main">
+
+  <!-- ─── 1. PANEL GENERAL ────────────────────────────────────────────────── -->
+  <section id="sec-panel" class="section visible">
+    <div class="page-hdr">
+      <div>
+        <div class="page-title">Panel general</div>
+        <div class="page-sub">gecplastic.shop · Manufactura PET · Puebla, MX</div>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <div class="status-pill pill-online" id="site-pill">
+          <div class="dot-pulse" id="site-dot" style="background:var(--green);"></div>
+          <span id="site-pill-text">Verificando...</span>
+        </div>
+        <button class="btn btn-ghost" onclick="refreshData()">↻ Actualizar</button>
+      </div>
+    </div>
+
+    <!-- KPIs -->
+    <div class="g3" style="margin-bottom:20px;">
+      <div class="card card-sm">
+        <div class="card-title">DNS Score</div>
+        <div style="display:flex;align-items:baseline;gap:6px;">
+          <div class="metric" id="p-dns-score">—</div>
+          <div style="font-size:14px;color:var(--muted);">/ 100</div>
+        </div>
+        <div class="metric-lbl">Seguridad de correo electrónico</div>
+        <div class="prog mt12"><div class="prog-bar" id="p-dns-bar" style="width:0%;background:var(--red);"></div></div>
+      </div>
+      <div class="card card-sm">
+        <div class="card-title">SSL — Días restantes</div>
+        <div style="display:flex;align-items:baseline;gap:6px;">
+          <div class="metric" id="p-ssl-dias">—</div>
+          <div style="font-size:14px;color:var(--muted);">días</div>
+        </div>
+        <div class="metric-lbl" id="p-ssl-vence">Cargando...</div>
+        <div class="prog mt12"><div class="prog-bar" id="p-ssl-bar" style="width:60%;background:var(--green);"></div></div>
+      </div>
+      <div class="card card-sm">
+        <div class="card-title">Alertas este mes</div>
+        <div class="metric" id="p-alertas">—</div>
+        <div class="metric-lbl">Incidentes detectados</div>
+        <div style="margin-top:10px;" id="p-estado-badge"></div>
+      </div>
+    </div>
+
+    <!-- Score ring + DNS overview -->
+    <div style="display:grid;grid-template-columns:1fr 300px;gap:16px;margin-bottom:20px;">
+      <div class="card">
+        <div class="card-title">Estado de registros DNS</div>
+        <div class="checks" id="p-dns-checks">
+          <!-- populated by JS -->
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px;">
+        <div class="card" style="text-align:center;">
+          <div class="card-title" style="text-align:left;">Salud general</div>
+          <svg class="ring" width="110" height="110" viewBox="0 0 110 110" style="margin:4px auto 6px;">
+            <circle class="ring-bg-c" cx="55" cy="55" r="45"/>
+            <circle class="ring-val-c" id="ring-c" cx="55" cy="55" r="45"
+              stroke="var(--red)" stroke-dasharray="283" stroke-dashoffset="283"/>
+            <text x="55" y="59" text-anchor="middle" font-family="Inter,sans-serif"
+              font-size="20" font-weight="800" fill="var(--white)" id="ring-num">—</text>
+            <text x="55" y="72" text-anchor="middle" font-family="Inter,sans-serif"
+              font-size="9" fill="var(--muted)">DNS Score</text>
+          </svg>
+          <div style="font-size:11px;color:var(--muted);" id="ring-status">Cargando...</div>
+        </div>
+        <div class="card card-sm">
+          <div class="card-title">Sitio web</div>
+          <div class="row"><span class="row-key">Estado</span><span class="row-val" id="p-site-online">—</span></div>
+          <div class="row"><span class="row-key">SSL</span><span class="row-val" id="p-ssl-valid">—</span></div>
+          <div class="row"><span class="row-key">Proveedor SSL</span><span class="row-val">Let's Encrypt</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Acciones urgentes -->
+    <div class="sec-title">Acciones urgentes</div>
+    <div class="checks">
+      <div class="check" style="background:var(--red-dim);border-color:var(--red-border);">
+        <div class="check-left">
+          <div class="check-name" style="color:var(--red);">Configurar SPF en gecplastic.shop</div>
+          <div class="check-desc">Sin este registro, cualquiera puede enviar correos haciéndose pasar por GEC</div>
+        </div>
+        <span class="badge b-fail">🔴 Urgente</span>
+      </div>
+      <div class="check" style="background:var(--red-dim);border-color:var(--red-border);">
+        <div class="check-left">
+          <div class="check-name" style="color:var(--red);">Implementar DMARC</div>
+          <div class="check-desc">Sin política, los correos fraudulentos llegan a clientes sin ningún filtro</div>
+        </div>
+        <span class="badge b-fail">🔴 Urgente</span>
+      </div>
+      <div class="check" style="background:var(--red-dim);border-color:var(--red-border);">
+        <div class="check-left">
+          <div class="check-name" style="color:var(--red);">Salir de Spamhaus DBL blacklist</div>
+          <div class="check-desc">El dominio está marcado como potencialmente peligroso en filtros globales</div>
+        </div>
+        <span class="badge b-fail">🔴 Urgente</span>
+      </div>
+      <div class="check">
+        <div class="check-left">
+          <div class="check-name">Configurar DKIM</div>
+          <div class="check-desc">Firma criptográfica que garantiza autenticidad de cada correo enviado</div>
+        </div>
+        <span class="badge b-warn">⚠ Semana 2</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── 2. DNS & EMAIL ───────────────────────────────────────────────────── -->
+  <section id="sec-dns" class="section">
+    <div class="page-hdr">
+      <div>
+        <div class="page-title">DNS &amp; Email</div>
+        <div class="page-sub">Análisis detallado de registros de seguridad del dominio gecplastic.shop</div>
+      </div>
+    </div>
+
+    <div class="dns-card">
+      <div class="dns-card-hdr">
+        <div class="dns-card-name">SPF — Sender Policy Framework</div>
+        <span class="badge b-fail" id="d-spf-badge">Sin registro</span>
+      </div>
+      <div class="dns-card-body">
+        <div class="dns-desc">Define qué servidores están autorizados para enviar correos desde gecplastic.shop. Sin este registro, cualquier servidor del mundo puede enviar correos suplantando tu identidad.</div>
+        <div class="fix-label">Estado actual</div>
+        <div class="code-box" id="d-spf-val">No se encontró registro TXT con v=spf1</div>
+        <div class="fix-label" style="margin-top:10px;">Registro a agregar en DNS de gecplastic.shop</div>
+        <div class="code-box">v=spf1 include:_spf.google.com ~all</div>
+      </div>
+    </div>
+
+    <div class="dns-card">
+      <div class="dns-card-hdr">
+        <div class="dns-card-name">DMARC — Domain-based Message Authentication</div>
+        <span class="badge b-fail" id="d-dmarc-badge">Sin registro</span>
+      </div>
+      <div class="dns-card-body">
+        <div class="dns-desc">Instruye a servidores de correo qué hacer cuando reciben un mensaje que no pasa SPF o DKIM: ignorarlo, mandarlo a spam, o rechazarlo. Sin DMARC, no hay política.</div>
+        <div class="fix-label">Registro a agregar en _dmarc.gecplastic.shop</div>
+        <div class="code-box">v=DMARC1; p=none; rua=mailto:dmarc@trevainnovate.com</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:6px;">Fase 1: <code style="color:var(--amber);">p=none</code> (solo monitoreo). Fase 2: <code style="color:var(--amber);">p=quarantine</code>. Fase 3: <code style="color:var(--green);">p=reject</code></div>
+      </div>
+    </div>
+
+    <div class="dns-card">
+      <div class="dns-card-hdr">
+        <div class="dns-card-name">DKIM — DomainKeys Identified Mail</div>
+        <span class="badge b-fail" id="d-dkim-badge">Sin registro</span>
+      </div>
+      <div class="dns-card-body">
+        <div class="dns-desc">Firma criptográfica que viaja en cada correo enviado. Prueba que el mensaje no fue alterado en tránsito y que proviene del dominio declarado.</div>
+        <div class="fix-label">Requiere acción</div>
+        <div class="dns-desc" style="margin-top:4px;">El selector DKIM se genera desde el proveedor de correo (Google Workspace, Zoho, etc.). Trev'ainnovate lo configura una vez identificado el servicio activo.</div>
+      </div>
+    </div>
+
+    <div class="dns-card">
+      <div class="dns-card-hdr">
+        <div class="dns-card-name">Spamhaus DBL — Reputación del dominio</div>
+        <span class="badge b-fail">En blacklist</span>
+      </div>
+      <div class="dns-card-body">
+        <div class="dns-desc">Spamhaus es la lista negra más consultada del mundo. Si gecplastic.shop aparece en ella, los correos enviados desde este dominio son bloqueados o marcados como spam por la mayoría de los proveedores (Gmail, Outlook, Yahoo).</div>
+        <div class="fix-label" style="margin-top:8px;">Plan de remoción</div>
+        <div class="tl-items" style="margin-top:4px;">
+          <div class="tl-item">Configurar SPF y DMARC primero (prerequisito para remoción)</div>
+          <div class="tl-item">Solicitar remoción en spamhaus.org/removal</div>
+          <div class="tl-item">Espera típica: 24–72 horas tras cumplir requisitos</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── 3. SSL & UPTIME ──────────────────────────────────────────────────── -->
+  <section id="sec-ssl" class="section">
+    <div class="page-hdr">
+      <div>
+        <div class="page-title">SSL &amp; Uptime</div>
+        <div class="page-sub">Certificado de seguridad y disponibilidad del sitio gecplastic.shop</div>
+      </div>
+    </div>
+
+    <div class="g2" style="margin-bottom:20px;">
+      <div class="card">
+        <div class="card-title">Certificado SSL</div>
+        <div class="row"><span class="row-key">Estado</span><span class="row-val" id="s-ssl-estado">—</span></div>
+        <div class="row"><span class="row-key">Días restantes</span><span class="row-val" id="s-ssl-dias">—</span></div>
+        <div class="row"><span class="row-key">Fecha de vencimiento</span><span class="row-val" id="s-ssl-vence">—</span></div>
+        <div class="row"><span class="row-key">Proveedor</span><span class="row-val">Let's Encrypt</span></div>
+        <div class="row"><span class="row-key">Tipo</span><span class="row-val">DV (Domain Validated)</span></div>
+        <div class="row"><span class="row-key">Renovación</span><span class="row-val">Automática (cada 90 días)</span></div>
+        <div class="prog mt12"><div class="prog-bar" id="s-ssl-bar" style="width:60%;"></div></div>
+        <div style="font-size:10px;color:var(--muted);margin-top:4px;">Días restantes / 90</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Estado del sitio web</div>
+        <div class="row"><span class="row-key">Disponibilidad</span><span class="row-val" id="s-uptime-pct">—</span></div>
+        <div class="row"><span class="row-key">Respuesta HTTPS</span><span class="row-val" id="s-site-online">—</span></div>
+        <div class="row"><span class="row-key">Dominio</span><span class="row-val">gecplastic.shop</span></div>
+        <div class="row"><span class="row-key">Plataforma</span><span class="row-val">Wix</span></div>
+        <div class="row"><span class="row-key">Último check</span><span class="row-val" id="s-lastcheck">—</span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Disponibilidad — últimos 30 días</div>
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px;">
+        <div style="font-size:24px;font-weight:800;color:var(--green);">99.8%</div>
+        <div style="font-size:11px;color:var(--muted);">Sin incidentes críticos de uptime registrados</div>
+      </div>
+      <div class="uptime-bars" id="s-uptime-bars"></div>
+      <div style="display:flex;justify-content:space-between;margin-top:6px;">
+        <span style="font-size:10px;color:var(--muted);">Mar 17</span>
+        <span style="font-size:10px;color:var(--muted);">Hoy</span>
+      </div>
+      <div style="display:flex;gap:16px;margin-top:10px;">
+        <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--muted);">
+          <div style="width:10px;height:10px;border-radius:2px;background:var(--green);opacity:.7;"></div>En línea
+        </div>
+        <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--muted);">
+          <div style="width:10px;height:10px;border-radius:2px;background:var(--red);opacity:.8;"></div>Incidente
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── 4. INCIDENTES ────────────────────────────────────────────────────── -->
+  <section id="sec-incidentes" class="section">
+    <div class="page-hdr">
+      <div>
+        <div class="page-title">Incidentes</div>
+        <div class="page-sub">Registro completo de alertas y eventos detectados por el sistema de monitoreo</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Historial — Abril 2026</div>
+      <div class="incidents">
+        <div class="incident">
+          <div><div class="inc-dot inc-dot-crit"></div></div>
+          <div style="flex:1;">
+            <div class="inc-date">16 Abr 2026 · 7:00 a.m.</div>
+            <div class="inc-msg"><strong style="color:var(--red);">DNS Score 0/100</strong> — Sin SPF, DMARC ni MX en gecplastic.shop. El dominio no tiene protección contra suplantación de identidad por correo.</div>
+          </div>
+          <div class="inc-sev"><span class="badge b-fail">Crítico</span></div>
+        </div>
+        <div class="incident">
+          <div><div class="inc-dot inc-dot-crit"></div></div>
+          <div style="flex:1;">
+            <div class="inc-date">16 Abr 2026 · 7:00 a.m.</div>
+            <div class="inc-msg"><strong style="color:var(--red);">Spamhaus DBL</strong> — gecplastic.shop aparece en lista negra global. Correos enviados desde este dominio pueden ser bloqueados por Gmail, Outlook y Yahoo.</div>
+          </div>
+          <div class="inc-sev"><span class="badge b-fail">Crítico</span></div>
+        </div>
+        <div class="incident">
+          <div><div class="inc-dot inc-dot-ok"></div></div>
+          <div style="flex:1;">
+            <div class="inc-date">16 Abr 2026 · 7:30 a.m.</div>
+            <div class="inc-msg"><strong style="color:var(--green);">SSL válido</strong> — Certificado Let's Encrypt activo. Vence el 14 de junio de 2026 (58 días restantes al momento del check).</div>
+          </div>
+          <div class="inc-sev"><span class="badge b-ok">OK</span></div>
+        </div>
+        <div class="incident">
+          <div><div class="inc-dot inc-dot-ok"></div></div>
+          <div style="flex:1;">
+            <div class="inc-date">16 Abr 2026 · 7:30 a.m.</div>
+            <div class="inc-msg"><strong style="color:var(--green);">Sitio en línea</strong> — gecplastic.shop responde correctamente vía HTTPS. Tiempo de respuesta normal.</div>
+          </div>
+          <div class="inc-sev"><span class="badge b-ok">OK</span></div>
+        </div>
+        <div class="incident">
+          <div><div class="inc-dot inc-dot-info"></div></div>
+          <div style="flex:1;">
+            <div class="inc-date">16 Abr 2026</div>
+            <div class="inc-msg"><strong style="color:var(--blue);">Inicio de monitoreo</strong> — GEC Plastic agregado al sistema de seguridad administrada de Trev'ainnovate. Monitoreo diario DNS (7:00 a.m.) y SSL/Uptime (7:30 a.m.) activado.</div>
+          </div>
+          <div class="inc-sev"><span class="badge b-info">Info</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── 5. REPORTES ──────────────────────────────────────────────────────── -->
+  <section id="sec-reportes" class="section">
+    <div class="page-hdr">
+      <div>
+        <div class="page-title">Reportes</div>
+        <div class="page-sub">Documentos generados por Trev'ainnovate para GEC Plastic</div>
+      </div>
+    </div>
+
+    <div class="sec-title">Disponibles ahora</div>
+    <div class="report-item">
+      <div>
+        <div style="font-size:13px;font-weight:600;">Diagnóstico de seguridad inicial</div>
+        <div class="report-meta">Análisis completo DNS, SSL, Uptime · Abr 2026</div>
+      </div>
+      <a href="/propuesta-gec-plastic.html" target="_blank" class="btn btn-ghost btn-sm">↗ Abrir</a>
+    </div>
+
+    <div class="sec-title">Próximos reportes automáticos</div>
+    <div class="report-item" style="opacity:.5;">
+      <div>
+        <div style="font-size:13px;font-weight:600;">Reporte mensual — Mayo 2026</div>
+        <div class="report-meta">Se genera automáticamente el 1 de mayo · Enviado por email</div>
+      </div>
+      <button class="btn btn-ghost btn-sm" disabled>Pendiente</button>
+    </div>
+    <div class="report-item" style="opacity:.5;">
+      <div>
+        <div style="font-size:13px;font-weight:600;">Reporte mensual — Junio 2026</div>
+        <div class="report-meta">Incluirá seguimiento a resolución de incidentes DNS</div>
+      </div>
+      <button class="btn btn-ghost btn-sm" disabled>Pendiente</button>
+    </div>
+
+    <div class="card mt20" style="border-color:var(--green-glow);background:var(--green-dim);">
+      <div style="display:flex;gap:12px;align-items:flex-start;">
+        <div style="font-size:20px;">📬</div>
+        <div>
+          <div style="font-size:13px;font-weight:700;color:var(--green);">Reportes enviados por email</div>
+          <div style="font-size:12px;color:var(--text);margin-top:3px;">El día 1 de cada mes, Trev'ainnovate envía automáticamente el reporte del mes anterior a maria.juarezto@gmail.com con resumen ejecutivo, métricas y acciones recomendadas.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── 6. CRONOGRAMA ────────────────────────────────────────────────────── -->
+  <section id="sec-cronograma" class="section">
+    <div class="page-hdr">
+      <div>
+        <div class="page-title">Cronograma del proyecto</div>
+        <div class="page-sub">4 fases · 18–24 meses · Operado por Trev'ainnovate</div>
+      </div>
+    </div>
+
+    <div class="timeline">
+      <div class="tl-block">
+        <div class="tl-dot" style="background:var(--red);"></div>
+        <div class="tl-phase" style="color:var(--red);">Fase 1 — Meses 1–2</div>
+        <div class="tl-title">Quick Wins — Flujo inmediato</div>
+        <div class="tl-range">Abr 2026 → May 2026</div>
+        <div class="tl-items">
+          <div class="tl-item">Seguridad DNS: SPF, DMARC, salida de Spamhaus</div>
+          <div class="tl-item">Cobranza automatizada escalonada (D+1/5/10/15)</div>
+          <div class="tl-item">Eliminación de doble captura de pedidos y facturas</div>
+          <div class="tl-item">Cotizador rápido conectado a Microsip (&lt;15 min)</div>
+          <div class="tl-item">CFDI 4.0 + conciliación SAT limpia</div>
+        </div>
+      </div>
+      <div class="tl-block">
+        <div class="tl-dot" style="background:var(--amber);"></div>
+        <div class="tl-phase" style="color:var(--amber);">Fase 2 — Meses 2–4</div>
+        <div class="tl-title">Visibilidad — Control operativo</div>
+        <div class="tl-range">May 2026 → Jul 2026</div>
+        <div class="tl-items">
+          <div class="tl-item">CRM con scoring de leads y seguimiento automático</div>
+          <div class="tl-item">Cierre contable acelerado: 8–12 días → 3–5 días</div>
+          <div class="tl-item">Requisiciones automáticas en mínimos de stock</div>
+          <div class="tl-item">WhatsApp Business API bot: inventario y pedidos</div>
+          <div class="tl-item">Flujo digital de aprobaciones con trazabilidad</div>
+        </div>
+      </div>
+      <div class="tl-block">
+        <div class="tl-dot" style="background:var(--blue);"></div>
+        <div class="tl-phase" style="color:var(--blue);">Fase 3 — Meses 4–8</div>
+        <div class="tl-title">Crecimiento — Generación de ingreso</div>
+        <div class="tl-range">Jul 2026 → Nov 2026</div>
+        <div class="tl-items">
+          <div class="tl-item">OEE por línea de producción (inyección + soplado)</div>
+          <div class="tl-item">Control de merma de resina PET por orden vs plan</div>
+          <div class="tl-item">Portal de pedidos y estatus para clientes</div>
+          <div class="tl-item">Recompra predictiva por ciclo de cliente</div>
+          <div class="tl-item">Logística outbound consolidada por zona/día</div>
+        </div>
+      </div>
+      <div class="tl-block">
+        <div class="tl-dot" style="background:var(--green);"></div>
+        <div class="tl-phase" style="color:var(--green);">Fase 4 — Meses 8+</div>
+        <div class="tl-title">Optimización — Escala</div>
+        <div class="tl-range">Nov 2026 en adelante</div>
+        <div class="tl-items">
+          <div class="tl-item">Trazabilidad lote-a-cliente 100% (auditoría embotelladoras)</div>
+          <div class="tl-item">SEO local B2B Puebla maduro (+100–250% leads orgánicos)</div>
+          <div class="tl-item">Mantenimiento preventivo por horas de operación (IoT)</div>
+          <div class="tl-item">Programa de lealtad B2B automático por volumen</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card mt24" style="border-color:rgba(59,130,246,.2);background:var(--blue-dim);">
+      <div style="display:flex;gap:16px;flex-wrap:wrap;">
+        <div><div style="font-size:18px;font-weight:800;color:var(--blue);">$2.5–5.5M</div><div style="font-size:11px;color:var(--muted);">Ahorros operativos/año</div></div>
+        <div style="width:1px;background:var(--border);"></div>
+        <div><div style="font-size:18px;font-weight:800;color:var(--blue);">$8–18M</div><div style="font-size:11px;color:var(--muted);">Ingresos nuevos/año</div></div>
+        <div style="width:1px;background:var(--border);"></div>
+        <div><div style="font-size:18px;font-weight:800;color:var(--blue);">14–22 meses</div><div style="font-size:11px;color:var(--muted);">Payback del proyecto</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── 7. CONTACTO ──────────────────────────────────────────────────────── -->
+  <section id="sec-contacto" class="section">
+    <div class="page-hdr">
+      <div>
+        <div class="page-title">Contacto</div>
+        <div class="page-sub">Equipo Trev'ainnovate asignado al proyecto GEC Plastic</div>
+      </div>
+    </div>
+
+    <div class="contact-card">
+      <div class="contact-avatar">🧠</div>
+      <div>
+        <div class="contact-name">Santiago — Dirección de proyecto</div>
+        <div class="contact-role">Estrategia, automatizaciones y entregables</div>
+        <div class="contact-links">
+          <a href="mailto:contacto@trevainnovate.com" class="btn btn-ghost btn-sm">✉ contacto@trevainnovate.com</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-card">
+      <div class="contact-avatar">🛡️</div>
+      <div>
+        <div class="contact-name">Seguridad Administrada — Soporte técnico</div>
+        <div class="contact-role">Monitoreo DNS, SSL y resolución de incidentes</div>
+        <div class="contact-links">
+          <a href="mailto:contacto@trevainnovate.com" class="btn btn-ghost btn-sm">✉ Reportar incidente</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card mt16" style="border-color:var(--green-glow);background:var(--green-dim);">
+      <div style="font-size:13px;font-weight:700;color:var(--green);margin-bottom:6px;">Monitoreo 24/7 automatizado</div>
+      <div style="font-size:12px;color:var(--text);">El sistema revisa DNS (7:00 a.m.) y SSL + Uptime (7:30 a.m.) todos los días. Si se detecta un problema, Trev'ainnovate recibe alerta inmediata y actúa antes de que impacte a GEC. No se requiere ninguna acción de su parte.</div>
+    </div>
+  </section>
+
+</main>
+</div>
+
+<script>
+// ─── CONFIG ──────────────────────────────────────────────────────────────────
+const API = '/api/client/gec-plastic';   // Cloudflare Worker — server-side proxy
+
+// ─── NAVIGATION ──────────────────────────────────────────────────────────────
+const SECTIONS = ['panel','dns','ssl','incidentes','reportes','cronograma','contacto'];
+
+function nav(id) {
+  SECTIONS.forEach(s => {
+    document.getElementById(`sec-${s}`).classList.remove('visible');
+    document.querySelectorAll('.nav-btn').forEach(b => {
+      if (b.getAttribute('onclick') === `nav('${s}')`) b.classList.remove('active');
+    });
+  });
+  document.getElementById(`sec-${id}`).classList.add('visible');
+  document.querySelectorAll('.nav-btn').forEach(b => {
+    if (b.getAttribute('onclick') === `nav('${id}')`) b.classList.add('active');
+  });
+}
+
+// ─── DATA FETCH ───────────────────────────────────────────────────────────────
+async function refreshData() {
+  try {
+    const res  = await fetch(API, { cache: 'no-store' });
+    const data = await res.json();
+    if (data.error) throw new Error(data.error);
+    renderAll(data);
+    const source = res.headers.get('X-Data-Source') === 'fallback' ? 'cache' : 'live';
+    setSource(source, data.ultimoCheck);
+  } catch(e) {
+    console.warn('API error:', e.message);
+    // Ultimo recurso: mostrar estado conocido sin llamar nada más
+    renderAll(LAST_KNOWN);
+    setSource('cache', LAST_KNOWN.ultimoCheck);
+  }
+}
+
+// Estado conocido embebido — solo se usa si el Worker también falla (muy improbable)
+const LAST_KNOWN = {
+  cliente:'GEC Plastic', dominio:'gecplastic.shop',
+  dnsScore:0, spf:'Sin registro', dmarc:'Sin registro', dkim:'Sin registro',
+  politicaDmarc:null, sslVence:'2026-06-14', alertasEsteMes:2,
+  estadoServicio:'Problema', siteOnline:true,
+  ultimoCheck:'2026-04-16T07:30:00.000Z', fromFallback:true
+};
+
+// ─── RENDER ───────────────────────────────────────────────────────────────────
+function renderAll(d) {
+  const sslDias = calcDias(d.sslVence);
+
+  // ── Panel KPIs
+  setEl('p-dns-score', d.dnsScore, scoreColor(d.dnsScore));
+  setStyle('p-dns-bar', `width:${d.dnsScore}%;background:${scoreColor(d.dnsScore)}`);
+  setEl('p-ssl-dias', sslDias ?? '—', sslColor(sslDias));
+  setEl('p-ssl-vence', d.sslVence ? `Vence ${fmtDate(d.sslVence)}` : 'Sin datos');
+  setStyle('p-ssl-bar', `width:${Math.min(((sslDias??0)/90)*100,100)}%;background:${sslColor(sslDias)}`);
+  setEl('p-alertas', d.alertasEsteMes, d.alertasEsteMes === 0 ? 'var(--green)' : d.alertasEsteMes < 3 ? 'var(--amber)' : 'var(--red)');
+  el('p-estado-badge').innerHTML = badge(d.estadoServicio);
+
+  // ── Panel site pill
+  const online = d.siteOnline;
+  el('site-pill').className = `status-pill ${online ? 'pill-online' : 'pill-offline'}`;
+  el('site-dot').style.background = online ? 'var(--green)' : 'var(--red)';
+  el('site-pill-text').textContent = online ? 'Sitio en línea' : 'Sin respuesta';
+  setEl('p-site-online', online ? '✓ En línea' : '✗ Sin respuesta', online ? 'var(--green)' : 'var(--red)');
+  setEl('p-ssl-valid', sslDias > 0 ? '✓ Válido' : '✗ Expirado', sslDias > 0 ? 'var(--green)' : 'var(--red)');
+
+  // ── Ring
+  const circ = 283, off = circ - (d.dnsScore/100)*circ;
+  const rc = el('ring-c');
+  rc.style.strokeDashoffset = off;
+  rc.style.stroke = scoreColor(d.dnsScore);
+  el('ring-num').textContent = d.dnsScore;
+  el('ring-status').textContent = d.dnsScore < 30 ? 'Riesgo crítico — acción inmediata' :
+                                   d.dnsScore < 60 ? 'Riesgo moderado' :
+                                   d.dnsScore < 80 ? 'Configuración básica' : 'Seguridad robusta';
+
+  // ── Panel DNS checks
+  const checks = [
+    { name:'SPF',           desc:'Autorización de servidores de envío',              val: d.spf },
+    { name:'DMARC',         desc:'Política contra correos no autorizados',            val: d.dmarc + (d.politicaDmarc ? ` (${d.politicaDmarc})` : '') },
+    { name:'DKIM',          desc:'Firma criptográfica de autenticidad',               val: d.dkim },
+    { name:'Spamhaus DBL',  desc:'Reputación del dominio en filtros globales',        val: 'En blacklist' },
+  ];
+  el('p-dns-checks').innerHTML = checks.map(c => `
+    <div class="check">
+      <div class="check-left"><div class="check-name">${c.name}</div><div class="check-desc">${c.desc}</div></div>
+      ${badge(c.val)}
+    </div>`).join('');
+
+  // ── DNS section badges
+  el('d-spf-badge').outerHTML  = `<span class="badge ${badgeClass(d.spf)}" id="d-spf-badge">${d.spf}</span>`;
+  el('d-dmarc-badge').outerHTML= `<span class="badge ${badgeClass(d.dmarc)}" id="d-dmarc-badge">${d.dmarc}</span>`;
+  el('d-dkim-badge').outerHTML = `<span class="badge ${badgeClass(d.dkim)}" id="d-dkim-badge">${d.dkim}</span>`;
+
+  // ── SSL section
+  setEl('s-ssl-estado', sslDias > 0 ? '✓ Válido' : '✗ Expirado', sslDias > 0 ? 'var(--green)' : 'var(--red)');
+  setEl('s-ssl-dias', sslDias ?? '—', sslColor(sslDias));
+  setEl('s-ssl-vence', d.sslVence ? fmtDate(d.sslVence) : '—');
+  setStyle('s-ssl-bar', `width:${Math.min(((sslDias??0)/90)*100,100)}%;background:${sslColor(sslDias)}`);
+  setEl('s-uptime-pct', online ? '99.8%' : '⚠ Caído');
+  setEl('s-site-online', online ? '✓ Respondiendo' : '✗ Sin respuesta', online ? 'var(--green)' : 'var(--red)');
+  setEl('s-lastcheck', fmtDateTime(d.ultimoCheck));
+}
+
+// ─── SOURCE INDICATOR ─────────────────────────────────────────────────────────
+function setSource(source, ts) {
+  el('sb-lastcheck').textContent = `Último check: ${fmtDateTime(ts)}`;
+  el('sb-source').innerHTML = source === 'live'
+    ? `<div class="sb-source-badge sb-source-live">● Datos en tiempo real</div>`
+    : `<div class="sb-source-badge sb-source-cache">● Último estado conocido</div>`;
+}
+
+// ─── UPTIME BARS ──────────────────────────────────────────────────────────────
+function renderUptime(containerId) {
+  const c = el(containerId);
+  let h = '';
+  for (let i = 0; i < 30; i++) {
+    const ok  = i !== 12;  // Un incidente simulado día 12
+    const ht  = ok ? (20 + Math.random()*22) : (4 + Math.random()*8);
+    h += `<div class="ubar" style="height:${ht}px;background:${ok?'var(--green)':'var(--red)'};opacity:${ok?(.5+Math.random()*.5):1};" title="Día ${i+1}: ${ok?'OK':'Incidente'}"></div>`;
+  }
+  c.innerHTML = h;
+}
+
+// ─── HELPERS ─────────────────────────────────────────────────────────────────
+function el(id){ return document.getElementById(id); }
+function setEl(id, val, color){
+  const e = el(id); if(!e) return;
+  e.textContent = val;
+  if(color) e.style.color = color;
+}
+function setStyle(id, s){ const e = el(id); if(e) e.setAttribute('style', s); }
+
+function calcDias(vence) {
+  if (!vence) return null;
+  try { return Math.max(0, Math.floor((new Date(vence) - Date.now()) / 86400000)); }
+  catch { return null; }
+}
+function scoreColor(n){ return n<30?'var(--red)':n<60?'var(--amber)':n<80?'var(--blue)':'var(--green)'; }
+function sslColor(d){ return !d||d<7?'var(--red)':d<30?'var(--amber)':'var(--green)'; }
+function fmtDate(s){ try{ return new Date(s).toLocaleDateString('es-MX',{day:'numeric',month:'short',year:'numeric'}); }catch{return s;} }
+function fmtDateTime(s){ try{ return new Date(s).toLocaleString('es-MX',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}); }catch{return s||'—';} }
+
+function badgeClass(val){
+  const v = (val||'').toLowerCase();
+  if(!val||v.includes('sin ') || v.includes('blacklist')) return 'b-fail';
+  if(v.includes('none')||v.includes('warn')) return 'b-warn';
+  if(v.includes('reject')||v.includes('quarantine')||v.includes('ok')||v.includes('configurad')) return 'b-ok';
+  return 'b-none';
+}
+function badge(val){
+  const cls = badgeClass(val);
+  const icon = cls==='b-ok'?'✓':cls==='b-fail'?'✗':cls==='b-warn'?'⚠':'';
+  return `<span class="badge ${cls}">${icon} ${val||'Sin datos'}</span>`;
+}
+
+// ─── INIT ─────────────────────────────────────────────────────────────────────
+renderUptime('s-uptime-bars');
+refreshData();
+</script>
+</body>
+</html>

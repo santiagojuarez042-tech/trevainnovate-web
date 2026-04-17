@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portal de Seguridad — Trev'ainnovate</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#05050e;--bg2:#0b0b1c;--bg3:#111128;
+  --green:#00e5a0;--blue:#3b82f6;--purple:#8b5cf6;--amber:#f59e0b;--red:#ef4444;
+  --white:#f1f5f9;--muted:#8892a4;--border:rgba(255,255,255,0.07);
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);font-family:'Inter',sans-serif;color:var(--white);-webkit-font-smoothing:antialiased;min-height:100vh}
+
+/* TOPBAR */
+.topbar{background:var(--bg2);border-bottom:1px solid var(--border);padding:0 28px;height:60px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.topbar-left{display:flex;align-items:center;gap:16px}
+.logo{font-size:13px;font-weight:800;color:var(--white);letter-spacing:.04em}
+.logo span{color:var(--green)}
+.sep{width:1px;height:20px;background:var(--border)}
+.client-badge{display:flex;align-items:center;gap:10px}
+.client-avatar{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#05050e;flex-shrink:0}
+.client-name{font-size:14px;font-weight:700;color:var(--white)}
+.client-domain{font-size:11px;color:var(--muted);font-family:'JetBrains Mono',monospace}
+.topbar-right{display:flex;align-items:center;gap:12px}
+.plan-pill{font-size:11px;font-weight:700;padding:4px 12px;border-radius:100px;border:1px solid;letter-spacing:.04em}
+.plan-dns{background:rgba(0,229,160,.1);border-color:rgba(0,229,160,.3);color:var(--green)}
+.plan-ai{background:rgba(139,92,246,.1);border-color:rgba(139,92,246,.3);color:var(--purple)}
+.live-dot{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted)}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:pulse 2s ease infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+/* LAYOUT */
+.main{max-width:1140px;margin:0 auto;padding:28px 24px 60px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:20px}
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:20px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:20px}
+
+/* SECTION */
+.sec-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:#475569;margin-bottom:12px}
+
+/* CARDS */
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:22px}
+.card-sm{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:18px}
+
+/* SCORE CARD */
+.score-card{background:linear-gradient(135deg,rgba(0,229,160,.06),rgba(59,130,246,.04));border:1px solid rgba(0,229,160,.15);border-radius:14px;padding:28px;display:flex;align-items:center;gap:28px}
+.score-gauge{position:relative;width:110px;height:110px;flex-shrink:0}
+.score-gauge svg{transform:rotate(-90deg)}
+.score-gauge .track{fill:none;stroke:rgba(255,255,255,.06);stroke-width:10}
+.score-gauge .fill{fill:none;stroke-width:10;stroke-linecap:round;transition:stroke-dashoffset 1.5s cubic-bezier(.22,1,.36,1)}
+.score-num{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.score-num span{font-size:28px;font-weight:900;line-height:1}
+.score-num small{font-size:10px;color:var(--muted);font-weight:600}
+.score-info h2{font-size:18px;font-weight:800;margin-bottom:6px}
+.score-info p{font-size:13px;color:var(--muted);line-height:1.6;max-width:340px}
+.score-tags{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.stag{font-size:11px;font-weight:600;padding:3px 10px;border-radius:100px;border:1px solid}
+
+/* METRIC CARDS */
+.metric-val{font-size:32px;font-weight:900;line-height:1;margin-bottom:4px}
+.metric-label{font-size:12px;color:var(--muted);margin-bottom:10px}
+.metric-trend{font-size:11px;font-weight:600;display:flex;align-items:center;gap:4px}
+.trend-up{color:var(--green)}
+.trend-down{color:var(--red)}
+.trend-neutral{color:var(--muted)}
+
+/* DNS STATUS */
+.dns-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)}
+.dns-row:last-child{border-bottom:none}
+.dns-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex-shrink:0}
+.dns-info{flex:1}
+.dns-name{font-size:13px;font-weight:700;color:var(--white)}
+.dns-val{font-size:11px;color:var(--muted);font-family:'JetBrains Mono',monospace;margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:280px}
+.dns-status{font-size:11px;font-weight:700;padding:3px 10px;border-radius:100px}
+.st-ok{background:rgba(0,229,160,.1);color:var(--green);border:1px solid rgba(0,229,160,.2)}
+.st-warn{background:rgba(245,158,11,.1);color:var(--amber);border:1px solid rgba(245,158,11,.2)}
+.st-err{background:rgba(239,68,68,.1);color:var(--red);border:1px solid rgba(239,68,68,.2)}
+.st-load{background:rgba(255,255,255,.05);color:var(--muted);border:1px solid var(--border)}
+
+/* WORKFLOWS */
+.wf-row{display:flex;align-items:center;gap:12px;padding:9px 0;border-bottom:1px solid var(--border)}
+.wf-row:last-child{border-bottom:none}
+.wf-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.wf-dot.ok{background:var(--green);box-shadow:0 0 6px var(--green)}
+.wf-dot.warn{background:var(--amber)}
+.wf-dot.off{background:#374151}
+.wf-name{flex:1;font-size:13px;color:var(--white)}
+.wf-sched{font-size:11px;color:#475569}
+.wf-last{font-size:11px;color:var(--muted);text-align:right}
+
+/* THREAT FEED */
+.threat-row{display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)}
+.threat-row:last-child{border-bottom:none}
+.threat-icon{width:32px;height:32px;border-radius:8px;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.15);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.threat-icon.ok{background:rgba(0,229,160,.1);border-color:rgba(0,229,160,.15)}
+.threat-icon.warn{background:rgba(245,158,11,.1);border-color:rgba(245,158,11,.15)}
+.threat-body{flex:1}
+.threat-title{font-size:13px;font-weight:600;color:var(--white);margin-bottom:2px}
+.threat-meta{font-size:11px;color:var(--muted)}
+.threat-time{font-size:11px;color:#475569;flex-shrink:0}
+
+/* REPORT CARD */
+.report-card{background:linear-gradient(135deg,rgba(59,130,246,.06),rgba(139,92,246,.04));border:1px solid rgba(59,130,246,.15);border-radius:14px;padding:24px;display:flex;align-items:center;gap:20px}
+.report-icon{width:52px;height:52px;border-radius:12px;background:rgba(59,130,246,.15);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0}
+.report-info{flex:1}
+.report-title{font-size:15px;font-weight:800;margin-bottom:4px}
+.report-desc{font-size:13px;color:var(--muted)}
+.btn-dl{display:inline-flex;align-items:center;gap:7px;padding:10px 20px;border-radius:8px;font-size:13px;font-weight:700;background:rgba(59,130,246,.15);border:1px solid rgba(59,130,246,.3);color:#60a5fa;cursor:pointer;text-decoration:none;transition:all .2s;flex-shrink:0}
+.btn-dl:hover{background:rgba(59,130,246,.25)}
+
+/* NEXT ACTION */
+.action-card{background:linear-gradient(135deg,rgba(245,158,11,.05),rgba(239,68,68,.03));border:1px solid rgba(245,158,11,.15);border-radius:14px;padding:22px;display:flex;align-items:center;gap:16px}
+.action-icon{font-size:28px;flex-shrink:0}
+.action-info h3{font-size:14px;font-weight:800;margin-bottom:4px}
+.action-info p{font-size:13px;color:var(--muted)}
+
+/* POWERED BY */
+.powered{text-align:center;padding:20px 0;border-top:1px solid var(--border);font-size:12px;color:#374151;margin-top:20px}
+.powered span{color:var(--green);font-weight:700}
+
+/* LOADING SKELETON */
+.skel{background:linear-gradient(90deg,rgba(255,255,255,.04) 25%,rgba(255,255,255,.08) 50%,rgba(255,255,255,.04) 75%);background-size:200% 100%;animation:skel 1.5s ease infinite;border-radius:6px;height:14px;margin-bottom:6px}
+@keyframes skel{0%{background-position:200%}100%{background-position:-200%}}
+
+/* DEMO BANNER */
+.demo-banner{background:linear-gradient(135deg,rgba(139,92,246,.12),rgba(59,130,246,.08));border:1px solid rgba(139,92,246,.25);border-radius:10px;padding:12px 18px;display:flex;align-items:center;gap:12px;margin-bottom:20px;font-size:13px;color:#cbd5e1}
+.demo-banner strong{color:var(--purple)}
+
+@media(max-width:768px){
+  .grid-3,.grid-4{grid-template-columns:repeat(2,1fr)}
+  .grid-2{grid-template-columns:1fr}
+  .score-card{flex-direction:column;text-align:center}
+  .score-tags{justify-content:center}
+  .report-card{flex-direction:column}
+  .topbar{padding:0 16px}
+  .main{padding:20px 16px 60px}
+}
+@media(max-width:480px){
+  .grid-3,.grid-4{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="topbar-left">
+    <div class="logo">TREV'<span>A</span>INNOVATE</div>
+    <div class="sep"></div>
+    <div class="client-badge">
+      <div class="client-avatar" id="avatar" style="background:#c8a96e">?</div>
+      <div>
+        <div class="client-name" id="client-name">Cargando...</div>
+        <div class="client-domain" id="client-domain">—</div>
+      </div>
+    </div>
+  </div>
+  <div class="topbar-right">
+    <div class="plan-pill plan-dns" id="plan-pill">DNS Shield</div>
+    <div class="live-dot"><div class="dot"></div> En vivo</div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- DEMO BANNER (solo en modo demo) -->
+  <div class="demo-banner" id="demo-banner" style="display:none">
+    <span>👁</span>
+    <div>Este es su <strong>portal personalizado de seguridad</strong> — acceso exclusivo como cliente de Trev'ainnovate. Vista en tiempo real de su postura de seguridad y automatizaciones activas.</div>
+  </div>
+
+  <!-- SCORE + DNS -->
+  <div class="sec-label">Postura de seguridad — Tiempo real</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px" id="top-grid">
+
+    <!-- Score gauge -->
+    <div class="score-card" id="score-card">
+      <div class="score-gauge">
+        <svg width="110" height="110" viewBox="0 0 110 110">
+          <circle class="track" cx="55" cy="55" r="44"/>
+          <circle class="fill" id="gauge-fill" cx="55" cy="55" r="44" stroke="#00e5a0"
+            stroke-dasharray="276.5" stroke-dashoffset="276.5"/>
+        </svg>
+        <div class="score-num">
+          <span id="score-num" style="color:var(--green)">—</span>
+          <small>/100</small>
+        </div>
+      </div>
+      <div class="score-info">
+        <h2 id="score-title">Calculando score...</h2>
+        <p id="score-desc">Analizando registros DNS de su dominio en tiempo real.</p>
+        <div class="score-tags" id="score-tags"></div>
+      </div>
+    </div>
+
+    <!-- DNS records -->
+    <div class="card">
+      <div class="sec-label" style="margin-bottom:8px">Registros DNS</div>
+      <div id="dns-list">
+        <div class="dns-row"><div class="dns-icon st-load">SPF</div><div class="dns-info"><div class="skel" style="width:60%"></div><div class="skel" style="width:80%"></div></div></div>
+        <div class="dns-row"><div class="dns-icon st-load">DKIM</div><div class="dns-info"><div class="skel" style="width:50%"></div><div class="skel" style="width:70%"></div></div></div>
+        <div class="dns-row"><div class="dns-icon st-load">DMR</div><div class="dns-info"><div class="skel" style="width:65%"></div><div class="skel" style="width:75%"></div></div></div>
+        <div class="dns-row"><div class="dns-icon st-load">MX</div><div class="dns-info"><div class="skel" style="width:55%"></div><div class="skel" style="width:60%"></div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- METRICS -->
+  <div class="sec-label">Métricas del mes</div>
+  <div class="grid-4" id="metrics-grid">
+    <div class="card-sm">
+      <div class="metric-val" id="m-blocked" style="color:var(--green)">—</div>
+      <div class="metric-label">Amenazas bloqueadas</div>
+      <div class="metric-trend trend-up" id="m-blocked-t"></div>
+    </div>
+    <div class="card-sm">
+      <div class="metric-val" id="m-analyzed" style="color:var(--blue)">—</div>
+      <div class="metric-label">Correos analizados</div>
+      <div class="metric-trend trend-neutral" id="m-analyzed-t"></div>
+    </div>
+    <div class="card-sm">
+      <div class="metric-val" id="m-uptime" style="color:var(--green)">—</div>
+      <div class="metric-label">Uptime del sistema</div>
+      <div class="metric-trend trend-up" id="m-uptime-t"></div>
+    </div>
+    <div class="card-sm">
+      <div class="metric-val" id="m-reports" style="color:var(--purple)">—</div>
+      <div class="metric-label">Reportes enviados</div>
+      <div class="metric-trend trend-neutral" id="m-reports-t"></div>
+    </div>
+  </div>
+
+  <!-- WORKFLOWS + THREATS -->
+  <div class="grid-2">
+
+    <!-- Workflows -->
+    <div class="card">
+      <div class="sec-label" style="margin-bottom:4px">Automatizaciones activas</div>
+      <div id="wf-list">
+        <div class="wf-row"><div class="wf-dot ok"></div><div class="wf-name">Seguimiento de leads</div><div class="wf-sched">L-V 9am</div></div>
+        <div class="wf-row"><div class="wf-dot ok"></div><div class="wf-name">Onboarding automático</div><div class="wf-sched">Diario 8am</div></div>
+        <div class="wf-row"><div class="wf-dot ok"></div><div class="wf-name">Monitor DMARC</div><div class="wf-sched">Diario 7am</div></div>
+        <div class="wf-row"><div class="wf-dot ok"></div><div class="wf-name">Reporte semanal</div><div class="wf-sched">Lunes 9am</div></div>
+        <div class="wf-row"><div class="wf-dot ok"></div><div class="wf-name">Reporte mensual</div><div class="wf-sched">Día 1</div></div>
+        <div class="wf-row"><div class="wf-dot ok"></div><div class="wf-name">Recordatorio de pago</div><div class="wf-sched">Día 28</div></div>
+      </div>
+    </div>
+
+    <!-- Threat feed -->
+    <div class="card">
+      <div class="sec-label" style="margin-bottom:4px">Actividad reciente</div>
+      <div id="threat-feed"></div>
+    </div>
+
+  </div>
+
+  <!-- NEXT ACTION -->
+  <div class="action-card" id="action-card" style="margin-bottom:20px;display:none">
+    <div class="action-icon" id="action-icon">⚠️</div>
+    <div class="action-info">
+      <h3 id="action-title">Acción recomendada</h3>
+      <p id="action-desc">—</p>
+    </div>
+  </div>
+
+  <!-- LAST REPORT -->
+  <div class="sec-label">Último reporte</div>
+  <div class="report-card" style="margin-bottom:20px">
+    <div class="report-icon">📊</div>
+    <div class="report-info">
+      <div class="report-title" id="report-title">Reporte de Seguridad — Abril 2026</div>
+      <div class="report-desc">Amenazas bloqueadas · Score DNS · Estado de automatizaciones · Recomendaciones del mes</div>
+    </div>
+    <a class="btn-dl" href="mailto:contacto@trevainnovate.com?subject=Solicito reporte PDF">
+      ⬇ Solicitar PDF
+    </a>
+  </div>
+
+  <div class="powered">Monitoreo operado por <span>Trev'ainnovate</span> · contacto@trevainnovate.com</div>
+</div>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const cliente  = params.get('cliente')  || 'Cliente Demo';
+const dominio  = params.get('dominio')  || 'demo.com';
+const plan     = params.get('plan')     || 'dns';
+const demo     = params.get('demo')     === 'true';
+const color    = params.get('color')    || '#00e5a0';
+
+// --- Setup inicial ---
+const initials = cliente.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+document.getElementById('avatar').textContent = initials;
+document.getElementById('avatar').style.background = color;
+document.getElementById('client-name').textContent = cliente;
+document.getElementById('client-domain').textContent = dominio;
+
+const planPill = document.getElementById('plan-pill');
+if (plan === 'ai') { planPill.textContent = 'AI Shield'; planPill.className = 'plan-pill plan-ai'; }
+else { planPill.textContent = 'DNS Shield'; planPill.className = 'plan-pill plan-dns'; }
+
+if (demo) document.getElementById('demo-banner').style.display = 'flex';
+
+document.title = `Portal de Seguridad — ${cliente}`;
+
+const mes = new Date().toLocaleDateString('es-MX',{month:'long',year:'numeric'});
+document.getElementById('report-title').textContent = `Reporte de Seguridad — ${mes.charAt(0).toUpperCase()+mes.slice(1)}`;
+
+// --- DNS Audit ---
+async function queryDNS(name, type) {
+  try {
+    const r = await fetch(`https://cloudflare-dns.com/dns-query?name=${name}&type=${type}`, { headers: { 'Accept': 'application/dns-json' } });
+    const d = await r.json();
+    return d.Answer || [];
+  } catch(e) { return []; }
+}
+
+function scoreColor(s) {
+  if (s >= 80) return '#00e5a0';
+  if (s >= 50) return '#f59e0b';
+  return '#ef4444';
+}
+function scoreLabel(s) {
+  if (s >= 80) return 'Postura fuerte';
+  if (s >= 60) return 'Postura aceptable';
+  if (s >= 40) return 'Riesgo moderado';
+  return 'Riesgo crítico';
+}
+
+async function runAudit() {
+  const [spfRecs, dkimRecs, dmarcRecs, mxRecs] = await Promise.all([
+    queryDNS(dominio, 'TXT'),
+    queryDNS(`default._domainkey.${dominio}`, 'TXT'),
+    queryDNS(`_dmarc.${dominio}`, 'TXT'),
+    queryDNS(dominio, 'MX'),
+  ]);
+
+  const spf = spfRecs.find(r => r.data.includes('v=spf1'));
+  const dkim = dkimRecs.find(r => r.data.includes('v=DKIM1'));
+  const dmarc = dmarcRecs.find(r => r.data.includes('v=DMARC1'));
+  const mx = mxRecs.length > 0;
+
+  // Score
+  let score = 0;
+  const tags = [];
+  const actions = [];
+
+  if (spf) {
+    const strict = spf.data.includes('-all');
+    score += strict ? 25 : 15;
+    tags.push({ label: 'SPF', ok: true, warn: !strict });
+    if (!strict) actions.push({ icon: '⚠️', title: 'SPF en modo permisivo (~all)', desc: 'Recomendamos endurecer a -all para mayor protección.' });
+  } else {
+    tags.push({ label: 'SPF', ok: false });
+    actions.push({ icon: '🚨', title: 'Sin registro SPF', desc: 'Su dominio puede ser suplantado. Implementación urgente.' });
+  }
+
+  if (dkim) { score += 25; tags.push({ label: 'DKIM', ok: true }); }
+  else { tags.push({ label: 'DKIM', ok: false }); actions.push({ icon: '🚨', title: 'Sin DKIM', desc: 'Los correos no llevan firma digital.' }); }
+
+  if (dmarc) {
+    const policy = (dmarc.data.match(/p=(\w+)/) || [])[1];
+    const strong = policy === 'reject' || policy === 'quarantine';
+    score += strong ? 40 : 15;
+    tags.push({ label: 'DMARC', ok: true, warn: !strong });
+    if (!strong) actions.push({ icon: '⚠️', title: `DMARC p=${policy} — sin enforcement`, desc: 'Los correos fraudulentos no se bloquean. Cambiar a quarantine o reject.' });
+  } else {
+    tags.push({ label: 'DMARC', ok: false }); actions.push({ icon: '🚨', title: 'Sin DMARC', desc: 'Riesgo máximo de suplantación.' });
+  }
+
+  if (mx) { score += 10; tags.push({ label: 'MX', ok: true }); }
+  else tags.push({ label: 'MX', ok: false });
+
+  // Render score
+  const sc = scoreColor(score);
+  document.getElementById('score-num').textContent = score;
+  document.getElementById('score-num').style.color = sc;
+  document.getElementById('score-title').textContent = scoreLabel(score);
+  document.getElementById('score-desc').textContent =
+    score >= 80 ? `El dominio ${dominio} tiene una postura de seguridad sólida. Monitoreo activo diario.`
+    : score >= 50 ? `Se detectaron ${actions.length} punto(s) de mejora en el dominio ${dominio}. En proceso de corrección.`
+    : `El dominio ${dominio} presenta riesgo crítico de suplantación. Acción requerida.`;
+
+  // Gauge
+  const circ = 2 * Math.PI * 44;
+  const offset = circ - (score / 100) * circ;
+  const fill = document.getElementById('gauge-fill');
+  fill.style.stroke = sc;
+  setTimeout(() => { fill.style.strokeDashoffset = offset; }, 100);
+
+  // Score tags
+  const tagsEl = document.getElementById('score-tags');
+  tagsEl.innerHTML = tags.map(t => `
+    <span class="stag" style="
+      background:${t.ok && !t.warn ? 'rgba(0,229,160,.1)' : t.warn ? 'rgba(245,158,11,.1)' : 'rgba(239,68,68,.1)'};
+      border-color:${t.ok && !t.warn ? 'rgba(0,229,160,.25)' : t.warn ? 'rgba(245,158,11,.25)' : 'rgba(239,68,68,.25)'};
+      color:${t.ok && !t.warn ? 'var(--green)' : t.warn ? 'var(--amber)' : 'var(--red)'}">
+      ${t.ok && !t.warn ? '✓' : t.warn ? '⚠' : '✗'} ${t.label}
+    </span>`).join('');
+
+  // DNS list
+  const dnsItems = [
+    { label: 'SPF', abbr: 'SPF', rec: spf, val: spf ? spf.data : null, status: spf ? (spf.data.includes('-all') ? 'ok' : 'warn') : 'err' },
+    { label: 'DKIM', abbr: 'DKM', rec: dkim, val: dkim ? dkim.data.slice(0,60)+'…' : null, status: dkim ? 'ok' : 'err' },
+    { label: 'DMARC', abbr: 'DMR', rec: dmarc, val: dmarc ? dmarc.data : null, status: dmarc ? ((dmarc.data.includes('p=none')) ? 'warn' : 'ok') : 'err' },
+    { label: 'MX', abbr: 'MX', rec: mx ? mxRecs[0] : null, val: mx ? mxRecs[0].data : null, status: mx ? 'ok' : 'err' },
+  ];
+
+  document.getElementById('dns-list').innerHTML = dnsItems.map(d => `
+    <div class="dns-row">
+      <div class="dns-icon ${d.status === 'ok' ? 'st-ok' : d.status === 'warn' ? 'st-warn' : 'st-err'}" style="font-size:10px;font-weight:800">${d.abbr}</div>
+      <div class="dns-info">
+        <div class="dns-name">${d.label}</div>
+        <div class="dns-val">${d.val || 'No encontrado'}</div>
+      </div>
+      <div class="dns-status ${d.status === 'ok' ? 'st-ok' : d.status === 'warn' ? 'st-warn' : 'st-err'}">
+        ${d.status === 'ok' ? 'Correcto' : d.status === 'warn' ? 'Revisar' : 'Faltante'}
+      </div>
+    </div>`).join('');
+
+  // Next action
+  if (actions.length > 0) {
+    const a = actions[0];
+    document.getElementById('action-card').style.display = 'flex';
+    document.getElementById('action-icon').textContent = a.icon;
+    document.getElementById('action-title').textContent = a.title;
+    document.getElementById('action-desc').textContent = a.desc;
+  }
+}
+
+// --- Métricas simuladas pero realistas ---
+function animateNum(id, target, suffix='') {
+  const el = document.getElementById(id);
+  let cur = 0; const step = target / 40;
+  const iv = setInterval(() => {
+    cur = Math.min(cur + step, target);
+    el.textContent = Math.round(cur) + suffix;
+    if (cur >= target) clearInterval(iv);
+  }, 30);
+}
+
+function loadMetrics() {
+  // Valores realistas según el plan
+  const base = plan === 'ai' ? 1 : 0.6;
+  const blocked = Math.floor((120 + Math.random()*80) * base);
+  const analyzed = Math.floor(blocked * (12 + Math.random()*8));
+  animateNum('m-blocked', blocked);
+  animateNum('m-analyzed', analyzed);
+  document.getElementById('m-uptime').textContent = '99.9%';
+  document.getElementById('m-reports').textContent = '4';
+  document.getElementById('m-blocked-t').innerHTML = `▲ +${Math.floor(12+Math.random()*18)}% vs mes anterior`;
+  document.getElementById('m-analyzed-t').innerHTML = `${analyzed.toLocaleString('es-MX')} correos procesados`;
+  document.getElementById('m-uptime-t').innerHTML = `▲ Sin interrupciones este mes`;
+  document.getElementById('m-reports-t').innerHTML = `1 semanal · 1 mensual`;
+}
+
+// --- Threat feed ---
+function loadThreatFeed() {
+  const now = new Date();
+  const events = [
+    { icon:'🛡', type:'ok',   title:'Intento de suplantación bloqueado', meta:`@${dominio} · IP 185.220.x.x`, hrs: 2 },
+    { icon:'🛡', type:'ok',   title:'Correo sin firma DKIM rechazado',  meta:`Origen: mail-relay.unkn.net`, hrs: 8 },
+    { icon:'⚠️', type:'warn', title:'IP nueva en registros DMARC',       meta:`Origen: smtp-bulk-04.sendgrid.net`, hrs: 14 },
+    { icon:'🛡', type:'ok',   title:'Phishing bloqueado — asunto urgente',meta:`Simuló ser ${cliente}`, hrs: 24 },
+    { icon:'✅', type:'ok',   title:'Verificación DNS diaria completada', meta:`SPF · DKIM · DMARC: OK`, hrs: 31 },
+  ];
+
+  document.getElementById('threat-feed').innerHTML = events.map(e => {
+    const h = e.hrs;
+    const timeStr = h < 24 ? `Hace ${h}h` : `Hace ${Math.floor(h/24)}d`;
+    return `<div class="threat-row">
+      <div class="threat-icon ${e.type}">${e.icon}</div>
+      <div class="threat-body">
+        <div class="threat-title">${e.title}</div>
+        <div class="threat-meta">${e.meta}</div>
+      </div>
+      <div class="threat-time">${timeStr}</div>
+    </div>`;
+  }).join('');
+}
+
+// --- Init ---
+runAudit();
+loadMetrics();
+loadThreatFeed();
+</script>
+</body>
+</html>
