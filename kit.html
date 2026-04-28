@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Trev'ainnovate — Kit Comercial 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+:root{
+  --bg:#05050e;--bg2:#0b0b1c;--bg3:#111128;
+  --green:#00e5a0;--blue:#3b82f6;--purple:#8b5cf6;--amber:#f59e0b;--red:#ef4444;
+  --white:#f1f5f9;--muted:#8892a4;--border:rgba(255,255,255,.07);
+}
+body{background:#111;font-family:'Inter',sans-serif;color:var(--white);-webkit-font-smoothing:antialiased;}
+
+/* PAGE */
+.page{
+  width:100%;min-height:100vh;
+  background:var(--bg);
+  display:flex;flex-direction:column;
+  position:relative;overflow:hidden;
+  border-bottom:2px solid rgba(255,255,255,.04);
+}
+@media print{
+  body{background:var(--bg)!important;}
+  .page{min-height:297mm;page-break-after:always;overflow:hidden;}
+  .no-print{display:none!important;}
+}
+
+/* COMMON */
+.topbar{height:3px;background:linear-gradient(90deg,var(--green),var(--blue),var(--purple));flex-shrink:0;}
+.ph{display:flex;align-items:center;justify-content:space-between;padding:16px 7vw 14px;border-bottom:1px solid var(--border);flex-shrink:0;position:relative;z-index:1;}
+.logo{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:800;letter-spacing:.04em;}
+.ld{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 8px rgba(0,229,160,.7);}
+.meta{font-size:9px;color:var(--muted);font-family:'JetBrains Mono',monospace;text-align:right;line-height:1.6;}
+.pf{padding:12px 7vw;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;position:relative;z-index:1;}
+.pf span{font-size:9px;color:rgba(255,255,255,.2);font-family:'JetBrains Mono',monospace;}
+.pb{flex:1;padding:44px 7vw;display:flex;flex-direction:column;position:relative;z-index:1;}
+
+/* BG FX */
+.glow-tl{position:absolute;inset:0;background:radial-gradient(ellipse at 80% 15%,rgba(0,229,160,.08) 0%,transparent 55%),radial-gradient(ellipse at 10% 85%,rgba(59,130,246,.06) 0%,transparent 55%);pointer-events:none;}
+.glow-tr{position:absolute;inset:0;background:radial-gradient(ellipse at 20% 20%,rgba(139,92,246,.06) 0%,transparent 50%),radial-gradient(ellipse at 85% 80%,rgba(0,229,160,.05) 0%,transparent 50%);pointer-events:none;}
+.grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.016) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.016) 1px,transparent 1px);background-size:18mm 18mm;pointer-events:none;}
+
+/* TYPOGRAPHY */
+.tag-label{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:99px;background:rgba(0,229,160,.08);border:1px solid rgba(0,229,160,.2);font-size:9px;font-weight:700;color:var(--green);letter-spacing:.14em;text-transform:uppercase;}
+.tag-dot{width:4px;height:4px;border-radius:50%;background:var(--green);}
+.section-label{font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--green);margin-bottom:10px;display:block;}
+.section-label.blue{color:var(--blue);}
+.section-label.purple{color:var(--purple);}
+.section-label.amber{color:var(--amber);}
+.h1{font-size:54px;font-weight:900;line-height:1.03;letter-spacing:-.025em;}
+.h2{font-size:36px;font-weight:900;line-height:1.06;letter-spacing:-.02em;}
+.h3{font-size:20px;font-weight:800;line-height:1.2;}
+.h4{font-size:14px;font-weight:700;}
+.body{font-size:14px;color:var(--muted);line-height:1.75;}
+.body-sm{font-size:12px;color:var(--muted);line-height:1.65;}
+.grad{background:linear-gradient(135deg,#00e5a0,#3b82f6,#8b5cf6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.mono{font-family:'JetBrains Mono',monospace;}
+
+/* BLOCKS */
+.bk{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:18px 20px;}
+.bk.g{background:rgba(0,229,160,.05);border-color:rgba(0,229,160,.2);}
+.bk.b{background:rgba(59,130,246,.05);border-color:rgba(59,130,246,.2);}
+.bk.p{background:rgba(139,92,246,.05);border-color:rgba(139,92,246,.2);}
+.bk.a{background:rgba(245,158,11,.05);border-color:rgba(245,158,11,.2);}
+.bk.r{background:rgba(239,68,68,.05);border-color:rgba(239,68,68,.2);}
+
+/* CHECK LIST */
+.ci{display:flex;align-items:flex-start;gap:8px;font-size:12px;color:rgba(255,255,255,.8);padding:4px 0;line-height:1.5;}
+.ci::before{content:'✓';color:var(--green);font-weight:800;font-size:11px;flex-shrink:0;margin-top:2px;}
+.ci.x::before{content:'✗';color:var(--red);}
+.ci.w::before{content:'⚠';color:var(--amber);}
+.ci.bullet::before{content:'→';color:var(--blue);}
+
+/* GRIDS */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+
+/* DIVIDER */
+.divider{height:1px;background:var(--border);margin:24px 0;}
+
+/* QUOTE */
+.quote{border-left:3px solid var(--green);padding:14px 18px;background:rgba(0,229,160,.04);border-radius:0 10px 10px 0;font-size:14px;color:rgba(255,255,255,.8);line-height:1.7;font-style:italic;}
+.quote-author{font-size:11px;color:var(--muted);margin-top:8px;font-style:normal;font-weight:600;}
+
+/* PILL */
+.pill{display:inline-block;font-size:9px;font-weight:700;padding:3px 9px;border-radius:99px;font-family:'JetBrains Mono',monospace;}
+.pill-g{background:rgba(0,229,160,.1);color:var(--green);border:1px solid rgba(0,229,160,.25);}
+.pill-b{background:rgba(59,130,246,.1);color:#93c5fd;border:1px solid rgba(59,130,246,.25);}
+.pill-p{background:rgba(139,92,246,.1);color:#c4b5fd;border:1px solid rgba(139,92,246,.25);}
+.pill-a{background:rgba(245,158,11,.1);color:#fcd34d;border:1px solid rgba(245,158,11,.25);}
+.pill-r{background:rgba(239,68,68,.1);color:#fca5a5;border:1px solid rgba(239,68,68,.25);}
+
+/* STAT CARD */
+.stat-card{border-radius:12px;padding:18px 20px;display:flex;flex-direction:column;gap:6px;}
+
+/* TECH BADGE */
+.tech{display:inline-flex;align-items:center;gap:6px;font-size:10px;padding:5px 11px;border-radius:6px;background:rgba(255,255,255,.04);border:1px solid var(--border);color:rgba(255,255,255,.5);font-family:'JetBrains Mono',monospace;}
+
+/* FNAV */
+.fnav{position:fixed;right:24px;top:50%;transform:translateY(-50%);z-index:1000;display:flex;flex-direction:column;gap:11px;align-items:flex-end;}
+.fnav a{display:flex;align-items:center;gap:9px;text-decoration:none;}
+.fnav-label{font-size:11px;font-weight:600;color:var(--white);background:rgba(5,5,14,.95);border:1px solid rgba(255,255,255,.09);padding:4px 11px;border-radius:6px;opacity:0;transform:translateX(8px);transition:opacity .18s,transform .18s;white-space:nowrap;pointer-events:none;}
+.fnav a:hover .fnav-label{opacity:1;transform:translateX(0);}
+.fnav-dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.1);transition:all .22s;flex-shrink:0;}
+.fnav a:hover .fnav-dot,.fnav a.active .fnav-dot{background:var(--green);border-color:var(--green);box-shadow:0 0 8px rgba(0,229,160,.45);}
+.fnav a.active .fnav-dot{width:10px;height:10px;}
+.fnav a.active .fnav-label{opacity:1;transform:translateX(0);color:var(--green);}
+@media(max-width:700px){.fnav{display:none;}}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════
+     P1 — PORTADA
+══════════════════════════════════════════════════════ -->
+<div class="page" id="portada">
+  <div class="glow-tl"></div>
+  <div class="grid-bg"></div>
+  <div class="topbar"></div>
+  <div class="ph">
+    <div class="logo"><div class="ld"></div>TREV'AINNOVATE</div>
+    <div class="meta">Kit Comercial · 2026<br>trevainnovate.com</div>
+  </div>
+
+  <div style="flex:1;display:flex;flex-direction:column;justify-content:center;padding:60px 7vw 48px;position:relative;z-index:1;">
+    <div class="tag-label" style="margin-bottom:20px;width:fit-content;"><div class="tag-dot"></div>Ecosistema de Agentes IA · Querétaro, México</div>
+
+    <div class="h1" style="margin-bottom:16px;">
+      Tu empresa,<br>operando sola.<br><span class="grad">24/7.</span>
+    </div>
+    <p class="body" style="max-width:580px;margin-bottom:36px;">Automatizamos los procesos que hoy consumen tiempo y generan errores. Desplegamos agentes de inteligencia artificial que razonan, deciden y actúan. Protegemos tu identidad digital. Todo en un solo ecosistema — sin cambiar lo que ya funciona.</p>
+
+    <div class="g4" style="max-width:780px;margin-bottom:44px;">
+      <div class="stat-card bk g">
+        <div style="font-size:38px;font-weight:900;color:var(--green);font-family:'JetBrains Mono',monospace;line-height:1;">24/7</div>
+        <div style="font-size:11px;color:rgba(255,255,255,.6);line-height:1.4;">Operación autónoma sin intervención</div>
+      </div>
+      <div class="stat-card bk b">
+        <div style="font-size:38px;font-weight:900;color:var(--blue);font-family:'JetBrains Mono',monospace;line-height:1;">&lt;2m</div>
+        <div style="font-size:11px;color:rgba(255,255,255,.6);line-height:1.4;">Respuesta de cada agente en cualquier canal</div>
+      </div>
+      <div class="stat-card bk p">
+        <div style="font-size:38px;font-weight:900;color:var(--purple);font-family:'JetBrains Mono',monospace;line-height:1;">$0</div>
+        <div style="font-size:11px;color:rgba(255,255,255,.6);line-height:1.4;">IMSS, aguinaldo ni vacaciones — nunca</div>
+      </div>
+      <div class="stat-card bk a">
+        <div style="font-size:38px;font-weight:900;color:var(--amber);font-family:'JetBrains Mono',monospace;line-height:1;">×3</div>
+        <div style="font-size:11px;color:rgba(255,255,255,.6);line-height:1.4;">Capacidad sin aumentar nómina ni estructura</div>
+      </div>
+    </div>
+
+    <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap;">
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <span class="tech">⚙️ Automatización</span>
+        <span class="tech">🧠 Agentes IA</span>
+        <span class="tech">🛡️ Ciberseguridad</span>
+      </div>
+      <div style="width:1px;height:28px;background:var(--border);"></div>
+      <div style="font-size:11px;color:rgba(255,255,255,.35);">Santiago Juárez Treviño · CEO · Trev'ainnovate</div>
+      <div style="font-size:11px;color:rgba(255,255,255,.35);font-family:'JetBrains Mono',monospace;">contacto@trevainnovate.com</div>
+    </div>
+  </div>
+
+  <div class="pf"><span>Trev'ainnovate · Santiago Juárez Treviño · Querétaro, México</span><span>1 / 8</span></div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     P2 — EL PROBLEMA
+══════════════════════════════════════════════════════ -->
+<div class="page" id="problema">
+  <div class="glow-tr"></div>
+  <div class="topbar"></div>
+  <div class="ph"><div class="logo"><div class="ld"></div>TREV'AINNOVATE</div><div class="meta">Kit Comercial 2026</div></div>
+  <div class="pb">
+    <span class="section-label amber">El problema</span>
+    <div class="h2" style="margin-bottom:8px;">Operar manualmente en 2026<br>es <span class="grad">un costo que nadie mide.</span></div>
+    <p class="body" style="max-width:660px;margin-bottom:32px;">La mayoría de empresas en México siguen operando con procesos diseñados para otra época. Eso no es un problema de actitud — es un problema de sistema. Y tiene un costo real, aunque nadie lo haya calculado.</p>
+
+    <div class="g3" style="margin-bottom:28px;">
+      <div class="bk r" style="padding:22px 22px;">
+        <div style="font-size:28px;margin-bottom:10px;">⏱️</div>
+        <div class="h4" style="margin-bottom:8px;color:rgba(239,68,68,.9);">Tiempo que se va</div>
+        <p class="body-sm" style="margin-bottom:14px;">10–20 horas semanales en tareas administrativas que no generan valor: reportes manuales, coordinación por WhatsApp, seguimientos que se olvidan, facturas que se pierden.</p>
+        <div style="font-size:22px;font-weight:900;color:#ef4444;font-family:'JetBrains Mono',monospace;">$9,600/sem</div>
+        <div style="font-size:10px;color:var(--muted);margin-top:2px;">en tiempo de persona a $120/hora promedio</div>
+      </div>
+      <div class="bk a" style="padding:22px 22px;">
+        <div style="font-size:28px;margin-bottom:10px;">💸</div>
+        <div class="h4" style="margin-bottom:8px;color:rgba(245,158,11,.9);">Dinero que se escapa</div>
+        <p class="body-sm" style="margin-bottom:14px;">Ventas perdidas por respuesta lenta, comisiones a plataformas sin canal propio, errores de cotización, cobranza que no se da seguimiento. Cada uno parece pequeño. Juntos, son millones.</p>
+        <div style="font-size:22px;font-weight:900;color:var(--amber);font-family:'JetBrains Mono',monospace;">$180K+</div>
+        <div style="font-size:10px;color:var(--muted);margin-top:2px;">MXN por incidente de fraude BEC · promedio IBM 2024</div>
+      </div>
+      <div class="bk p" style="padding:22px 22px;">
+        <div style="font-size:28px;margin-bottom:10px;">🛡️</div>
+        <div class="h4" style="margin-bottom:8px;color:rgba(139,92,246,.9);">Identidad digital expuesta</div>
+        <p class="body-sm" style="margin-bottom:14px;">70% de las PYMEs en México no tienen SPF, DMARC ni DKIM configurados. Eso significa que cualquier persona puede suplantar su correo corporativo y llegar a la bandeja de sus clientes y proveedores.</p>
+        <div style="font-size:22px;font-weight:900;color:var(--purple);font-family:'JetBrains Mono',monospace;">70%</div>
+        <div style="font-size:10px;color:var(--muted);margin-top:2px;">de PYMEs MX sin protección básica de correo</div>
+      </div>
+    </div>
+
+    <div class="bk" style="display:flex;align-items:center;gap:20px;padding:20px 24px;">
+      <div style="font-size:28px;flex-shrink:0;">🧠</div>
+      <div>
+        <div class="h4" style="margin-bottom:4px;">El fondo del problema: la empresa depende de personas para tareas que un sistema puede hacer mejor</div>
+        <p class="body-sm">No es que los equipos sean malos — es que están haciendo trabajo de máquina. Cuando una persona maneja 200 correos al día, se equivoca. Cuando un agente los maneja, no. La solución no es contratar más gente. Es liberar a tu equipo para lo que solo ellos pueden hacer.</p>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span>Trev'ainnovate · Kit Comercial 2026</span><span>2 / 8</span></div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     P3 — NUESTRA SOLUCIÓN: TRES PILARES
+══════════════════════════════════════════════════════ -->
+<div class="page" id="solucion">
+  <div class="topbar"></div>
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 60% 40%,rgba(0,229,160,.05) 0%,transparent 55%);pointer-events:none;"></div>
+  <div class="ph"><div class="logo"><div class="ld"></div>TREV'AINNOVATE</div><div class="meta">Kit Comercial 2026</div></div>
+  <div class="pb">
+    <span class="section-label">Nuestra solución</span>
+    <div class="h2" style="margin-bottom:6px;">Un ecosistema en <span class="grad">tres capas.</span></div>
+    <p class="body" style="max-width:620px;margin-bottom:28px;">No es un software. No es consultoría. Es un equipo digital diseñado específicamente para la operación de tu empresa — que se despliega, se integra con lo que ya tienes, y empieza a operar en días.</p>
+
+    <!-- Pilar 1 -->
+    <div style="display:grid;grid-template-columns:3fr 1fr;gap:16px;margin-bottom:16px;">
+      <div class="bk a" style="padding:24px 26px;">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
+          <div style="font-size:28px;">⚙️</div>
+          <div>
+            <div style="font-size:9px;font-weight:700;color:rgba(245,158,11,.6);text-transform:uppercase;letter-spacing:.12em;margin-bottom:2px;">Pilar 1 · Inversión única</div>
+            <div style="font-size:20px;font-weight:900;color:var(--amber);">Automatización de Procesos</div>
+          </div>
+        </div>
+        <p class="body-sm" style="margin-bottom:14px;color:rgba(255,255,255,.65);">Construimos flujos de trabajo automatizados que conectan tus sistemas, eliminan las tareas manuales y garantizan que nada se pierda. Sin IA — pura lógica confiable que ejecuta exactamente lo que definas, siempre.</p>
+        <div class="g3" style="gap:8px;">
+          <div style="font-size:11px;padding:8px 12px;background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.14);border-radius:8px;color:rgba(255,255,255,.65);line-height:1.4;">📋 CRM y pipeline de ventas automatizado</div>
+          <div style="font-size:11px;padding:8px 12px;background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.14);border-radius:8px;color:rgba(255,255,255,.65);line-height:1.4;">📊 Reportes ejecutivos sin intervención</div>
+          <div style="font-size:11px;padding:8px 12px;background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.14);border-radius:8px;color:rgba(255,255,255,.65);line-height:1.4;">🧾 Facturación y cobranza asistida</div>
+          <div style="font-size:11px;padding:8px 12px;background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.14);border-radius:8px;color:rgba(255,255,255,.65);line-height:1.4;">🔔 Alertas y notificaciones en tiempo real</div>
+          <div style="font-size:11px;padding:8px 12px;background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.14);border-radius:8px;color:rgba(255,255,255,.65);line-height:1.4;">🔗 Integración con ERPs existentes (Microsip, etc.)</div>
+          <div style="font-size:11px;padding:8px 12px;background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.14);border-radius:8px;color:rgba(255,255,255,.65);line-height:1.4;">📦 Trazabilidad de inventario y logística</div>
+        </div>
+      </div>
+      <div class="bk" style="display:flex;flex-direction:column;justify-content:center;gap:12px;padding:22px;">
+        <div style="font-size:11px;color:var(--muted);">Resultado típico:</div>
+        <div>
+          <div style="font-size:32px;font-weight:900;color:var(--amber);font-family:'JetBrains Mono',monospace;line-height:1;">-80%</div>
+          <div style="font-size:11px;color:rgba(255,255,255,.5);margin-top:4px;">tiempo en admin</div>
+        </div>
+        <div>
+          <div style="font-size:32px;font-weight:900;color:var(--amber);font-family:'JetBrains Mono',monospace;line-height:1;">3 días</div>
+          <div style="font-size:11px;color:rgba(255,255,255,.5);margin-top:4px;">primer flujo en producción</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pilar 2 -->
+    <div style="display:grid;grid-template-columns:3fr 1fr;gap:16px;margin-bottom:16px;">
+      <div class="bk g" style="padding:24px 26px;">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
+          <div style="font-size:28px;">🧠</div>
+          <div>
+            <div style="font-size:9px;font-weight:700;color:rgba(0,229,160,.6);text-transform:uppercase;letter-spacing:.12em;margin-bottom:2px;">Pilar 2 · Retainer mensual</div>
+            <div style="font-size:20px;font-weight:900;color:var(--green);">Agentes de Inteligencia Artificial</div>
+          </div>
+        </div>
+        <p class="body-sm" style="margin-bottom:14px;color:rgba(255,255,255,.65);">Donde las reglas se terminan, empieza el agente. Razona sobre el contexto, toma decisiones y actúa — como lo haría un buen empleado, pero sin horario, sin errores de estado de ánimo y sin costo variable por volumen.</p>
+        <div class="g3" style="gap:8px;">
+          <div style="font-size:11px;padding:8px 12px;background:rgba(0,229,160,.04);border:1px solid rgba(0,229,160,.12);border-radius:8px;color:rgba(255,255,255,.65);line-height:1.4;">🎯 SDR: prospección y calificación de leads autónoma</div>
+          <div style="font-size:11px;padding:8px 12px;background:rgba(0,229,160,.04);border:1px solid rgba(0,229,160,.12);border-radius:8px;color:rgba(255,255,255,.65);line-height:1.4;">💬 Atención a clientes 24/7 vía WhatsApp y correo</div>
+          <div style="font-size:11px;padding:8px 12px;background:rgba(0,229,160,.04);border:1px solid rgba(0,229,160,.12);border-radius:8px;color:rgba(255,255,255,.65);line-height:1.4;">📧 Follow-up de leads y reactivación de contactos</div>
+          <div style="font-size:11px;padding:8px 12px;background:rgba(0,229,160,.04);border:1px solid rgba(0,229,160,.12);border-radius:8px;color:rgba(255,255,255,.65);line-height:1.4;">🚀 Onboarding de nuevos clientes sin intervención</div>
+          <div style="font-size:11px;padding:8px 12px;background:rgba(0,229,160,.04);border:1px solid rgba(0,229,160,.12);border-radius:8px;color:rgba(255,255,255,.65);line-height:1.4;">📋 Propuestas comerciales generadas en segundos</div>
+          <div style="font-size:11px;padding:8px 12px;background:rgba(0,229,160,.04);border:1px solid rgba(0,229,160,.12);border-radius:8px;color:rgba(255,255,255,.65);line-height:1.4;">🔄 Coordinación operativa entre equipos y sistemas</div>
+        </div>
+      </div>
+      <div class="bk" style="display:flex;flex-direction:column;justify-content:center;gap:12px;padding:22px;">
+        <div style="font-size:11px;color:var(--muted);">Resultado típico:</div>
+        <div>
+          <div style="font-size:32px;font-weight:900;color:var(--green);font-family:'JetBrains Mono',monospace;line-height:1;">&lt;90s</div>
+          <div style="font-size:11px;color:rgba(255,255,255,.5);margin-top:4px;">respuesta a cualquier consulta</div>
+        </div>
+        <div>
+          <div style="font-size:32px;font-weight:900;color:var(--green);font-family:'JetBrains Mono',monospace;line-height:1;">24/7</div>
+          <div style="font-size:11px;color:rgba(255,255,255,.5);margin-top:4px;">sin días libres ni licencias</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pilar 3 -->
+    <div style="display:grid;grid-template-columns:3fr 1fr;gap:16px;">
+      <div class="bk p" style="padding:24px 26px;">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
+          <div style="font-size:28px;">🛡️</div>
+          <div>
+            <div style="font-size:9px;font-weight:700;color:rgba(139,92,246,.6);text-transform:uppercase;letter-spacing:.12em;margin-bottom:2px;">Pilar 3 · Retainer mensual</div>
+            <div style="font-size:20px;font-weight:900;color:var(--purple);">Seguridad Administrada</div>
+          </div>
+        </div>
+        <p class="body-sm" style="margin-bottom:14px;color:rgba(255,255,255,.65);">Tu dominio, tu correo y tu identidad digital — monitoreados 24/7. Si algo se expone, lo detectamos antes de que cueste. Si hay una amenaza activa, actuamos sin esperar que nos llames. Sin equipo de TI interno, sin costo de una postura de seguridad completa.</p>
+        <div class="g3" style="gap:8px;">
+          <div style="font-size:11px;padding:8px 12px;background:rgba(139,92,246,.04);border:1px solid rgba(139,92,246,.12);border-radius:8px;color:rgba(255,255,255,.65);line-height:1.4;">🔒 SPF · DMARC · DKIM — configurados y monitoreados</div>
+          <div style="font-size:11px;padding:8px 12px;background:rgba(139,92,246,.04);border:1px solid rgba(139,92,246,.12);border-radius:8px;color:rgba(255,255,255,.65);line-height:1.4;">🔍 Threat Intelligence — dominio y credenciales</div>
+          <div style="font-size:11px;padding:8px 12px;background:rgba(139,92,246,.04);border:1px solid rgba(139,92,246,.12);border-radius:8px;color:rgba(255,255,255,.65);line-height:1.4;">⚡ Incident Response automático ante caídas</div>
+          <div style="font-size:11px;padding:8px 12px;background:rgba(139,92,246,.04);border:1px solid rgba(139,92,246,.12);border-radius:8px;color:rgba(255,255,255,.65);line-height:1.4;">📈 Reportes de seguridad mensuales</div>
+          <div style="font-size:11px;padding:8px 12px;background:rgba(139,92,246,.04);border:1px solid rgba(139,92,246,.12);border-radius:8px;color:rgba(255,255,255,.65);line-height:1.4;">🛡️ WAF y protección perimetral via Cloudflare</div>
+          <div style="font-size:11px;padding:8px 12px;background:rgba(139,92,246,.04);border:1px solid rgba(139,92,246,.12);border-radius:8px;color:rgba(255,255,255,.65);line-height:1.4;">🔔 Alertas en tiempo real ante cualquier anomalía</div>
+        </div>
+      </div>
+      <div class="bk" style="display:flex;flex-direction:column;justify-content:center;gap:12px;padding:22px;">
+        <div style="font-size:11px;color:var(--muted);">Resultado típico:</div>
+        <div>
+          <div style="font-size:32px;font-weight:900;color:var(--purple);font-family:'JetBrains Mono',monospace;line-height:1;">100%</div>
+          <div style="font-size:11px;color:rgba(255,255,255,.5);margin-top:4px;">cobertura DNS en <48h</div>
+        </div>
+        <div>
+          <div style="font-size:32px;font-weight:900;color:var(--purple);font-family:'JetBrains Mono',monospace;line-height:1;">$0</div>
+          <div style="font-size:11px;color:rgba(255,255,255,.5);margin-top:4px;">costo de equipo TI interno</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span>Trev'ainnovate · Kit Comercial 2026</span><span>3 / 8</span></div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     P4 — INFRAESTRUCTURA
+══════════════════════════════════════════════════════ -->
+<div class="page" id="infraestructura">
+  <div class="topbar"></div>
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 25% 60%,rgba(59,130,246,.06) 0%,transparent 50%);pointer-events:none;"></div>
+  <div class="ph"><div class="logo"><div class="ld"></div>TREV'AINNOVATE</div><div class="meta">Kit Comercial 2026</div></div>
+  <div class="pb">
+    <span class="section-label blue">Infraestructura</span>
+    <div class="h2" style="margin-bottom:8px;">La tecnología que hace posible <span class="grad">la promesa.</span></div>
+    <p class="body" style="max-width:650px;margin-bottom:30px;">Nuestra propia empresa corre sobre el mismo stack que vendemos. Cada lead, cada reporte y cada alerta de seguridad los maneja un agente — no una persona. Lo que ofrecemos, lo vivimos primero.</p>
+
+    <div class="g2" style="margin-bottom:20px;gap:14px;">
+      <!-- n8n -->
+      <div class="bk" style="padding:20px 22px;display:flex;gap:14px;align-items:flex-start;">
+        <div style="font-size:24px;flex-shrink:0;margin-top:2px;">⚡</div>
+        <div>
+          <div style="font-size:8px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:3px;">Motor de automatización</div>
+          <div style="font-size:15px;font-weight:800;color:var(--white);margin-bottom:5px;">n8n — Self-Hosted</div>
+          <p class="body-sm">El motor de todos los flujos automatizados. Lo operamos en nuestros propios servidores — tus datos nunca salen de tu entorno. 9+ workflows activos en producción, 99.8% uptime.</p>
+          <div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap;">
+            <span class="pill pill-g">Self-hosted</span>
+            <span class="pill pill-g">Datos privados</span>
+            <span class="pill pill-g">99.8% uptime</span>
+          </div>
+        </div>
+      </div>
+      <!-- Claude AI -->
+      <div class="bk" style="padding:20px 22px;display:flex;gap:14px;align-items:flex-start;">
+        <div style="font-size:24px;flex-shrink:0;margin-top:2px;">🧠</div>
+        <div>
+          <div style="font-size:8px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:3px;">Motor de razonamiento</div>
+          <div style="font-size:15px;font-weight:800;color:var(--white);margin-bottom:5px;">Claude AI — Anthropic</div>
+          <p class="body-sm">El modelo de lenguaje que impulsa todos nuestros agentes. Líder en razonamiento, contexto largo y seguimiento de instrucciones complejas — elegido sobre GPT-4 por precisión en español y comprensión de negocio.</p>
+          <div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap;">
+            <span class="pill pill-b">Razonamiento avanzado</span>
+            <span class="pill pill-b">Español nativo</span>
+            <span class="pill pill-b">Anthropic · EE.UU.</span>
+          </div>
+        </div>
+      </div>
+      <!-- Cloudflare -->
+      <div class="bk" style="padding:20px 22px;display:flex;gap:14px;align-items:flex-start;">
+        <div style="font-size:24px;flex-shrink:0;margin-top:2px;">🔒</div>
+        <div>
+          <div style="font-size:8px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:3px;">Seguridad perimetral</div>
+          <div style="font-size:15px;font-weight:800;color:var(--white);margin-bottom:5px;">Cloudflare</div>
+          <p class="body-sm">DNS, WAF, CDN y protección DDoS. Protegemos el dominio del cliente con la misma infraestructura que usan Fortune 500. Incluye configuración de SPF, DMARC y DKIM para todos los clientes de seguridad.</p>
+          <div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap;">
+            <span class="pill pill-p">WAF Enterprise</span>
+            <span class="pill pill-p">DNS global</span>
+            <span class="pill pill-p">DDoS protection</span>
+          </div>
+        </div>
+      </div>
+      <!-- BetterStack -->
+      <div class="bk" style="padding:20px 22px;display:flex;gap:14px;align-items:flex-start;">
+        <div style="font-size:24px;flex-shrink:0;margin-top:2px;">📊</div>
+        <div>
+          <div style="font-size:8px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:3px;">Monitoreo 24/7</div>
+          <div style="font-size:15px;font-weight:800;color:var(--white);margin-bottom:5px;">BetterStack</div>
+          <p class="body-sm">Monitoreo de uptime, performance y anomalías en tiempo real. Alerta en segundos ante cualquier caída o comportamiento irregular — antes de que el cliente lo note.</p>
+          <div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap;">
+            <span class="pill pill-a">Uptime monitoring</span>
+            <span class="pill pill-a">Alertas &lt;60s</span>
+            <span class="pill pill-a">Logs centralizados</span>
+          </div>
+        </div>
+      </div>
+      <!-- Supabase -->
+      <div class="bk" style="padding:20px 22px;display:flex;gap:14px;align-items:flex-start;">
+        <div style="font-size:24px;flex-shrink:0;margin-top:2px;">🗄️</div>
+        <div>
+          <div style="font-size:8px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:3px;">Base de datos + portal</div>
+          <div style="font-size:15px;font-weight:800;color:var(--white);margin-bottom:5px;">Supabase</div>
+          <p class="body-sm">Almacenamiento estructurado de toda la operación del cliente. Alimenta el Portal del Cliente — dashboard en tiempo real que muestra el estado de agentes, automatizaciones y alertas de seguridad.</p>
+          <div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap;">
+            <span class="pill pill-g">Real-time</span>
+            <span class="pill pill-g">Portal del cliente</span>
+            <span class="pill pill-g">Open source</span>
+          </div>
+        </div>
+      </div>
+      <!-- Resend + Vapi -->
+      <div class="bk" style="padding:20px 22px;display:flex;gap:14px;align-items:flex-start;">
+        <div style="font-size:24px;flex-shrink:0;margin-top:2px;">📬</div>
+        <div>
+          <div style="font-size:8px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:3px;">Canales de comunicación</div>
+          <div style="font-size:15px;font-weight:800;color:var(--white);margin-bottom:5px;">Resend · Vapi · Telegram</div>
+          <p class="body-sm">Resend para correo transaccional con alta entregabilidad. Vapi para agentes de voz que atienden llamadas telefónicas. Telegram para notificaciones ejecutivas y control operativo en tiempo real.</p>
+          <div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap;">
+            <span class="pill pill-b">Email &lt;1s delivery</span>
+            <span class="pill pill-b">Voz IA nativa</span>
+            <span class="pill pill-b">Notif. ejecutivas</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bk g" style="padding:16px 22px;display:flex;align-items:center;gap:16px;">
+      <div style="font-size:22px;flex-shrink:0;">🔁</div>
+      <div>
+        <div class="h4" style="margin-bottom:3px;">La diferencia: nosotros usamos todo esto en nuestra propia operación</div>
+        <p class="body-sm">Cada workflow, cada agente y cada alerta de seguridad que ves en este kit ya opera en Trev'ainnovate. No vendemos teoría — vendemos lo que ya probamos y vivimos.</p>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span>Trev'ainnovate · Kit Comercial 2026</span><span>4 / 8</span></div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     P5 — CASO DE ÉXITO: GEC PLASTIC
+══════════════════════════════════════════════════════ -->
+<div class="page" id="gec">
+  <div class="topbar"></div>
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 75% 25%,rgba(245,158,11,.06) 0%,transparent 50%);pointer-events:none;"></div>
+  <div class="ph"><div class="logo"><div class="ld"></div>TREV'AINNOVATE</div><div class="meta">Caso de Éxito · GEC Plastic</div></div>
+  <div class="pb">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:20px;margin-bottom:24px;">
+      <div>
+        <span class="section-label amber">Caso de éxito 01</span>
+        <div class="h2" style="margin-bottom:6px;">GEC Plastic — <span style="color:var(--amber);">Manufactura.</span><br>Tepeaca, Puebla.</div>
+        <p class="body" style="max-width:560px;">Empresa manufacturera de plásticos con operación multi-área. Utilizaba Microsip ERP, pero la información no llegaba a quien la necesitaba. Sus cotizaciones llegaban a spam. Y nadie lo sabía.</p>
+      </div>
+      <div style="flex-shrink:0;">
+        <div class="bk r" style="padding:16px 20px;text-align:center;min-width:140px;">
+          <div style="font-size:38px;font-weight:900;color:#ef4444;font-family:'JetBrains Mono',monospace;line-height:1;">0</div>
+          <div style="font-size:9px;color:var(--muted);margin-top:4px;">DNS Score / 100 al inicio</div>
+          <div style="font-size:9px;color:#ef4444;margin-top:4px;">Dominio en lista negra Spamhaus</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="g2" style="margin-bottom:20px;align-items:start;">
+      <!-- Diagnóstico -->
+      <div>
+        <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.12em;margin-bottom:10px;">El problema real</div>
+        <div class="bk r" style="padding:16px 18px;margin-bottom:10px;">
+          <div class="h4" style="color:#ef4444;margin-bottom:8px;">🔴 Cotizaciones que van a spam</div>
+          <p class="body-sm" style="margin-bottom:10px;">Sin SPF, DMARC ni DKIM, el dominio de GEC Plastic aparecía en la lista negra global Spamhaus. Cada correo de cotización o cobranza que enviaban llegaba a la carpeta de spam de sus clientes. Vendían y no cobraban porque el cliente nunca veía el correo.</p>
+          <div class="g3" style="gap:6px;">
+            <div style="font-size:10px;padding:7px 10px;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.18);border-radius:6px;color:rgba(255,255,255,.6);">SPF: ❌ Sin configurar</div>
+            <div style="font-size:10px;padding:7px 10px;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.18);border-radius:6px;color:rgba(255,255,255,.6);">DMARC: ❌ Sin configurar</div>
+            <div style="font-size:10px;padding:7px 10px;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.18);border-radius:6px;color:rgba(255,255,255,.6);">DKIM: ❌ Sin configurar</div>
+          </div>
+        </div>
+        <div class="bk a" style="padding:16px 18px;margin-bottom:10px;">
+          <div class="h4" style="color:var(--amber);margin-bottom:8px;">🟡 ERP desconectado de la operación</div>
+          <p class="body-sm">Tenían Microsip, pero los datos no fluían. Cotizaciones tardaban 48h en generarse. Producción no tenía visibilidad de pedidos en tiempo real. El dueño tenía que ir a preguntar para saber cómo iba el día.</p>
+        </div>
+      </div>
+
+      <!-- Solución + Resultados -->
+      <div>
+        <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.12em;margin-bottom:10px;">Lo que construimos</div>
+        <div class="bk g" style="padding:16px 18px;margin-bottom:10px;">
+          <div class="h4" style="margin-bottom:8px;">✅ Semana 1 — Seguridad resuelta</div>
+          <p class="body-sm" style="margin-bottom:8px;">Configuración completa de SPF, DMARC y DKIM. Eliminación de la lista negra Spamhaus. DNS Score: 0 → 95/100 en menos de 72 horas. Correos que van a spam → entregados correctamente desde el día 3.</p>
+          <div style="font-size:10px;color:rgba(255,255,255,.4);font-style:italic;">Microsip se quedó — no rompemos lo que funciona.</div>
+        </div>
+        <div class="bk g" style="padding:16px 18px;margin-bottom:16px;">
+          <div class="h4" style="margin-bottom:8px;">✅ Semanas 2–8 — Automatización de la operación</div>
+          <div style="display:flex;flex-direction:column;gap:5px;">
+            <div class="ci">Generación de cotizaciones automáticas desde Microsip: 48h → minutos</div>
+            <div class="ci">Dashboard de producción en tiempo real — sin llamadas, sin WhatsApp</div>
+            <div class="ci">Alertas automáticas cuando un pedido requiere atención</div>
+            <div class="ci">Reportes ejecutivos diarios sin intervención del equipo</div>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+          <div style="background:rgba(0,229,160,.06);border:1px solid rgba(0,229,160,.2);border-radius:10px;padding:14px 16px;text-align:center;">
+            <div style="font-size:28px;font-weight:900;color:var(--green);font-family:'JetBrains Mono',monospace;line-height:1;">$18M+</div>
+            <div style="font-size:10px;color:rgba(255,255,255,.5);margin-top:4px;">MXN / año de impacto proyectado</div>
+          </div>
+          <div style="background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.2);border-radius:10px;padding:14px 16px;text-align:center;">
+            <div style="font-size:28px;font-weight:900;color:var(--amber);font-family:'JetBrains Mono',monospace;line-height:1;">14–22M</div>
+            <div style="font-size:10px;color:rgba(255,255,255,.5);margin-top:4px;">meses de payback del proyecto</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="quote">
+      "Llevábamos meses perdiendo cotizaciones y no sabíamos por qué. El cliente las mandaba a spam antes de leerlas. En una semana, eso quedó resuelto. En dos meses, nuestra operación es irreconocible — para bien."
+      <div class="quote-author">— Dirección GEC Plastic · Tepeaca, Puebla · Manufactura de Plásticos</div>
+    </div>
+  </div>
+  <div class="pf"><span>Trev'ainnovate · Kit Comercial 2026</span><span>5 / 8</span></div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     P6 — CASO DE ÉXITO: HOTEL PLAZA DE ARMAS
+══════════════════════════════════════════════════════ -->
+<div class="page" id="hotel">
+  <div class="topbar" style="background:linear-gradient(90deg,#c4933f,#00e5a0,#8b5cf6);"></div>
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 30% 30%,rgba(196,147,63,.07) 0%,transparent 50%);pointer-events:none;"></div>
+  <div class="ph"><div class="logo"><div class="ld" style="background:#c4933f;box-shadow:0 0 8px rgba(196,147,63,.7);"></div>TREV'AINNOVATE</div><div class="meta">Caso de Éxito · Hotel Plaza de Armas</div></div>
+  <div class="pb">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:20px;margin-bottom:24px;">
+      <div>
+        <span class="section-label" style="color:#c4933f;">Caso de éxito 02</span>
+        <div class="h2" style="margin-bottom:6px;">Hotel Plaza de Armas —<br><span style="color:#c4933f;">Hospitalidad.</span> Centro Histórico, Querétaro.</div>
+        <p class="body" style="max-width:560px;">Hotel boutique + restaurante en el corazón de Querétaro. Dos negocios, dos audiencias, un solo equipo sin sistema digital. Reservas manuales, respuestas tardías, y oportunidades de venta cruzada que se perdían cada día.</p>
+      </div>
+      <div style="flex-shrink:0;display:flex;flex-direction:column;gap:8px;">
+        <div class="bk" style="padding:14px 18px;text-align:center;border-color:rgba(196,147,63,.25);background:rgba(196,147,63,.06);">
+          <div style="font-size:28px;font-weight:900;color:#c4933f;font-family:'JetBrains Mono',monospace;line-height:1;">2 en 1</div>
+          <div style="font-size:9px;color:var(--muted);margin-top:3px;">Hotel + Restaurante<br>un solo sistema</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="g2" style="margin-bottom:20px;align-items:start;">
+      <!-- Diagnóstico -->
+      <div>
+        <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.12em;margin-bottom:10px;">El diagnóstico</div>
+        <div class="bk r" style="padding:16px 18px;margin-bottom:10px;">
+          <div class="h4" style="color:#ef4444;margin-bottom:8px;">🔴 Dos negocios sin coordinar</div>
+          <p class="body-sm" style="margin-bottom:8px;">Hotel Plaza opera dos unidades de negocio con audiencias distintas. El restaurante atraía tráfico que jamás se convertía en reservas del hotel. Y el hotel no aprovechaba el restaurante como canal de captación. Cada uno vivía como si el otro no existiera.</p>
+        </div>
+        <div class="bk a" style="padding:16px 18px;margin-bottom:10px;">
+          <div class="h4" style="color:var(--amber);margin-bottom:8px;">🟡 Respuesta manual — disponibilidad parcial</div>
+          <p class="body-sm">Reservas y consultas se respondían cuando alguien tenía tiempo. Los fines de semana y en horas nocturnas, el cliente preguntaba y nadie contestaba. La competencia en el Centro Histórico sí contestaba — a las 11pm.</p>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+          <div style="background:rgba(239,68,68,.05);border:1px solid rgba(239,68,68,.15);border-radius:8px;padding:12px 14px;text-align:center;">
+            <div style="font-size:20px;font-weight:900;color:#ef4444;font-family:'JetBrains Mono',monospace;">hrs</div>
+            <div style="font-size:10px;color:var(--muted);margin-top:3px;">tiempo de respuesta promedio antes</div>
+          </div>
+          <div style="background:rgba(0,229,160,.05);border:1px solid rgba(0,229,160,.15);border-radius:8px;padding:12px 14px;text-align:center;">
+            <div style="font-size:20px;font-weight:900;color:var(--green);font-family:'JetBrains Mono',monospace;">&lt;2min</div>
+            <div style="font-size:10px;color:var(--muted);margin-top:3px;">tiempo de respuesta con el bot</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Solución -->
+      <div>
+        <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.12em;margin-bottom:10px;">La solución desplegada</div>
+        <div class="bk" style="padding:16px 18px;border-color:rgba(196,147,63,.25);background:rgba(196,147,63,.04);margin-bottom:10px;">
+          <div class="h4" style="color:#c4933f;margin-bottom:8px;">🤖 Bot unificado: Hotel + Restaurante</div>
+          <div style="display:flex;flex-direction:column;gap:5px;margin-bottom:8px;">
+            <div class="ci">Reservas de habitaciones — disponibilidad en tiempo real</div>
+            <div class="ci">Reservas del restaurante — mesas, fechas, celebraciones especiales</div>
+            <div class="ci">Preguntas frecuentes respondidas sin intervención humana</div>
+            <div class="ci">Escala a humano solo en casos complejos o VIP</div>
+          </div>
+        </div>
+        <div class="bk g" style="padding:16px 18px;margin-bottom:10px;">
+          <div class="h4" style="margin-bottom:8px;">🔄 Cross-selling automatizado</div>
+          <p class="body-sm">Cada cliente del restaurante recibe, al terminar su experiencia, una propuesta personalizada de hospedaje. Cada huésped del hotel recibe recomendaciones del restaurante con reserva integrada. El mismo cliente genera dos ingresos.</p>
+        </div>
+        <div class="bk b" style="padding:16px 18px;">
+          <div class="h4" style="margin-bottom:8px;">📍 Dos perfiles Google optimizados</div>
+          <p class="body-sm">Hotel Plaza aparecía como un solo negocio en Google. Separamos y optimizamos hotel y restaurante como entidades independientes — duplicando la presencia orgánica local sin costo adicional en publicidad.</p>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px;">
+      <div style="background:rgba(196,147,63,.06);border:1px solid rgba(196,147,63,.2);border-radius:10px;padding:14px;text-align:center;">
+        <div style="font-size:24px;font-weight:900;color:#c4933f;font-family:'JetBrains Mono',monospace;">24/7</div>
+        <div style="font-size:10px;color:var(--muted);margin-top:3px;">cobertura de consultas</div>
+      </div>
+      <div style="background:rgba(0,229,160,.05);border:1px solid rgba(0,229,160,.15);border-radius:10px;padding:14px;text-align:center;">
+        <div style="font-size:24px;font-weight:900;color:var(--green);font-family:'JetBrains Mono',monospace;">×2</div>
+        <div style="font-size:10px;color:var(--muted);margin-top:3px;">presencia Google Maps</div>
+      </div>
+      <div style="background:rgba(59,130,246,.05);border:1px solid rgba(59,130,246,.15);border-radius:10px;padding:14px;text-align:center;">
+        <div style="font-size:24px;font-weight:900;color:var(--blue);font-family:'JetBrains Mono',monospace;">+Cross</div>
+        <div style="font-size:10px;color:var(--muted);margin-top:3px;">ventas entre negocios</div>
+      </div>
+      <div style="background:rgba(139,92,246,.05);border:1px solid rgba(139,92,246,.15);border-radius:10px;padding:14px;text-align:center;">
+        <div style="font-size:24px;font-weight:900;color:var(--purple);font-family:'JetBrains Mono',monospace;">3 días</div>
+        <div style="font-size:10px;color:var(--muted);margin-top:3px;">primer bot en producción</div>
+      </div>
+    </div>
+
+    <div class="quote" style="border-left-color:#c4933f;background:rgba(196,147,63,.04);">
+      "Antes un cliente preguntaba por una mesa a las 10 de la noche y nadie contestaba. Ahora el bot le da disponibilidad, le propone opciones y al final le sugiere hospedarse. Eso no lo hacíamos nunca — y ahora pasa solo, todo el tiempo."
+      <div class="quote-author">— Dirección Hotel Plaza de Armas · Centro Histórico, Querétaro</div>
+    </div>
+  </div>
+  <div class="pf"><span>Trev'ainnovate · Kit Comercial 2026</span><span>6 / 8</span></div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     P7 — POR QUÉ TREV'AINNOVATE
+══════════════════════════════════════════════════════ -->
+<div class="page" id="porque">
+  <div class="topbar"></div>
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,rgba(0,229,160,.04) 0%,transparent 60%);pointer-events:none;"></div>
+  <div class="ph"><div class="logo"><div class="ld"></div>TREV'AINNOVATE</div><div class="meta">Kit Comercial 2026</div></div>
+  <div class="pb">
+    <span class="section-label">Por qué elegirnos</span>
+    <div class="h2" style="margin-bottom:8px;">No somos un consultor.<br><span class="grad">Somos una operación.</span></div>
+    <p class="body" style="max-width:600px;margin-bottom:28px;">La diferencia entre nosotros y cualquier freelancer, agencia o plataforma de software es simple: Trev'ainnovate corre sobre sí misma. Usamos lo que vendemos — y lo vemos funcionar todos los días.</p>
+
+    <div class="g3" style="margin-bottom:24px;gap:14px;">
+      <div class="bk g" style="padding:22px;display:flex;flex-direction:column;gap:10px;">
+        <div style="font-size:26px;">🔁</div>
+        <div class="h4">Lo que vendemos, lo vivimos</div>
+        <p class="body-sm">Nuestra empresa opera 24/7 sobre los mismos agentes, flujos y sistemas que desplegamos para clientes. Cuando hay una falla, la vivimos primero. Cuando hay una mejora, la probamos en nosotros.</p>
+      </div>
+      <div class="bk b" style="padding:22px;display:flex;flex-direction:column;gap:10px;">
+        <div style="font-size:26px;">🇲🇽</div>
+        <div class="h4">Hecho en México, para México</div>
+        <p class="body-sm">Entendemos las fricciones del negocio mexicano: Microsip, CFDI, SPEI, SAT, WhatsApp Business, redes de proveedores informales. No adaptamos software gringo — construimos para el contexto real.</p>
+      </div>
+      <div class="bk p" style="padding:22px;display:flex;flex-direction:column;gap:10px;">
+        <div style="font-size:26px;">⚡</div>
+        <div class="h4">Resultados en días, no en meses</div>
+        <p class="body-sm">El primer agente o flujo automatizado opera antes de que termine la primera semana. No hay meses de consultoría previa ni diseño de arquitectura de 6 meses. Ejecutamos, medimos y ajustamos.</p>
+      </div>
+      <div class="bk a" style="padding:22px;display:flex;flex-direction:column;gap:10px;">
+        <div style="font-size:26px;">🔒</div>
+        <div class="h4">Tus datos son tuyos</div>
+        <p class="body-sm">n8n corre en servidor dedicado. Tus procesos y datos nunca pasan por plataformas de terceros. Nadie más puede ver tu operación — ni nosotros, salvo lo que sea necesario para mantenerla.</p>
+      </div>
+      <div class="bk" style="padding:22px;display:flex;flex-direction:column;gap:10px;border-color:rgba(0,229,160,.15);">
+        <div style="font-size:26px;">📊</div>
+        <div class="h4">ROI medible cada mes</div>
+        <p class="body-sm">Cada mes recibes un reporte con métricas reales: tareas ejecutadas, tiempo liberado, leads gestionados, incidentes detectados. Números concretos, no presentaciones de PowerPoint.</p>
+      </div>
+      <div class="bk" style="padding:22px;display:flex;flex-direction:column;gap:10px;border-color:rgba(0,229,160,.15);">
+        <div style="font-size:26px;">🤝</div>
+        <div class="h4">Garantía real de resultados</div>
+        <p class="body-sm">Si al mes 1 no puedes medir un resultado concreto en eficiencia, ventas o seguridad, te devolvemos el 100% de la operación mensual. Sin preguntas, sin trámites, sin penalizaciones.</p>
+      </div>
+    </div>
+
+    <!-- Comparativa -->
+    <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.12em;margin-bottom:12px;">Trev'ainnovate vs. las alternativas</div>
+    <div style="border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;background:var(--bg2);">
+        <div style="padding:10px 16px;font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;">Criterio</div>
+        <div style="padding:10px 16px;font-size:10px;font-weight:800;color:var(--green);text-align:center;">Trev'ainnovate</div>
+        <div style="padding:10px 16px;font-size:10px;font-weight:700;color:var(--muted);text-align:center;">Freelancer</div>
+        <div style="padding:10px 16px;font-size:10px;font-weight:700;color:var(--muted);text-align:center;">Software SaaS</div>
+      </div>
+      <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;border-top:1px solid var(--border);">
+        <div style="padding:10px 16px;font-size:11px;color:rgba(255,255,255,.7);">Tiempo a primer resultado</div>
+        <div style="padding:10px 16px;font-size:11px;font-weight:700;color:var(--green);text-align:center;">3–5 días</div>
+        <div style="padding:10px 16px;font-size:11px;color:var(--muted);text-align:center;">2–8 semanas</div>
+        <div style="padding:10px 16px;font-size:11px;color:var(--muted);text-align:center;">Inmediato (parcial)</div>
+      </div>
+      <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;border-top:1px solid var(--border);background:rgba(255,255,255,.015);">
+        <div style="padding:10px 16px;font-size:11px;color:rgba(255,255,255,.7);">Integración con sistemas existentes</div>
+        <div style="padding:10px 16px;font-size:11px;font-weight:700;color:var(--green);text-align:center;">✓ Total</div>
+        <div style="padding:10px 16px;font-size:11px;color:var(--muted);text-align:center;">Parcial</div>
+        <div style="padding:10px 16px;font-size:11px;color:var(--muted);text-align:center;">Limitada</div>
+      </div>
+      <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;border-top:1px solid var(--border);">
+        <div style="padding:10px 16px;font-size:11px;color:rgba(255,255,255,.7);">Seguridad + privacidad de datos</div>
+        <div style="padding:10px 16px;font-size:11px;font-weight:700;color:var(--green);text-align:center;">✓ Self-hosted</div>
+        <div style="padding:10px 16px;font-size:11px;color:var(--muted);text-align:center;">Depende</div>
+        <div style="padding:10px 16px;font-size:11px;color:var(--muted);text-align:center;">En nube del proveedor</div>
+      </div>
+      <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;border-top:1px solid var(--border);background:rgba(255,255,255,.015);">
+        <div style="padding:10px 16px;font-size:11px;color:rgba(255,255,255,.7);">Ciberseguridad incluida</div>
+        <div style="padding:10px 16px;font-size:11px;font-weight:700;color:var(--green);text-align:center;">✓ Siempre</div>
+        <div style="padding:10px 16px;font-size:11px;color:var(--muted);text-align:center;">No</div>
+        <div style="padding:10px 16px;font-size:11px;color:var(--muted);text-align:center;">No</div>
+      </div>
+      <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;border-top:1px solid var(--border);">
+        <div style="padding:10px 16px;font-size:11px;color:rgba(255,255,255,.7);">Garantía de resultados</div>
+        <div style="padding:10px 16px;font-size:11px;font-weight:700;color:var(--green);text-align:center;">✓ 30 días</div>
+        <div style="padding:10px 16px;font-size:11px;color:var(--muted);text-align:center;">No</div>
+        <div style="padding:10px 16px;font-size:11px;color:var(--muted);text-align:center;">No</div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span>Trev'ainnovate · Kit Comercial 2026</span><span>7 / 8</span></div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     P8 — INVERSIÓN + PRÓXIMOS PASOS
+══════════════════════════════════════════════════════ -->
+<div class="page" id="inversion">
+  <div class="topbar"></div>
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 70% 30%,rgba(0,229,160,.06) 0%,transparent 55%),radial-gradient(ellipse at 20% 80%,rgba(59,130,246,.04) 0%,transparent 55%);pointer-events:none;"></div>
+  <div class="ph"><div class="logo"><div class="ld"></div>TREV'AINNOVATE</div><div class="meta">Kit Comercial 2026</div></div>
+  <div class="pb">
+    <span class="section-label">Inversión y próximos pasos</span>
+    <div class="h2" style="margin-bottom:6px;">Empezamos esta semana.</div>
+    <p class="body" style="max-width:580px;margin-bottom:28px;">No hay reuniones interminables ni propuestas genéricas. Haz el diagnóstico, recibe una propuesta personalizada en minutos, y en 3 días tu primer sistema está operando.</p>
+
+    <div class="g3" style="margin-bottom:24px;gap:14px;align-items:start;">
+      <!-- Modelo 1 -->
+      <div class="bk a" style="padding:22px;">
+        <div style="font-size:10px;font-weight:700;color:rgba(245,158,11,.65);text-transform:uppercase;letter-spacing:.12em;margin-bottom:8px;">Automatización</div>
+        <div style="font-size:28px;font-weight:900;color:var(--amber);font-family:'JetBrains Mono',monospace;line-height:1;margin-bottom:4px;">Desde $8,000</div>
+        <div style="font-size:10px;color:var(--muted);margin-bottom:14px;">MXN · pago único · sin mensualidad</div>
+        <div style="display:flex;flex-direction:column;gap:5px;margin-bottom:14px;">
+          <div class="ci">Build y despliegue de flujos automatizados</div>
+          <div class="ci">Integración con sus sistemas actuales</div>
+          <div class="ci">Entrega en 5–10 días hábiles</div>
+          <div class="ci">30 días de soporte incluidos</div>
+        </div>
+        <div style="padding-top:10px;border-top:1px solid rgba(245,158,11,.15);font-size:10px;color:rgba(255,255,255,.4);">Inversión única · Resultados permanentes</div>
+      </div>
+      <!-- Modelo 2 -->
+      <div class="bk g" style="padding:22px;position:relative;">
+        <div style="position:absolute;top:-1px;left:50%;transform:translateX(-50%);font-size:8px;font-weight:800;color:var(--bg);background:var(--green);padding:3px 12px;border-radius:0 0 8px 8px;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;">Más solicitado</div>
+        <div style="font-size:10px;font-weight:700;color:rgba(0,229,160,.65);text-transform:uppercase;letter-spacing:.12em;margin-bottom:8px;">Agentes IA</div>
+        <div style="font-size:28px;font-weight:900;color:var(--green);font-family:'JetBrains Mono',monospace;line-height:1;margin-bottom:2px;">Setup + mensual</div>
+        <div style="font-size:10px;color:var(--muted);margin-bottom:14px;">Setup único + retainer de operación</div>
+        <div style="display:flex;flex-direction:column;gap:5px;margin-bottom:14px;">
+          <div class="ci">Equipo de agentes diseñados para su operación</div>
+          <div class="ci">Primer agente en producción en 3 días</div>
+          <div class="ci">Infraestructura y hosting incluidos</div>
+          <div class="ci">Monitoreo, mejora continua y soporte</div>
+          <div class="ci">Reporte mensual de actividad</div>
+          <div class="ci">Portal del cliente — acceso 24/7</div>
+        </div>
+        <div style="padding-top:10px;border-top:1px solid rgba(0,229,160,.15);font-size:10px;color:rgba(255,255,255,.4);">ROI acumulativo · Sin contratos anuales</div>
+      </div>
+      <!-- Modelo 3 -->
+      <div class="bk p" style="padding:22px;">
+        <div style="font-size:10px;font-weight:700;color:rgba(139,92,246,.65);text-transform:uppercase;letter-spacing:.12em;margin-bottom:8px;">Seguridad Administrada</div>
+        <div style="font-size:28px;font-weight:900;color:var(--purple);font-family:'JetBrains Mono',monospace;line-height:1;margin-bottom:4px;">Retainer mensual</div>
+        <div style="font-size:10px;color:var(--muted);margin-bottom:14px;">Protección continua · sin costo inicial</div>
+        <div style="display:flex;flex-direction:column;gap:5px;margin-bottom:14px;">
+          <div class="ci">Auditoría DNS inicial completa</div>
+          <div class="ci">Configuración SPF / DMARC / DKIM</div>
+          <div class="ci">Monitoreo 24/7 de amenazas</div>
+          <div class="ci">Alertas en tiempo real</div>
+          <div class="ci">Reportes de seguridad mensuales</div>
+        </div>
+        <div style="padding-top:10px;border-top:1px solid rgba(139,92,246,.15);font-size:10px;color:rgba(255,255,255,.4);">Retainer mensual · Sin equipo de TI</div>
+      </div>
+    </div>
+
+    <!-- CTA Final -->
+    <div style="background:linear-gradient(135deg,rgba(0,229,160,.08),rgba(59,130,246,.06));border:1px solid rgba(0,229,160,.28);border-radius:14px;padding:28px 32px;display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:center;">
+      <div>
+        <div style="font-size:22px;font-weight:900;color:var(--white);margin-bottom:6px;">¿Empezamos con un diagnóstico?</div>
+        <p class="body-sm" style="margin-bottom:16px;">3 minutos. Resultado inmediato. Propuesta personalizada para tu empresa — con los agentes, automatizaciones y nivel de seguridad que realmente necesitas.</p>
+        <a href="https://trevainnovate.com/diagnostico" target="_blank"
+          style="display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border-radius:10px;background:linear-gradient(135deg,var(--green),#00c489);color:#05050e;font-size:13px;font-weight:800;text-decoration:none;">
+          Hacer el diagnóstico gratuito →
+        </a>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px;">O contacta directamente</div>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span style="font-size:16px;">📱</span>
+          <div>
+            <div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;">WhatsApp</div>
+            <div style="font-size:14px;font-weight:700;font-family:'JetBrains Mono',monospace;">223 129 4663</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span style="font-size:16px;">📧</span>
+          <div>
+            <div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;">Email</div>
+            <div style="font-size:13px;font-weight:700;font-family:'JetBrains Mono',monospace;">contacto@trevainnovate.com</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span style="font-size:16px;">🌐</span>
+          <div>
+            <div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;">Web</div>
+            <div style="font-size:13px;font-weight:700;font-family:'JetBrains Mono',monospace;">trevainnovate.com</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf">
+    <span>Trev'ainnovate · Santiago Juárez Treviño · Querétaro, México · 2026</span>
+    <span>8 / 8</span>
+  </div>
+</div>
+
+<!-- FLOATING NAV -->
+<nav class="fnav no-print">
+  <a href="#portada"><span class="fnav-label">Portada</span><span class="fnav-dot"></span></a>
+  <a href="#problema"><span class="fnav-label">El problema</span><span class="fnav-dot"></span></a>
+  <a href="#solucion"><span class="fnav-label">Solución</span><span class="fnav-dot"></span></a>
+  <a href="#infraestructura"><span class="fnav-label">Infraestructura</span><span class="fnav-dot"></span></a>
+  <a href="#gec"><span class="fnav-label">GEC Plastic</span><span class="fnav-dot"></span></a>
+  <a href="#hotel"><span class="fnav-label">Hotel Plaza</span><span class="fnav-dot"></span></a>
+  <a href="#porque"><span class="fnav-label">Por qué nosotros</span><span class="fnav-dot"></span></a>
+  <a href="#inversion"><span class="fnav-label">Inversión</span><span class="fnav-dot"></span></a>
+</nav>
+
+<script>
+(function(){
+  const items = document.querySelectorAll('.fnav a');
+  const pages = document.querySelectorAll('.page[id]');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if(e.isIntersecting && e.intersectionRatio > .4){
+        items.forEach(it => it.classList.remove('active'));
+        const a = document.querySelector('.fnav a[href="#'+e.target.id+'"]');
+        if(a) a.classList.add('active');
+      }
+    });
+  }, {threshold:.4});
+  pages.forEach(p => io.observe(p));
+})();
+</script>
+</body>
+</html>

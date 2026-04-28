@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Trev'ainnovate — Brochure Comercial 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#05050e;--bg2:#0b0b1c;--bg3:#111128;
+  --green:#00e5a0;--blue:#3b82f6;--purple:#8b5cf6;--amber:#f59e0b;--red:#ef4444;
+  --white:#f1f5f9;--muted:#8892a4;--border:rgba(255,255,255,0.07);
+}
+html{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+body{background:var(--bg);font-family:'Inter',sans-serif;color:var(--white);-webkit-font-smoothing:antialiased;font-size:10pt;}
+
+/* ── PAGE ── */
+.page{
+  width:210mm;min-height:297mm;
+  background:var(--bg);
+  position:relative;overflow:hidden;
+  display:flex;flex-direction:column;
+  page-break-after:always;break-after:page;
+}
+.page:last-child{page-break-after:auto;break-after:auto;}
+
+@page{size:A4 portrait;margin:0;}
+@media print{
+  body{background:var(--bg)!important;}
+  .page{width:210mm;height:297mm;overflow:hidden;}
+}
+
+/* ── DECORATIVE ── */
+.glow{position:absolute;inset:0;pointer-events:none;}
+.glow-1{position:absolute;top:-60px;right:-60px;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(0,229,160,.08),transparent 70%);pointer-events:none;}
+.glow-2{position:absolute;bottom:-40px;left:-40px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(59,130,246,.07),transparent 70%);pointer-events:none;}
+.grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.015) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.015) 1px,transparent 1px);background-size:16mm 16mm;pointer-events:none;}
+.topbar{height:3px;background:linear-gradient(90deg,var(--green),var(--blue),var(--purple));flex-shrink:0;}
+
+/* ── HEADER / FOOTER ── */
+.doc-header{padding:12px 18mm;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;position:relative;z-index:2;}
+.logo-mark{display:flex;align-items:center;gap:6px;font-size:10px;font-weight:900;letter-spacing:.02em;}
+.ld{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 8px rgba(0,229,160,.8);}
+.doc-meta{font-size:7px;color:rgba(255,255,255,.2);font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.12em;}
+.doc-footer{padding:10px 18mm;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;position:relative;z-index:2;margin-top:auto;}
+.doc-footer span{font-size:7px;color:rgba(255,255,255,.15);font-family:'JetBrains Mono',monospace;}
+
+/* ── UTILS ── */
+.label{display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border-radius:99px;font-size:7px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;}
+.grad{background:linear-gradient(135deg,var(--green),var(--blue),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.grad-green{background:linear-gradient(135deg,var(--green),#00bfff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.mono{font-family:'JetBrains Mono',monospace;}
+.section-title{font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:.18em;color:var(--muted);margin-bottom:16px;}
+.divider{height:1px;background:var(--border);margin:0 18mm;}
+
+/* ══════════════════════════════════════════
+   PÁGINA 1 — PORTADA
+══════════════════════════════════════════ */
+.cover-body{flex:1;display:flex;flex-direction:column;padding:0 18mm;position:relative;z-index:2;}
+.cover-hero{padding-top:36px;padding-bottom:32px;border-bottom:1px solid var(--border);}
+.cover-eyebrow{display:flex;align-items:center;gap:8px;margin-bottom:20px;}
+.eyebrow-dot{width:5px;height:5px;border-radius:50%;background:var(--green);box-shadow:0 0 10px rgba(0,229,160,.9);}
+.eyebrow-text{font-size:8px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--green);}
+.cover-h{font-size:46px;font-weight:900;line-height:1.02;letter-spacing:-.025em;margin-bottom:16px;}
+.cover-sub{font-size:12px;color:var(--muted);line-height:1.75;max-width:440px;}
+
+.cover-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:28px 0;border-bottom:1px solid var(--border);}
+.cstat{padding:16px 18px;border-radius:10px;}
+.cstat-n{font-size:32px;font-weight:900;font-family:'JetBrains Mono',monospace;line-height:1;margin-bottom:5px;}
+.cstat-l{font-size:9px;color:var(--muted);line-height:1.5;}
+
+.cover-agents{padding:24px 0;border-bottom:1px solid var(--border);}
+.agent-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:14px;}
+.agent-pill{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:7px;padding:10px 10px;text-align:center;}
+.agent-icon{font-size:16px;margin-bottom:5px;}
+.agent-name{font-size:7.5px;font-weight:700;color:var(--white);margin-bottom:2px;}
+.agent-desc{font-size:6.5px;color:var(--muted);line-height:1.4;}
+
+.cover-promise{padding:22px 0;}
+.cover-promise-text{font-size:13px;line-height:1.7;color:rgba(255,255,255,.7);}
+.cover-promise-text strong{color:var(--white);}
+.cover-contact{display:flex;align-items:center;gap:24px;margin-top:16px;}
+.contact-item{display:flex;align-items:center;gap:6px;font-size:9px;font-family:'JetBrains Mono',monospace;color:rgba(255,255,255,.45);}
+.contact-item-dot{width:4px;height:4px;border-radius:50%;background:var(--green);}
+
+/* ══════════════════════════════════════════
+   PÁGINA 2 — PROBLEMA + SOLUCIÓN
+══════════════════════════════════════════ */
+.p2-body{flex:1;display:flex;flex-direction:column;padding:24px 18mm 0;position:relative;z-index:2;}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+
+.problem-list{display:flex;flex-direction:column;gap:10px;margin-top:14px;}
+.prob-item{background:rgba(239,68,68,.04);border:1px solid rgba(239,68,68,.15);border-radius:9px;padding:12px 14px;display:flex;gap:10px;align-items:flex-start;}
+.prob-icon{font-size:14px;flex-shrink:0;margin-top:1px;}
+.prob-title{font-size:10px;font-weight:700;color:var(--white);margin-bottom:3px;}
+.prob-desc{font-size:8.5px;color:var(--muted);line-height:1.55;}
+
+.solution-box{background:rgba(0,229,160,.04);border:1px solid rgba(0,229,160,.2);border-radius:9px;padding:14px 16px;margin-bottom:10px;}
+.solution-box-title{font-size:10px;font-weight:800;color:var(--green);margin-bottom:6px;}
+.solution-box-body{font-size:8.5px;color:rgba(255,255,255,.65);line-height:1.6;}
+
+.how-flow{margin-top:14px;display:flex;flex-direction:column;gap:6px;}
+.flow-step{display:flex;align-items:flex-start;gap:10px;}
+.flow-num{width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:800;flex-shrink:0;margin-top:1px;}
+.flow-content-title{font-size:9px;font-weight:700;color:var(--white);margin-bottom:2px;}
+.flow-content-body{font-size:8px;color:var(--muted);line-height:1.5;}
+.flow-arrow{text-align:center;color:rgba(255,255,255,.15);font-size:10px;margin-left:9px;}
+
+.comparison{margin-top:20px;background:var(--bg3);border:1px solid var(--border);border-radius:10px;overflow:hidden;}
+.comp-header{display:grid;grid-template-columns:1fr 1fr 1fr;text-align:center;padding:8px 0;border-bottom:1px solid var(--border);}
+.comp-h{font-size:7.5px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;}
+.comp-row{display:grid;grid-template-columns:1fr 1fr 1fr;text-align:center;padding:8px 12px;border-bottom:1px solid var(--border);}
+.comp-row:last-child{border-bottom:none;}
+.comp-label{font-size:8px;color:var(--muted);text-align:left;}
+.comp-before{font-size:8px;color:rgba(239,68,68,.8);}
+.comp-after{font-size:8px;color:var(--green);font-weight:700;}
+
+/* ══════════════════════════════════════════
+   PÁGINA 3 — SERVICIOS Y PRECIOS
+══════════════════════════════════════════ */
+.p3-body{flex:1;display:flex;flex-direction:column;padding:24px 18mm 0;position:relative;z-index:2;}
+
+.services-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px;}
+.service-card{border-radius:11px;padding:18px 18px;display:flex;flex-direction:column;}
+.svc-num{font-size:7px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;font-family:'JetBrains Mono',monospace;margin-bottom:8px;}
+.svc-icon{font-size:20px;margin-bottom:10px;}
+.svc-name{font-size:15px;font-weight:900;margin-bottom:4px;}
+.svc-tagline{font-size:9px;color:var(--muted);margin-bottom:12px;line-height:1.5;}
+.svc-includes{display:flex;flex-direction:column;gap:4px;margin-bottom:14px;flex:1;}
+.svc-inc{display:flex;align-items:flex-start;gap:5px;font-size:8px;color:rgba(255,255,255,.6);line-height:1.45;}
+.svc-check{color:var(--green);font-weight:700;flex-shrink:0;margin-top:1px;}
+.svc-price-box{border-top:1px solid rgba(255,255,255,.07);padding-top:10px;margin-top:auto;}
+.svc-price{font-size:11px;font-weight:900;font-family:'JetBrains Mono',monospace;margin-bottom:2px;}
+.svc-price-note{font-size:7.5px;color:var(--muted);}
+
+.ecosystem-banner{margin-top:14px;background:linear-gradient(135deg,rgba(0,229,160,.06),rgba(59,130,246,.05),rgba(139,92,246,.04));border:1px solid rgba(0,229,160,.2);border-radius:10px;padding:14px 18px;display:flex;align-items:center;gap:16px;}
+.eco-icon{font-size:22px;flex-shrink:0;}
+.eco-text-title{font-size:12px;font-weight:900;color:var(--white);margin-bottom:3px;}
+.eco-text-body{font-size:8.5px;color:var(--muted);line-height:1.5;}
+.eco-badge{font-size:7.5px;font-weight:700;padding:4px 10px;border-radius:5px;background:rgba(0,229,160,.1);border:1px solid rgba(0,229,160,.25);color:var(--green);white-space:nowrap;font-family:'JetBrains Mono',monospace;}
+
+.portal-row{margin-top:12px;background:rgba(59,130,246,.04);border:1px solid rgba(59,130,246,.18);border-radius:9px;padding:12px 16px;display:flex;align-items:center;gap:14px;}
+.portal-icon{font-size:18px;flex-shrink:0;}
+.portal-title{font-size:10px;font-weight:800;color:var(--white);margin-bottom:3px;}
+.portal-desc{font-size:8px;color:var(--muted);line-height:1.5;}
+.portal-items{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px;}
+.portal-item{font-size:7px;padding:2px 7px;border-radius:4px;background:rgba(59,130,246,.08);border:1px solid rgba(59,130,246,.2);color:rgba(255,255,255,.5);}
+
+/* ══════════════════════════════════════════
+   PÁGINA 4 — CASOS REALES
+══════════════════════════════════════════ */
+.p4-body{flex:1;display:flex;flex-direction:column;padding:24px 18mm 0;position:relative;z-index:2;}
+
+.cases-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px;flex:1;}
+.case-card{background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:11px;padding:16px 16px;display:flex;flex-direction:column;}
+.case-tag{display:inline-flex;align-items:center;gap:5px;font-size:6.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;border-radius:4px;margin-bottom:9px;}
+.case-company{font-size:13px;font-weight:900;color:var(--white);margin-bottom:2px;}
+.case-industry{font-size:8px;color:var(--muted);margin-bottom:10px;}
+.case-challenge{font-size:8px;color:rgba(255,255,255,.5);line-height:1.6;margin-bottom:10px;padding:8px 10px;background:rgba(239,68,68,.04);border:1px solid rgba(239,68,68,.12);border-radius:6px;}
+.case-challenge-label{font-size:7px;font-weight:700;color:rgba(239,68,68,.6);text-transform:uppercase;letter-spacing:.1em;margin-bottom:3px;}
+.case-solution{font-size:8px;color:rgba(255,255,255,.5);line-height:1.6;margin-bottom:10px;padding:8px 10px;background:rgba(0,229,160,.04);border:1px solid rgba(0,229,160,.12);border-radius:6px;}
+.case-solution-label{font-size:7px;font-weight:700;color:rgba(0,229,160,.6);text-transform:uppercase;letter-spacing:.1em;margin-bottom:3px;}
+.case-results{display:flex;gap:8px;margin-top:auto;flex-wrap:wrap;}
+.case-result{background:rgba(0,229,160,.07);border:1px solid rgba(0,229,160,.18);border-radius:6px;padding:6px 9px;text-align:center;flex:1;min-width:60px;}
+.case-result-n{font-size:15px;font-weight:900;font-family:'JetBrains Mono',monospace;color:var(--green);line-height:1;}
+.case-result-l{font-size:6.5px;color:var(--muted);margin-top:2px;line-height:1.3;}
+
+/* ══════════════════════════════════════════
+   PÁGINA 5 — PROCESO + POR QUÉ + CTA
+══════════════════════════════════════════ */
+.p5-body{flex:1;display:flex;flex-direction:column;padding:24px 18mm 0;position:relative;z-index:2;}
+
+.process-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px;}
+.proc-step{background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:9px;padding:14px 14px;position:relative;overflow:hidden;}
+.proc-num{font-size:28px;font-weight:900;font-family:'JetBrains Mono',monospace;color:rgba(255,255,255,.05);position:absolute;bottom:8px;right:10px;line-height:1;}
+.proc-icon{font-size:18px;margin-bottom:8px;}
+.proc-name{font-size:10px;font-weight:800;color:var(--white);margin-bottom:4px;}
+.proc-desc{font-size:7.5px;color:var(--muted);line-height:1.55;}
+.proc-time{font-size:6.5px;font-weight:700;color:var(--green);font-family:'JetBrains Mono',monospace;margin-top:8px;}
+
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px;}
+.why-card{background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:9px;padding:13px 14px;}
+.why-icon{font-size:16px;margin-bottom:6px;}
+.why-title{font-size:9.5px;font-weight:800;color:var(--white);margin-bottom:4px;}
+.why-body{font-size:8px;color:var(--muted);line-height:1.6;}
+
+.cta-section{margin-top:16px;background:linear-gradient(135deg,rgba(0,229,160,.07),rgba(59,130,246,.05));border:1px solid rgba(0,229,160,.25);border-radius:12px;padding:20px 22px;display:flex;align-items:center;gap:24px;}
+.cta-left{flex:1;}
+.cta-title{font-size:18px;font-weight:900;color:var(--white);margin-bottom:4px;}
+.cta-sub{font-size:10px;color:var(--muted);line-height:1.5;margin-bottom:14px;}
+.cta-step{display:flex;align-items:center;gap:6px;font-size:8.5px;color:rgba(255,255,255,.5);margin-bottom:4px;}
+.cta-step-n{width:16px;height:16px;border-radius:50%;background:rgba(0,229,160,.15);border:1px solid rgba(0,229,160,.3);display:flex;align-items:center;justify-content:center;font-size:7px;font-weight:800;color:var(--green);flex-shrink:0;}
+.cta-right{display:flex;flex-direction:column;align-items:flex-end;gap:8px;flex-shrink:0;}
+.cta-contact-box{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:12px 16px;min-width:160px;}
+.cta-contact-row{display:flex;align-items:center;gap:6px;margin-bottom:6px;}
+.cta-contact-row:last-child{margin-bottom:0;}
+.cta-label{font-size:6.5px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;width:44px;}
+.cta-value{font-size:8px;color:var(--white);font-family:'JetBrains Mono',monospace;}
+.cta-url{font-size:9px;font-weight:700;color:var(--green);font-family:'JetBrains Mono',monospace;text-align:right;}
+
+.stack-row{margin-top:14px;padding:10px 0;border-top:1px solid var(--border);display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.stack-label{font-size:7px;font-weight:700;color:rgba(255,255,255,.2);text-transform:uppercase;letter-spacing:.12em;flex-shrink:0;}
+.stack-tag{font-size:7px;padding:2px 7px;border-radius:4px;background:rgba(255,255,255,.04);border:1px solid var(--border);color:rgba(255,255,255,.35);font-family:'JetBrains Mono',monospace;}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════
+     PÁGINA 1 — PORTADA
+══════════════════════════════════════════ -->
+<div class="page">
+  <div class="glow-1"></div><div class="glow-2"></div><div class="grid-bg"></div>
+  <div class="topbar"></div>
+  <div class="doc-header">
+    <div class="logo-mark"><div class="ld"></div>TREV'AINNOVATE</div>
+    <div class="doc-meta">Brochure Comercial · 2026</div>
+  </div>
+
+  <div class="cover-body">
+    <div class="cover-hero">
+      <div class="cover-eyebrow"><div class="eyebrow-dot"></div><span class="eyebrow-text">Ecosistema de Agentes Inteligentes</span></div>
+      <h1 class="cover-h">Tu empresa,<br>operando sola.<br><span class="grad">24/7.</span></h1>
+      <p class="cover-sub">Desplegamos equipos de agentes de inteligencia artificial que automatizan la operación de tu empresa — ventas, soporte, administración — sin nómina adicional, sin turnos, sin errores humanos.</p>
+    </div>
+
+    <div class="cover-stats">
+      <div class="cstat" style="background:rgba(0,229,160,.05);border:1px solid rgba(0,229,160,.18);">
+        <div class="cstat-n" style="color:var(--green);">24/7</div>
+        <div class="cstat-l">Operación autónoma sin intervención humana. Los agentes no descansan, no faltan, no se equivocan por cansancio.</div>
+      </div>
+      <div class="cstat" style="background:rgba(59,130,246,.05);border:1px solid rgba(59,130,246,.18);">
+        <div class="cstat-n" style="color:var(--blue);">&lt;2min</div>
+        <div class="cstat-l">Tiempo de respuesta promedio por agente. Mientras tu competencia tarda horas, tú ya respondiste y cerraste.</div>
+      </div>
+      <div class="cstat" style="background:rgba(139,92,246,.05);border:1px solid rgba(139,92,246,.18);">
+        <div class="cstat-n" style="color:var(--purple);">$0</div>
+        <div class="cstat-l">IMSS, vacaciones, aguinaldo ni liquidación. Capacidad escalable sin el costo fijo de contratar personal.</div>
+      </div>
+    </div>
+
+    <div class="cover-agents">
+      <div class="section-title">Tipos de agentes que desplegamos</div>
+      <div class="agent-grid">
+        <div class="agent-pill">
+          <div class="agent-icon">📧</div>
+          <div class="agent-name">SDR Email</div>
+          <div class="agent-desc">Prospecta, personaliza y envía secuencias de correo</div>
+        </div>
+        <div class="agent-pill">
+          <div class="agent-icon">💬</div>
+          <div class="agent-name">Soporte</div>
+          <div class="agent-desc">Atiende clientes en WhatsApp, web y correo</div>
+        </div>
+        <div class="agent-pill">
+          <div class="agent-icon">📊</div>
+          <div class="agent-name">Reportes</div>
+          <div class="agent-desc">Genera y entrega reportes ejecutivos automáticamente</div>
+        </div>
+        <div class="agent-pill">
+          <div class="agent-icon">🤝</div>
+          <div class="agent-name">Cierre</div>
+          <div class="agent-desc">Activa propuesta y seguimiento post-demo</div>
+        </div>
+        <div class="agent-pill">
+          <div class="agent-icon">🛡️</div>
+          <div class="agent-name">Seguridad</div>
+          <div class="agent-desc">Monitorea amenazas y responde a incidentes</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cover-promise">
+      <p class="cover-promise-text">
+        No vendemos software. <strong>Construimos, operamos y mantenemos</strong> el ecosistema digital que reemplaza tareas manuales en tu empresa —
+        desde el primer contacto con un prospecto hasta el cobro, los reportes y la seguridad de tu información.
+        <strong>Tú enfocas a tu equipo en lo estratégico. Nosotros nos encargamos del resto.</strong>
+      </p>
+      <div class="cover-contact">
+        <div class="contact-item"><div class="contact-item-dot"></div>trevainnovate.com</div>
+        <div class="contact-item"><div class="contact-item-dot"></div>contacto@trevainnovate.com</div>
+        <div class="contact-item"><div class="contact-item-dot"></div>223 129 4663</div>
+        <div class="contact-item"><div class="contact-item-dot"></div>Querétaro, México</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="doc-footer">
+    <span>Trev'ainnovate © 2026 — Confidencial</span>
+    <span>01 / 05</span>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     PÁGINA 2 — PROBLEMA + SOLUCIÓN
+══════════════════════════════════════════ -->
+<div class="page">
+  <div class="glow-1"></div><div class="glow-2"></div><div class="grid-bg"></div>
+  <div class="topbar"></div>
+  <div class="doc-header">
+    <div class="logo-mark"><div class="ld"></div>TREV'AINNOVATE</div>
+    <div class="doc-meta">El diagnóstico</div>
+  </div>
+
+  <div class="p2-body">
+    <div class="two-col">
+
+      <!-- PROBLEMA -->
+      <div>
+        <div class="section-title">El problema real en PyMEs mexicanas</div>
+        <div class="problem-list">
+          <div class="prob-item">
+            <div class="prob-icon">⏱️</div>
+            <div>
+              <div class="prob-title">El 40% del tiempo va a tareas repetitivas</div>
+              <div class="prob-desc">Cotizaciones, seguimientos, reportes, capturas. Trabajo que tu equipo hace todos los días, que no requiere criterio, y que se puede automatizar hoy.</div>
+            </div>
+          </div>
+          <div class="prob-item">
+            <div class="prob-icon">📉</div>
+            <div>
+              <div class="prob-title">Prospectos perdidos por tiempo de respuesta</div>
+              <div class="prob-desc">El 50% de los clientes elige al proveedor que responde primero. Si tu seguimiento depende de una persona disponible, estás perdiendo ventas sin saberlo.</div>
+            </div>
+          </div>
+          <div class="prob-item">
+            <div class="prob-icon">🧩</div>
+            <div>
+              <div class="prob-title">Sistemas desconectados, datos aislados</div>
+              <div class="prob-desc">CRM, correo, facturación, ERP y WhatsApp operan en silos. Nadie tiene la foto completa. Las decisiones se toman con información incompleta o desactualizada.</div>
+            </div>
+          </div>
+          <div class="prob-item">
+            <div class="prob-icon">🚨</div>
+            <div>
+              <div class="prob-title">Exposición digital sin monitoreo</div>
+              <div class="prob-desc">El 91% de los fraudes empresariales empiezan por email. Sin monitoreo activo de dominio y correo corporativo, tu empresa es un blanco fácil.</div>
+            </div>
+          </div>
+          <div class="prob-item">
+            <div class="prob-icon">📈</div>
+            <div>
+              <div class="prob-title">Escalar requiere contratar más gente</div>
+              <div class="prob-desc">Cada cliente nuevo significa más carga operativa. Sin automatización, el crecimiento aumenta la nómina antes de aumentar el margen.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SOLUCIÓN -->
+      <div>
+        <div class="section-title">Cómo lo resolvemos</div>
+        <div class="solution-box">
+          <div class="solution-box-title">Agentes IA = empleados digitales con rol específico</div>
+          <div class="solution-box-body">Un agente no es un chatbot ni un formulario automatizado. Es un sistema que recibe información, razona sobre el contexto, toma una decisión y ejecuta una acción — igual que lo haría una persona, pero en segundos, las 24 horas, sin costo fijo.</div>
+        </div>
+
+        <div class="how-flow">
+          <div class="flow-step">
+            <div class="flow-num" style="background:rgba(0,229,160,.12);border:1px solid rgba(0,229,160,.3);color:var(--green);">1</div>
+            <div>
+              <div class="flow-content-title">Trigger — algo sucede</div>
+              <div class="flow-content-body">Un prospecto responde un email. Un cliente manda mensaje. Un reporte debe salir. Un incidente de seguridad se detecta.</div>
+            </div>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step">
+            <div class="flow-num" style="background:rgba(59,130,246,.12);border:1px solid rgba(59,130,246,.3);color:var(--blue);">2</div>
+            <div>
+              <div class="flow-content-title">Razonamiento — el agente analiza</div>
+              <div class="flow-content-body">Consulta el CRM, lee el historial, evalúa el contexto. Decide qué hacer basado en las reglas de tu negocio y en inteligencia artificial.</div>
+            </div>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step">
+            <div class="flow-num" style="background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.3);color:var(--purple);">3</div>
+            <div>
+              <div class="flow-content-title">Acción — ejecuta sin esperar</div>
+              <div class="flow-content-body">Envía el correo, actualiza el CRM, genera la propuesta, notifica al director, bloquea la amenaza. Todo en segundos, todo documentado.</div>
+            </div>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step">
+            <div class="flow-num" style="background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.3);color:var(--amber);">4</div>
+            <div>
+              <div class="flow-content-title">Reporte — tú solo supervisas</div>
+              <div class="flow-content-body">Cada acción queda registrada. Tú recibes un resumen y puedes intervenir cuando realmente lo necesitas. El 95% del tiempo: el agente ya lo resolvió.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="comparison" style="margin-top:16px;">
+          <div class="comp-header">
+            <div class="comp-h" style="text-align:left;padding-left:12px;">Proceso</div>
+            <div class="comp-h" style="color:rgba(239,68,68,.6);">Sin agentes</div>
+            <div class="comp-h" style="color:var(--green);">Con Trev'ainnovate</div>
+          </div>
+          <div class="comp-row">
+            <div class="comp-label">Respuesta a prospecto</div>
+            <div class="comp-before">2-24 horas</div>
+            <div class="comp-after">&lt;2 minutos</div>
+          </div>
+          <div class="comp-row">
+            <div class="comp-label">Seguimiento de leads</div>
+            <div class="comp-before">Manual, se olvida</div>
+            <div class="comp-after">Automático · 100%</div>
+          </div>
+          <div class="comp-row">
+            <div class="comp-label">Reportes ejecutivos</div>
+            <div class="comp-before">2-4 horas/semana</div>
+            <div class="comp-after">0 horas · lunes 9am</div>
+          </div>
+          <div class="comp-row">
+            <div class="comp-label">Monitoreo seguridad</div>
+            <div class="comp-before">Nadie lo hace</div>
+            <div class="comp-after">24/7 · alertas reales</div>
+          </div>
+          <div class="comp-row">
+            <div class="comp-label">Escalar operación</div>
+            <div class="comp-before">Contratar más gente</div>
+            <div class="comp-after">Activar más agentes</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="doc-footer">
+    <span>Trev'ainnovate © 2026 — Confidencial</span>
+    <span>02 / 05</span>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     PÁGINA 3 — SERVICIOS Y PRECIOS
+══════════════════════════════════════════ -->
+<div class="page">
+  <div class="glow-1"></div><div class="glow-2"></div><div class="grid-bg"></div>
+  <div class="topbar"></div>
+  <div class="doc-header">
+    <div class="logo-mark"><div class="ld"></div>TREV'AINNOVATE</div>
+    <div class="doc-meta">Servicios e inversión</div>
+  </div>
+
+  <div class="p3-body">
+    <div class="section-title">Nuestros servicios</div>
+
+    <!-- ANCLAJE DE VALOR -->
+    <div style="background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:9px;padding:10px 16px;margin-bottom:14px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:12px;">
+      <div style="text-align:center;">
+        <div style="font-size:7px;font-weight:700;color:rgba(239,68,68,.7);text-transform:uppercase;letter-spacing:.12em;margin-bottom:4px;">Costo de contratar personal</div>
+        <div style="font-size:16px;font-weight:900;font-family:'JetBrains Mono',monospace;color:rgba(239,68,68,.8);">$15,000–$28,000</div>
+        <div style="font-size:7px;color:var(--muted);">MXN/mes por persona · + IMSS · + prestaciones · + liquidación</div>
+      </div>
+      <div style="font-size:11px;color:rgba(255,255,255,.2);font-weight:700;">vs</div>
+      <div style="text-align:center;">
+        <div style="font-size:7px;font-weight:700;color:rgba(0,229,160,.7);text-transform:uppercase;letter-spacing:.12em;margin-bottom:4px;">Ecosistema de agentes IA</div>
+        <div style="font-size:16px;font-weight:900;font-family:'JetBrains Mono',monospace;color:var(--green);">$3,500–$14,500</div>
+        <div style="font-size:7px;color:var(--muted);">MXN/mes · 24/7 · sin IMSS · sin días festivos · sin renuncia</div>
+      </div>
+    </div>
+
+    <div class="services-grid">
+
+      <!-- S1: AUTOMATIZACIÓN -->
+      <div class="service-card" style="background:rgba(245,158,11,.04);border:1px solid rgba(245,158,11,.2);">
+        <div class="svc-num" style="color:var(--amber);">Plan Lite</div>
+        <div class="svc-icon">⚙️</div>
+        <div class="svc-name" style="color:var(--white);">Automatización de Procesos</div>
+        <div class="svc-tagline">Elimina lo repetitivo. Reglas claras, resultado garantizado — sin IA, sin errores humanos.</div>
+        <div class="svc-includes">
+          <div class="svc-inc"><span class="svc-check">✓</span>Conexión entre tus sistemas actuales (CRM, ERP, correo, WhatsApp)</div>
+          <div class="svc-inc"><span class="svc-check">✓</span>Flujos automáticos: facturas, reportes, notificaciones, sincronización</div>
+          <div class="svc-inc"><span class="svc-check">✓</span>Dashboard de monitoreo de procesos</div>
+          <div class="svc-inc"><span class="svc-check">✓</span>1 mes de soporte post-entrega</div>
+          <div class="svc-inc"><span class="svc-check">✓</span>Documentación técnica y manual de operación</div>
+        </div>
+        <div class="svc-price-box">
+          <div class="svc-price" style="color:var(--amber);">Setup $12,000 MXN + $3,500 MXN/mes</div>
+          <div class="svc-price-note">Fee único de implementación · retainer de operación y soporte continuo · activo en 2 semanas</div>
+        </div>
+      </div>
+
+      <!-- S2: AGENTE FUNCIONAL -->
+      <div class="service-card" style="background:rgba(0,229,160,.05);border:1px solid rgba(0,229,160,.28);position:relative;">
+        <div style="position:absolute;top:0;right:14px;font-size:7px;font-weight:700;color:#05050e;background:var(--green);padding:3px 10px;border-radius:0 0 7px 7px;letter-spacing:.1em;text-transform:uppercase;">Más solicitado</div>
+        <div class="svc-num" style="color:var(--green);">Plan Popular</div>
+        <div class="svc-icon">🧠</div>
+        <div class="svc-name" style="color:var(--green);">Agente IA + Seguridad</div>
+        <div class="svc-tagline">Un empleado digital con rol específico: SDR, soporte, coordinación o reportes. Opera 24/7 bajo tu supervisión.</div>
+        <div class="svc-includes">
+          <div class="svc-inc"><span class="svc-check">✓</span>Diseño, construcción y despliegue del agente</div>
+          <div class="svc-inc"><span class="svc-check">✓</span>Integración con tus sistemas (CRM, correo, WhatsApp, ERP)</div>
+          <div class="svc-inc"><span class="svc-check">✓</span>Supervisión y ajuste mensual del agente</div>
+          <div class="svc-inc"><span class="svc-check">✓</span>Alertas en tiempo real vía Telegram/correo</div>
+          <div class="svc-inc"><span class="svc-check">✓</span>Portal cliente con métricas de actividad</div>
+          <div class="svc-inc"><span class="svc-check">✓</span>SLA de respuesta a incidencias &lt;2h</div>
+        </div>
+        <div class="svc-price-box" style="border-top-color:rgba(0,229,160,.15);">
+          <div class="svc-price" style="color:var(--green);">Setup $18,000 MXN + $7,500 MXN/mes</div>
+          <div class="svc-price-note" style="color:rgba(255,255,255,.45);">Equivale a <strong style="color:rgba(255,255,255,.65);">menos del 50%</strong> del costo de un empleado operativo · sin IMSS · sin liquidación · opera <strong style="color:var(--green);">24/7 sin ausentismo</strong></div>
+        </div>
+      </div>
+
+      <!-- S3: ECOSISTEMA -->
+      <div class="service-card" style="background:rgba(59,130,246,.04);border:1px solid rgba(59,130,246,.22);">
+        <div class="svc-num" style="color:var(--blue);">Plan Pro</div>
+        <div class="svc-icon">🌐</div>
+        <div class="svc-name" style="color:var(--white);">Ecosistema de Agentes</div>
+        <div class="svc-tagline">Múltiples agentes coordinados cubriendo toda la operación: ventas, soporte, administración y seguridad.</div>
+        <div class="svc-includes">
+          <div class="svc-inc"><span class="svc-check">✓</span>2-4 agentes con roles complementarios</div>
+          <div class="svc-inc"><span class="svc-check">✓</span>Orquestación central: los agentes se comunican entre sí</div>
+          <div class="svc-inc"><span class="svc-check">✓</span>Integración completa de tu stack tecnológico</div>
+          <div class="svc-inc"><span class="svc-check">✓</span>Monitoreo activo del ecosistema, ajustes continuos</div>
+          <div class="svc-inc"><span class="svc-check">✓</span>Reporte ejecutivo mensual de ROI y actividad</div>
+          <div class="svc-inc"><span class="svc-check">✓</span>Expansión de capacidades trimestral</div>
+        </div>
+        <div class="svc-price-box">
+          <div class="svc-price" style="color:var(--blue);">Setup $30,000 MXN + $14,500 MXN/mes</div>
+          <div class="svc-price-note" style="color:rgba(255,255,255,.45);">2–3 empleados operativos cuestan $36,000–60,000 MXN/mes en nómina. El ecosistema hace el mismo trabajo <strong style="color:var(--green);">24 horas, 7 días, sin pausas</strong> — y reporta todo</div>
+        </div>
+      </div>
+
+      <!-- S4: SEGURIDAD -->
+      <div class="service-card" style="background:rgba(139,92,246,.04);border:1px solid rgba(139,92,246,.22);">
+        <div class="svc-num" style="color:var(--purple);">Complemento · Todos los planes</div>
+        <div class="svc-icon">🛡️</div>
+        <div class="svc-name" style="color:var(--white);">Seguridad Administrada</div>
+        <div class="svc-tagline">Tu ecosistema no solo es eficiente — es seguro. Protegemos la integridad de tu operación desde el día 1, antes de que un incidente cueste más que todo el retainer.</div>
+        <div class="svc-includes">
+          <div class="svc-inc"><span class="svc-check">✓</span>Configuración y monitoreo SPF, DKIM, DMARC 24/7</div>
+          <div class="svc-inc"><span class="svc-check">✓</span>Protección antiphishing: 99.2% de amenazas bloqueadas</div>
+          <div class="svc-inc"><span class="svc-check">✓</span>Alertas de amenaza en tiempo real vía Telegram o correo</div>
+          <div class="svc-inc"><span class="svc-check">✓</span>Reporte mensual de amenazas detectadas y estado del dominio</div>
+          <div class="svc-inc"><span class="svc-check">✓</span>Respuesta a incidentes incluida · SLA &lt;2h</div>
+          <div class="svc-inc"><span class="svc-check">✓</span>Compatible con Google Workspace, M365, Zoho y hosting propio</div>
+        </div>
+        <div class="svc-price-box">
+          <div class="svc-price" style="color:var(--purple);">$2,500 MXN/mes · incluido en Popular y Pro</div>
+          <div class="svc-price-note">Activación en 48–72h · el costo promedio de un incidente BEC en PyMEs mexicanas supera los $80,000 MXN</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ALCANCE Y LÍMITES -->
+    <div style="background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:9px;padding:11px 16px;margin-top:12px;display:grid;grid-template-columns:1fr 1px 1fr;gap:14px;align-items:start;">
+      <div>
+        <div style="font-size:7px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.12em;margin-bottom:7px;">✓ Los agentes ejecutan</div>
+        <div style="font-size:7.5px;color:rgba(255,255,255,.5);line-height:1.7;">Tareas operativas y repetitivas · procesamiento y enrutamiento de datos · respuestas estandarizadas · generación de reportes · seguimientos · alertas · actualizaciones de CRM · clasificación de prioridades</div>
+      </div>
+      <div style="background:var(--border);width:1px;height:100%;"></div>
+      <div>
+        <div style="font-size:7px;font-weight:700;color:rgba(255,255,255,.25);text-transform:uppercase;letter-spacing:.12em;margin-bottom:7px;">✕ No reemplazan</div>
+        <div style="font-size:7.5px;color:rgba(255,255,255,.35);line-height:1.7;">Juicio estratégico · toma de decisiones complejas · negociaciones sensibles · relaciones humanas que requieren empatía contextual · decisiones legales o financieras de alto impacto</div>
+      </div>
+    </div>
+
+    <!-- NOTA PROPUESTA PERSONALIZADA -->
+    <div style="background:rgba(245,158,11,.04);border:1px solid rgba(245,158,11,.18);border-radius:9px;padding:11px 16px;margin-top:12px;display:flex;align-items:center;gap:12px;">
+      <span style="font-size:14px;flex-shrink:0;">💡</span>
+      <p style="font-size:8px;color:rgba(255,255,255,.55);line-height:1.6;margin:0;">
+        <strong style="color:rgba(255,255,255,.8);">Todo bajo propuesta personalizada.</strong>
+        Los rangos de inversión son referenciales. El combo de servicios y el costo exacto se definen tras el diagnóstico de tu operación — en función de tus procesos, herramientas actuales y hallazgos específicos. No existen dos propuestas iguales.
+      </p>
+    </div>
+
+    <!-- PORTAL -->
+    <div class="portal-row">
+      <div class="portal-icon">📊</div>
+      <div style="flex:1;">
+        <div class="portal-title">Portal del cliente — incluido en todos los niveles sin costo adicional</div>
+        <div class="portal-desc">Acceso 24/7 al estado de tu ecosistema digital: agentes activos, automatizaciones en curso, alertas de seguridad, uptime y reportes de actividad en tiempo real.</div>
+        <div class="portal-items">
+          <span class="portal-item">Estado de agentes</span>
+          <span class="portal-item">Métricas de uptime</span>
+          <span class="portal-item">Alertas de seguridad</span>
+          <span class="portal-item">Historial de actividad</span>
+          <span class="portal-item">Reportes descargables</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="doc-footer">
+    <span>Trev'ainnovate © 2026 — Confidencial</span>
+    <span>03 / 05</span>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     PÁGINA 4 — CASOS REALES
+══════════════════════════════════════════ -->
+<div class="page">
+  <div class="glow-1"></div><div class="glow-2"></div><div class="grid-bg"></div>
+  <div class="topbar"></div>
+  <div class="doc-header">
+    <div class="logo-mark"><div class="ld"></div>TREV'AINNOVATE</div>
+    <div class="doc-meta">Casos reales — resultados documentados</div>
+  </div>
+
+  <div class="p4-body">
+    <div class="section-title">Implementaciones reales · resultados medibles</div>
+
+    <div class="cases-grid">
+
+      <!-- CASO 1: PARABRISAS CRISTALU -->
+      <div class="case-card">
+        <div class="case-tag" style="background:rgba(0,229,160,.08);border:1px solid rgba(0,229,160,.2);color:var(--green);">
+          ⚙️ Automatización + CRM
+        </div>
+        <div class="case-company">Parabrisas Cristalu</div>
+        <div class="case-industry">Automotriz · Servicios B2C · Querétaro</div>
+        <div class="case-challenge">
+          <div class="case-challenge-label">El problema</div>
+          Los leads de la landing page no se seguían de manera consistente. La conversión dependía de si alguien en el equipo estaba disponible para responder. Clientes interesados se perdían sin saber cuántos ni por qué.
+        </div>
+        <div class="case-solution">
+          <div class="case-solution-label">La solución</div>
+          Landing page conectada a n8n → CRM automático en Google Sheets → notificación inmediata a vendedor en Telegram con datos del prospecto y contexto → seguimiento automatizado si no hay respuesta en 30 min.
+        </div>
+        <div class="case-results">
+          <div class="case-result">
+            <div class="case-result-n" style="color:var(--green);">+38%</div>
+            <div class="case-result-l">conversión de leads</div>
+          </div>
+          <div class="case-result">
+            <div class="case-result-n" style="color:var(--green);">0</div>
+            <div class="case-result-l">leads perdidos sin respuesta</div>
+          </div>
+          <div class="case-result">
+            <div class="case-result-n" style="color:var(--green);">&lt;5min</div>
+            <div class="case-result-l">primer contacto promedio</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CASO 2: GEC PLASTIC -->
+      <div class="case-card">
+        <div class="case-tag" style="background:rgba(59,130,246,.08);border:1px solid rgba(59,130,246,.2);color:var(--blue);">
+          🔗 Integración ERP
+        </div>
+        <div class="case-company">GEC Plastic</div>
+        <div class="case-industry">Manufactura plástica · Puebla · 50+ empleados</div>
+        <div class="case-challenge">
+          <div class="case-challenge-label">El problema</div>
+          El equipo de ventas operaba en Wix, el ERP corría en Microsip y el seguimiento era por Gmail manual. Los pedidos se capturaban dos veces y los reportes de producción se armaban a mano cada semana.
+        </div>
+        <div class="case-solution">
+          <div class="case-solution-label">La solución</div>
+          Wix webhook → n8n → Google Sheets CRM → Gmail automático de confirmación → Microsip ERP actualizado vía API → reporte semanal automático a dirección. Un solo flujo conecta todo.
+        </div>
+        <div class="case-results">
+          <div class="case-result">
+            <div class="case-result-n" style="color:var(--blue);">25h</div>
+            <div class="case-result-l">liberadas por mes</div>
+          </div>
+          <div class="case-result">
+            <div class="case-result-n" style="color:var(--blue);">0</div>
+            <div class="case-result-l">capturas dobles</div>
+          </div>
+          <div class="case-result">
+            <div class="case-result-n" style="color:var(--blue);">100%</div>
+            <div class="case-result-l">reportes automáticos</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CASO 3: CASA RAGE -->
+      <div class="case-card">
+        <div class="case-tag" style="background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.2);color:var(--purple);">
+          🧠 Agente IA · Ventas
+        </div>
+        <div class="case-company">CASA RAGE</div>
+        <div class="case-industry">Inmobiliaria / Diseño de interiores · CDMX</div>
+        <div class="case-challenge">
+          <div class="case-challenge-label">El problema</div>
+          El equipo atendía prospectos en WhatsApp, Instagram y Messenger manualmente. Con 26 matrices de precio y decenas de combinaciones de materiales, responder cotizaciones correctas tomaba horas por conversación.
+        </div>
+        <div class="case-solution">
+          <div class="case-solution-label">La solución</div>
+          Agente "Adriana" — IA entrenada en catálogo completo, atiende los 3 canales simultáneamente, calcula cotizaciones en segundos, califica al prospecto y transfiere a humano solo cuando hay intención de compra confirmada.
+        </div>
+        <div class="case-results">
+          <div class="case-result">
+            <div class="case-result-n" style="color:var(--purple);">49.5h</div>
+            <div class="case-result-l">automatizadas por mes</div>
+          </div>
+          <div class="case-result">
+            <div class="case-result-n" style="color:var(--purple);">695%</div>
+            <div class="case-result-l">ROI primer trimestre</div>
+          </div>
+          <div class="case-result">
+            <div class="case-result-n" style="color:var(--purple);">3ch</div>
+            <div class="case-result-l">canales simultáneos</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CASO 4: TREV'AINNOVATE PROPIO -->
+      <div class="case-card">
+        <div class="case-tag" style="background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.2);color:var(--amber);">
+          🤖 Ecosistema propio · Demostrable
+        </div>
+        <div class="case-company">Trev'ainnovate</div>
+        <div class="case-industry">Operación interna · Caso de referencia · En producción</div>
+        <div class="case-challenge">
+          <div class="case-challenge-label">El reto</div>
+          Operar prospección, seguimiento, cierre, contenido, seguridad y reportes como empresa unipersonal en crecimiento, sin descuidar ningún frente y sin contratar personal.
+        </div>
+        <div class="case-solution">
+          <div class="case-solution-label">La solución que usamos nosotros mismos</div>
+          Agente SDR email (200+ contactos/mes automatizados), agente cierre post-demo (propuesta + seguimiento 3 días), monitor de seguridad 24/7, reportes ejecutivos automáticos, contenido LinkedIn generado por IA 3×/semana.
+        </div>
+        <div class="case-results">
+          <div class="case-result">
+            <div class="case-result-n" style="color:var(--amber);">200+</div>
+            <div class="case-result-l">prospectos/mes automáticos</div>
+          </div>
+          <div class="case-result">
+            <div class="case-result-n" style="color:var(--amber);">5</div>
+            <div class="case-result-l">agentes en producción</div>
+          </div>
+          <div class="case-result">
+            <div class="case-result-n" style="color:var(--amber);">24/7</div>
+            <div class="case-result-l">operación autónoma</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="doc-footer">
+    <span>Trev'ainnovate © 2026 — Confidencial</span>
+    <span>04 / 05</span>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     PÁGINA 5 — PROCESO + POR QUÉ + CTA
+══════════════════════════════════════════ -->
+<div class="page">
+  <div class="glow-1"></div><div class="glow-2"></div><div class="grid-bg"></div>
+  <div class="topbar"></div>
+  <div class="doc-header">
+    <div class="logo-mark"><div class="ld"></div>TREV'AINNOVATE</div>
+    <div class="doc-meta">Proceso · diferenciadores · siguiente paso</div>
+  </div>
+
+  <div class="p5-body">
+
+    <!-- PROCESO -->
+    <div class="section-title">Proceso de implementación</div>
+    <div class="process-steps">
+      <div class="proc-step">
+        <div class="proc-num">01</div>
+        <div class="proc-icon">🔍</div>
+        <div class="proc-name">Diagnóstico</div>
+        <div class="proc-desc">Mapeamos tu operación: qué procesos existen, dónde se pierden horas, qué sistemas usas y dónde está el mayor dolor. Sin costo, sin compromiso.</div>
+        <div class="proc-time">20 minutos · videollamada</div>
+      </div>
+      <div class="proc-step">
+        <div class="proc-num">02</div>
+        <div class="proc-icon">🏗️</div>
+        <div class="proc-name">Diseño</div>
+        <div class="proc-desc">Diseñamos el ecosistema específico para tu empresa: qué agentes, qué conectamos, cómo fluye la información y cuál es el ROI esperado en 90 días.</div>
+        <div class="proc-time">2-3 días · propuesta escrita</div>
+      </div>
+      <div class="proc-step">
+        <div class="proc-num">03</div>
+        <div class="proc-icon">⚡</div>
+        <div class="proc-name">Implementación</div>
+        <div class="proc-desc">Construimos, probamos y desplegamos. Te mostramos cada pieza antes de activar. Capacitación incluida para que tu equipo sepa supervisar el sistema.</div>
+        <div class="proc-time">1-3 semanas · según complejidad</div>
+      </div>
+      <div class="proc-step">
+        <div class="proc-num">04</div>
+        <div class="proc-icon">📊</div>
+        <div class="proc-name">Operación continua</div>
+        <div class="proc-desc">Monitoreamos, ajustamos y expandimos. Cada mes recibes un reporte de ROI. Tú te enfocas en crecer — nosotros nos encargamos de que el ecosistema siga funcionando.</div>
+        <div class="proc-time">Permanente · retainer mensual</div>
+      </div>
+    </div>
+
+    <!-- POR QUÉ NOSOTROS -->
+    <div class="section-title" style="margin-top:20px;">Por qué Trev'ainnovate</div>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-icon">🔬</div>
+        <div class="why-title">Lo usamos nosotros primero</div>
+        <div class="why-body">Nuestros propios agentes manejan la prospección, el cierre, el contenido y la seguridad de Trev'ainnovate. Lo que construimos para ti está probado en producción real, no en demos.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">⚡</div>
+        <div class="why-title">Sin software propietario</div>
+        <div class="why-body">Usamos herramientas estándar del mercado (n8n, Claude, Notion, Supabase). Tú eres dueño de tu ecosistema — si en algún momento decides seguir solo, puedes hacerlo.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">📐</div>
+        <div class="why-title">Medición rigurosa</div>
+        <div class="why-body">Todo tiene métricas: horas ahorradas, leads respondidos, incidentes detectados. Cada peso invertido tiene un número que lo justifica. Sin promesas vagas.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🇲🇽</div>
+        <div class="why-title">Contexto mexicano</div>
+        <div class="why-body">Entendemos cómo operan las PyMEs en México: los sistemas que ya usan, las restricciones fiscales, el estilo de comunicación y los tiempos reales de implementación.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🔄</div>
+        <div class="why-title">Escala con tu empresa</div>
+        <div class="why-body">Empezamos con un agente. Cuando lo dominas, agregamos el siguiente. No necesitas cambiar todo de golpe — el ecosistema crece contigo, a tu ritmo.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🤝</div>
+        <div class="why-title">Sin contrato largo plazo</div>
+        <div class="why-body">Retainer mensual, sin permanencia forzada. Seguimos contigo porque los resultados hablan — no porque hayas firmado un compromiso de 12 meses que no puedes romper.</div>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-section">
+      <div class="cta-left">
+        <div class="cta-title">El primer paso toma 20 minutos</div>
+        <div class="cta-sub">Una llamada de diagnóstico sin costo. Revisamos tu operación, identificamos dónde están las horas perdidas y te mostramos qué agente tiene más impacto inmediato en tu empresa.</div>
+        <div class="cta-step"><div class="cta-step-n">1</div>Agendar una llamada de 20 minutos</div>
+        <div class="cta-step"><div class="cta-step-n">2</div>Diagnóstico de operación + propuesta de ecosistema</div>
+        <div class="cta-step"><div class="cta-step-n">3</div>Primer agente activo en 1-2 semanas</div>
+      </div>
+      <div class="cta-right">
+        <div class="cta-contact-box">
+          <div class="cta-contact-row">
+            <div class="cta-label">WhatsApp</div>
+            <div class="cta-value">223 129 4663</div>
+          </div>
+          <div class="cta-contact-row">
+            <div class="cta-label">Email</div>
+            <div class="cta-value">contacto@</div>
+          </div>
+          <div class="cta-contact-row">
+            <div class="cta-label"></div>
+            <div class="cta-value">trevainnovate.com</div>
+          </div>
+        </div>
+        <div class="cta-url">trevainnovate.com/diagnostico</div>
+      </div>
+    </div>
+
+    <!-- TECH STACK -->
+    <div class="stack-row">
+      <span class="stack-label">Stack</span>
+      <span class="stack-tag">n8n</span>
+      <span class="stack-tag">Claude API</span>
+      <span class="stack-tag">Notion</span>
+      <span class="stack-tag">Supabase</span>
+      <span class="stack-tag">Telegram</span>
+      <span class="stack-tag">Resend</span>
+      <span class="stack-tag">Apollo.io</span>
+      <span class="stack-tag">BetterStack</span>
+      <span class="stack-tag">Cloudflare</span>
+      <span class="stack-tag">Cal.com</span>
+    </div>
+
+  </div>
+
+  <div class="doc-footer">
+    <span>Trev'ainnovate · Santiago Juárez Treviño · contacto@trevainnovate.com · 223 129 4663</span>
+    <span>05 / 05</span>
+  </div>
+</div>
+
+</body>
+</html>

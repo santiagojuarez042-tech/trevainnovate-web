@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Trev'ainnovate — Documento Informativo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+html { scroll-behavior: smooth; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #05050e; --bg2: #0b0b1c;
+  --green: #00e5a0; --blue: #3b82f6; --purple: #8b5cf6; --amber: #f59e0b;
+  --white: #f1f5f9; --muted: #8892a4; --border: rgba(255,255,255,0.07);
+}
+body { background: #111; font-family: 'Inter', sans-serif; color: var(--white); -webkit-font-smoothing: antialiased; }
+
+.page {
+  width: 100%; min-height: 100vh;
+  background: var(--bg);
+  display: flex; flex-direction: column;
+  position: relative;
+}
+@media print { .page { height: 297mm; overflow: hidden; } }
+.glow { position: absolute; inset: 0; background: radial-gradient(ellipse at 80% 15%, rgba(0,229,160,.07) 0%, transparent 50%), radial-gradient(ellipse at 10% 90%, rgba(59,130,246,.05) 0%, transparent 50%); pointer-events: none; }
+.grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.018) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.018) 1px, transparent 1px); background-size: 18mm 18mm; pointer-events: none; }
+
+.topbar { height: 3px; background: linear-gradient(90deg, var(--green), var(--blue), var(--purple)); flex-shrink: 0; }
+
+/* HEADER */
+.header { padding: 18px 5vw 16px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; position: relative; z-index: 1; }
+.logo { display: flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 800; }
+.ld { width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 8px rgba(0,229,160,.7); }
+.header-right { font-size: 8px; color: rgba(255,255,255,.25); font-family: 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: .1em; }
+
+/* HERO */
+.hero { padding: 40px 5vw 36px; border-bottom: 1px solid var(--border); display: grid; grid-template-columns: 1.4fr 1fr; gap: 32px; flex-shrink: 0; position: relative; z-index: 1; max-width: 1100px; width: 100%; margin: 0 auto; box-sizing: border-box; }
+.hero-left {}
+.hero-tag { display: inline-flex; align-items: center; gap: 7px; padding: 4px 11px; border-radius: 99px; background: rgba(0,229,160,.08); border: 1px solid rgba(0,229,160,.2); font-size: 8.5px; font-weight: 700; color: var(--green); letter-spacing: .12em; text-transform: uppercase; margin-bottom: 12px; }
+.hero-tag-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--green); }
+.hero-h { font-size: 52px; font-weight: 900; line-height: 1.04; letter-spacing: -.025em; margin-bottom: 8px; }
+.grad { background: linear-gradient(135deg, #00e5a0, #3b82f6, #8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero-sub { font-size: 14px; color: var(--muted); line-height: 1.7; max-width: 560px; }
+.hero-right { display: flex; flex-direction: column; gap: 6px; justify-content: center; }
+.stat { border-radius: 12px; padding: 16px 18px; }
+.stat-n { font-size: 34px; font-weight: 900; font-family: 'JetBrains Mono', monospace; line-height: 1; margin-bottom: 4px; }
+.stat-l { font-size: 11px; color: var(--muted); line-height: 1.4; }
+
+/* LEVELS */
+.levels { padding: 36px 5vw; border-bottom: 1px solid var(--border); display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; flex-shrink: 0; position: relative; z-index: 1; max-width: 1100px; width: 100%; margin: 0 auto; box-sizing: border-box; }
+.level { border-radius: 13px; padding: 20px 22px; display: flex; flex-direction: column; gap: 9px; }
+.level-num { font-size: 8px; font-weight: 700; text-transform: uppercase; letter-spacing: .14em; font-family: 'JetBrains Mono', monospace; }
+.level-icon { font-size: 22px; }
+.level-name { font-size: 17px; font-weight: 800; }
+.level-desc { font-size: 12px; color: var(--muted); line-height: 1.6; flex: 1; }
+.level-tag { font-size: 8px; font-weight: 700; padding: 3px 8px; border-radius: 4px; display: inline-block; font-family: 'JetBrains Mono', monospace; }
+
+/* PORTAL STRIP */
+.portal { padding: 20px 5vw; border-bottom: 1px solid var(--border); background: linear-gradient(135deg, rgba(0,229,160,.05), rgba(59,130,246,.03)); display: flex; align-items: center; gap: 16px; flex-shrink: 0; position: relative; z-index: 1; max-width: 1100px; width: 100%; margin: 0 auto; box-sizing: border-box; }
+.portal-icon { font-size: 20px; flex-shrink: 0; }
+.portal-text strong { font-size: 11px; font-weight: 800; color: var(--white); display: block; margin-bottom: 2px; }
+.portal-text span { font-size: 9.5px; color: var(--muted); line-height: 1.45; }
+.portal-badge { font-size: 8px; font-weight: 700; padding: 4px 10px; border-radius: 5px; background: rgba(0,229,160,.1); border: 1px solid rgba(0,229,160,.2); color: var(--green); font-family: 'JetBrains Mono', monospace; white-space: nowrap; flex-shrink: 0; }
+
+/* BOTTOM */
+.bottom { flex: 1; display: grid; grid-template-columns: 1.1fr 1fr; gap: 28px; padding: 36px 5vw; position: relative; z-index: 1; max-width: 1100px; width: 100%; margin: 0 auto; box-sizing: border-box; }
+.bottom-for {}
+.bottom-for-title { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .16em; color: var(--muted); margin-bottom: 7px; }
+.bottom-for-body { font-size: 13px; color: rgba(255,255,255,.65); line-height: 1.65; margin-bottom: 12px; }
+.industry-tags { display: flex; flex-wrap: wrap; gap: 4px; }
+.itag { font-size: 8.5px; padding: 3px 8px; border-radius: 5px; background: rgba(255,255,255,.04); border: 1px solid var(--border); color: rgba(255,255,255,.45); }
+
+.cta-box { background: linear-gradient(135deg, rgba(0,229,160,.07), rgba(59,130,246,.05)); border: 1px solid rgba(0,229,160,.25); border-radius: 12px; padding: 14px 16px; display: flex; flex-direction: column; justify-content: space-between; }
+.cta-title { font-size: 14px; font-weight: 900; color: var(--white); margin-bottom: 3px; }
+.cta-sub { font-size: 9px; color: var(--muted); margin-bottom: 10px; }
+.cta-link { font-size: 11px; font-weight: 800; color: var(--green); font-family: 'JetBrains Mono', monospace; margin-bottom: 8px; display: block; }
+.cta-contacts { display: flex; flex-direction: column; gap: 3px; }
+.cta-c { font-size: 9px; color: rgba(255,255,255,.5); font-family: 'JetBrains Mono', monospace; }
+.cta-c span { color: rgba(255,255,255,.25); margin-right: 4px; font-size: 8px; text-transform: uppercase; letter-spacing: .08em; font-family: 'Inter', sans-serif; }
+
+/* FOOTER */
+.footer { padding: 14px 5vw; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; position: relative; z-index: 1; }
+.footer span { font-size: 10px; color: rgba(255,255,255,.18); font-family: 'JetBrains Mono', monospace; }
+
+@media print { body { background: var(--bg) !important; } }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="glow"></div>
+  <div class="grid"></div>
+  <div class="topbar"></div>
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="logo"><div class="ld"></div>TREV'AINNOVATE</div>
+    <div class="header-right">Documento Informativo · trevainnovate.com</div>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-left">
+      <div class="hero-tag"><div class="hero-tag-dot"></div>Ecosistema de Agentes IA</div>
+      <h1 class="hero-h">Tu empresa,<br>operando sola.<br><span class="grad">24/7.</span></h1>
+      <p class="hero-sub">Automatización de procesos, agentes de inteligencia artificial y ciberseguridad administrada — en un solo ecosistema digital que trabaja mientras tu equipo se enfoca en lo estratégico.</p>
+    </div>
+    <div class="hero-right">
+      <div class="stat" style="background:rgba(0,229,160,.05);border:1px solid rgba(0,229,160,.18);">
+        <div class="stat-n" style="color:var(--green);">24/7</div>
+        <div class="stat-l">operación autónoma sin intervención humana</div>
+      </div>
+      <div class="stat" style="background:rgba(59,130,246,.05);border:1px solid rgba(59,130,246,.18);">
+        <div class="stat-n" style="color:var(--blue);">&lt;2min</div>
+        <div class="stat-l">tiempo de respuesta promedio de cada agente</div>
+      </div>
+      <div class="stat" style="background:rgba(139,92,246,.05);border:1px solid rgba(139,92,246,.18);">
+        <div class="stat-n" style="color:var(--purple);">$0</div>
+        <div class="stat-l">IMSS, vacaciones ni aguinaldo — nunca</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SERVICIOS -->
+  <div class="levels">
+    <div class="level" style="background:rgba(245,158,11,.04);border:1px solid rgba(245,158,11,.22);">
+      <div class="level-num" style="color:var(--amber);">Plan Lite</div>
+      <div class="level-icon">⚙️</div>
+      <div class="level-name" style="color:var(--white);">Automatización</div>
+      <div class="level-desc">Elimina tareas manuales repetitivas: facturación, reportes, notificaciones, CRM, sincronización entre sistemas. 1–2 agentes clave, operando desde el día 3.</div>
+      <div style="margin-top:auto;padding-top:10px;border-top:1px solid rgba(245,158,11,.15);">
+        <div class="level-tag" style="background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.2);color:var(--amber);">Setup $12k · $3,500/mes</div>
+      </div>
+    </div>
+    <div class="level" style="background:rgba(0,229,160,.04);border:1px solid rgba(0,229,160,.28);position:relative;">
+      <div style="position:absolute;top:-1px;right:12px;font-size:7.5px;font-weight:700;color:var(--bg);background:var(--green);padding:3px 9px;border-radius:0 0 6px 6px;letter-spacing:.1em;text-transform:uppercase;">Popular</div>
+      <div class="level-num" style="color:var(--green);">Plan Popular</div>
+      <div class="level-icon">🧠</div>
+      <div class="level-name" style="color:var(--green);">Agentes IA</div>
+      <div class="level-desc">Empleados digitales con rol específico: ventas, soporte, coordinación. Razonan, evalúan contexto y toman decisiones. Operan <strong style="color:var(--green);">24/7 sin ausentismo</strong>.</div>
+      <div style="margin-top:auto;padding-top:10px;border-top:1px solid rgba(0,229,160,.15);">
+        <div class="level-tag" style="background:rgba(0,229,160,.1);border:1px solid rgba(0,229,160,.2);color:var(--green);">Setup $18k · $7,500/mes</div>
+      </div>
+    </div>
+    <div class="level" style="background:rgba(139,92,246,.04);border:1px solid rgba(139,92,246,.22);">
+      <div class="level-num" style="color:var(--purple);">Complemento</div>
+      <div class="level-icon">🛡️</div>
+      <div class="level-name" style="color:var(--white);">Seguridad Administrada</div>
+      <div class="level-desc">Monitoreo activo de tu dominio, correo e identidad digital. SPF, DMARC y DKIM siempre válidos. Alertas en tiempo real. Tu ecosistema no solo es eficiente — es seguro.</div>
+      <div style="margin-top:auto;padding-top:10px;border-top:1px solid rgba(139,92,246,.15);">
+        <div class="level-tag" style="background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.2);color:var(--purple);">$2,500/mes · standalone o incluido</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ECOSISTEMA STRIP -->
+  <div style="padding:0 5vw 0;position:relative;z-index:1;max-width:1100px;width:100%;margin:0 auto;box-sizing:border-box;">
+    <div style="background:linear-gradient(135deg,rgba(245,158,11,.04),rgba(0,229,160,.04),rgba(139,92,246,.04));border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:12px 20px;display:flex;align-items:center;gap:16px;">
+      <div style="font-size:18px;flex-shrink:0;">🌐</div>
+      <div style="flex:1;">
+        <div style="font-size:11px;font-weight:800;color:var(--white);margin-bottom:2px;">Ecosistema Completo — los tres servicios en un solo equipo</div>
+        <div style="font-size:10px;color:var(--muted);">Automatización + Agente IA + Seguridad Administrada coordinados bajo un solo proveedor. Tu operación, completamente autónoma.</div>
+      </div>
+      <div style="font-size:9px;font-weight:700;padding:5px 12px;border-radius:6px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.4);white-space:nowrap;">Todo incluido</div>
+    </div>
+  </div>
+
+  <!-- PORTAL STRIP -->
+  <div class="portal">
+    <div class="portal-icon">📊</div>
+    <div class="portal-text" style="flex:1;">
+      <strong>Portal del cliente — incluido en todos los niveles, sin costo adicional</strong>
+      <span>Monitorea tu ecosistema digital en tiempo real, 24/7: estado de agentes, automatizaciones activas, alertas de seguridad, reportes de actividad.</span>
+    </div>
+    <div class="portal-badge">Acceso inmediato al activar</div>
+  </div>
+
+  <!-- BOTTOM -->
+  <div class="bottom">
+    <div class="bottom-for">
+      <div class="bottom-for-title">¿Para qué tipo de empresa?</div>
+      <div class="bottom-for-body">PYMEs y empresas medianas en México que quieren operar con mayor eficiencia, responder más rápido a sus clientes y crecer sin aumentar nómina.</div>
+      <div class="industry-tags">
+        <span class="itag">Manufactura</span>
+        <span class="itag">Logística</span>
+        <span class="itag">Servicios B2B</span>
+        <span class="itag">Salud</span>
+        <span class="itag">Alimentación</span>
+        <span class="itag">Comercio</span>
+        <span class="itag">Construcción</span>
+        <span class="itag">Despachos Contables</span>
+        <span class="itag">Distribuidoras</span>
+        <span class="itag">Agencias Mkt</span>
+      </div>
+    </div>
+    <div class="cta-box">
+      <div>
+        <div class="cta-title">Diagnóstico gratuito</div>
+        <div class="cta-sub">5 minutos · resultado + propuesta inmediata</div>
+        <a href="https://trevainnovate.com/diagnostico" target="_blank" style="display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:10px;background:linear-gradient(135deg,var(--green),#00c489);color:#05050e;font-size:12px;font-weight:800;text-decoration:none;margin:12px 0 14px;transition:all .2s;" onmouseover="this.style.transform='translateY(-1px)';this.style.boxShadow='0 8px 24px rgba(0,229,160,.4)'" onmouseout="this.style.transform='';this.style.boxShadow=''">Hacer el diagnóstico →</a>
+      </div>
+      <div class="cta-contacts">
+        <div class="cta-c"><span>WhatsApp</span>223 129 4663</div>
+        <div class="cta-c"><span>Email</span>contacto@trevainnovate.com</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <span>Trev'ainnovate · Santiago Juárez Treviño · Querétaro, México</span>
+    <span>trevainnovate.com · 2026</span>
+  </div>
+</div>
+</body>
+</html>

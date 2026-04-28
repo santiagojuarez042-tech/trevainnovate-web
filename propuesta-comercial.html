@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Propuesta Comercial — Trev'ainnovate</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #05050e; --bg2: #0b0b1c;
+  --green: #00e5a0; --blue: #3b82f6; --purple: #8b5cf6;
+  --amber: #f59e0b; --red: #ef4444;
+  --white: #f1f5f9; --muted: #8892a4;
+  --border: rgba(255,255,255,0.07);
+}
+
+body { background: #111; font-family: 'Inter', sans-serif; color: var(--white); -webkit-font-smoothing: antialiased; }
+
+.page {
+  width: 100%; min-height: 100vh;
+  position: relative; overflow: hidden;
+  background: var(--bg);
+  display: flex; flex-direction: column;
+  border-bottom: 1px solid rgba(255,255,255,.04);
+}
+@media print { .page { min-height: 297mm; page-break-after: always; } }
+
+.topbar { height: 3px; background: linear-gradient(90deg,var(--green),var(--blue),var(--purple)); flex-shrink: 0; }
+
+.ph { display: flex; align-items: center; justify-content: space-between; padding: 18px 5vw 16px; border-bottom: 1px solid var(--border); flex-shrink: 0; }
+.logo { display: flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 800; }
+.ld { width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 8px rgba(0,229,160,.7); }
+.meta { font-size: 9px; color: var(--muted); font-family: 'JetBrains Mono', monospace; text-align: right; line-height: 1.6; }
+
+.pb { flex: 1; padding: 36px 5vw; display: flex; flex-direction: column; overflow: visible; max-width: 1100px; margin: 0 auto; width: 100%; box-sizing: border-box; }
+
+.pf { padding: 14px 5vw; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+.pf span { font-size: 10px; color: rgba(255,255,255,.18); font-family: 'JetBrains Mono', monospace; }
+
+.grad { background: linear-gradient(135deg,#00e5a0,#3b82f6,#8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.lbl { font-size: 10px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--green); margin-bottom: 10px; display: block; }
+
+.block { background: var(--bg2); border: 1px solid var(--border); border-radius: 11px; padding: 13px 15px; }
+.block.g { border-color: rgba(0,229,160,.2); }
+.block.b { border-color: rgba(59,130,246,.2); }
+.block.p { border-color: rgba(139,92,246,.2); }
+.block.a { border-color: rgba(245,158,11,.2); }
+.block.r { border-color: rgba(239,68,68,.2); }
+
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.three { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+.four { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 16px; }
+
+.chk { display: flex; flex-direction: column; gap: 5px; }
+.chk li { display: flex; align-items: flex-start; gap: 7px; font-size: 10px; color: rgba(255,255,255,.72); line-height: 1.5; list-style: none; }
+.chk li::before { content: '✓'; color: var(--green); font-weight: 800; font-size: 9px; flex-shrink: 0; margin-top: 1px; }
+
+.tl { position: relative; padding-left: 18px; }
+.tl::before { content: ''; position: absolute; left: 4px; top: 8px; bottom: 8px; width: 2px; background: linear-gradient(to bottom,var(--green),var(--blue),var(--purple)); border-radius: 2px; opacity: .25; }
+.tli { position: relative; margin-bottom: 12px; }
+.tli:last-child { margin-bottom: 0; }
+.tld { position: absolute; left: -15px; top: 3px; width: 7px; height: 7px; border-radius: 50%; border: 2px solid; background: var(--bg); }
+.tld.g { border-color: var(--green); }
+.tld.b { border-color: var(--blue); }
+.tld.p { border-color: var(--purple); }
+.tlt { font-size: 7.5px; font-weight: 700; font-family: 'JetBrains Mono', monospace; color: var(--muted); text-transform: uppercase; letter-spacing: .1em; margin-bottom: 2px; }
+.tlh { font-size: 11px; font-weight: 700; color: var(--white); margin-bottom: 2px; }
+.tlp { font-size: 9.5px; color: var(--muted); line-height: 1.45; }
+
+@media print { body { background: var(--bg) !important; } .page { border-bottom: none; } }
+
+/* ── FULL-SCREEN RESPONSIVE ── */
+html { scroll-behavior: smooth; }
+body { overflow-x: hidden; }
+
+/* ── FLOATING SIDE NAV ── */
+.fnav {
+  position: fixed; right: 26px; top: 50%; transform: translateY(-50%);
+  z-index: 1000; display: flex; flex-direction: column; gap: 12px; align-items: flex-end;
+}
+.fnav-item {
+  display: flex; align-items: center; gap: 10px;
+  cursor: pointer; text-decoration: none;
+}
+.fnav-label {
+  font-size: 11px; font-weight: 600; color: var(--white);
+  background: rgba(5,5,14,.94); border: 1px solid rgba(255,255,255,.09);
+  padding: 4px 12px; border-radius: 7px;
+  opacity: 0; transform: translateX(8px);
+  transition: opacity .18s, transform .18s;
+  white-space: nowrap; pointer-events: none; letter-spacing: .01em;
+  font-family: 'Inter', sans-serif;
+}
+.fnav-item:hover .fnav-label { opacity: 1; transform: translateX(0); }
+.fnav-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: rgba(255,255,255,.15); border: 1.5px solid rgba(255,255,255,.1);
+  transition: all .22s; flex-shrink: 0;
+}
+.fnav-item:hover .fnav-dot {
+  background: var(--green); border-color: var(--green);
+  box-shadow: 0 0 8px rgba(0,229,160,.45);
+}
+.fnav-item.fnav-active .fnav-dot {
+  background: var(--green); border-color: var(--green);
+  width: 10px; height: 10px; box-shadow: 0 0 14px rgba(0,229,160,.55);
+}
+.fnav-item.fnav-active .fnav-label { opacity: 1; transform: translateX(0); color: var(--green); }
+
+/* ── FOOTER NAV ARROWS ── */
+.nav-arrow {
+  font-size: 10px; color: rgba(255,255,255,.22); text-decoration: none;
+  font-weight: 600; transition: color .18s; letter-spacing: .02em;
+  font-family: 'JetBrains Mono', monospace;
+}
+.nav-arrow:hover { color: var(--green); }
+
+@media (max-width: 700px) { .fnav { display: none; } }
+</style>
+</head>
+<body>
+<script>
+const P   = new URLSearchParams(window.location.search);
+const cli = P.get('cliente')  || 'Su Empresa';
+const con = P.get('contacto') || '';
+const fec = P.get('fecha')    || new Date().toLocaleDateString('es-MX',{day:'numeric',month:'long',year:'numeric'});
+
+window.onload = () => {
+  document.querySelectorAll('[data-c]').forEach(el => el.textContent = cli);
+  document.querySelectorAll('[data-f]').forEach(el => el.textContent = fec);
+  if(con) document.querySelectorAll('[data-con]').forEach(el => el.textContent = con);
+  setTimeout(() => {
+    const pages = Array.from(document.querySelectorAll('.page'));
+    const t = pages.length;
+    pages.forEach((p,i) => { const n = p.querySelector('.pn'); if(n) n.textContent = `${i+1} / ${t}`; });
+  }, 40);
+};
+</script>
+
+
+<!-- ════════════════════════════════════════════════════
+     P1 — PORTADA
+════════════════════════════════════════════════════ -->
+<div class="page" id="portada">
+  <div class="topbar"></div>
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 75% 20%,rgba(0,229,160,.07) 0%,transparent 55%),radial-gradient(ellipse at 15% 85%,rgba(59,130,246,.05) 0%,transparent 50%);pointer-events:none;"></div>
+  <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);background-size:20mm 20mm;pointer-events:none;"></div>
+
+  <div style="padding:6mm 10mm 5mm;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);position:relative;z-index:1;flex-shrink:0;">
+    <div class="logo"><div class="ld"></div>TREV'AINNOVATE</div>
+    <span style="font-size:8px;font-weight:700;color:rgba(255,255,255,.18);text-transform:uppercase;letter-spacing:.12em;">Propuesta Comercial</span>
+  </div>
+
+  <div style="flex:1;display:flex;flex-direction:column;justify-content:center;padding:12mm 12mm 8mm;position:relative;z-index:1;">
+    <div style="display:inline-flex;align-items:center;gap:8px;padding:5px 13px;border-radius:99px;background:rgba(0,229,160,.08);border:1px solid rgba(0,229,160,.2);font-size:9px;font-weight:700;color:var(--green);letter-spacing:.12em;text-transform:uppercase;margin-bottom:22px;width:fit-content;">
+      <div style="width:5px;height:5px;border-radius:50%;background:var(--green);"></div>
+      Ecosistema de Agentes Inteligentes
+    </div>
+
+    <h1 style="font-size:40px;font-weight:900;line-height:1.04;letter-spacing:-.025em;margin-bottom:18px;">
+      El trabajo<br>que no para.<br><span class="grad">El equipo que no duerme.</span>
+    </h1>
+
+    <p style="font-size:13px;color:var(--muted);line-height:1.65;max-width:120mm;margin-bottom:30px;">Desplegamos equipos digitales de agentes inteligentes que operan su negocio 24/7 — ventas, atención, operaciones y seguridad, coordinados entre sí, sin sueldos fijos.</p>
+
+    <div style="background:var(--bg2);border:1px solid rgba(0,229,160,.2);border-radius:12px;padding:14px 18px;display:inline-block;margin-bottom:28px;">
+      <div style="font-size:8px;font-weight:700;color:var(--green);letter-spacing:.15em;text-transform:uppercase;margin-bottom:5px;">Preparado para</div>
+      <div style="font-size:18px;font-weight:800;" data-c></div>
+      <div style="font-size:10px;color:var(--muted);margin-top:3px;" data-con></div>
+    </div>
+
+    <div style="display:flex;gap:24px;">
+      <div><div style="font-size:8px;color:rgba(255,255,255,.28);text-transform:uppercase;letter-spacing:.1em;margin-bottom:3px;">Elaborado por</div><div style="font-size:11px;color:rgba(255,255,255,.6);font-family:'JetBrains Mono',monospace;">Santiago Juárez T. · CEO</div></div>
+      <div style="width:1px;background:var(--border);"></div>
+      <div><div style="font-size:8px;color:rgba(255,255,255,.28);text-transform:uppercase;letter-spacing:.1em;margin-bottom:3px;">Fecha</div><div style="font-size:11px;color:rgba(255,255,255,.6);font-family:'JetBrains Mono',monospace;" data-f></div></div>
+      <div style="width:1px;background:var(--border);"></div>
+      <div><div style="font-size:8px;color:rgba(255,255,255,.28);text-transform:uppercase;letter-spacing:.1em;margin-bottom:3px;">Validez</div><div style="font-size:11px;color:rgba(255,255,255,.6);font-family:'JetBrains Mono',monospace;">30 días</div></div>
+    </div>
+  </div>
+
+  <div class="pf"><span></span><span>trevainnovate.com · 1 / 7</span><a class="nav-arrow" href="#problema">→ El problema</a></div>
+</div>
+
+
+<!-- ════════════════════════════════════════════════════
+     P2 — EL COSTO INVISIBLE
+════════════════════════════════════════════════════ -->
+<div class="page" id="problema">
+  <div class="topbar"></div>
+  <div class="ph"><div class="logo"><div class="ld"></div>TREV'AINNOVATE</div><div class="meta"><span data-c></span><br><span data-f></span></div></div>
+  <div class="pb">
+
+    <span class="lbl">El problema</span>
+    <h2 style="font-size:24px;font-weight:900;line-height:1.06;letter-spacing:-.02em;margin-bottom:6px;">
+      Tu empresa pierde más de lo que crees.<br><span class="grad">Todos los días.</span>
+    </h2>
+    <p style="font-size:11px;color:var(--muted);line-height:1.6;margin-bottom:14px;max-width:160mm;">No es incompetencia del equipo ni falta de trabajo. Es que una parte del valor que genera tu empresa se evapora en procesos manuales, tiempos de respuesta lentos y brechas de seguridad que nadie está mirando.</p>
+
+    <!-- Tres costos grandes -->
+    <div class="three" style="margin-bottom:12px;">
+      <div style="background:rgba(239,68,68,.05);border:1px solid rgba(239,68,68,.18);border-radius:12px;padding:16px;">
+        <div style="font-size:11px;font-weight:700;color:rgba(239,68,68,.8);text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px;">💸 Costo laboral</div>
+        <div style="font-size:38px;font-weight:900;color:#ef4444;font-family:'JetBrains Mono',monospace;line-height:1;margin-bottom:6px;">$23K</div>
+        <div style="font-size:10px;color:var(--muted);line-height:1.5;">promedio mensual por empleado incluyendo sueldo, IMSS, vacaciones y aguinaldo — para tareas que un agente ejecuta en segundos</div>
+      </div>
+      <div style="background:rgba(245,158,11,.05);border:1px solid rgba(245,158,11,.18);border-radius:12px;padding:16px;">
+        <div style="font-size:11px;font-weight:700;color:rgba(245,158,11,.8);text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px;">⏰ Tiempo perdido</div>
+        <div style="font-size:38px;font-weight:900;color:var(--amber);font-family:'JetBrains Mono',monospace;line-height:1;margin-bottom:6px;">23h</div>
+        <div style="font-size:10px;color:var(--muted);line-height:1.5;">semanales en tareas administrativas manuales en una empresa de 20 personas — seguimiento, reportes, coordinación, capturas</div>
+      </div>
+      <div style="background:rgba(139,92,246,.05);border:1px solid rgba(139,92,246,.18);border-radius:12px;padding:16px;">
+        <div style="font-size:11px;font-weight:700;color:rgba(139,92,246,.8);text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px;">🔓 Riesgo digital</div>
+        <div style="font-size:38px;font-weight:900;color:var(--purple);font-family:'JetBrains Mono',monospace;line-height:1;margin-bottom:6px;">$180K</div>
+        <div style="font-size:10px;color:var(--muted);line-height:1.5;">MXN costo promedio de un incidente de fraude por correo corporativo — y el 91% de las empresas tiene su dominio sin protección activa</div>
+      </div>
+    </div>
+
+    <!-- Oportunidades perdidas -->
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:12px;">
+      <div style="font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.14em;margin-bottom:10px;">Lo que pasa mientras tu equipo duerme</div>
+      <div class="three" style="gap:5mm;">
+        <div style="text-align:center;padding:8px;">
+          <div style="font-size:28px;font-weight:900;color:rgba(255,255,255,.25);font-family:'JetBrains Mono',monospace;margin-bottom:5px;">4h</div>
+          <div style="font-size:9.5px;color:var(--muted);line-height:1.45;">tiempo promedio de respuesta a un lead que llegó fuera de horario</div>
+        </div>
+        <div style="text-align:center;padding:8px;border-left:1px solid var(--border);border-right:1px solid var(--border);">
+          <div style="font-size:28px;font-weight:900;color:rgba(255,255,255,.25);font-family:'JetBrains Mono',monospace;margin-bottom:5px;">62%</div>
+          <div style="font-size:9.5px;color:var(--muted);line-height:1.45;">de los prospectos elige al primero que responde, no al mejor</div>
+        </div>
+        <div style="text-align:center;padding:8px;">
+          <div style="font-size:28px;font-weight:900;color:rgba(255,255,255,.25);font-family:'JetBrains Mono',monospace;margin-bottom:5px;">0</div>
+          <div style="font-size:9.5px;color:var(--muted);line-height:1.45;">alertas de seguridad recibe la mayoría de empresas antes de que el fraude ocurra</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Insight cierre -->
+    <div style="background:linear-gradient(135deg,rgba(0,229,160,.06),rgba(59,130,246,.04));border:1px solid rgba(0,229,160,.18);border-radius:12px;padding:14px 18px;">
+      <p style="font-size:12px;font-weight:600;color:var(--white);line-height:1.6;">No es que tu empresa sea ineficiente. Es que tus competidores ya tienen equipos digitales que trabajan mientras los tuyos descansan. <span style="color:var(--green);">La diferencia no es talento — es infraestructura.</span></p>
+    </div>
+
+  </div>
+  <div class="pf"><a class="nav-arrow" href="#portada">← Portada</a><span>trevainnovate.com · 2 / 7</span><a class="nav-arrow" href="#solucion">→ La solución</a></div>
+</div>
+
+
+<!-- ════════════════════════════════════════════════════
+     P3 — LA NUEVA CATEGORÍA
+════════════════════════════════════════════════════ -->
+<div class="page" id="solucion">
+  <div class="topbar"></div>
+  <div class="ph"><div class="logo"><div class="ld"></div>TREV'AINNOVATE</div><div class="meta"><span data-c></span><br><span data-f></span></div></div>
+  <div class="pb">
+
+    <span class="lbl">La solución</span>
+    <h2 style="font-size:22px;font-weight:900;line-height:1.06;letter-spacing:-.02em;margin-bottom:5px;">
+      Un solo ecosistema.<br><span class="grad">Tres formas de entrar.</span>
+    </h2>
+    <p style="font-size:11px;color:var(--muted);line-height:1.6;margin-bottom:12px;max-width:160mm;">No existe un modelo único. Cada empresa empieza donde lo necesita hoy y escala cuando los resultados lo justifican — sin contratos anuales ni penalizaciones por crecer.</p>
+
+    <!-- Progresión de 3 niveles -->
+    <div class="three" style="margin-bottom:11px;gap:5mm;">
+      <div style="background:rgba(59,130,246,.04);border:1px solid rgba(59,130,246,.2);border-radius:11px;padding:13px 14px;display:flex;flex-direction:column;gap:7px;">
+        <div style="font-size:8px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.14em;font-family:'JetBrains Mono',monospace;">⚙️  Nivel 01</div>
+        <div style="font-size:14px;font-weight:800;color:var(--white);">Automatización</div>
+        <div style="font-size:9.5px;color:var(--muted);line-height:1.5;flex:1;">Elimina procesos manuales repetitivos con lógica precisa y confiable. Facturación, reportes, sincronización — sin IA, siempre confiable.</div>
+        <div style="display:flex;flex-direction:column;gap:3px;">
+          <div style="font-size:9px;color:rgba(255,255,255,.6);display:flex;gap:5px;"><span style="color:var(--blue);">→</span>Entrega en 1–2 semanas</div>
+          <div style="font-size:9px;color:rgba(255,255,255,.6);display:flex;gap:5px;"><span style="color:var(--blue);">→</span>Proyecto único o retainer</div>
+        </div>
+        <div style="padding-top:7px;border-top:1px solid rgba(59,130,246,.15);"><div style="font-size:8px;padding:3px 7px;border-radius:4px;background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.2);color:var(--blue);font-family:'JetBrains Mono',monospace;display:inline-block;">One-time o retainer</div></div>
+      </div>
+
+      <div style="background:rgba(0,229,160,.04);border:1px solid rgba(0,229,160,.28);border-radius:11px;padding:13px 14px;display:flex;flex-direction:column;gap:7px;position:relative;">
+        <div style="position:absolute;top:-1px;right:11px;font-size:7.5px;font-weight:700;color:var(--bg);background:var(--green);padding:3px 9px;border-radius:0 0 6px 6px;letter-spacing:.1em;text-transform:uppercase;">Popular</div>
+        <div style="font-size:8px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.14em;font-family:'JetBrains Mono',monospace;">🤖  Nivel 02</div>
+        <div style="font-size:14px;font-weight:800;color:var(--green);">Agente Funcional</div>
+        <div style="font-size:9.5px;color:var(--muted);line-height:1.5;flex:1;">Un empleado digital con rol específico: ventas, soporte o coordinación. Percibe el contexto, razona y decide. Aprende con cada interacción.</div>
+        <div style="display:flex;flex-direction:column;gap:3px;">
+          <div style="font-size:9px;color:rgba(255,255,255,.8);display:flex;gap:5px;"><span style="color:var(--green);">→</span>1 agente activo 24/7</div>
+          <div style="font-size:9px;color:rgba(255,255,255,.8);display:flex;gap:5px;"><span style="color:var(--green);">→</span>Portal cliente incluido</div>
+        </div>
+        <div style="padding-top:7px;border-top:1px solid rgba(0,229,160,.15);"><div style="font-size:8px;padding:3px 7px;border-radius:4px;background:rgba(0,229,160,.1);border:1px solid rgba(0,229,160,.2);color:var(--green);font-family:'JetBrains Mono',monospace;display:inline-block;">Retainer mensual · 24/7</div></div>
+      </div>
+
+      <div style="background:rgba(139,92,246,.04);border:1px solid rgba(139,92,246,.2);border-radius:11px;padding:13px 14px;display:flex;flex-direction:column;gap:7px;">
+        <div style="font-size:8px;font-weight:700;color:var(--purple);text-transform:uppercase;letter-spacing:.14em;font-family:'JetBrains Mono',monospace;">🌐  Nivel 03</div>
+        <div style="font-size:14px;font-weight:800;color:var(--white);">Ecosistema Completo</div>
+        <div style="font-size:9.5px;color:var(--muted);line-height:1.5;flex:1;">Múltiples agentes coordinados cubriendo las 4 áreas. Automatizaciones y seguridad digital administrada incluidas.</div>
+        <div style="display:flex;flex-direction:column;gap:3px;">
+          <div style="font-size:9px;color:rgba(255,255,255,.6);display:flex;gap:5px;"><span style="color:var(--purple);">→</span>3–5 agentes coordinados</div>
+          <div style="font-size:9px;color:rgba(255,255,255,.6);display:flex;gap:5px;"><span style="color:var(--purple);">→</span>Seguridad incluida</div>
+        </div>
+        <div style="padding-top:7px;border-top:1px solid rgba(139,92,246,.15);"><div style="font-size:8px;padding:3px 7px;border-radius:4px;background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.2);color:var(--purple);font-family:'JetBrains Mono',monospace;display:inline-block;">Retainer mensual · todo incluido</div></div>
+      </div>
+    </div>
+
+    <!-- Portal strip -->
+    <div style="background:linear-gradient(135deg,rgba(0,229,160,.05),rgba(59,130,246,.03));border:1px solid rgba(0,229,160,.2);border-radius:10px;padding:10px 15px;display:flex;align-items:center;gap:12px;margin-bottom:10px;">
+      <div style="font-size:18px;flex-shrink:0;">📊</div>
+      <div style="flex:1;">
+        <div style="font-size:11px;font-weight:800;color:var(--white);margin-bottom:2px;">Portal del cliente — incluido en todos los niveles, sin costo adicional</div>
+        <div style="font-size:9.5px;color:var(--muted);">Monitorea tu ecosistema en tiempo real: estado de agentes, automatizaciones activas, alertas de seguridad y reportes de actividad.</div>
+      </div>
+      <div style="font-size:8px;font-weight:700;padding:4px 10px;border-radius:5px;background:rgba(0,229,160,.1);border:1px solid rgba(0,229,160,.2);color:var(--green);font-family:'JetBrains Mono',monospace;white-space:nowrap;flex-shrink:0;">Acceso inmediato</div>
+    </div>
+
+    <!-- Módulos + 4 áreas -->
+    <div class="two" style="gap:6mm;">
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:11px 14px;">
+        <div style="font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.14em;margin-bottom:8px;">Módulos adicionales — disponibles en cualquier nivel</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;">
+          <div style="padding:8px 10px;background:rgba(245,158,11,.05);border:1px solid rgba(245,158,11,.15);border-radius:7px;display:flex;gap:7px;align-items:center;">
+            <span style="font-size:14px;">🛡️</span>
+            <div><div style="font-size:9px;font-weight:700;color:var(--amber);">Seguridad</div><div style="font-size:8px;color:var(--muted);">Add-on L1/L2 · Incluida en L3</div></div>
+          </div>
+          <div style="padding:8px 10px;background:rgba(59,130,246,.05);border:1px solid rgba(59,130,246,.15);border-radius:7px;display:flex;gap:7px;align-items:center;">
+            <span style="font-size:14px;">🎙️</span>
+            <div><div style="font-size:9px;font-weight:700;color:var(--blue);">Voz con IA</div><div style="font-size:8px;color:var(--muted);">Llamadas + atención telefónica</div></div>
+          </div>
+          <div style="padding:8px 10px;background:rgba(0,229,160,.04);border:1px solid rgba(0,229,160,.12);border-radius:7px;display:flex;gap:7px;align-items:center;">
+            <span style="font-size:14px;">🔗</span>
+            <div><div style="font-size:9px;font-weight:700;color:var(--green);">Integraciones</div><div style="font-size:8px;color:var(--muted);">ERP, CRM, WhatsApp Business</div></div>
+          </div>
+          <div style="padding:8px 10px;background:rgba(139,92,246,.04);border:1px solid rgba(139,92,246,.12);border-radius:7px;display:flex;gap:7px;align-items:center;">
+            <span style="font-size:14px;">📈</span>
+            <div><div style="font-size:9px;font-weight:700;color:var(--purple);">Analytics</div><div style="font-size:8px;color:var(--muted);">Dashboards avanzados</div></div>
+          </div>
+        </div>
+      </div>
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:11px 14px;">
+        <div style="font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.14em;margin-bottom:8px;">Las 4 áreas del ecosistema</div>
+        <div style="display:flex;flex-direction:column;gap:5px;">
+          <div style="display:flex;gap:9px;align-items:center;padding:6px 10px;border-radius:7px;background:rgba(0,229,160,.04);border:1px solid rgba(0,229,160,.1);">
+            <span style="font-size:14px;">🤝</span><div><div style="font-size:10px;font-weight:700;color:var(--green);">Comercial</div><div style="font-size:8.5px;color:var(--muted);">Prospección, follow-up y propuestas</div></div>
+          </div>
+          <div style="display:flex;gap:9px;align-items:center;padding:6px 10px;border-radius:7px;background:rgba(59,130,246,.04);border:1px solid rgba(59,130,246,.1);">
+            <span style="font-size:14px;">💬</span><div><div style="font-size:10px;font-weight:700;color:var(--blue);">Atención</div><div style="font-size:8.5px;color:var(--muted);">WhatsApp, correo y voz 24/7</div></div>
+          </div>
+          <div style="display:flex;gap:9px;align-items:center;padding:6px 10px;border-radius:7px;background:rgba(139,92,246,.04);border:1px solid rgba(139,92,246,.1);">
+            <span style="font-size:14px;">⚙️</span><div><div style="font-size:10px;font-weight:700;color:var(--purple);">Operaciones</div><div style="font-size:8.5px;color:var(--muted);">Reportes, coordinación, cuellos de botella</div></div>
+          </div>
+          <div style="display:flex;gap:9px;align-items:center;padding:6px 10px;border-radius:7px;background:rgba(245,158,11,.04);border:1px solid rgba(245,158,11,.1);">
+            <span style="font-size:14px;">🛡️</span><div><div style="font-size:10px;font-weight:700;color:var(--amber);">Seguridad</div><div style="font-size:8.5px;color:var(--muted);">Monitoreo DNS, amenazas e incidentes</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="pf"><a class="nav-arrow" href="#problema">← El problema</a><span>trevainnovate.com · 3 / 7</span><a class="nav-arrow" href="#ecosistema">→ El ecosistema</a></div>
+</div>
+
+
+<!-- ════════════════════════════════════════════════════
+     P4 — DENTRO DEL ECOSISTEMA
+════════════════════════════════════════════════════ -->
+<div class="page" id="ecosistema">
+  <div class="topbar"></div>
+  <div class="ph"><div class="logo"><div class="ld"></div>TREV'AINNOVATE</div><div class="meta"><span data-c></span><br><span data-f></span></div></div>
+  <div class="pb">
+
+    <span class="lbl">El ecosistema</span>
+    <h2 style="font-size:22px;font-weight:900;line-height:1.06;letter-spacing:-.02em;margin-bottom:5px;">
+      12 agentes. <span class="grad">4 áreas de su negocio.</span>
+    </h2>
+    <p style="font-size:11px;color:var(--muted);line-height:1.6;margin-bottom:13px;">Cada agente se despliega de forma independiente o coordinada. Su ecosistema crece según sus prioridades — empieza por el área de mayor impacto y expande desde ahí.</p>
+
+    <div class="two" style="flex:1;gap:6mm;align-items:start;">
+      <!-- Columna izquierda -->
+      <div>
+        <!-- Comercial -->
+        <div style="font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:var(--green);padding:4px 9px;background:rgba(0,229,160,.08);border:1px solid rgba(0,229,160,.15);border-radius:5px;display:inline-flex;align-items:center;gap:5px;margin-bottom:8px;">🤝 Comercial</div>
+        <div style="display:flex;flex-direction:column;gap:5px;margin-bottom:13px;">
+          <div style="display:flex;gap:9px;padding:9px 11px;background:rgba(255,255,255,.025);border:1px solid rgba(0,229,160,.1);border-radius:8px;">
+            <span style="font-size:16px;flex-shrink:0;">🎯</span>
+            <div><div style="font-size:10.5px;font-weight:700;color:var(--white);margin-bottom:2px;">SDR Comercial</div><div style="font-size:9px;color:var(--muted);line-height:1.4;">Prospecta, califica leads y agenda demos sin intervención humana. Opera 24/7.</div></div>
+          </div>
+          <div style="display:flex;gap:9px;padding:9px 11px;background:rgba(255,255,255,.025);border:1px solid rgba(0,229,160,.1);border-radius:8px;">
+            <span style="font-size:16px;flex-shrink:0;">📧</span>
+            <div><div style="font-size:10.5px;font-weight:700;color:var(--white);margin-bottom:2px;">Follow-up de Leads</div><div style="font-size:9px;color:var(--muted);line-height:1.4;">Detecta en qué etapa está cada prospecto y actúa en consecuencia hasta el cierre.</div></div>
+          </div>
+          <div style="display:flex;gap:9px;padding:9px 11px;background:rgba(255,255,255,.025);border:1px solid rgba(0,229,160,.1);border-radius:8px;">
+            <span style="font-size:16px;flex-shrink:0;">📋</span>
+            <div><div style="font-size:10.5px;font-weight:700;color:var(--white);margin-bottom:2px;">Generador de Propuestas</div><div style="font-size:9px;color:var(--muted);line-height:1.4;">Construye propuestas personalizadas en segundos a partir del diagnóstico del cliente.</div></div>
+          </div>
+        </div>
+
+        <!-- Atención -->
+        <div style="font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:var(--blue);padding:4px 9px;background:rgba(59,130,246,.08);border:1px solid rgba(59,130,246,.15);border-radius:5px;display:inline-flex;align-items:center;gap:5px;margin-bottom:8px;">💬 Atención al Cliente</div>
+        <div style="display:flex;flex-direction:column;gap:5px;">
+          <div style="display:flex;gap:9px;padding:9px 11px;background:rgba(255,255,255,.025);border:1px solid rgba(59,130,246,.1);border-radius:8px;">
+            <span style="font-size:16px;flex-shrink:0;">💬</span>
+            <div><div style="font-size:10.5px;font-weight:700;color:var(--white);margin-bottom:2px;">Atención WhatsApp</div><div style="font-size:9px;color:var(--muted);line-height:1.4;">Responde, cotiza y escala a humano solo cuando la situación lo requiere. 24/7.</div></div>
+          </div>
+          <div style="display:flex;gap:9px;padding:9px 11px;background:rgba(255,255,255,.025);border:1px solid rgba(59,130,246,.1);border-radius:8px;">
+            <span style="font-size:16px;flex-shrink:0;">📬</span>
+            <div><div style="font-size:10.5px;font-weight:700;color:var(--white);margin-bottom:2px;">Gestión de Correo</div><div style="font-size:9px;color:var(--muted);line-height:1.4;">Clasifica, responde y prioriza correos. Extrae datos relevantes y notifica al equipo.</div></div>
+          </div>
+          <div style="display:flex;gap:9px;padding:9px 11px;background:rgba(255,255,255,.025);border:1px solid rgba(59,130,246,.1);border-radius:8px;">
+            <span style="font-size:16px;flex-shrink:0;">🚀</span>
+            <div><div style="font-size:10.5px;font-weight:700;color:var(--white);margin-bottom:2px;">Onboarding de Clientes</div><div style="font-size:9px;color:var(--muted);line-height:1.4;">Acompaña al cliente nuevo en cada paso del proceso. Cero intervención manual.</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Columna derecha -->
+      <div>
+        <!-- Operaciones -->
+        <div style="font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:var(--purple);padding:4px 9px;background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.15);border-radius:5px;display:inline-flex;align-items:center;gap:5px;margin-bottom:8px;">⚙️ Operaciones</div>
+        <div style="display:flex;flex-direction:column;gap:5px;margin-bottom:13px;">
+          <div style="display:flex;gap:9px;padding:9px 11px;background:rgba(255,255,255,.025);border:1px solid rgba(139,92,246,.1);border-radius:8px;">
+            <span style="font-size:16px;flex-shrink:0;">📊</span>
+            <div><div style="font-size:10.5px;font-weight:700;color:var(--white);margin-bottom:2px;">Reportes Ejecutivos</div><div style="font-size:9px;color:var(--muted);line-height:1.4;">Genera reportes en tiempo real desde cualquier fuente de datos conectada.</div></div>
+          </div>
+          <div style="display:flex;gap:9px;padding:9px 11px;background:rgba(255,255,255,.025);border:1px solid rgba(139,92,246,.1);border-radius:8px;">
+            <span style="font-size:16px;flex-shrink:0;">🔄</span>
+            <div><div style="font-size:10.5px;font-weight:700;color:var(--white);margin-bottom:2px;">Coordinación Operativa</div><div style="font-size:9px;color:var(--muted);line-height:1.4;">Sincroniza equipos y sistemas. Detecta cuellos de botella antes de que escalen.</div></div>
+          </div>
+          <div style="display:flex;gap:9px;padding:9px 11px;background:rgba(255,255,255,.025);border:1px solid rgba(139,92,246,.1);border-radius:8px;">
+            <span style="font-size:16px;flex-shrink:0;">🧾</span>
+            <div><div style="font-size:10.5px;font-weight:700;color:var(--white);margin-bottom:2px;">Facturación Asistida</div><div style="font-size:9px;color:var(--muted);line-height:1.4;">Genera CFDIs, rastrea pagos y notifica cuando algo requiere revisión humana.</div></div>
+          </div>
+        </div>
+
+        <!-- Seguridad -->
+        <div style="font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:var(--amber);padding:4px 9px;background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.15);border-radius:5px;display:inline-flex;align-items:center;gap:5px;margin-bottom:8px;">🛡️ Seguridad Digital</div>
+        <div style="display:flex;flex-direction:column;gap:5px;">
+          <div style="display:flex;gap:9px;padding:9px 11px;background:rgba(255,255,255,.025);border:1px solid rgba(245,158,11,.1);border-radius:8px;">
+            <span style="font-size:16px;flex-shrink:0;">🛡️</span>
+            <div><div style="font-size:10.5px;font-weight:700;color:var(--white);margin-bottom:2px;">DMARC Analyst</div><div style="font-size:9px;color:var(--muted);line-height:1.4;">Configura SPF/DKIM/DMARC y detecta intentos de suplantación en tiempo real.</div></div>
+          </div>
+          <div style="display:flex;gap:9px;padding:9px 11px;background:rgba(255,255,255,.025);border:1px solid rgba(245,158,11,.1);border-radius:8px;">
+            <span style="font-size:16px;flex-shrink:0;">🔍</span>
+            <div><div style="font-size:10.5px;font-weight:700;color:var(--white);margin-bottom:2px;">Threat Intelligence</div><div style="font-size:9px;color:var(--muted);line-height:1.4;">Monitorea filtraciones y exposición de credenciales del dominio de forma continua.</div></div>
+          </div>
+          <div style="display:flex;gap:9px;padding:9px 11px;background:rgba(255,255,255,.025);border:1px solid rgba(245,158,11,.1);border-radius:8px;">
+            <span style="font-size:16px;flex-shrink:0;">⚡</span>
+            <div><div style="font-size:10.5px;font-weight:700;color:var(--white);margin-bottom:2px;">Incident Response</div><div style="font-size:9px;color:var(--muted);line-height:1.4;">Detecta caídas de servicio y ejecuta protocolos de recuperación automáticamente.</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="pf"><a class="nav-arrow" href="#solucion">← La solución</a><span>trevainnovate.com · 4 / 7</span><a class="nav-arrow" href="#prueba">→ Prueba real</a></div>
+</div>
+
+
+<!-- ════════════════════════════════════════════════════
+     P5 — PRUEBA REAL
+════════════════════════════════════════════════════ -->
+<div class="page" id="prueba">
+  <div class="topbar"></div>
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 60% 40%,rgba(0,229,160,.05) 0%,transparent 60%);pointer-events:none;"></div>
+  <div class="ph"><div class="logo"><div class="ld"></div>TREV'AINNOVATE</div><div class="meta"><span data-c></span><br><span data-f></span></div></div>
+  <div class="pb" style="position:relative;z-index:1;">
+
+    <span class="lbl">Quiénes somos</span>
+    <h2 style="font-size:24px;font-weight:900;line-height:1.06;letter-spacing:-.02em;margin-bottom:6px;">
+      Vendemos lo que usamos.<br><span class="grad">Nuestra empresa corre sobre sus propios agentes.</span>
+    </h2>
+    <p style="font-size:11px;color:var(--muted);line-height:1.6;margin-bottom:14px;max-width:160mm;">No ofrecemos consultoría teórica. Cada lead que procesamos, cada reporte que generamos, cada alerta de seguridad que respondemos — lo hace un agente, no una persona. Esta propuesta fue preparada por el mismo sistema que desplegaríamos para ti.</p>
+
+    <!-- Métricas grandes -->
+    <div class="four" style="margin-bottom:14px;gap:6px;">
+      <div style="background:rgba(0,229,160,.05);border:1px solid rgba(0,229,160,.18);border-radius:11px;padding:14px 16px;text-align:center;">
+        <div style="font-size:40px;font-weight:900;color:var(--green);font-family:'JetBrains Mono',monospace;line-height:1;margin-bottom:5px;">9</div>
+        <div style="font-size:9.5px;color:rgba(255,255,255,.55);line-height:1.4;">workflows activos en producción ahora mismo</div>
+      </div>
+      <div style="background:rgba(59,130,246,.05);border:1px solid rgba(59,130,246,.18);border-radius:11px;padding:14px 16px;text-align:center;">
+        <div style="font-size:36px;font-weight:900;color:var(--blue);font-family:'JetBrains Mono',monospace;line-height:1;margin-bottom:5px;">99.8%</div>
+        <div style="font-size:9.5px;color:rgba(255,255,255,.55);line-height:1.4;">uptime de infraestructura últimos 30 días</div>
+      </div>
+      <div style="background:rgba(139,92,246,.05);border:1px solid rgba(139,92,246,.18);border-radius:11px;padding:14px 16px;text-align:center;">
+        <div style="font-size:36px;font-weight:900;color:var(--purple);font-family:'JetBrains Mono',monospace;line-height:1;margin-bottom:5px;">&lt;2m</div>
+        <div style="font-size:9.5px;color:rgba(255,255,255,.55);line-height:1.4;">tiempo de respuesta promedio de cada agente</div>
+      </div>
+      <div style="background:rgba(245,158,11,.05);border:1px solid rgba(245,158,11,.18);border-radius:11px;padding:14px 16px;text-align:center;">
+        <div style="font-size:40px;font-weight:900;color:var(--amber);font-family:'JetBrains Mono',monospace;line-height:1;margin-bottom:5px;">24/7</div>
+        <div style="font-size:9.5px;color:rgba(255,255,255,.55);line-height:1.4;">operación autónoma sin intervención humana</div>
+      </div>
+    </div>
+
+    <!-- Qué hace la operación -->
+    <div class="two" style="gap:6mm;margin-bottom:12px;">
+      <div class="block g" style="padding:14px 16px;">
+        <div style="font-size:11px;font-weight:800;color:var(--white);margin-bottom:8px;">Lo que hacen nuestros agentes hoy</div>
+        <ul class="chk">
+          <li>Prospección automática: 50 leads/mes procesados por agente SDR</li>
+          <li>Follow-up: secuencias personalizadas sin intervención manual</li>
+          <li>Diagnóstico de clientes: scoring automático en &lt;2 minutos</li>
+          <li>Monitoreo DMARC: revisión diaria de todos los clientes activos</li>
+          <li>Alertas de incidentes: respuesta inmediata ante caídas de servicio</li>
+          <li>Reportes semanales y mensuales: generados y enviados automáticamente</li>
+        </ul>
+      </div>
+      <div>
+        <div class="block" style="margin-bottom:8px;padding:14px 16px;">
+          <div style="font-size:11px;font-weight:800;color:var(--white);margin-bottom:8px;">Stack tecnológico</div>
+          <div style="display:flex;flex-wrap:wrap;gap:5px;">
+            <span style="font-size:8.5px;padding:4px 9px;border-radius:5px;background:rgba(0,229,160,.08);border:1px solid rgba(0,229,160,.2);color:var(--green);font-family:'JetBrains Mono',monospace;">n8n self-hosted</span>
+            <span style="font-size:8.5px;padding:4px 9px;border-radius:5px;background:rgba(59,130,246,.08);border:1px solid rgba(59,130,246,.2);color:var(--blue);font-family:'JetBrains Mono',monospace;">Claude AI</span>
+            <span style="font-size:8.5px;padding:4px 9px;border-radius:5px;background:rgba(255,255,255,.05);border:1px solid var(--border);color:rgba(255,255,255,.5);font-family:'JetBrains Mono',monospace;">Cloudflare</span>
+            <span style="font-size:8.5px;padding:4px 9px;border-radius:5px;background:rgba(255,255,255,.05);border:1px solid var(--border);color:rgba(255,255,255,.5);font-family:'JetBrains Mono',monospace;">BetterStack</span>
+            <span style="font-size:8.5px;padding:4px 9px;border-radius:5px;background:rgba(255,255,255,.05);border:1px solid var(--border);color:rgba(255,255,255,.5);font-family:'JetBrains Mono',monospace;">Supabase</span>
+            <span style="font-size:8.5px;padding:4px 9px;border-radius:5px;background:rgba(255,255,255,.05);border:1px solid var(--border);color:rgba(255,255,255,.5);font-family:'JetBrains Mono',monospace;">Vapi</span>
+            <span style="font-size:8.5px;padding:4px 9px;border-radius:5px;background:rgba(255,255,255,.05);border:1px solid var(--border);color:rgba(255,255,255,.5);font-family:'JetBrains Mono',monospace;">Resend</span>
+            <span style="font-size:8.5px;padding:4px 9px;border-radius:5px;background:rgba(255,255,255,.05);border:1px solid var(--border);color:rgba(255,255,255,.5);font-family:'JetBrains Mono',monospace;">Notion</span>
+          </div>
+        </div>
+        <div style="background:linear-gradient(135deg,rgba(0,229,160,.06),rgba(59,130,246,.04));border:1px solid rgba(0,229,160,.18);border-radius:11px;padding:13px 15px;">
+          <div style="font-size:11px;font-weight:800;color:var(--white);margin-bottom:5px;">Por qué importa</div>
+          <p style="font-size:9.5px;color:var(--muted);line-height:1.55;">No necesitas creer en nuestra propuesta — puedes ver el sistema funcionando antes de comprometerte. El diagnóstico de tu operación lo procesa el mismo agente que desplegaríamos para ti.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="pf"><a class="nav-arrow" href="#ecosistema">← El ecosistema</a><span>trevainnovate.com · 5 / 7</span><a class="nav-arrow" href="#inversion">→ Inversión</a></div>
+</div>
+
+
+<!-- ════════════════════════════════════════════════════
+     P6 — LOS 4 NIVELES
+════════════════════════════════════════════════════ -->
+<div class="page" id="inversion">
+  <div class="topbar"></div>
+  <div class="ph"><div class="logo"><div class="ld"></div>TREV'AINNOVATE</div><div class="meta"><span data-c></span><br><span data-f></span></div></div>
+  <div class="pb">
+
+    <span class="lbl">Inversión</span>
+    <h2 style="font-size:28px;font-weight:900;line-height:1.06;letter-spacing:-.02em;margin-bottom:8px;">
+      Dos formas de entrar.<br><span class="grad">Una sola dirección.</span>
+    </h2>
+    <p style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:22px;">Un proyecto para empezar. Un equipo de agentes para crecer. El diagnóstico determina por dónde.</p>
+
+    <!-- BLOQUE 1: Proyecto de entrada -->
+    <div style="border:1px solid rgba(59,130,246,.25);border-radius:14px;overflow:hidden;margin-bottom:16px;">
+      <div style="background:rgba(59,130,246,.08);padding:14px 22px;border-bottom:1px solid rgba(59,130,246,.18);display:flex;align-items:center;justify-content:space-between;gap:16px;">
+        <div>
+          <div style="font-size:11px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.14em;margin-bottom:3px;font-family:'JetBrains Mono',monospace;">Proyecto de Automatización · Pago único</div>
+          <div style="font-size:16px;font-weight:900;color:var(--white);">El primer paso. Construimos, entregamos, corren solos.</div>
+        </div>
+        <div style="text-align:right;flex-shrink:0;">
+          <div style="font-size:28px;font-weight:900;color:var(--blue);font-family:'JetBrains Mono',monospace;">$8,000–15,000</div>
+          <div style="font-size:11px;color:var(--muted);">MXN · pago único · sin mensualidad</div>
+        </div>
+      </div>
+      <div style="padding:14px 22px;background:var(--bg2);display:flex;align-items:center;gap:10px;">
+        <div style="font-size:18px;">→</div>
+        <div style="font-size:12px;color:var(--muted);line-height:1.55;">Ideal para automatizar un proceso específico y conocer cómo trabaja Trev'ainnovate. <strong style="color:rgba(255,255,255,.55);">La mayoría de clientes escala a Equipo de Agentes en los primeros 60 días.</strong></div>
+      </div>
+    </div>
+
+    <!-- BLOQUE 2: Equipo de Agentes -->
+    <div style="border:1px solid rgba(0,229,160,.25);border-radius:14px;overflow:hidden;margin-bottom:14px;">
+      <div style="background:rgba(0,229,160,.07);padding:14px 22px;border-bottom:1px solid rgba(0,229,160,.18);">
+        <div style="font-size:11px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.14em;margin-bottom:3px;font-family:'JetBrains Mono',monospace;">Equipo de Agentes · Retainer mensual</div>
+        <div style="font-size:16px;font-weight:900;color:var(--white);">Operadores digitales que trabajan para tu empresa 24/7.</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;">
+
+        <div style="padding:18px 20px;border-right:1px solid var(--border);">
+          <div style="font-size:10px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;font-family:'JetBrains Mono',monospace;">Agente Funcional</div>
+          <div style="font-size:13px;color:rgba(255,255,255,.7);line-height:1.5;margin-bottom:14px;">Un agente con rol específico: ventas, soporte o coordinación.</div>
+          <div style="font-size:24px;font-weight:900;color:var(--green);font-family:'JetBrains Mono',monospace;">$3,500–6,000</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:3px;">MXN/mes</div>
+        </div>
+
+        <div style="padding:18px 20px;border-right:1px solid var(--border);background:rgba(0,229,160,.03);position:relative;">
+          <div style="position:absolute;top:0;right:12px;font-size:8px;font-weight:700;color:var(--bg);background:var(--green);padding:2px 8px;border-radius:0 0 5px 5px;letter-spacing:.1em;text-transform:uppercase;">Popular</div>
+          <div style="font-size:10px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;font-family:'JetBrains Mono',monospace;">Ecosistema</div>
+          <div style="font-size:13px;color:rgba(255,255,255,.7);line-height:1.5;margin-bottom:14px;">3–5 agentes coordinados + seguridad administrada incluida.</div>
+          <div style="font-size:24px;font-weight:900;color:var(--green);font-family:'JetBrains Mono',monospace;">$8,000–15,000</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:3px;">MXN/mes</div>
+        </div>
+
+        <div style="padding:18px 20px;">
+          <div style="font-size:10px;font-weight:700;color:var(--purple);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;font-family:'JetBrains Mono',monospace;">Empresa Digital</div>
+          <div style="font-size:13px;color:rgba(255,255,255,.7);line-height:1.5;margin-bottom:14px;">Operación completa autónoma en todas las áreas del negocio.</div>
+          <div style="font-size:24px;font-weight:900;color:var(--purple);font-family:'JetBrains Mono',monospace;">$20,000+</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:3px;">MXN/mes · a medida</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Nota portal + seguridad -->
+    <div class="two" style="gap:10px;">
+      <div style="background:linear-gradient(135deg,rgba(0,229,160,.05),rgba(59,130,246,.03));border:1px solid rgba(0,229,160,.18);border-radius:11px;padding:14px 18px;display:flex;align-items:center;gap:12px;">
+        <div style="font-size:20px;flex-shrink:0;">📊</div>
+        <div>
+          <div style="font-size:13px;font-weight:800;color:var(--white);margin-bottom:3px;">Portal del cliente — incluido en Equipo de Agentes</div>
+          <div style="font-size:11px;color:var(--muted);">Métricas en vivo · alertas · reportes automáticos · sin costo adicional</div>
+        </div>
+      </div>
+      <div style="background:rgba(245,158,11,.04);border:1px solid rgba(245,158,11,.15);border-radius:11px;padding:14px 18px;display:flex;align-items:center;gap:12px;">
+        <div style="font-size:20px;flex-shrink:0;">🛡️</div>
+        <div>
+          <div style="font-size:13px;font-weight:800;color:var(--amber);margin-bottom:3px;">Seguridad digital administrada</div>
+          <div style="font-size:11px;color:var(--muted);">Add-on en Agente Funcional · Incluida en Ecosistema y Empresa Digital</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="pf"><a class="nav-arrow" href="#prueba">← Prueba real</a><span>trevainnovate.com · 6 / 7</span><a class="nav-arrow" href="#empezar">→ Cómo empezar</a></div>
+</div>
+
+
+<!-- ════════════════════════════════════════════════════
+     P7 — CÓMO EMPEZAR
+════════════════════════════════════════════════════ -->
+<div class="page" id="empezar">
+  <div class="topbar"></div>
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 60%,rgba(0,229,160,.05) 0%,transparent 60%);pointer-events:none;"></div>
+  <div class="ph"><div class="logo"><div class="ld"></div>TREV'AINNOVATE</div><div class="meta"><span data-c></span><br><span data-f></span></div></div>
+  <div class="pb" style="position:relative;z-index:1;">
+
+    <span class="lbl">Cómo empezar</span>
+    <h2 style="font-size:24px;font-weight:900;line-height:1.06;letter-spacing:-.02em;margin-bottom:6px;">
+      Tres pasos. <span class="grad">Primer agente activo esta semana.</span>
+    </h2>
+    <p style="font-size:11px;color:var(--muted);line-height:1.6;margin-bottom:16px;max-width:150mm;">No necesitamos meses de implementación ni contratos extensos. El primer agente entra en producción antes de que termine la semana siguiente a la aprobación.</p>
+
+    <!-- 3 pasos grandes -->
+    <div class="three" style="gap:7mm;margin-bottom:16px;align-items:start;">
+      <div style="background:var(--bg2);border:1px solid rgba(0,229,160,.2);border-radius:13px;padding:18px 17px;display:flex;flex-direction:column;gap:10px;">
+        <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--green),var(--blue));display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:900;color:var(--bg);">1</div>
+        <div>
+          <div style="font-size:14px;font-weight:800;color:var(--white);margin-bottom:5px;">Diagnóstico gratuito</div>
+          <p style="font-size:10px;color:var(--muted);line-height:1.55;">5 minutos en el formulario + una llamada de 30 minutos. Analizamos tu operación y determinamos qué agentes tienen mayor impacto inmediato en tu empresa.</p>
+        </div>
+        <div style="font-size:9px;color:var(--green);font-family:'JetBrains Mono',monospace;">trevainnovate.com/diagnostico</div>
+      </div>
+
+      <div style="background:var(--bg2);border:1px solid rgba(59,130,246,.2);border-radius:13px;padding:18px 17px;display:flex;flex-direction:column;gap:10px;">
+        <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--purple));display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:900;color:var(--white);">2</div>
+        <div>
+          <div style="font-size:14px;font-weight:800;color:var(--white);margin-bottom:5px;">Propuesta personalizada</div>
+          <p style="font-size:10px;color:var(--muted);line-height:1.55;">Con el diagnóstico en mano, preparamos una propuesta específica para tu empresa: qué agentes, qué nivel, qué inversión y qué resultados esperar en los primeros 30 días.</p>
+        </div>
+        <div style="font-size:9px;color:var(--blue);font-family:'JetBrains Mono',monospace;">Entrega en 24–48 horas</div>
+      </div>
+
+      <div style="background:var(--bg2);border:1px solid rgba(139,92,246,.2);border-radius:13px;padding:18px 17px;display:flex;flex-direction:column;gap:10px;">
+        <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--purple),var(--amber));display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:900;color:var(--white);">3</div>
+        <div>
+          <div style="font-size:14px;font-weight:800;color:var(--white);margin-bottom:5px;">Primer agente activo</div>
+          <p style="font-size:10px;color:var(--muted);line-height:1.55;">Con la aprobación y los accesos, el primer agente entra en producción antes del día 3. Al mes recibes el primer reporte con resultados reales — no proyecciones.</p>
+        </div>
+        <div style="font-size:9px;color:var(--purple);font-family:'JetBrains Mono',monospace;">Activo en &lt; 72 horas</div>
+      </div>
+    </div>
+
+    <!-- Garantía + CTA -->
+    <div class="two" style="gap:7mm;">
+      <div style="background:rgba(0,229,160,.04);border:1px solid rgba(0,229,160,.2);border-radius:12px;padding:14px 16px;">
+        <div style="font-size:20px;margin-bottom:7px;">🤝</div>
+        <div style="font-size:12px;font-weight:800;color:var(--white);margin-bottom:5px;">Garantía 30 días</div>
+        <p style="font-size:9.5px;color:var(--muted);line-height:1.55;">Si al final del primer mes no puedes medir un impacto concreto en tu operación, te devolvemos el 100% de la mensualidad. Sin preguntas.</p>
+      </div>
+
+      <div style="background:linear-gradient(135deg,rgba(0,229,160,.08),rgba(59,130,246,.05));border:1px solid rgba(0,229,160,.25);border-radius:12px;padding:16px 18px;display:flex;flex-direction:column;justify-content:space-between;">
+        <div>
+          <div style="font-size:14px;font-weight:900;color:var(--white);margin-bottom:5px;">¿Empezamos esta semana?</div>
+          <p style="font-size:9.5px;color:var(--muted);line-height:1.5;margin-bottom:12px;">Esta propuesta tiene validez de 30 días. El diagnóstico es gratuito y toma 5 minutos.</p>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:5px;">
+          <div style="font-size:10.5px;color:rgba(255,255,255,.7);font-family:'JetBrains Mono',monospace;"><span style="color:var(--muted);font-size:8px;font-family:'Inter',sans-serif;text-transform:uppercase;letter-spacing:.08em;display:block;margin-bottom:1px;">WhatsApp</span>223 129 4663</div>
+          <div style="font-size:10.5px;color:rgba(255,255,255,.7);font-family:'JetBrains Mono',monospace;"><span style="color:var(--muted);font-size:8px;font-family:'Inter',sans-serif;text-transform:uppercase;letter-spacing:.08em;display:block;margin-bottom:1px;">Email</span>contacto@trevainnovate.com</div>
+          <div style="font-size:10.5px;color:rgba(255,255,255,.7);font-family:'JetBrains Mono',monospace;"><span style="color:var(--muted);font-size:8px;font-family:'Inter',sans-serif;text-transform:uppercase;letter-spacing:.08em;display:block;margin-bottom:1px;">Web</span>trevainnovate.com</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="pf"><span>Trev'ainnovate · Santiago Juárez Treviño · trevainnovate.com</span><span class="pn">7 / 7</span></div>
+</div>
+
+
+<!-- ── FLOATING NAV ── -->
+<nav class="fnav">
+  <a class="fnav-item" href="#portada"><span class="fnav-label">Portada</span><span class="fnav-dot"></span></a>
+  <a class="fnav-item" href="#problema"><span class="fnav-label">El problema</span><span class="fnav-dot"></span></a>
+  <a class="fnav-item" href="#solucion"><span class="fnav-label">La solución</span><span class="fnav-dot"></span></a>
+  <a class="fnav-item" href="#ecosistema"><span class="fnav-label">El ecosistema</span><span class="fnav-dot"></span></a>
+  <a class="fnav-item" href="#prueba"><span class="fnav-label">Prueba real</span><span class="fnav-dot"></span></a>
+  <a class="fnav-item" href="#inversion"><span class="fnav-label">Inversión</span><span class="fnav-dot"></span></a>
+  <a class="fnav-item" href="#empezar"><span class="fnav-label">Cómo empezar</span><span class="fnav-dot"></span></a>
+</nav>
+
+<script>
+(function(){
+  const items = document.querySelectorAll('.fnav-item');
+  const sections = document.querySelectorAll('.page[id]');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if(e.isIntersecting && e.intersectionRatio > .4) {
+        items.forEach(it => it.classList.remove('fnav-active'));
+        const active = document.querySelector('.fnav-item[href="#'+e.target.id+'"]');
+        if(active) active.classList.add('fnav-active');
+      }
+    });
+  }, { threshold: .4 });
+  sections.forEach(s => { if(s.style.display !== 'none') io.observe(s); });
+})();
+</script>
+</body>
+</html>

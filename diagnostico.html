@@ -2,1028 +2,1192 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Diagnóstico de Digitalización — Trev'ainnovate</title>
-<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Diagnóstico Operativo — Trev'ainnovate</title>
+<meta name="description" content="Diagnóstico gratuito de automatización e inteligencia artificial para tu empresa. Identifica las áreas con mayor impacto.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg: #05050e;
-    --surface: #0b0b1c;
-    --surface2: #111128;
-    --border: rgba(255,255,255,0.07);
-    --accent: #00e5a0;
-    --accent2: #3b82f6;
-    --accent3: #8b5cf6;
-    --text: #f1f5f9;
-    --text2: #8892a4;
-    --red: #ef4444;
-    --yellow: #f59e0b;
-    --green: #00e5a0;
-    --radius: 14px;
-    --font: 'Inter', system-ui, -apple-system, sans-serif;
-  }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#05050e;--bg2:#0b0b1c;--bg3:#111128;
+  --green:#00e5a0;--blue:#3b82f6;--purple:#8b5cf6;--amber:#f59e0b;--red:#ef4444;
+  --white:#f1f5f9;--muted:#8892a4;--border:rgba(255,255,255,.07);
+  --r:14px;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--white);font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;min-height:100vh}
 
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+/* ── TOPBAR ── */
+.topbar{height:3px;background:linear-gradient(90deg,var(--green),var(--blue),var(--purple));position:fixed;top:0;left:0;right:0;z-index:300}
 
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+/* ── STICKY HEADER ── */
+.sticky-header{
+  position:fixed;top:3px;left:0;right:0;z-index:200;
+  background:rgba(5,5,14,.96);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);
+}
+.sh-top{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 5vw 10px;
+}
+.logo{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:800;text-decoration:none;color:var(--white)}
+.logo-dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 8px rgba(0,229,160,.7)}
+.sh-right{display:flex;align-items:center;gap:16px}
+.sh-counter{font-size:12px;color:var(--muted);font-family:'JetBrains Mono',monospace}
+.sh-score{
+  font-size:13px;font-weight:700;font-family:'JetBrains Mono',monospace;
+  padding:4px 12px;border-radius:6px;background:var(--bg2);border:1px solid var(--border);
+  transition:all .3s;
+}
+.sh-score.low{color:var(--green);border-color:rgba(0,229,160,.2)}
+.sh-score.med{color:var(--amber);border-color:rgba(245,158,11,.2)}
+.sh-score.hi{color:var(--red);border-color:rgba(239,68,68,.2)}
+.progress-row{padding:0 5vw 10px;display:flex;align-items:center;gap:10px}
+.progress-track{flex:1;height:4px;background:rgba(255,255,255,.06);border-radius:99px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--green),var(--blue),var(--purple));border-radius:99px;transition:width .5s ease;width:0%}
+.progress-pct{font-size:11px;font-weight:700;color:var(--muted);font-family:'JetBrains Mono',monospace;min-width:32px;text-align:right}
 
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: var(--font);
-    min-height: 100vh;
-    line-height: 1.6;
-  }
+/* ── LAYOUT ── */
+.main{padding-top:90px}
 
-  /* ── HERO ── */
-  .hero {
-    background: linear-gradient(135deg, #0d0d18 0%, #161625 50%, #0d0d18 100%);
-    border-bottom: 1px solid var(--border);
-    padding: 0;
-    position: relative;
-    overflow: hidden;
-  }
-  .hero::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(ellipse 60% 50% at 80% 50%, rgba(0,229,160,0.06) 0%, transparent 70%);
-    pointer-events: none;
-  }
-  .hero-inner {
-    max-width: 820px;
-    margin: 0 auto;
-    padding: 56px 24px 48px;
-    position: relative;
-  }
-  .brand {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 40px;
-  }
-  .brand-logo {
-    width: 40px;
-    height: 40px;
-    background: var(--accent);
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
-    font-weight: 800;
-    color: #000;
-    letter-spacing: -1px;
-    flex-shrink: 0;
-  }
-  .brand-name {
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--text);
-    letter-spacing: 0.5px;
-  }
-  .brand-tagline {
-    font-size: 11px;
-    color: var(--text2);
-    letter-spacing: 1px;
-    text-transform: uppercase;
-  }
-  .hero-label {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(0,229,160,0.08);
-    border: 1px solid rgba(0,229,160,0.25);
-    color: var(--accent);
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    padding: 6px 14px;
-    border-radius: 100px;
-    margin-bottom: 20px;
-  }
-  .hero h1 {
-    font-size: clamp(28px, 5vw, 42px);
-    font-weight: 800;
-    line-height: 1.1;
-    margin-bottom: 16px;
-    letter-spacing: -1px;
-  }
-  .hero h1 span { color: var(--accent); }
-  .hero-sub {
-    font-size: 16px;
-    color: var(--text2);
-    max-width: 560px;
-    line-height: 1.7;
-  }
-  .hero-client {
-    margin-top: 32px;
-    display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
-  }
-  .hero-pill {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: 100px;
-    padding: 8px 16px;
-    font-size: 13px;
-  }
-  .hero-pill .label { color: var(--text2); }
-  .hero-pill .val { font-weight: 600; color: var(--text); }
+/* ── HERO ── */
+.hero{
+  min-height:calc(100vh - 90px);display:flex;flex-direction:column;justify-content:center;
+  padding:48px 5vw 56px;position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 70% 60% at 80% 30%,rgba(0,229,160,.06) 0%,transparent 60%),
+             radial-gradient(ellipse 50% 50% at 15% 80%,rgba(59,130,246,.04) 0%,transparent 60%);
+  pointer-events:none;
+}
+.hero-inner{max-width:860px;margin:0 auto;width:100%;position:relative;z-index:1}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:6px 16px;border-radius:99px;
+  background:rgba(0,229,160,.08);border:1px solid rgba(0,229,160,.22);
+  color:var(--green);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  margin-bottom:24px;
+}
+.hero h1{
+  font-size:clamp(32px,5.5vw,58px);font-weight:900;line-height:1.06;
+  letter-spacing:-.03em;margin-bottom:16px;
+}
+.grad{background:linear-gradient(135deg,var(--green),var(--blue),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-size:clamp(15px,2vw,18px);color:var(--muted);line-height:1.7;max-width:560px;margin-bottom:40px}
+.hero-stats{display:flex;gap:32px;flex-wrap:wrap;margin-bottom:40px}
+.hstat{display:flex;flex-direction:column;gap:3px}
+.hstat-n{font-size:28px;font-weight:900;font-family:'JetBrains Mono',monospace;color:var(--green)}
+.hstat-l{font-size:12px;color:var(--muted)}
 
-  /* ── PROGRESS BAR ── */
-  .progress-bar-wrap {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background: rgba(5,5,14,0.95);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
-    padding: 12px 24px;
-  }
-  .progress-inner {
-    max-width: 820px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-  .progress-label { font-size: 12px; color: var(--text2); white-space: nowrap; }
-  .progress-track {
-    flex: 1;
-    height: 4px;
-    background: var(--border);
-    border-radius: 100px;
-    overflow: hidden;
-  }
-  .progress-fill {
-    height: 100%;
-    background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent3));
-    border-radius: 100px;
-    transition: width 0.4s ease;
-    width: 0%;
-  }
-  .progress-pct { font-size: 12px; font-weight: 600; color: var(--accent); min-width: 32px; text-align: right; }
+/* ── DATOS CARD ── */
+.datos-wrap{max-width:860px;margin:0 auto;padding:0 5vw 60px}
+.datos-card{
+  background:var(--bg2);border:1px solid rgba(0,229,160,.2);border-radius:var(--r);
+  padding:32px 36px;margin-bottom:48px;
+}
+.section-label{
+  font-size:11px;font-weight:700;color:var(--green);letter-spacing:.18em;
+  text-transform:uppercase;margin-bottom:20px;display:flex;align-items:center;gap:8px;
+}
+.fields-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:560px){.fields-grid{grid-template-columns:1fr}}
+.field{display:flex;flex-direction:column;gap:7px}
+.field label{font-size:11px;font-weight:600;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
+.field input{
+  background:var(--bg3);border:1.5px solid var(--border);border-radius:10px;
+  padding:13px 16px;color:var(--white);font-family:'Inter',sans-serif;font-size:15px;
+  outline:none;transition:border-color .2s;
+}
+.field input:focus{border-color:var(--green)}
+.field input::placeholder{color:rgba(255,255,255,.18)}
 
-  /* ── MAIN ── */
-  .main {
-    max-width: 820px;
-    margin: 0 auto;
-    padding: 40px 24px 80px;
-  }
+/* ── SECCIÓN / BLOQUE ── */
+.sections-wrap{max-width:860px;margin:0 auto;padding:0 5vw}
+.bloque{
+  background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);
+  margin-bottom:16px;overflow:hidden;transition:border-color .3s;
+}
+.bloque.has-answers{border-color:rgba(0,229,160,.2)}
+.bloque.all-answered{border-color:rgba(0,229,160,.35)}
 
-  /* ── DATOS DEL CLIENTE ── */
-  .datos-card {
-    background: var(--surface2);
-    border: 1px solid rgba(0,229,160,0.2);
-    border-radius: var(--radius);
-    padding: 28px;
-    margin-bottom: 40px;
-  }
-  .datos-title {
-    font-size: 12px;
-    font-weight: 700;
-    color: var(--accent);
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .datos-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-  }
-  @media (max-width: 560px) { .datos-grid { grid-template-columns: 1fr; } }
-  .field {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
-  .field label {
-    font-size: 11px;
-    font-weight: 600;
-    color: var(--text2);
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-  }
-  .field input {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 10px 14px;
-    color: var(--text);
-    font-family: var(--font);
-    font-size: 14px;
-    transition: border-color 0.2s;
-    outline: none;
-  }
-  .field input:focus { border-color: var(--accent); }
-  .field input::placeholder { color: var(--text2); opacity: 0.5; }
+.bloque-header{
+  padding:22px 26px;cursor:pointer;display:flex;align-items:center;gap:16px;
+  user-select:none;transition:background .2s;
+}
+.bloque-header:hover{background:rgba(255,255,255,.02)}
+.bloque-icon{font-size:24px;flex-shrink:0;width:44px;height:44px;border-radius:10px;background:var(--bg3);display:flex;align-items:center;justify-content:center}
+.bloque-info{flex:1}
+.bloque-title{font-size:16px;font-weight:800;color:var(--white);margin-bottom:3px}
+.bloque-sub{font-size:13px;color:var(--muted);line-height:1.4}
+.bloque-status{
+  flex-shrink:0;display:flex;flex-direction:column;align-items:flex-end;gap:4px;
+}
+.bloque-pct{font-size:11px;color:var(--muted);font-family:'JetBrains Mono',monospace}
+.bloque-dots{display:flex;gap:4px}
+.bdot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.08);transition:all .3s}
+.bdot.critico{background:var(--red)}
+.bdot.moderado{background:var(--amber)}
+.bdot.ok{background:var(--green)}
+.chevron{
+  width:18px;height:18px;flex-shrink:0;color:rgba(255,255,255,.25);
+  transition:transform .25s;margin-left:8px;
+}
+.bloque.open .chevron{transform:rotate(180deg)}
 
-  /* ── BLOQUE CARD ── */
-  .bloque {
-    margin-bottom: 24px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    overflow: hidden;
-    transition: border-color 0.2s;
-  }
-  .bloque.has-answer { border-color: rgba(0,229,160,0.25); }
-  .bloque-header {
-    padding: 20px 24px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    user-select: none;
-    position: relative;
-  }
-  .bloque-header:hover { background: rgba(255,255,255,0.02); }
-  .bloque-num {
-    width: 32px;
-    height: 32px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 15px;
-    flex-shrink: 0;
-    background: var(--surface2);
-  }
-  .bloque-info { flex: 1 }
-  .bloque-titulo {
-    font-size: 15px;
-    font-weight: 700;
-    color: var(--text);
-    line-height: 1.3;
-  }
-  .bloque-quote {
-    font-size: 12px;
-    color: var(--text2);
-    font-style: italic;
-    margin-top: 3px;
-  }
-  .bloque-badge {
-    flex-shrink: 0;
-    display: none;
-    align-items: center;
-    gap: 6px;
-    font-size: 12px;
-    font-weight: 600;
-    padding: 5px 12px;
-    border-radius: 100px;
-    background: var(--surface2);
-  }
-  .bloque.has-answer .bloque-badge { display: flex; }
-  .bloque-badge.critico { background: rgba(255,71,87,0.15); color: var(--red); }
-  .bloque-badge.moderado { background: rgba(255,165,2,0.15); color: var(--yellow); }
-  .bloque-badge.noapl { background: rgba(46,213,115,0.15); color: var(--green); }
-  .chevron {
-    width: 20px;
-    height: 20px;
-    flex-shrink: 0;
-    color: var(--text2);
-    transition: transform 0.25s;
-  }
-  .bloque.open .chevron { transform: rotate(180deg); }
+.bloque-body{display:none;border-top:1px solid var(--border)}
+.bloque.open .bloque-body{display:block}
 
-  .bloque-body {
-    display: none;
-    padding: 0 24px 24px;
-    border-top: 1px solid var(--border);
-  }
-  .bloque.open .bloque-body { display: block; }
+/* ── PROBLEMA CARD ── */
+.problema{
+  padding:18px 26px;border-bottom:1px solid rgba(255,255,255,.04);
+  display:flex;align-items:flex-start;gap:16px;
+}
+.problema:last-child{border-bottom:none}
+.problema-text{flex:1}
+.problema-title{font-size:14px;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:3px;line-height:1.45}
+.problema-detail{font-size:12px;color:var(--muted);line-height:1.5}
+.problema-opts{display:flex;gap:8px;flex-shrink:0;align-items:center}
+.popt{display:none}
+.popt+label{
+  display:flex;flex-direction:column;align-items:center;gap:4px;
+  width:68px;padding:8px 6px;border-radius:9px;border:1.5px solid var(--border);
+  background:var(--bg3);cursor:pointer;transition:all .2s;text-align:center;user-select:none;
+}
+.popt+label:hover{border-color:rgba(255,255,255,.2)}
+.popt+label .p-icon{font-size:16px;line-height:1}
+.popt+label .p-label{font-size:9px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);line-height:1.2}
+/* Crítico */
+.popt.critico:checked+label{border-color:var(--red);background:rgba(239,68,68,.1)}
+.popt.critico:checked+label .p-label{color:var(--red)}
+/* Moderado */
+.popt.moderado:checked+label{border-color:var(--amber);background:rgba(245,158,11,.1)}
+.popt.moderado:checked+label .p-label{color:var(--amber)}
+/* Ok */
+.popt.ok:checked+label{border-color:var(--green);background:rgba(0,229,160,.08)}
+.popt.ok:checked+label .p-label{color:var(--green)}
 
-  .problems-list {
-    list-style: none;
-    margin: 20px 0;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  .problems-list li {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    font-size: 14px;
-    color: var(--text2);
-    padding: 10px 14px;
-    background: var(--surface2);
-    border-radius: 8px;
-    line-height: 1.5;
-  }
-  .problems-list li::before {
-    content: '→';
-    color: var(--accent);
-    flex-shrink: 0;
-    margin-top: 1px;
-    font-size: 13px;
-  }
+@media(max-width:640px){
+  .problema{flex-direction:column;gap:12px}
+  .problema-opts{width:100%;justify-content:flex-start}
+  .popt+label{width:auto;flex-direction:row;gap:6px;padding:8px 12px}
+}
 
-  .severidad-label {
-    font-size: 12px;
-    font-weight: 700;
-    color: var(--text2);
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    margin-top: 20px;
-    margin-bottom: 12px;
-  }
+/* ── RESUMEN ── */
+.resumen-wrap{max-width:860px;margin:0 auto;padding:48px 5vw 0}
+.resumen-title{font-size:22px;font-weight:900;margin-bottom:24px;display:flex;align-items:center;gap:10px}
+.resumen-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:32px}
+@media(max-width:560px){.resumen-grid{grid-template-columns:1fr 1fr}}
+.resumen-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:22px 20px;text-align:center}
+.resumen-card.r-critico{border-color:rgba(239,68,68,.25)}
+.resumen-card.r-moderado{border-color:rgba(245,158,11,.2)}
+.resumen-card.r-ok{border-color:rgba(0,229,160,.2)}
+.rc-count{font-size:44px;font-weight:900;font-family:'JetBrains Mono',monospace;display:block;line-height:1;margin-bottom:6px}
+.rc-label{font-size:12px;color:var(--muted)}
+.r-critico .rc-count{color:var(--red)}
+.r-moderado .rc-count{color:var(--amber)}
+.r-ok .rc-count{color:var(--green)}
 
-  .severidad-options {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-  }
-  @media (max-width: 560px) { .severidad-options { grid-template-columns: 1fr; } }
+.areas-criticas{
+  background:var(--bg2);border:1px solid rgba(239,68,68,.2);border-radius:var(--r);
+  padding:22px 26px;margin-bottom:14px;
+}
+.areas-criticas-title{font-size:12px;font-weight:700;color:var(--red);letter-spacing:.14em;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:6px}
+.area-tag{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:13px;padding:6px 14px;border-radius:7px;
+  background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);
+  color:rgba(255,255,255,.8);margin:4px;font-weight:500;
+}
 
-  .sev-option { display: none; }
-  .sev-option + label {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    padding: 16px 12px;
-    background: var(--surface2);
-    border: 2px solid var(--border);
-    border-radius: 10px;
-    cursor: pointer;
-    transition: all 0.2s;
-    text-align: center;
-    user-select: none;
-  }
-  .sev-option + label:hover { border-color: var(--text2); }
-  .sev-option + label .sev-icon { font-size: 24px; }
-  .sev-option + label .sev-name { font-size: 13px; font-weight: 700; }
-  .sev-option + label .sev-desc { font-size: 11px; color: var(--text2); line-height: 1.4; }
+/* ── SUBMIT ── */
+.submit-wrap{max-width:860px;margin:0 auto;padding:32px 5vw 80px}
+.submit-card{
+  background:linear-gradient(135deg,rgba(0,229,160,.06),rgba(59,130,246,.04));
+  border:1px solid rgba(0,229,160,.22);border-radius:var(--r);padding:36px 40px;
+}
+.submit-h{font-size:26px;font-weight:900;margin-bottom:8px}
+.submit-sub{font-size:15px;color:var(--muted);margin-bottom:28px;line-height:1.65}
+.submit-btn{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:16px 32px;border-radius:12px;border:none;
+  background:linear-gradient(135deg,var(--green),#00c489);
+  color:#05050e;font-family:'Inter',sans-serif;font-size:16px;font-weight:800;
+  cursor:pointer;transition:all .2s;letter-spacing:.01em;margin-bottom:16px;
+}
+.submit-btn:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(0,229,160,.35)}
+.submit-btn:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}
+.submit-note{font-size:12px;color:rgba(255,255,255,.22)}
 
-  .sev-option.critico:checked + label { border-color: var(--red); background: rgba(255,71,87,0.08); }
-  .sev-option.moderado:checked + label { border-color: var(--yellow); background: rgba(255,165,2,0.08); }
-  .sev-option.noapl:checked + label { border-color: var(--green); background: rgba(46,213,115,0.08); }
+/* ── RESULT ── */
+.result-overlay{
+  display:none;position:fixed;inset:0;z-index:400;
+  background:var(--bg);overflow-y:auto;
+}
+.result-overlay.active{display:block}
+.result-inner{
+  min-height:100vh;display:flex;flex-direction:column;justify-content:center;
+  padding:80px 5vw 64px;max-width:900px;margin:0 auto;
+}
+.result-topbar{height:3px;background:linear-gradient(90deg,var(--green),var(--blue),var(--purple));position:fixed;top:0;left:0;right:0;z-index:500}
+.result-header{
+  position:fixed;top:3px;left:0;right:0;
+  background:rgba(5,5,14,.96);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);
+  padding:14px 5vw;display:flex;align-items:center;justify-content:space-between;z-index:401;
+}
+.result-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:6px 16px;border-radius:99px;
+  background:rgba(0,229,160,.08);border:1px solid rgba(0,229,160,.22);
+  color:var(--green);font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  margin-bottom:24px;
+}
+.result-h{font-size:clamp(28px,5vw,50px);font-weight:900;line-height:1.08;letter-spacing:-.03em;margin-bottom:12px}
+.result-sub{font-size:17px;color:var(--muted);line-height:1.7;max-width:600px;margin-bottom:36px}
 
-  .sev-option.critico + label .sev-name { color: var(--red); }
-  .sev-option.moderado + label .sev-name { color: var(--yellow); }
-  .sev-option.noapl + label .sev-name { color: var(--green); }
+.result-score-strip{
+  display:flex;gap:20px;flex-wrap:wrap;margin-bottom:36px;
+  padding:22px 28px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);
+}
+.rs-item{flex:1;min-width:80px;text-align:center}
+.rs-num{font-size:36px;font-weight:900;font-family:'JetBrains Mono',monospace;line-height:1;display:block;margin-bottom:4px}
+.rs-label{font-size:11px;color:var(--muted)}
 
-  .comentario-wrap { margin-top: 16px; }
-  .comentario-wrap textarea {
-    width: 100%;
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 12px 14px;
-    color: var(--text);
-    font-family: var(--font);
-    font-size: 13px;
-    resize: vertical;
-    min-height: 72px;
-    outline: none;
-    transition: border-color 0.2s;
-    line-height: 1.5;
-  }
-  .comentario-wrap textarea:focus { border-color: var(--accent); }
-  .comentario-wrap textarea::placeholder { color: var(--text2); opacity: 0.5; }
-  .comentario-label { font-size: 11px; color: var(--text2); margin-bottom: 6px; }
+.nivel-card{
+  border-radius:var(--r);padding:28px 32px;display:flex;gap:20px;align-items:flex-start;margin-bottom:28px;
+}
+.ni-icon{font-size:36px;flex-shrink:0;margin-top:2px}
+.ni-tag{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-bottom:5px}
+.ni-name{font-size:22px;font-weight:900;margin-bottom:6px}
+.ni-desc{font-size:15px;color:var(--muted);line-height:1.65}
 
-  /* ── RESUMEN ── */
-  .resumen-section {
-    margin-top: 48px;
-    margin-bottom: 40px;
-  }
-  .resumen-title {
-    font-size: 18px;
-    font-weight: 700;
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .resumen-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 14px;
-    margin-bottom: 24px;
-  }
-  @media (max-width: 560px) { .resumen-grid { grid-template-columns: 1fr 1fr; } }
-  .resumen-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 20px;
-    text-align: center;
-  }
-  .resumen-card .count {
-    font-size: 36px;
-    font-weight: 800;
-    display: block;
-    margin-bottom: 4px;
-  }
-  .resumen-card.r-critico .count { color: var(--red); }
-  .resumen-card.r-moderado .count { color: var(--yellow); }
-  .resumen-card.r-noapl .count { color: var(--green); }
-  .resumen-card .rlabel { font-size: 12px; color: var(--text2); }
+.hallazgos-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:28px 32px;margin-bottom:28px}
+.hc-title{font-size:12px;font-weight:700;color:var(--muted);letter-spacing:.14em;text-transform:uppercase;margin-bottom:20px}
+.hallazgo{display:flex;gap:12px;align-items:flex-start;font-size:15px;color:rgba(255,255,255,.82);line-height:1.6;margin-bottom:14px}
+.hallazgo:last-child{margin-bottom:0}
+.hallazgo::before{content:'→';color:var(--red);flex-shrink:0;font-weight:800;margin-top:2px}
 
-  .resumen-bloques {
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  .res-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-size: 13px;
-  }
-  .res-row .bname { color: var(--text2); }
-  .res-row .bval { font-weight: 600; font-size: 12px; padding: 3px 10px; border-radius: 100px; }
-  .res-row .bval.critico { background: rgba(255,71,87,0.15); color: var(--red); }
-  .res-row .bval.moderado { background: rgba(255,165,2,0.15); color: var(--yellow); }
-  .res-row .bval.noapl { background: rgba(46,213,115,0.15); color: var(--green); }
-  .res-row .bval.pending { background: var(--surface); color: var(--text2); }
+.cta-row{display:flex;gap:14px;flex-wrap:wrap}
+.btn-wa{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:16px 32px;border-radius:12px;
+  background:linear-gradient(135deg,var(--green),#00c489);
+  color:#05050e;font-weight:800;font-size:16px;text-decoration:none;transition:all .2s;
+}
+.btn-wa:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(0,229,160,.35)}
+.btn-doc{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:16px 32px;border-radius:12px;
+  background:rgba(255,255,255,.04);border:1.5px solid var(--border);
+  color:rgba(255,255,255,.65);font-weight:600;font-size:16px;text-decoration:none;transition:all .2s;
+}
+.btn-doc:hover{border-color:rgba(255,255,255,.2);color:var(--white)}
 
-  /* ── SUBMIT ── */
-  .submit-section {
-    background: linear-gradient(135deg, var(--surface2), #1a1a2e);
-    border: 1px solid rgba(0,229,160,0.2);
-    border-radius: var(--radius);
-    padding: 32px;
-    text-align: center;
-  }
-  .submit-title { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
-  .submit-sub { font-size: 14px; color: var(--text2); margin-bottom: 28px; }
-  .submit-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    background: var(--accent);
-    color: #000;
-    font-family: var(--font);
-    font-size: 15px;
-    font-weight: 700;
-    padding: 16px 36px;
-    border: none;
-    border-radius: 100px;
-    cursor: pointer;
-    transition: all 0.2s;
-    letter-spacing: 0.3px;
-  }
-  .submit-btn:hover { background: var(--accent2); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,229,160,0.2); }
-  .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-  .submit-note { font-size: 12px; color: var(--text2); margin-top: 16px; }
-  .submit-note a { color: var(--accent); text-decoration: none; }
-
-  /* ── SUCCESS ── */
-  .success-screen {
-    display: none;
-    text-align: center;
-    padding: 80px 24px;
-    max-width: 560px;
-    margin: 0 auto;
-  }
-  .success-icon { font-size: 64px; margin-bottom: 24px; display: block; }
-  .success-title { font-size: 28px; font-weight: 800; margin-bottom: 12px; }
-  .success-sub { font-size: 16px; color: var(--text2); line-height: 1.7; }
-  .success-contact { margin-top: 32px; font-size: 13px; color: var(--text2); }
-  .success-contact strong { color: var(--accent); }
-
-  /* ── FOOTER ── */
-  .page-footer {
-    border-top: 1px solid var(--border);
-    padding: 24px;
-    text-align: center;
-    font-size: 12px;
-    color: var(--text2);
-    background: var(--surface);
-  }
-  .page-footer a { color: var(--accent); text-decoration: none; }
-
-  /* ── REQUIRED WARNING ── */
-  .warning-msg {
-    display: none;
-    background: rgba(255,71,87,0.1);
-    border: 1px solid rgba(255,71,87,0.3);
-    color: var(--red);
-    font-size: 13px;
-    padding: 12px 20px;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    text-align: center;
-  }
+@media(max-width:560px){
+  .cta-row{flex-direction:column}
+  .submit-card{padding:24px 22px}
+  .datos-card{padding:22px 20px}
+  .bloque-header{padding:16px 18px}
+  .problema{padding:14px 18px}
+}
 </style>
 </head>
 <body>
 
-<!-- HERO -->
-<div class="hero">
+<div class="topbar"></div>
+
+<!-- ── STICKY HEADER ── -->
+<div class="sticky-header">
+  <div class="sh-top">
+    <a class="logo" href="/"><div class="logo-dot"></div>TREV'AINNOVATE</a>
+    <div class="sh-right">
+      <span class="sh-counter" id="sh-counter">0 / 24 respondidas</span>
+      <span class="sh-score" id="sh-score">Score: 0</span>
+    </div>
+  </div>
+  <div class="progress-row">
+    <div class="progress-track"><div class="progress-fill" id="prog-fill"></div></div>
+    <span class="progress-pct" id="prog-pct">0%</span>
+  </div>
+</div>
+
+<div class="main">
+
+<!-- ── HERO ── -->
+<section class="hero">
   <div class="hero-inner">
-    <div class="brand">
-      <div class="brand-logo">T'</div>
-      <div>
-        <div class="brand-name">Trev'ainnovate</div>
-        <div class="brand-tagline">Automatización · Inteligencia · Resultados</div>
+    <div class="hero-badge">
+      <div style="width:5px;height:5px;border-radius:50%;background:var(--green)"></div>
+      Diagnóstico gratuito · Sin compromiso · Resultado inmediato
+    </div>
+    <h1>Descubre cuánto le está<br>costando la ineficiencia<br><span class="grad">a tu empresa.</span></h1>
+    <p class="hero-sub">Diagnóstico de madurez en <strong style="color:var(--white)">ciberseguridad de correo corporativo</strong> y <strong style="color:var(--white)">automatización de procesos clave</strong> — en 8 minutos. Detectamos riesgos de suplantación, phishing y BEC, y los procesos manuales con mayor impacto para automatizar.</p>
+    <div class="hero-stats">
+      <div class="hstat"><span class="hstat-n">6</span><span class="hstat-l">áreas evaluadas</span></div>
+      <div class="hstat"><span class="hstat-n">24</span><span class="hstat-l">puntos de diagnóstico</span></div>
+      <div class="hstat"><span class="hstat-n">~8 min</span><span class="hstat-l">para completarlo</span></div>
+    </div>
+
+    <!-- PROMESA DE ENTREGABLES -->
+    <div style="background:rgba(0,229,160,.05);border:1px solid rgba(0,229,160,.18);border-radius:12px;padding:16px 20px;margin-bottom:28px;">
+      <div style="font-size:10px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.14em;margin-bottom:12px;">Al finalizar recibirás:</div>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <div style="display:flex;align-items:flex-start;gap:10px;font-size:13px;color:rgba(255,255,255,.75);line-height:1.5;">
+          <span style="color:var(--green);font-weight:800;flex-shrink:0;margin-top:1px;">01</span>
+          <span><strong style="color:var(--white)">Reporte de madurez en ciberseguridad de correo</strong> — riesgos de suplantación y exposición digital de tu dominio</span>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:10px;font-size:13px;color:rgba(255,255,255,.75);line-height:1.5;">
+          <span style="color:var(--green);font-weight:800;flex-shrink:0;margin-top:1px;">02</span>
+          <span><strong style="color:var(--white)">1–3 procesos clave para automatizar</strong> — los de mayor impacto según tu operación específica</span>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:10px;font-size:13px;color:rgba(255,255,255,.75);line-height:1.5;">
+          <span style="color:var(--green);font-weight:800;flex-shrink:0;margin-top:1px;">03</span>
+          <span><strong style="color:var(--white)">Propuesta personalizada</strong> — combo de servicios (Lite, Popular o Pro) alineado a tus hallazgos</span>
+        </div>
       </div>
     </div>
-    <div class="hero-label">⛽ Diagnóstico Confidencial</div>
-    <h1>Diagnóstico de <span>Digitalización</span><br>para Cadenas de Gasolineras</h1>
-    <p class="hero-sub">Este documento nos permite identificar exactamente dónde la tecnología puede liberar tiempo, dinero y control en tu operación. Tarda menos de 10 minutos.</p>
-    <div class="hero-client" id="heroClient" style="display:none">
-      <div class="hero-pill">
-        <span class="label">Empresa</span>
-        <span class="val" id="heroEmpresa"></span>
-      </div>
-      <div class="hero-pill">
-        <span class="label">Responsable</span>
-        <span class="val" id="heroNombre"></span>
-      </div>
-      <div class="hero-pill">
-        <span class="label">Estaciones</span>
-        <span class="val" id="heroEstaciones"></span>
-      </div>
-    </div>
+
+    <a href="#datos" style="display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:12px;background:linear-gradient(135deg,var(--green),#00c489);color:#05050e;font-weight:800;font-size:15px;text-decoration:none;transition:all .2s" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 10px 28px rgba(0,229,160,.35)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+      Comenzar diagnóstico →
+    </a>
   </div>
-</div>
+</section>
 
-<!-- PROGRESS -->
-<div class="progress-bar-wrap">
-  <div class="progress-inner">
-    <span class="progress-label">Progreso del diagnóstico</span>
-    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
-    <span class="progress-pct" id="progressPct">0%</span>
-  </div>
-</div>
-
-<!-- MAIN -->
-<div class="main" id="mainContent">
-
-  <!-- Datos del cliente -->
+<!-- ── DATOS DEL CONTACTO ── -->
+<div class="datos-wrap" id="datos">
   <div class="datos-card">
-    <div class="datos-title">📋 Datos del diagnóstico</div>
-    <div class="datos-grid">
+    <div class="section-label">📋 Datos de contacto y contexto</div>
+    <div class="fields-grid">
       <div class="field">
-        <label>Empresa / Razón Social</label>
-        <input type="text" id="fEmpresa" placeholder="Ej. Grupo Gasolinero XYZ" />
+        <label for="f-nombre">Nombre</label>
+        <input type="text" id="f-nombre" placeholder="Tu nombre completo" autocomplete="given-name">
       </div>
       <div class="field">
-        <label>Nombre del responsable</label>
-        <input type="text" id="fNombre" placeholder="Nombre completo" />
+        <label for="f-empresa">Empresa</label>
+        <input type="text" id="f-empresa" placeholder="Nombre de la empresa" autocomplete="organization">
       </div>
       <div class="field">
-        <label>Teléfono / WhatsApp</label>
-        <input type="tel" id="fTel" placeholder="+52 55 0000 0000" />
+        <label for="f-cargo">Cargo</label>
+        <input type="text" id="f-cargo" placeholder="Director, Gerente, Dueño...">
       </div>
       <div class="field">
-        <label>Número de estaciones</label>
-        <input type="number" id="fEstaciones" placeholder="Ej. 15" min="1" />
+        <label for="f-whatsapp">WhatsApp</label>
+        <input type="tel" id="f-whatsapp" placeholder="442 123 4567" autocomplete="tel">
+      </div>
+      <div class="field">
+        <label for="f-empleados">Número de empleados</label>
+        <select id="f-empleados" style="background:var(--bg3);border:1.5px solid var(--border);border-radius:10px;padding:13px 16px;color:var(--white);font-family:'Inter',sans-serif;font-size:15px;outline:none;transition:border-color .2s;-webkit-appearance:none;" onfocus="this.style.borderColor='var(--green)'" onblur="this.style.borderColor='var(--border)'">
+          <option value="" style="background:var(--bg3)">Selecciona...</option>
+          <option value="1-10" style="background:var(--bg3)">1 – 10 empleados</option>
+          <option value="11-30" style="background:var(--bg3)">11 – 30 empleados</option>
+          <option value="31-50" style="background:var(--bg3)">31 – 50 empleados</option>
+          <option value="51-100" style="background:var(--bg3)">51 – 100 empleados</option>
+          <option value="100+" style="background:var(--bg3)">Más de 100</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="f-email-tool">Plataforma de correo corporativo</label>
+        <select id="f-email-tool" style="background:var(--bg3);border:1.5px solid var(--border);border-radius:10px;padding:13px 16px;color:var(--white);font-family:'Inter',sans-serif;font-size:15px;outline:none;transition:border-color .2s;-webkit-appearance:none;" onfocus="this.style.borderColor='var(--green)'" onblur="this.style.borderColor='var(--border)'">
+          <option value="" style="background:var(--bg3)">Selecciona...</option>
+          <option value="Google Workspace" style="background:var(--bg3)">Google Workspace (Gmail)</option>
+          <option value="Microsoft 365" style="background:var(--bg3)">Microsoft 365 (Outlook)</option>
+          <option value="Zoho Mail" style="background:var(--bg3)">Zoho Mail</option>
+          <option value="Hosting propio" style="background:var(--bg3)">Hosting propio / cPanel</option>
+          <option value="Otro" style="background:var(--bg3)">Otro</option>
+          <option value="No tenemos correo corporativo" style="background:var(--bg3)">No tenemos correo corporativo</option>
+        </select>
       </div>
     </div>
   </div>
+</div>
 
-  <!-- BLOQUES -->
+<!-- ── SECCIONES DE DIAGNÓSTICO ── -->
+<div class="sections-wrap" id="secciones">
 
-  <!-- BLOQUE 1 -->
+  <!-- ÁREA 1: PROSPECCIÓN Y VENTAS -->
   <div class="bloque" id="bloque-1">
-    <div class="bloque-header" onclick="toggleBloque(1)">
-      <div class="bloque-num">🔴</div>
+    <div class="bloque-header" onclick="toggle('bloque-1')">
+      <div class="bloque-icon">🎯</div>
       <div class="bloque-info">
-        <div class="bloque-titulo">Control de Ventas y Caja</div>
-        <div class="bloque-quote">"No sé si lo que venden mis despachadores coincide con lo que entra a caja."</div>
+        <div class="bloque-title">Prospección y Ventas</div>
+        <div class="bloque-sub">Captación de leads, seguimiento y conversión</div>
       </div>
-      <div class="bloque-badge" id="badge-1"></div>
-      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+      <div class="bloque-status">
+        <span class="bloque-pct" id="pct-1">0 / 4</span>
+        <div class="bloque-dots" id="dots-1"></div>
+      </div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
     </div>
     <div class="bloque-body">
-      <ul class="problems-list">
-        <li>Los cierres de turno se hacen a mano y con papel</li>
-        <li>Es difícil cruzar los litros despachados vs. el efectivo cobrado</li>
-        <li>Hay diferencias de caja frecuentes sin causa clara</li>
-        <li>No existe un registro digital de ventas por isla o despachador</li>
-        <li>El dueño no puede ver el resumen del día desde fuera de la estación</li>
-      </ul>
-      <div class="severidad-label">¿Cuánto te afecta esto?</div>
-      <div class="severidad-options">
-        <input type="radio" class="sev-option critico" name="sev-1" id="s1-c" value="critico" onchange="onSeveridad(1,'critico')">
-        <label for="s1-c"><span class="sev-icon">🔴</span><span class="sev-name">Crítico</span><span class="sev-desc">Me afecta directamente y de forma frecuente</span></label>
-        <input type="radio" class="sev-option moderado" name="sev-1" id="s1-m" value="moderado" onchange="onSeveridad(1,'moderado')">
-        <label for="s1-m"><span class="sev-icon">🟡</span><span class="sev-name">Moderado</span><span class="sev-desc">Existe pero podría mejorar</span></label>
-        <input type="radio" class="sev-option noapl" name="sev-1" id="s1-n" value="noapl" onchange="onSeveridad(1,'noapl')">
-        <label for="s1-n"><span class="sev-icon">🟢</span><span class="sev-name">No aplica</span><span class="sev-desc">Esto no es un problema en mi operación</span></label>
+      <!-- Problema -->
+      <div class="problema">
+        <div class="problema-text">
+          <div class="problema-title">Los leads nuevos tardan más de 2 horas en recibir una primera respuesta</div>
+          <div class="problema-detail">Tiempo de respuesta lento reduce la probabilidad de conversión en más del 60%</div>
+        </div>
+        <div class="problema-opts">
+          <input type="radio" class="popt critico" name="p1-1" id="p1-1-c" value="critico" onchange="onResp('1','1',3,'critico')">
+          <label for="p1-1-c"><span class="p-icon">🔴</span><span class="p-label">Crítico</span></label>
+          <input type="radio" class="popt moderado" name="p1-1" id="p1-1-m" value="moderado" onchange="onResp('1','1',1,'moderado')">
+          <label for="p1-1-m"><span class="p-icon">🟡</span><span class="p-label">A veces</span></label>
+          <input type="radio" class="popt ok" name="p1-1" id="p1-1-o" value="ok" onchange="onResp('1','1',0,'ok')">
+          <label for="p1-1-o"><span class="p-icon">✅</span><span class="p-label">Controlado</span></label>
+        </div>
       </div>
-      <div class="comentario-wrap">
-        <div class="comentario-label">Comentario adicional (opcional)</div>
-        <textarea id="com-1" placeholder="Describe brevemente la situación en tu empresa..."></textarea>
+      <div class="problema">
+        <div class="problema-text">
+          <div class="problema-title">No tenemos un proceso definido de seguimiento post-cotización</div>
+          <div class="problema-detail">Cada vendedor hace el follow-up a su manera o simplemente no lo hace</div>
+        </div>
+        <div class="problema-opts">
+          <input type="radio" class="popt critico" name="p1-2" id="p1-2-c" value="critico" onchange="onResp('1','2',3,'critico')">
+          <label for="p1-2-c"><span class="p-icon">🔴</span><span class="p-label">Crítico</span></label>
+          <input type="radio" class="popt moderado" name="p1-2" id="p1-2-m" value="moderado" onchange="onResp('1','2',1,'moderado')">
+          <label for="p1-2-m"><span class="p-icon">🟡</span><span class="p-label">A veces</span></label>
+          <input type="radio" class="popt ok" name="p1-2" id="p1-2-o" value="ok" onchange="onResp('1','2',0,'ok')">
+          <label for="p1-2-o"><span class="p-icon">✅</span><span class="p-label">Controlado</span></label>
+        </div>
+      </div>
+      <div class="problema">
+        <div class="problema-text">
+          <div class="problema-title">Perdemos prospectos sin saber en qué etapa del proceso se fueron</div>
+          <div class="problema-detail">No hay registro ni análisis de las razones de pérdida de oportunidades</div>
+        </div>
+        <div class="problema-opts">
+          <input type="radio" class="popt critico" name="p1-3" id="p1-3-c" value="critico" onchange="onResp('1','3',3,'critico')">
+          <label for="p1-3-c"><span class="p-icon">🔴</span><span class="p-label">Crítico</span></label>
+          <input type="radio" class="popt moderado" name="p1-3" id="p1-3-m" value="moderado" onchange="onResp('1','3',1,'moderado')">
+          <label for="p1-3-m"><span class="p-icon">🟡</span><span class="p-label">A veces</span></label>
+          <input type="radio" class="popt ok" name="p1-3" id="p1-3-o" value="ok" onchange="onResp('1','3',0,'ok')">
+          <label for="p1-3-o"><span class="p-icon">✅</span><span class="p-label">Controlado</span></label>
+        </div>
+      </div>
+      <div class="problema">
+        <div class="problema-text">
+          <div class="problema-title">No aprovechamos las horas fuera de oficina para generar o nutrir oportunidades</div>
+          <div class="problema-detail">Los leads que llegan en la noche o fin de semana esperan hasta el lunes</div>
+        </div>
+        <div class="problema-opts">
+          <input type="radio" class="popt critico" name="p1-4" id="p1-4-c" value="critico" onchange="onResp('1','4',3,'critico')">
+          <label for="p1-4-c"><span class="p-icon">🔴</span><span class="p-label">Crítico</span></label>
+          <input type="radio" class="popt moderado" name="p1-4" id="p1-4-m" value="moderado" onchange="onResp('1','4',1,'moderado')">
+          <label for="p1-4-m"><span class="p-icon">🟡</span><span class="p-label">A veces</span></label>
+          <input type="radio" class="popt ok" name="p1-4" id="p1-4-o" value="ok" onchange="onResp('1','4',0,'ok')">
+          <label for="p1-4-o"><span class="p-icon">✅</span><span class="p-label">Controlado</span></label>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- BLOQUE 2 -->
+  <!-- ÁREA 2: ATENCIÓN AL CLIENTE -->
   <div class="bloque" id="bloque-2">
-    <div class="bloque-header" onclick="toggleBloque(2)">
-      <div class="bloque-num">🟠</div>
+    <div class="bloque-header" onclick="toggle('bloque-2')">
+      <div class="bloque-icon">💬</div>
       <div class="bloque-info">
-        <div class="bloque-titulo">Inventarios y Abastecimiento</div>
-        <div class="bloque-quote">"No sé exactamente cuánto combustible tengo hasta que reviso los tanques físicamente."</div>
+        <div class="bloque-title">Atención al Cliente</div>
+        <div class="bloque-sub">Velocidad, consistencia y experiencia en cada contacto</div>
       </div>
-      <div class="bloque-badge" id="badge-2"></div>
-      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+      <div class="bloque-status">
+        <span class="bloque-pct" id="pct-2">0 / 4</span>
+        <div class="bloque-dots" id="dots-2"></div>
+      </div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
     </div>
     <div class="bloque-body">
-      <ul class="problems-list">
-        <li>No hay alertas automáticas cuando el nivel de combustible baja</li>
-        <li>Los pedidos de abastecimiento se hacen por teléfono sin historial claro</li>
-        <li>Se han dado casos de desabasto que afectan operaciones del día</li>
-        <li>No se puede comparar el consumo estimado vs. el real por tanque</li>
-        <li>El control de mermas y fugas no está automatizado</li>
-      </ul>
-      <div class="severidad-label">¿Cuánto te afecta esto?</div>
-      <div class="severidad-options">
-        <input type="radio" class="sev-option critico" name="sev-2" id="s2-c" value="critico" onchange="onSeveridad(2,'critico')">
-        <label for="s2-c"><span class="sev-icon">🔴</span><span class="sev-name">Crítico</span><span class="sev-desc">Me afecta directamente y de forma frecuente</span></label>
-        <input type="radio" class="sev-option moderado" name="sev-2" id="s2-m" value="moderado" onchange="onSeveridad(2,'moderado')">
-        <label for="s2-m"><span class="sev-icon">🟡</span><span class="sev-name">Moderado</span><span class="sev-desc">Existe pero podría mejorar</span></label>
-        <input type="radio" class="sev-option noapl" name="sev-2" id="s2-n" value="noapl" onchange="onSeveridad(2,'noapl')">
-        <label for="s2-n"><span class="sev-icon">🟢</span><span class="sev-name">No aplica</span><span class="sev-desc">Esto no es un problema en mi operación</span></label>
+      <div class="problema">
+        <div class="problema-text">
+          <div class="problema-title">La calidad de atención varía según quién atiende ese día</div>
+          <div class="problema-detail">No hay guiones ni estándares definidos. El cliente tiene experiencias distintas cada vez</div>
+        </div>
+        <div class="problema-opts">
+          <input type="radio" class="popt critico" name="p2-1" id="p2-1-c" value="critico" onchange="onResp('2','1',3,'critico')">
+          <label for="p2-1-c"><span class="p-icon">🔴</span><span class="p-label">Crítico</span></label>
+          <input type="radio" class="popt moderado" name="p2-1" id="p2-1-m" value="moderado" onchange="onResp('2','1',1,'moderado')">
+          <label for="p2-1-m"><span class="p-icon">🟡</span><span class="p-label">A veces</span></label>
+          <input type="radio" class="popt ok" name="p2-1" id="p2-1-o" value="ok" onchange="onResp('2','1',0,'ok')">
+          <label for="p2-1-o"><span class="p-icon">✅</span><span class="p-label">Controlado</span></label>
+        </div>
       </div>
-      <div class="comentario-wrap">
-        <div class="comentario-label">Comentario adicional (opcional)</div>
-        <textarea id="com-2" placeholder="Describe brevemente la situación en tu empresa..."></textarea>
+      <div class="problema">
+        <div class="problema-text">
+          <div class="problema-title">No tenemos cobertura de atención fuera de horario de oficina</div>
+          <div class="problema-detail">Consultas urgentes o clientes en otras zonas horarias quedan sin respuesta</div>
+        </div>
+        <div class="problema-opts">
+          <input type="radio" class="popt critico" name="p2-2" id="p2-2-c" value="critico" onchange="onResp('2','2',3,'critico')">
+          <label for="p2-2-c"><span class="p-icon">🔴</span><span class="p-label">Crítico</span></label>
+          <input type="radio" class="popt moderado" name="p2-2" id="p2-2-m" value="moderado" onchange="onResp('2','2',1,'moderado')">
+          <label for="p2-2-m"><span class="p-icon">🟡</span><span class="p-label">A veces</span></label>
+          <input type="radio" class="popt ok" name="p2-2" id="p2-2-o" value="ok" onchange="onResp('2','2',0,'ok')">
+          <label for="p2-2-o"><span class="p-icon">✅</span><span class="p-label">Controlado</span></label>
+        </div>
+      </div>
+      <div class="problema">
+        <div class="problema-text">
+          <div class="problema-title">Los clientes repiten la misma información en cada contacto con la empresa</div>
+          <div class="problema-detail">No hay memoria del historial. Cada interacción empieza desde cero</div>
+        </div>
+        <div class="problema-opts">
+          <input type="radio" class="popt critico" name="p2-3" id="p2-3-c" value="critico" onchange="onResp('2','3',3,'critico')">
+          <label for="p2-3-c"><span class="p-icon">🔴</span><span class="p-label">Crítico</span></label>
+          <input type="radio" class="popt moderado" name="p2-3" id="p2-3-m" value="moderado" onchange="onResp('2','3',1,'moderado')">
+          <label for="p2-3-m"><span class="p-icon">🟡</span><span class="p-label">A veces</span></label>
+          <input type="radio" class="popt ok" name="p2-3" id="p2-3-o" value="ok" onchange="onResp('2','3',0,'ok')">
+          <label for="p2-3-o"><span class="p-icon">✅</span><span class="p-label">Controlado</span></label>
+        </div>
+      </div>
+      <div class="problema">
+        <div class="problema-text">
+          <div class="problema-title">Casos urgentes o reclamos no tienen un protocolo claro de escalación</div>
+          <div class="problema-detail">Cuando algo sale mal, el cliente no sabe a quién acudir y el equipo tampoco</div>
+        </div>
+        <div class="problema-opts">
+          <input type="radio" class="popt critico" name="p2-4" id="p2-4-c" value="critico" onchange="onResp('2','4',3,'critico')">
+          <label for="p2-4-c"><span class="p-icon">🔴</span><span class="p-label">Crítico</span></label>
+          <input type="radio" class="popt moderado" name="p2-4" id="p2-4-m" value="moderado" onchange="onResp('2','4',1,'moderado')">
+          <label for="p2-4-m"><span class="p-icon">🟡</span><span class="p-label">A veces</span></label>
+          <input type="radio" class="popt ok" name="p2-4" id="p2-4-o" value="ok" onchange="onResp('2','4',0,'ok')">
+          <label for="p2-4-o"><span class="p-icon">✅</span><span class="p-label">Controlado</span></label>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- BLOQUE 3 -->
+  <!-- ÁREA 3: OPERACIONES INTERNAS -->
   <div class="bloque" id="bloque-3">
-    <div class="bloque-header" onclick="toggleBloque(3)">
-      <div class="bloque-num">🟡</div>
+    <div class="bloque-header" onclick="toggle('bloque-3')">
+      <div class="bloque-icon">⚙️</div>
       <div class="bloque-info">
-        <div class="bloque-titulo">Administración y Finanzas</div>
-        <div class="bloque-quote">"Generar reportes me toma horas y no siempre confío en los números."</div>
+        <div class="bloque-title">Operaciones Internas</div>
+        <div class="bloque-sub">Eficiencia, coordinación y manejo de información</div>
       </div>
-      <div class="bloque-badge" id="badge-3"></div>
-      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+      <div class="bloque-status">
+        <span class="bloque-pct" id="pct-3">0 / 4</span>
+        <div class="bloque-dots" id="dots-3"></div>
+      </div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
     </div>
     <div class="bloque-body">
-      <ul class="problems-list">
-        <li>Los reportes financieros se construyen en Excel y toman horas</li>
-        <li>No hay visibilidad en tiempo real de la rentabilidad por estación</li>
-        <li>Los gastos de mantenimiento no están centralizados ni categorizados</li>
-        <li>El proceso de nómina tiene errores o retrasos frecuentes</li>
-        <li>La facturación se hace de forma manual o semi-manual</li>
-      </ul>
-      <div class="severidad-label">¿Cuánto te afecta esto?</div>
-      <div class="severidad-options">
-        <input type="radio" class="sev-option critico" name="sev-3" id="s3-c" value="critico" onchange="onSeveridad(3,'critico')">
-        <label for="s3-c"><span class="sev-icon">🔴</span><span class="sev-name">Crítico</span><span class="sev-desc">Me afecta directamente y de forma frecuente</span></label>
-        <input type="radio" class="sev-option moderado" name="sev-3" id="s3-m" value="moderado" onchange="onSeveridad(3,'moderado')">
-        <label for="s3-m"><span class="sev-icon">🟡</span><span class="sev-name">Moderado</span><span class="sev-desc">Existe pero podría mejorar</span></label>
-        <input type="radio" class="sev-option noapl" name="sev-3" id="s3-n" value="noapl" onchange="onSeveridad(3,'noapl')">
-        <label for="s3-n"><span class="sev-icon">🟢</span><span class="sev-name">No aplica</span><span class="sev-desc">Esto no es un problema en mi operación</span></label>
+      <div class="problema">
+        <div class="problema-text">
+          <div class="problema-title">Generamos reportes de forma manual que consumen horas cada semana</div>
+          <div class="problema-detail">Alguien del equipo dedica tiempo a armar reportes que podrían generarse automáticamente</div>
+        </div>
+        <div class="problema-opts">
+          <input type="radio" class="popt critico" name="p3-1" id="p3-1-c" value="critico" onchange="onResp('3','1',3,'critico')">
+          <label for="p3-1-c"><span class="p-icon">🔴</span><span class="p-label">Crítico</span></label>
+          <input type="radio" class="popt moderado" name="p3-1" id="p3-1-m" value="moderado" onchange="onResp('3','1',1,'moderado')">
+          <label for="p3-1-m"><span class="p-icon">🟡</span><span class="p-label">A veces</span></label>
+          <input type="radio" class="popt ok" name="p3-1" id="p3-1-o" value="ok" onchange="onResp('3','1',0,'ok')">
+          <label for="p3-1-o"><span class="p-icon">✅</span><span class="p-label">Controlado</span></label>
+        </div>
       </div>
-      <div class="comentario-wrap">
-        <div class="comentario-label">Comentario adicional (opcional)</div>
-        <textarea id="com-3" placeholder="Describe brevemente la situación en tu empresa..."></textarea>
+      <div class="problema">
+        <div class="problema-text">
+          <div class="problema-title">Coordinamos tareas entre áreas por WhatsApp sin trazabilidad</div>
+          <div class="problema-detail">Las instrucciones se pierden en chats. Nadie sabe exactamente en qué está cada quien</div>
+        </div>
+        <div class="problema-opts">
+          <input type="radio" class="popt critico" name="p3-2" id="p3-2-c" value="critico" onchange="onResp('3','2',3,'critico')">
+          <label for="p3-2-c"><span class="p-icon">🔴</span><span class="p-label">Crítico</span></label>
+          <input type="radio" class="popt moderado" name="p3-2" id="p3-2-m" value="moderado" onchange="onResp('3','2',1,'moderado')">
+          <label for="p3-2-m"><span class="p-icon">🟡</span><span class="p-label">A veces</span></label>
+          <input type="radio" class="popt ok" name="p3-2" id="p3-2-o" value="ok" onchange="onResp('3','2',0,'ok')">
+          <label for="p3-2-o"><span class="p-icon">✅</span><span class="p-label">Controlado</span></label>
+        </div>
+      </div>
+      <div class="problema">
+        <div class="problema-text">
+          <div class="problema-title">Información clave vive en correos o archivos personales, no en un sistema central</div>
+          <div class="problema-detail">Cuando alguien sale de vacaciones o renuncia, esa información se pierde o es difícil de recuperar</div>
+        </div>
+        <div class="problema-opts">
+          <input type="radio" class="popt critico" name="p3-3" id="p3-3-c" value="critico" onchange="onResp('3','3',3,'critico')">
+          <label for="p3-3-c"><span class="p-icon">🔴</span><span class="p-label">Crítico</span></label>
+          <input type="radio" class="popt moderado" name="p3-3" id="p3-3-m" value="moderado" onchange="onResp('3','3',1,'moderado')">
+          <label for="p3-3-m"><span class="p-icon">🟡</span><span class="p-label">A veces</span></label>
+          <input type="radio" class="popt ok" name="p3-3" id="p3-3-o" value="ok" onchange="onResp('3','3',0,'ok')">
+          <label for="p3-3-o"><span class="p-icon">✅</span><span class="p-label">Controlado</span></label>
+        </div>
+      </div>
+      <div class="problema">
+        <div class="problema-text">
+          <div class="problema-title">Pasamos datos manualmente entre herramientas o sistemas que no se comunican</div>
+          <div class="problema-detail">Capturar la misma información en dos o más sistemas es una tarea frecuente del equipo</div>
+        </div>
+        <div class="problema-opts">
+          <input type="radio" class="popt critico" name="p3-4" id="p3-4-c" value="critico" onchange="onResp('3','4',3,'critico')">
+          <label for="p3-4-c"><span class="p-icon">🔴</span><span class="p-label">Crítico</span></label>
+          <input type="radio" class="popt moderado" name="p3-4" id="p3-4-m" value="moderado" onchange="onResp('3','4',1,'moderado')">
+          <label for="p3-4-m"><span class="p-icon">🟡</span><span class="p-label">A veces</span></label>
+          <input type="radio" class="popt ok" name="p3-4" id="p3-4-o" value="ok" onchange="onResp('3','4',0,'ok')">
+          <label for="p3-4-o"><span class="p-icon">✅</span><span class="p-label">Controlado</span></label>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- BLOQUE 4 -->
+  <!-- ÁREA 4: VISIBILIDAD Y TOMA DE DECISIONES -->
   <div class="bloque" id="bloque-4">
-    <div class="bloque-header" onclick="toggleBloque(4)">
-      <div class="bloque-num">🔵</div>
+    <div class="bloque-header" onclick="toggle('bloque-4')">
+      <div class="bloque-icon">📊</div>
       <div class="bloque-info">
-        <div class="bloque-titulo">Personal y Operaciones</div>
-        <div class="bloque-quote">"No tengo control real sobre asistencias, turnos y productividad de mi equipo."</div>
+        <div class="bloque-title">Visibilidad y Toma de Decisiones</div>
+        <div class="bloque-sub">Métricas, reportes y claridad sobre lo que ocurre</div>
       </div>
-      <div class="bloque-badge" id="badge-4"></div>
-      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+      <div class="bloque-status">
+        <span class="bloque-pct" id="pct-4">0 / 4</span>
+        <div class="bloque-dots" id="dots-4"></div>
+      </div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
     </div>
     <div class="bloque-body">
-      <ul class="problems-list">
-        <li>El control de asistencias y turnos no está digitalizado</li>
-        <li>No hay forma de comparar el desempeño entre estaciones o despachadores</li>
-        <li>La comunicación con encargados de otras estaciones es por WhatsApp informal</li>
-        <li>Los procesos operativos no están documentados ni son replicables</li>
-        <li>Las incidencias (robos, fallas, accidentes) se reportan sin un sistema centralizado</li>
-      </ul>
-      <div class="severidad-label">¿Cuánto te afecta esto?</div>
-      <div class="severidad-options">
-        <input type="radio" class="sev-option critico" name="sev-4" id="s4-c" value="critico" onchange="onSeveridad(4,'critico')">
-        <label for="s4-c"><span class="sev-icon">🔴</span><span class="sev-name">Crítico</span><span class="sev-desc">Me afecta directamente y de forma frecuente</span></label>
-        <input type="radio" class="sev-option moderado" name="sev-4" id="s4-m" value="moderado" onchange="onSeveridad(4,'moderado')">
-        <label for="s4-m"><span class="sev-icon">🟡</span><span class="sev-name">Moderado</span><span class="sev-desc">Existe pero podría mejorar</span></label>
-        <input type="radio" class="sev-option noapl" name="sev-4" id="s4-n" value="noapl" onchange="onSeveridad(4,'noapl')">
-        <label for="s4-n"><span class="sev-icon">🟢</span><span class="sev-name">No aplica</span><span class="sev-desc">Esto no es un problema en mi operación</span></label>
+      <div class="problema">
+        <div class="problema-text">
+          <div class="problema-title">No tenemos un dashboard con métricas clave de la operación en tiempo real</div>
+          <div class="problema-detail">Para saber cómo va el negocio hay que pedirle a alguien que prepare un reporte</div>
+        </div>
+        <div class="problema-opts">
+          <input type="radio" class="popt critico" name="p4-1" id="p4-1-c" value="critico" onchange="onResp('4','1',3,'critico')">
+          <label for="p4-1-c"><span class="p-icon">🔴</span><span class="p-label">Crítico</span></label>
+          <input type="radio" class="popt moderado" name="p4-1" id="p4-1-m" value="moderado" onchange="onResp('4','1',1,'moderado')">
+          <label for="p4-1-m"><span class="p-icon">🟡</span><span class="p-label">A veces</span></label>
+          <input type="radio" class="popt ok" name="p4-1" id="p4-1-o" value="ok" onchange="onResp('4','1',0,'ok')">
+          <label for="p4-1-o"><span class="p-icon">✅</span><span class="p-label">Controlado</span></label>
+        </div>
       </div>
-      <div class="comentario-wrap">
-        <div class="comentario-label">Comentario adicional (opcional)</div>
-        <textarea id="com-4" placeholder="Describe brevemente la situación en tu empresa..."></textarea>
+      <div class="problema">
+        <div class="problema-text">
+          <div class="problema-title">Tardamos más de 24 horas en consolidar información para tomar una decisión</div>
+          <div class="problema-detail">Las decisiones se retrasan porque los datos están en diferentes áreas o personas</div>
+        </div>
+        <div class="problema-opts">
+          <input type="radio" class="popt critico" name="p4-2" id="p4-2-c" value="critico" onchange="onResp('4','2',3,'critico')">
+          <label for="p4-2-c"><span class="p-icon">🔴</span><span class="p-label">Crítico</span></label>
+          <input type="radio" class="popt moderado" name="p4-2" id="p4-2-m" value="moderado" onchange="onResp('4','2',1,'moderado')">
+          <label for="p4-2-m"><span class="p-icon">🟡</span><span class="p-label">A veces</span></label>
+          <input type="radio" class="popt ok" name="p4-2" id="p4-2-o" value="ok" onchange="onResp('4','2',0,'ok')">
+          <label for="p4-2-o"><span class="p-icon">✅</span><span class="p-label">Controlado</span></label>
+        </div>
+      </div>
+      <div class="problema">
+        <div class="problema-text">
+          <div class="problema-title">No medimos el resultado de las acciones comerciales o de marketing</div>
+          <div class="problema-detail">No sabemos qué canales o acciones generan los mejores resultados</div>
+        </div>
+        <div class="problema-opts">
+          <input type="radio" class="popt critico" name="p4-3" id="p4-3-c" value="critico" onchange="onResp('4','3',3,'critico')">
+          <label for="p4-3-c"><span class="p-icon">🔴</span><span class="p-label">Crítico</span></label>
+          <input type="radio" class="popt moderado" name="p4-3" id="p4-3-m" value="moderado" onchange="onResp('4','3',1,'moderado')">
+          <label for="p4-3-m"><span class="p-icon">🟡</span><span class="p-label">A veces</span></label>
+          <input type="radio" class="popt ok" name="p4-3" id="p4-3-o" value="ok" onchange="onResp('4','3',0,'ok')">
+          <label for="p4-3-o"><span class="p-icon">✅</span><span class="p-label">Controlado</span></label>
+        </div>
+      </div>
+      <div class="problema">
+        <div class="problema-text">
+          <div class="problema-title">Dependemos de archivos Excel para procesos o reportes críticos del negocio</div>
+          <div class="problema-detail">Excel funciona pero no escala, no se actualiza en tiempo real y no tiene alertas automáticas</div>
+        </div>
+        <div class="problema-opts">
+          <input type="radio" class="popt critico" name="p4-4" id="p4-4-c" value="critico" onchange="onResp('4','4',3,'critico')">
+          <label for="p4-4-c"><span class="p-icon">🔴</span><span class="p-label">Crítico</span></label>
+          <input type="radio" class="popt moderado" name="p4-4" id="p4-4-m" value="moderado" onchange="onResp('4','4',1,'moderado')">
+          <label for="p4-4-m"><span class="p-icon">🟡</span><span class="p-label">A veces</span></label>
+          <input type="radio" class="popt ok" name="p4-4" id="p4-4-o" value="ok" onchange="onResp('4','4',0,'ok')">
+          <label for="p4-4-o"><span class="p-icon">✅</span><span class="p-label">Controlado</span></label>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- BLOQUE 5 -->
+  <!-- ÁREA 5: SEGURIDAD DIGITAL -->
   <div class="bloque" id="bloque-5">
-    <div class="bloque-header" onclick="toggleBloque(5)">
-      <div class="bloque-num">🟣</div>
+    <div class="bloque-header" onclick="toggle('bloque-5')">
+      <div class="bloque-icon">🛡️</div>
       <div class="bloque-info">
-        <div class="bloque-titulo">Experiencia del Cliente y Fidelización</div>
-        <div class="bloque-quote">"Mis clientes no tienen ninguna razón diferente para regresar a mi estación."</div>
+        <div class="bloque-title">Seguridad Digital</div>
+        <div class="bloque-sub">Protección del correo, datos e infraestructura digital</div>
       </div>
-      <div class="bloque-badge" id="badge-5"></div>
-      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+      <div class="bloque-status">
+        <span class="bloque-pct" id="pct-5">0 / 4</span>
+        <div class="bloque-dots" id="dots-5"></div>
+      </div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
     </div>
     <div class="bloque-body">
-      <ul class="problems-list">
-        <li>No existe un programa de lealtad o recompensas para clientes frecuentes</li>
-        <li>No se recopilan reseñas ni retroalimentación de los clientes</li>
-        <li>No hay forma de comunicarle promos o novedades a los clientes habituales</li>
-        <li>La experiencia en tienda de conveniencia (si aplica) no está optimizada</li>
-        <li>No hay diferenciación visible frente a las estaciones de la competencia</li>
-      </ul>
-      <div class="severidad-label">¿Cuánto te afecta esto?</div>
-      <div class="severidad-options">
-        <input type="radio" class="sev-option critico" name="sev-5" id="s5-c" value="critico" onchange="onSeveridad(5,'critico')">
-        <label for="s5-c"><span class="sev-icon">🔴</span><span class="sev-name">Crítico</span><span class="sev-desc">Me afecta directamente y de forma frecuente</span></label>
-        <input type="radio" class="sev-option moderado" name="sev-5" id="s5-m" value="moderado" onchange="onSeveridad(5,'moderado')">
-        <label for="s5-m"><span class="sev-icon">🟡</span><span class="sev-name">Moderado</span><span class="sev-desc">Existe pero podría mejorar</span></label>
-        <input type="radio" class="sev-option noapl" name="sev-5" id="s5-n" value="noapl" onchange="onSeveridad(5,'noapl')">
-        <label for="s5-n"><span class="sev-icon">🟢</span><span class="sev-name">No aplica</span><span class="sev-desc">Esto no es un problema en mi operación</span></label>
+      <div class="problema">
+        <div class="problema-text">
+          <div class="problema-title">No sabemos si el dominio de nuestra empresa tiene SPF, DKIM o DMARC configurado</div>
+          <div class="problema-detail">Sin estos registros, cualquiera puede enviar correos haciéndose pasar por tu empresa</div>
+        </div>
+        <div class="problema-opts">
+          <input type="radio" class="popt critico" name="p5-1" id="p5-1-c" value="critico" onchange="onResp('5','1',3,'critico')">
+          <label for="p5-1-c"><span class="p-icon">🔴</span><span class="p-label">Crítico</span></label>
+          <input type="radio" class="popt moderado" name="p5-1" id="p5-1-m" value="moderado" onchange="onResp('5','1',1,'moderado')">
+          <label for="p5-1-m"><span class="p-icon">🟡</span><span class="p-label">A veces</span></label>
+          <input type="radio" class="popt ok" name="p5-1" id="p5-1-o" value="ok" onchange="onResp('5','1',0,'ok')">
+          <label for="p5-1-o"><span class="p-icon">✅</span><span class="p-label">Controlado</span></label>
+        </div>
       </div>
-      <div class="comentario-wrap">
-        <div class="comentario-label">Comentario adicional (opcional)</div>
-        <textarea id="com-5" placeholder="Describe brevemente la situación en tu empresa..."></textarea>
+      <div class="problema">
+        <div class="problema-text">
+          <div class="problema-title">Hemos recibido o casi caemos en correos de phishing o fraude por correo</div>
+          <div class="problema-detail">Correos falsos que imitan a proveedores, bancos o incluso a nosotros mismos pidiendo pagos</div>
+        </div>
+        <div class="problema-opts">
+          <input type="radio" class="popt critico" name="p5-2" id="p5-2-c" value="critico" onchange="onResp('5','2',3,'critico')">
+          <label for="p5-2-c"><span class="p-icon">🔴</span><span class="p-label">Crítico</span></label>
+          <input type="radio" class="popt moderado" name="p5-2" id="p5-2-m" value="moderado" onchange="onResp('5','2',1,'moderado')">
+          <label for="p5-2-m"><span class="p-icon">🟡</span><span class="p-label">A veces</span></label>
+          <input type="radio" class="popt ok" name="p5-2" id="p5-2-o" value="ok" onchange="onResp('5','2',0,'ok')">
+          <label for="p5-2-o"><span class="p-icon">✅</span><span class="p-label">Controlado</span></label>
+        </div>
+      </div>
+      <div class="problema">
+        <div class="problema-text">
+          <div class="problema-title">No tenemos alertas cuando algo inusual pasa en nuestra infraestructura o sistemas</div>
+          <div class="problema-detail">Nos enteramos de los problemas cuando ya afectaron al negocio, no antes</div>
+        </div>
+        <div class="problema-opts">
+          <input type="radio" class="popt critico" name="p5-3" id="p5-3-c" value="critico" onchange="onResp('5','3',3,'critico')">
+          <label for="p5-3-c"><span class="p-icon">🔴</span><span class="p-label">Crítico</span></label>
+          <input type="radio" class="popt moderado" name="p5-3" id="p5-3-m" value="moderado" onchange="onResp('5','3',1,'moderado')">
+          <label for="p5-3-m"><span class="p-icon">🟡</span><span class="p-label">A veces</span></label>
+          <input type="radio" class="popt ok" name="p5-3" id="p5-3-o" value="ok" onchange="onResp('5','3',0,'ok')">
+          <label for="p5-3-o"><span class="p-icon">✅</span><span class="p-label">Controlado</span></label>
+        </div>
+      </div>
+      <div class="problema">
+        <div class="problema-text">
+          <div class="problema-title">Los accesos a sistemas críticos no tienen autenticación de dos factores</div>
+          <div class="problema-detail">Correo corporativo, ERP, banca en línea o redes sociales protegidos solo con contraseña</div>
+        </div>
+        <div class="problema-opts">
+          <input type="radio" class="popt critico" name="p5-4" id="p5-4-c" value="critico" onchange="onResp('5','4',3,'critico')">
+          <label for="p5-4-c"><span class="p-icon">🔴</span><span class="p-label">Crítico</span></label>
+          <input type="radio" class="popt moderado" name="p5-4" id="p5-4-m" value="moderado" onchange="onResp('5','4',1,'moderado')">
+          <label for="p5-4-m"><span class="p-icon">🟡</span><span class="p-label">A veces</span></label>
+          <input type="radio" class="popt ok" name="p5-4" id="p5-4-o" value="ok" onchange="onResp('5','4',0,'ok')">
+          <label for="p5-4-o"><span class="p-icon">✅</span><span class="p-label">Controlado</span></label>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- BLOQUE 6 -->
+  <!-- ÁREA 6: CRECIMIENTO Y ESCALABILIDAD -->
   <div class="bloque" id="bloque-6">
-    <div class="bloque-header" onclick="toggleBloque(6)">
-      <div class="bloque-num">⚙️</div>
+    <div class="bloque-header" onclick="toggle('bloque-6')">
+      <div class="bloque-icon">🚀</div>
       <div class="bloque-info">
-        <div class="bloque-titulo">Tecnología y Sistemas Actuales</div>
-        <div class="bloque-quote">"Tengo varios sistemas que no se hablan entre sí, o simplemente no tengo ninguno."</div>
+        <div class="bloque-title">Crecimiento y Escalabilidad</div>
+        <div class="bloque-sub">Capacidad de crecer sin que el caos crezca igual</div>
       </div>
-      <div class="bloque-badge" id="badge-6"></div>
-      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+      <div class="bloque-status">
+        <span class="bloque-pct" id="pct-6">0 / 4</span>
+        <div class="bloque-dots" id="dots-6"></div>
+      </div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
     </div>
     <div class="bloque-body">
-      <ul class="problems-list">
-        <li>Los sistemas de punto de venta, contabilidad y operaciones no están integrados</li>
-        <li>Los datos de diferentes estaciones están en sistemas distintos o desconectados</li>
-        <li>No hay automatizaciones activas (alertas, reportes, flujos automáticos)</li>
-        <li>El equipo directivo no tiene un panel de control para ver todo en un solo lugar</li>
-        <li>Las actualizaciones o cambios de sistema han sido lentos o costosos</li>
-      </ul>
-      <div class="severidad-label">¿Cuánto te afecta esto?</div>
-      <div class="severidad-options">
-        <input type="radio" class="sev-option critico" name="sev-6" id="s6-c" value="critico" onchange="onSeveridad(6,'critico')">
-        <label for="s6-c"><span class="sev-icon">🔴</span><span class="sev-name">Crítico</span><span class="sev-desc">Me afecta directamente y de forma frecuente</span></label>
-        <input type="radio" class="sev-option moderado" name="sev-6" id="s6-m" value="moderado" onchange="onSeveridad(6,'moderado')">
-        <label for="s6-m"><span class="sev-icon">🟡</span><span class="sev-name">Moderado</span><span class="sev-desc">Existe pero podría mejorar</span></label>
-        <input type="radio" class="sev-option noapl" name="sev-6" id="s6-n" value="noapl" onchange="onSeveridad(6,'noapl')">
-        <label for="s6-n"><span class="sev-icon">🟢</span><span class="sev-name">No aplica</span><span class="sev-desc">Esto no es un problema en mi operación</span></label>
+      <div class="problema">
+        <div class="problema-text">
+          <div class="problema-title">Para vender o atender más clientes, necesitamos contratar más personas</div>
+          <div class="problema-detail">El crecimiento está directamente atado al aumento de nómina. No hay escalabilidad sin contratación</div>
+        </div>
+        <div class="problema-opts">
+          <input type="radio" class="popt critico" name="p6-1" id="p6-1-c" value="critico" onchange="onResp('6','1',3,'critico')">
+          <label for="p6-1-c"><span class="p-icon">🔴</span><span class="p-label">Crítico</span></label>
+          <input type="radio" class="popt moderado" name="p6-1" id="p6-1-m" value="moderado" onchange="onResp('6','1',1,'moderado')">
+          <label for="p6-1-m"><span class="p-icon">🟡</span><span class="p-label">A veces</span></label>
+          <input type="radio" class="popt ok" name="p6-1" id="p6-1-o" value="ok" onchange="onResp('6','1',0,'ok')">
+          <label for="p6-1-o"><span class="p-icon">✅</span><span class="p-label">Controlado</span></label>
+        </div>
       </div>
-      <div class="comentario-wrap">
-        <div class="comentario-label">Comentario adicional (opcional)</div>
-        <textarea id="com-6" placeholder="Describe brevemente la situación en tu empresa..."></textarea>
+      <div class="problema">
+        <div class="problema-text">
+          <div class="problema-title">Los procesos clave de la empresa dependen de personas específicas y no están documentados</div>
+          <div class="problema-detail">Si esa persona falta, el proceso se detiene. El conocimiento no está en el sistema, está en la cabeza</div>
+        </div>
+        <div class="problema-opts">
+          <input type="radio" class="popt critico" name="p6-2" id="p6-2-c" value="critico" onchange="onResp('6','2',3,'critico')">
+          <label for="p6-2-c"><span class="p-icon">🔴</span><span class="p-label">Crítico</span></label>
+          <input type="radio" class="popt moderado" name="p6-2" id="p6-2-m" value="moderado" onchange="onResp('6','2',1,'moderado')">
+          <label for="p6-2-m"><span class="p-icon">🟡</span><span class="p-label">A veces</span></label>
+          <input type="radio" class="popt ok" name="p6-2" id="p6-2-o" value="ok" onchange="onResp('6','2',0,'ok')">
+          <label for="p6-2-o"><span class="p-icon">✅</span><span class="p-label">Controlado</span></label>
+        </div>
+      </div>
+      <div class="problema">
+        <div class="problema-text">
+          <div class="problema-title">Cuando el volumen de trabajo aumenta, la calidad baja o el equipo se satura</div>
+          <div class="problema-detail">Los picos de demanda generan errores, retrasos o agotamiento. No tenemos capacidad elástica</div>
+        </div>
+        <div class="problema-opts">
+          <input type="radio" class="popt critico" name="p6-3" id="p6-3-c" value="critico" onchange="onResp('6','3',3,'critico')">
+          <label for="p6-3-c"><span class="p-icon">🔴</span><span class="p-label">Crítico</span></label>
+          <input type="radio" class="popt moderado" name="p6-3" id="p6-3-m" value="moderado" onchange="onResp('6','3',1,'moderado')">
+          <label for="p6-3-m"><span class="p-icon">🟡</span><span class="p-label">A veces</span></label>
+          <input type="radio" class="popt ok" name="p6-3" id="p6-3-o" value="ok" onchange="onResp('6','3',0,'ok')">
+          <label for="p6-3-o"><span class="p-icon">✅</span><span class="p-label">Controlado</span></label>
+        </div>
+      </div>
+      <div class="problema">
+        <div class="problema-text">
+          <div class="problema-title">No tenemos un proceso de onboarding estructurado para clientes nuevos</div>
+          <div class="problema-detail">Cada cliente nuevo empieza diferente. Hay dudas, retrasos y errores en las primeras semanas</div>
+        </div>
+        <div class="problema-opts">
+          <input type="radio" class="popt critico" name="p6-4" id="p6-4-c" value="critico" onchange="onResp('6','4',3,'critico')">
+          <label for="p6-4-c"><span class="p-icon">🔴</span><span class="p-label">Crítico</span></label>
+          <input type="radio" class="popt moderado" name="p6-4" id="p6-4-m" value="moderado" onchange="onResp('6','4',1,'moderado')">
+          <label for="p6-4-m"><span class="p-icon">🟡</span><span class="p-label">A veces</span></label>
+          <input type="radio" class="popt ok" name="p6-4" id="p6-4-o" value="ok" onchange="onResp('6','4',0,'ok')">
+          <label for="p6-4-o"><span class="p-icon">✅</span><span class="p-label">Controlado</span></label>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- RESUMEN -->
-  <div class="resumen-section" id="resumenSection">
-    <div class="resumen-title">📊 Resumen del diagnóstico</div>
-    <div class="resumen-grid">
-      <div class="resumen-card r-critico">
-        <span class="count" id="rCritico">0</span>
-        <span class="rlabel">Áreas críticas</span>
-      </div>
-      <div class="resumen-card r-moderado">
-        <span class="count" id="rModerado">0</span>
-        <span class="rlabel">Áreas moderadas</span>
-      </div>
-      <div class="resumen-card r-noapl">
-        <span class="count" id="rNoapl">0</span>
-        <span class="rlabel">No aplica</span>
-      </div>
+</div><!-- /sections-wrap -->
+
+<!-- ── RESUMEN ── -->
+<div class="resumen-wrap" id="resumen">
+  <h2 class="resumen-title">📋 Resumen del diagnóstico</h2>
+  <div class="resumen-grid">
+    <div class="resumen-card r-critico">
+      <span class="rc-count" id="cnt-critico">0</span>
+      <span class="rc-label">Problemas críticos<br>Están costando hoy</span>
     </div>
-    <div class="resumen-bloques" id="resumenBloques">
-      <!-- Populated by JS -->
+    <div class="resumen-card r-moderado">
+      <span class="rc-count" id="cnt-moderado">0</span>
+      <span class="rc-label">Moderados<br>Requieren atención</span>
+    </div>
+    <div class="resumen-card r-ok">
+      <span class="rc-count" id="cnt-ok">0</span>
+      <span class="rc-label">Controlados<br>Bien manejados</span>
     </div>
   </div>
+  <div class="areas-criticas" id="areas-criticas" style="display:none">
+    <div class="areas-criticas-title">🔴 Áreas con mayor urgencia</div>
+    <div id="areas-criticas-tags"></div>
+  </div>
+</div>
 
-  <!-- SUBMIT -->
-  <div class="submit-section">
-    <div class="submit-title">Enviar diagnóstico</div>
-    <div class="submit-sub">Al enviar, recibirás una propuesta personalizada en menos de 48 horas basada en lo que marcaste.</div>
-    <div class="warning-msg" id="warningMsg">⚠️ Completa al menos 4 de los 6 bloques y los datos básicos antes de enviar.</div>
-    <button class="submit-btn" onclick="enviarDiagnostico()">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/></svg>
-      Enviar diagnóstico
+<!-- ── SUBMIT ── -->
+<div class="submit-wrap">
+  <div class="submit-card">
+    <h3 class="submit-h">Genera tu propuesta personalizada</h3>
+    <p class="submit-sub">Con base en tus respuestas determinamos el combo <strong>Lite, Popular o Pro</strong> que mejor se alinea a tu operación — con inversión estimada, procesos a automatizar y plan de arranque. No hay precios genéricos: cada propuesta se construye sobre tus hallazgos.</p>
+    <div style="display:flex;flex-direction:column;gap:7px;margin-bottom:22px;">
+      <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,.6);">
+        <span style="color:var(--green);font-weight:800;">✓</span> Reporte de madurez en ciberseguridad de correo corporativo
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,.6);">
+        <span style="color:var(--green);font-weight:800;">✓</span> 1–3 procesos prioritarios para automatizar en tu empresa
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,.6);">
+        <span style="color:var(--green);font-weight:800;">✓</span> Propuesta Lite / Popular / Pro con inversión estimada
+      </div>
+    </div>
+    <button class="submit-btn" id="submit-btn" onclick="enviar()">
+      Ver mi diagnóstico y propuesta →
     </button>
-    <div class="submit-note">
-      Confidencial — solo lo verá el equipo de <a href="https://trevainnovate.com" target="_blank">Trev'ainnovate</a><br>
-      📧 contacto@trevainnovate.com · trevainnovate.com
-    </div>
+    <p class="submit-note">Resultado inmediato · Te contactamos por WhatsApp en menos de 2h en días hábiles</p>
   </div>
+</div>
 
 </div><!-- /main -->
 
-<!-- SUCCESS SCREEN -->
-<div class="success-screen" id="successScreen">
-  <span class="success-icon">✅</span>
-  <div class="success-title">¡Diagnóstico enviado!</div>
-  <div class="success-sub">Gracias por tu tiempo. Hemos recibido tu diagnóstico y en menos de <strong>48 horas</strong> te contactaremos con una propuesta personalizada para tu operación.</div>
-  <div class="success-contact">
-    ¿Preguntas inmediatas? Escríbenos a<br>
-    <strong>contacto@trevainnovate.com</strong><br>
-    o visita <strong>trevainnovate.com</strong>
+<!-- ── RESULTADO ── -->
+<div class="result-overlay" id="result-overlay">
+  <div class="result-topbar"></div>
+  <div class="result-header">
+    <a class="logo" href="/"><div class="logo-dot"></div>TREV'AINNOVATE</a>
+    <span style="font-size:12px;color:var(--muted);font-family:'JetBrains Mono',monospace">Diagnóstico completado</span>
+  </div>
+  <div class="result-inner">
+    <div class="result-badge">✓ Diagnóstico listo</div>
+    <h2 class="result-h" id="r-title"></h2>
+    <p class="result-sub" id="r-sub"></p>
+
+    <div class="result-score-strip">
+      <div class="rs-item"><span class="rs-num" style="color:var(--red)" id="r-cnt-c">0</span><span class="rs-label">Críticos</span></div>
+      <div class="rs-item"><span class="rs-num" style="color:var(--amber)" id="r-cnt-m">0</span><span class="rs-label">Moderados</span></div>
+      <div class="rs-item"><span class="rs-num" style="color:var(--green)" id="r-cnt-o">0</span><span class="rs-label">Controlados</span></div>
+      <div class="rs-item"><span class="rs-num" style="color:var(--white)" id="r-score">0</span><span class="rs-label">Score total</span></div>
+    </div>
+
+    <div class="nivel-card" id="r-nivel"></div>
+
+    <div class="hallazgos-card">
+      <div class="hc-title">Hallazgos prioritarios de tu operación</div>
+      <div id="r-hallazgos"></div>
+    </div>
+
+    <div style="background:rgba(0,229,160,.04);border:1px solid rgba(0,229,160,.18);border-radius:12px;padding:18px 22px;margin-bottom:24px;">
+      <div style="font-size:10px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.14em;margin-bottom:12px;">Tu diagnóstico incluye:</div>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <div style="display:flex;align-items:flex-start;gap:10px;font-size:13px;color:rgba(255,255,255,.7);line-height:1.5;">
+          <span style="color:var(--green);font-weight:800;flex-shrink:0;">01</span>
+          <span>Reporte de madurez en <strong style="color:var(--white)">ciberseguridad de correo</strong> — riesgos de suplantación, phishing y BEC en tu dominio</span>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:10px;font-size:13px;color:rgba(255,255,255,.7);line-height:1.5;">
+          <span style="color:var(--green);font-weight:800;flex-shrink:0;">02</span>
+          <span>Los <strong style="color:var(--white)">1–3 procesos con mayor impacto</strong> para automatizar, según los hallazgos de tu operación</span>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:10px;font-size:13px;color:rgba(255,255,255,.7);line-height:1.5;">
+          <span style="color:var(--green);font-weight:800;flex-shrink:0;">03</span>
+          <span><strong style="color:var(--white)">Propuesta personalizada</strong> con el combo de servicios alineado a tu score — Lite, Popular o Pro · inversión estimada y plan de arranque</span>
+        </div>
+      </div>
+    </div>
+    <div class="cta-row">
+      <a class="btn-wa" id="r-wa" href="#" target="_blank">📲 Agendar llamada en WhatsApp</a>
+      <a class="btn-doc" id="r-propuesta" href="#" target="_blank">Ver tu propuesta personalizada →</a>
+    </div>
   </div>
 </div>
 
-<!-- FOOTER -->
-<div class="page-footer">
-  Diagnóstico confidencial preparado por <a href="https://trevainnovate.com" target="_blank">Trev'ainnovate</a> &nbsp;·&nbsp; Automatizaciones a la medida para operaciones que quieren crecer.
-</div>
-
 <script>
-const BLOQUES = [
-  { id: 1, nombre: 'Control de Ventas y Caja' },
-  { id: 2, nombre: 'Inventarios y Abastecimiento' },
-  { id: 3, nombre: 'Administración y Finanzas' },
-  { id: 4, nombre: 'Personal y Operaciones' },
-  { id: 5, nombre: 'Experiencia del Cliente' },
-  { id: 6, nombre: 'Tecnología y Sistemas' },
-];
+// ── Estado global ──
+const AREAS = {
+  '1': 'Prospección y Ventas',
+  '2': 'Atención al Cliente',
+  '3': 'Operaciones Internas',
+  '4': 'Visibilidad y Decisiones',
+  '5': 'Seguridad Digital',
+  '6': 'Crecimiento y Escalabilidad',
+};
+const state = {};  // p{area}-{num}: {pts, tipo}
+let totalRespondidas = 0;
+const TOTAL = 24;
 
-const state = {};
-const SEV_LABELS = { critico: '🔴 Crítico', moderado: '🟡 Moderado', noapl: '🟢 No aplica' };
-
-// URL params pre-fill
-const params = new URLSearchParams(location.search);
-const pEmpresa = params.get('empresa') || '';
-const pNombre = params.get('nombre') || '';
-const pEstaciones = params.get('estaciones') || '';
-const pTel = params.get('tel') || '';
-
-if (pEmpresa) document.getElementById('fEmpresa').value = pEmpresa;
-if (pNombre) document.getElementById('fNombre').value = pNombre;
-if (pEstaciones) document.getElementById('fEstaciones').value = pEstaciones;
-if (pTel) document.getElementById('fTel').value = pTel;
-
-if (pEmpresa || pNombre || pEstaciones) {
-  document.getElementById('heroClient').style.display = 'flex';
-  if (pEmpresa) document.getElementById('heroEmpresa').textContent = pEmpresa;
-  if (pNombre) document.getElementById('heroNombre').textContent = pNombre;
-  if (pEstaciones) document.getElementById('heroEstaciones').textContent = pEstaciones + (pEstaciones == 1 ? ' estación' : ' estaciones');
+// ── Toggle bloque ──
+function toggle(id) {
+  const el = document.getElementById(id);
+  el.classList.toggle('open');
 }
 
-function toggleBloque(id) {
-  const el = document.getElementById(`bloque-${id}`);
-  const isOpen = el.classList.contains('open');
-  // Close all
-  document.querySelectorAll('.bloque.open').forEach(b => b.classList.remove('open'));
-  if (!isOpen) el.classList.add('open');
+// ── Respuesta ──
+function onResp(area, num, pts, tipo) {
+  const key = `p${area}-${num}`;
+  const wasAnswered = !!state[key];
+  state[key] = { pts, tipo };
+  if (!wasAnswered) totalRespondidas++;
+  updateUI();
 }
 
-function onSeveridad(id, val) {
-  state[id] = val;
-  const bloque = document.getElementById(`bloque-${id}`);
-  bloque.classList.add('has-answer');
-
-  const badge = document.getElementById(`badge-${id}`);
-  badge.className = `bloque-badge ${val}`;
-  badge.innerHTML = `${val === 'critico' ? '🔴' : val === 'moderado' ? '🟡' : '🟢'} ${val === 'critico' ? 'Crítico' : val === 'moderado' ? 'Moderado' : 'No aplica'}`;
-
-  updateProgress();
-  updateResumen();
-
-  // Auto-advance: close current, open next
-  setTimeout(() => {
-    bloque.classList.remove('open');
-    const nextId = id + 1;
-    if (nextId <= 6 && !state[nextId]) {
-      document.getElementById(`bloque-${nextId}`).classList.add('open');
-      document.getElementById(`bloque-${nextId}`).scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  }, 600);
-}
-
-function updateProgress() {
-  const answered = Object.keys(state).length;
-  const pct = Math.round((answered / 6) * 100);
-  document.getElementById('progressFill').style.width = pct + '%';
-  document.getElementById('progressPct').textContent = pct + '%';
-}
-
-function updateResumen() {
-  let critico = 0, moderado = 0, noapl = 0;
+function updateUI() {
+  // Conteos globales
+  let critico = 0, moderado = 0, ok = 0, scoreTotal = 0;
   Object.values(state).forEach(v => {
-    if (v === 'critico') critico++;
-    else if (v === 'moderado') moderado++;
-    else noapl++;
+    if (v.tipo === 'critico') critico++;
+    else if (v.tipo === 'moderado') moderado++;
+    else ok++;
+    scoreTotal += v.pts;
   });
-  document.getElementById('rCritico').textContent = critico;
-  document.getElementById('rModerado').textContent = moderado;
-  document.getElementById('rNoapl').textContent = noapl;
 
-  const rows = BLOQUES.map(b => {
-    const ans = state[b.id];
-    const cls = ans || 'pending';
-    const label = ans ? SEV_LABELS[ans] : 'Pendiente';
-    return `<div class="res-row"><span class="bname">${b.nombre}</span><span class="bval ${cls}">${label}</span></div>`;
-  }).join('');
-  document.getElementById('resumenBloques').innerHTML = rows;
+  // Header
+  document.getElementById('sh-counter').textContent = `${totalRespondidas} / ${TOTAL} respondidas`;
+  const scoreEl = document.getElementById('sh-score');
+  scoreEl.textContent = `Score: ${scoreTotal}`;
+  scoreEl.className = 'sh-score ' + (scoreTotal >= 36 ? 'hi' : scoreTotal >= 18 ? 'med' : 'low');
+
+  // Progress
+  const pct = Math.round(totalRespondidas / TOTAL * 100);
+  document.getElementById('prog-fill').style.width = pct + '%';
+  document.getElementById('prog-pct').textContent = pct + '%';
+
+  // Resumen
+  document.getElementById('cnt-critico').textContent = critico;
+  document.getElementById('cnt-moderado').textContent = moderado;
+  document.getElementById('cnt-ok').textContent = ok;
+
+  // Áreas críticas
+  const areasCriticas = {};
+  Object.entries(state).forEach(([k, v]) => {
+    if (v.tipo === 'critico') {
+      const area = k.split('-')[0].replace('p', '');
+      areasCriticas[area] = (areasCriticas[area] || 0) + 1;
+    }
+  });
+  const acKeys = Object.keys(areasCriticas).sort((a, b) => areasCriticas[b] - areasCriticas[a]);
+  const acWrap = document.getElementById('areas-criticas');
+  const acTags = document.getElementById('areas-criticas-tags');
+  if (acKeys.length > 0) {
+    acWrap.style.display = 'block';
+    acTags.innerHTML = acKeys.map(k =>
+      `<span class="area-tag">${AREAS[k]} (${areasCriticas[k]})</span>`
+    ).join('');
+  } else {
+    acWrap.style.display = 'none';
+  }
+
+  // Dots por bloque
+  for (let a = 1; a <= 6; a++) {
+    const dotsEl = document.getElementById(`dots-${a}`);
+    const pctEl = document.getElementById(`pct-${a}`);
+    const areaState = Object.entries(state).filter(([k]) => k.startsWith(`p${a}-`));
+    const resp = areaState.length;
+    pctEl.textContent = `${resp} / 4`;
+    dotsEl.innerHTML = areaState.map(([, v]) =>
+      `<div class="bdot ${v.tipo}"></div>`
+    ).join('');
+    const blq = document.getElementById(`bloque-${a}`);
+    blq.classList.toggle('has-answers', resp > 0);
+    blq.classList.toggle('all-answered', resp === 4);
+  }
 }
 
-// Initialize resumen
-updateResumen();
+// ── Enviar ──
+function enviar() {
+  const nombre     = document.getElementById('f-nombre').value.trim();
+  const empresa    = document.getElementById('f-empresa').value.trim();
+  const cargo      = document.getElementById('f-cargo').value.trim();
+  const whatsapp   = document.getElementById('f-whatsapp').value.trim();
+  const empleados  = document.getElementById('f-empleados').value;
+  const emailTool  = document.getElementById('f-email-tool').value;
 
-// Open bloque 1 by default
-toggleBloque(1);
-
-function enviarDiagnostico() {
-  const empresa = document.getElementById('fEmpresa').value.trim();
-  const nombre = document.getElementById('fNombre').value.trim();
-  const answered = Object.keys(state).length;
-
-  if (!empresa || !nombre || answered < 4) {
-    const w = document.getElementById('warningMsg');
-    w.style.display = 'block';
-    w.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  if (!nombre || !empresa || !whatsapp) {
+    if (!nombre) document.getElementById('f-nombre').style.borderColor = 'var(--red)';
+    if (!empresa) document.getElementById('f-empresa').style.borderColor = 'var(--red)';
+    if (!whatsapp) document.getElementById('f-whatsapp').style.borderColor = 'var(--red)';
+    document.getElementById('datos').scrollIntoView({ behavior: 'smooth' });
     return;
   }
-  document.getElementById('warningMsg').style.display = 'none';
 
-  const tel = document.getElementById('fTel').value.trim();
-  const estaciones = document.getElementById('fEstaciones').value.trim();
+  const btn = document.getElementById('submit-btn');
+  btn.disabled = true;
+  btn.textContent = 'Procesando...';
 
-  // Build email body
-  let body = `DIAGNÓSTICO DE DIGITALIZACIÓN — GASOLINERAS\n`;
-  body += `${'─'.repeat(50)}\n\n`;
-  body += `DATOS DEL CLIENTE\n`;
-  body += `Empresa: ${empresa}\n`;
-  body += `Nombre: ${nombre}\n`;
-  body += `Teléfono: ${tel || 'No especificado'}\n`;
-  body += `Estaciones: ${estaciones || 'No especificado'}\n\n`;
-  body += `RESULTADOS\n`;
-  body += `${'─'.repeat(30)}\n`;
-
-  BLOQUES.forEach(b => {
-    const ans = state[b.id] || 'Sin responder';
-    const label = SEV_LABELS[ans] || 'Sin responder';
-    const com = (document.getElementById(`com-${b.id}`)?.value || '').trim();
-    body += `\n${b.id}. ${b.nombre}: ${label}\n`;
-    if (com) body += `   Comentario: ${com}\n`;
+  // Calcular resultado
+  let critico = 0, moderado = 0, ok = 0, score = 0;
+  Object.values(state).forEach(v => {
+    if (v.tipo === 'critico') critico++;
+    else if (v.tipo === 'moderado') moderado++;
+    else ok++;
+    score += v.pts;
   });
 
-  body += `\n${'─'.repeat(30)}\n`;
-  const critico = Object.values(state).filter(v => v === 'critico').length;
-  const moderado = Object.values(state).filter(v => v === 'moderado').length;
-  body += `RESUMEN: 🔴 Crítico: ${critico} · 🟡 Moderado: ${moderado} · 🟢 No aplica: ${Object.values(state).filter(v => v === 'noapl').length}\n\n`;
-  body += `Enviado desde diagnóstico.trevainnovate.com\n`;
+  const areasCriticas = {};
+  Object.entries(state).forEach(([k, v]) => {
+    if (v.tipo === 'critico') {
+      const area = k.split('-')[0].replace('p', '');
+      areasCriticas[area] = (areasCriticas[area] || 0) + 1;
+    }
+  });
+  const topAreas = Object.keys(areasCriticas).sort((a, b) => areasCriticas[b] - areasCriticas[a]).slice(0, 3).map(k => AREAS[k]);
 
-  const subject = `Diagnóstico de Digitalización — ${empresa} (${estaciones ? estaciones + ' estaciones' : 'Gasolineras'})`;
-  const mailto = `mailto:contacto@trevainnovate.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  // Build hallazgos
+  const hallazgosTextos = [];
+  Object.entries(state).forEach(([k, v]) => {
+    if (v.tipo === 'critico') {
+      const el = document.querySelector(`input[name="${k}"][value="critico"]`);
+      if (el) {
+        const card = el.closest('.problema');
+        if (card) hallazgosTextos.push(card.querySelector('.problema-title').textContent.trim());
+      }
+    }
+  });
 
-  // Try webhook first, always show mailto
-  fetch('https://n8n.trevainnovate.com/webhook/gasolineras-diagnostico', {
+  // Plan recomendado: Lite / Popular / Pro
+  let nivel;
+  if (score >= 36) {
+    nivel = { icon:'🌐', tag:'Plan Pro', name:'Pro — Ecosistema completo', desc:'Tu operación tiene fricciones en múltiples frentes que requieren solución coordinada. El plan Pro despliega 2–4 agentes IA especializados + seguridad administrada de correo + automatización de procesos críticos — operando 24/7 por una fracción del costo de contratar el equipo equivalente. <strong style="color:rgba(255,255,255,.8)">Setup $30,000 MXN · $14,500 MXN/mes.</strong> Inversión anual comparable a 1 empleado de nivel medio.', bg:'rgba(139,92,246,.07)', border:'rgba(139,92,246,.3)', color:'var(--purple)' };
+  } else if (score >= 18) {
+    nivel = { icon:'🤖', tag:'Plan Popular — Más solicitado', name:'Popular — Agente IA + Seguridad', desc:'Tienes áreas con impacto claro y medible. El plan Popular despliega un agente IA funcional con rol específico (SDR, soporte o coordinación) más seguridad administrada de correo corporativo. Resultado visible desde la primera semana. <strong style="color:rgba(255,255,255,.8)">Setup $18,000 MXN · $7,500 MXN/mes</strong> — menos del 50% del costo de un empleado operativo, trabajando 24/7.', bg:'rgba(0,229,160,.06)', border:'rgba(0,229,160,.3)', color:'var(--green)' };
+  } else if (score >= 6) {
+    nivel = { icon:'⚙️', tag:'Plan Lite', name:'Lite — Automatización de entrada', desc:'Automatizamos el proceso de mayor fricción en tu operación: 1–2 flujos críticos + configuración básica de seguridad de correo. Rápido, medible, con ROI en las primeras semanas. <strong style="color:rgba(255,255,255,.8)">Setup $12,000 MXN · $3,500 MXN/mes.</strong> La mayoría de clientes escala a Popular en los primeros 60 días.', bg:'rgba(59,130,246,.06)', border:'rgba(59,130,246,.3)', color:'var(--blue)' };
+  } else {
+    nivel = { icon:'✅', tag:'Plan Lite', name:'Lite — Optimización selectiva', desc:'Tu operación está bien controlada en los puntos evaluados. Identificamos mejoras de alto impacto puntual — desde seguridad de correo hasta automatizaciones que liberan horas reales cada semana. <strong style="color:rgba(255,255,255,.8)">Setup $12,000 MXN · $3,500 MXN/mes.</strong>', bg:'rgba(0,229,160,.04)', border:'rgba(0,229,160,.2)', color:'var(--green)' };
+  }
+
+  // Título del resultado
+  const rTitle = critico >= 8
+    ? 'Tu operación tiene <span class="grad">fricciones costosas</span> que se pueden eliminar.'
+    : critico >= 4
+    ? 'Hay <span class="grad">áreas críticas</span> que están frenando tu crecimiento.'
+    : 'Tu operación tiene <span class="grad">oportunidades claras</span> de mejora.';
+
+  const rSub = `Diagnóstico de ${nombre} — ${empresa}. Score total: ${score} puntos. ${critico} problemas críticos identificados en ${topAreas.length > 0 ? topAreas.join(', ') : 'tu operación'}.`;
+
+  // Render resultado
+  document.getElementById('r-title').innerHTML = rTitle;
+  document.getElementById('r-sub').textContent = rSub;
+  document.getElementById('r-cnt-c').textContent = critico;
+  document.getElementById('r-cnt-m').textContent = moderado;
+  document.getElementById('r-cnt-o').textContent = ok;
+  document.getElementById('r-score').textContent = score;
+
+  const nivelEl = document.getElementById('r-nivel');
+  nivelEl.style.background = nivel.bg;
+  nivelEl.style.border = '1px solid ' + nivel.border;
+  nivelEl.innerHTML = `
+    <div style="font-size:38px;flex-shrink:0">${nivel.icon}</div>
+    <div>
+      <div style="font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.14em;text-transform:uppercase;margin-bottom:5px">${nivel.tag}</div>
+      <div style="font-size:22px;font-weight:900;color:${nivel.color};margin-bottom:6px">${nivel.name}</div>
+      <div style="font-size:15px;color:var(--muted);line-height:1.65">${nivel.desc}</div>
+    </div>`;
+
+  const hallEl = document.getElementById('r-hallazgos');
+  if (hallazgosTextos.length > 0) {
+    hallEl.innerHTML = hallazgosTextos.slice(0, 6).map(t =>
+      `<div class="hallazgo">${t}</div>`
+    ).join('');
+  } else {
+    hallEl.innerHTML = '<div class="hallazgo">No se identificaron problemas críticos. Tu operación está bien manejada en los puntos evaluados.</div>';
+  }
+
+  // WhatsApp CTA
+  const areas3 = topAreas.slice(0, 2).join(' y ');
+  const msg = encodeURIComponent(`Hola, acabo de completar el diagnóstico en trevainnovate.com. Soy ${nombre} de ${empresa}${cargo ? ', '+cargo : ''}. Obtuve un score de ${score} con ${critico} puntos críticos en ${areas3 || 'mi operación'}. Me interesa hablar con ustedes.`);
+  document.getElementById('r-wa').href = `https://wa.me/522231294663?text=${msg}`;
+
+  // Propuesta personalizada URL
+  const SETUP_MAP  = { 3: 30000, 2: 18000, 1: 12000 };
+  const MENSUAL_MAP = { 3: 14500, 2: 7500, 1: 3500 };
+  const nivelNum = score >= 36 ? 3 : score >= 18 ? 2 : 1;
+  const propuestaUrl = 'https://trevainnovate.com/propuesta.html?' + new URLSearchParams({
+    cliente:    empresa,
+    contacto:   nombre,
+    nivel:      nivelNum,
+    setup:      SETUP_MAP[nivelNum],
+    mensual:    MENSUAL_MAP[nivelNum],
+    score:      score,
+    areas:      topAreas.join(','),
+    hallazgos:  hallazgosTextos.slice(0, 6).join('|'),
+    fecha:      new Date().toLocaleDateString('es-MX', {day:'numeric', month:'long', year:'numeric'})
+  }).toString();
+  document.getElementById('r-propuesta').href = propuestaUrl;
+
+  // Send to n8n
+  fetch('https://n8n.trevainnovate.com/webhook/trevai-lead', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      empresa, nombre, tel, estaciones,
-      resultados: BLOQUES.map(b => ({
-        bloque: b.nombre,
-        severidad: state[b.id] || null,
-        comentario: document.getElementById(`com-${b.id}`)?.value?.trim() || ''
-      })),
-      fecha: new Date().toISOString()
+      canal: 'diagnostico-web',
+      nombre, empresa, cargo, whatsapp, empleados, emailTool,
+      score, critico, moderado, ok,
+      plan_recomendado: nivel.tag,
+      areas_criticas: topAreas,
+      hallazgos: hallazgosTextos.slice(0, 6),
+      respuestas: state,
+      fecha: new Date().toISOString(),
     })
   }).catch(() => {});
 
-  // Open mailto
-  window.location.href = mailto;
-
-  // Show success after short delay
+  // Mostrar overlay
   setTimeout(() => {
-    document.getElementById('mainContent').style.display = 'none';
-    document.getElementById('successScreen').style.display = 'block';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, 800);
+    document.getElementById('result-overlay').classList.add('active');
+    window.scrollTo(0, 0);
+  }, 600);
 }
+
+// ── Init: abrir primer bloque ──
+document.getElementById('bloque-1').classList.add('open');
+updateUI();
 </script>
 </body>
 </html>

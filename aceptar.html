@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Aceptar propuesta — Trev'ainnovate</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#05050e;--bg2:#0b0b1c;--bg3:#111128;
+  --green:#00e5a0;--blue:#3b82f6;--purple:#8b5cf6;--amber:#f59e0b;
+  --white:#f1f5f9;--muted:#8892a4;--border:rgba(255,255,255,0.07);
+}
+html,body{background:var(--bg);font-family:'Inter',sans-serif;color:var(--white);min-height:100vh;-webkit-font-smoothing:antialiased;}
+
+/* ── Layout ── */
+.wrap{max-width:680px;margin:0 auto;padding:0 20px 80px;}
+
+/* ── Top bar ── */
+.topbar{height:3px;background:linear-gradient(90deg,var(--green),var(--blue),var(--purple));}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:18px 0 32px;}
+.logo{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:800;}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 10px rgba(0,229,160,.7);}
+
+/* ── Stepper ── */
+.stepper{display:flex;align-items:center;gap:0;margin-bottom:48px;}
+.step{display:flex;align-items:center;gap:10px;flex:1;}
+.step-num{width:32px;height:32px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--muted);flex-shrink:0;transition:all .3s ease;}
+.step.active .step-num{border-color:var(--green);background:rgba(0,229,160,.1);color:var(--green);}
+.step.done .step-num{border-color:var(--green);background:var(--green);color:#05050e;}
+.step-label{font-size:12px;color:var(--muted);font-weight:500;transition:color .3s;}
+.step.active .step-label{color:var(--white);}
+.step.done .step-label{color:var(--green);}
+.step-line{flex:1;height:1px;background:var(--border);margin:0 8px;transition:background .3s;}
+.step-line.done{background:var(--green);}
+
+/* ── Cards ── */
+.card{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:16px;padding:28px;}
+.card.green{background:rgba(0,229,160,.04);border-color:rgba(0,229,160,.2);}
+.card.blue{background:rgba(59,130,246,.04);border-color:rgba(59,130,246,.2);}
+.card.glow{box-shadow:0 0 40px rgba(0,229,160,.08);}
+
+/* ── Typography ── */
+.lbl{font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--green);margin-bottom:6px;display:block;}
+.h1{font-size:32px;font-weight:900;line-height:1.1;letter-spacing:-.02em;margin-bottom:8px;}
+.h2{font-size:20px;font-weight:800;margin-bottom:6px;}
+.body{font-size:13px;color:var(--muted);line-height:1.6;}
+.grad{background:linear-gradient(135deg,var(--green),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.mono{font-family:'JetBrains Mono',monospace;}
+
+/* ── Service list ── */
+.service-item{display:flex;gap:12px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--border);}
+.service-item:last-child{border-bottom:none;}
+.service-icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+.service-name{font-size:14px;font-weight:600;margin-bottom:2px;}
+.service-desc{font-size:12px;color:var(--muted);}
+
+/* ── Price ── */
+.price-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border);font-size:13px;}
+.price-row:last-child{border-bottom:none;padding-top:14px;}
+.price-row.total{font-size:16px;font-weight:800;}
+.price-val{font-family:'JetBrains Mono',monospace;color:var(--green);}
+
+/* ── Signature ── */
+.sig-tabs{display:flex;gap:8px;margin-bottom:16px;}
+.sig-tab{padding:8px 16px;border-radius:8px;border:1px solid var(--border);font-size:13px;font-weight:600;cursor:pointer;background:transparent;color:var(--muted);transition:all .2s;}
+.sig-tab.active{background:rgba(0,229,160,.1);border-color:rgba(0,229,160,.3);color:var(--green);}
+.sig-canvas-wrap{position:relative;border:1px solid var(--border);border-radius:12px;background:rgba(255,255,255,.02);overflow:hidden;}
+#sig-canvas{display:block;width:100%;height:160px;cursor:crosshair;touch-action:none;}
+.sig-canvas-hint{position:absolute;bottom:10px;right:14px;font-size:11px;color:rgba(255,255,255,.15);pointer-events:none;}
+.sig-clear{position:absolute;top:10px;right:10px;background:rgba(255,255,255,.06);border:none;color:var(--muted);font-size:11px;padding:4px 10px;border-radius:6px;cursor:pointer;}
+.sig-typed{width:100%;padding:16px;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:12px;color:var(--white);font-size:18px;font-family:'Inter',sans-serif;font-style:italic;text-align:center;outline:none;transition:border-color .2s;}
+.sig-typed:focus{border-color:rgba(0,229,160,.4);}
+.sig-typed::placeholder{color:rgba(255,255,255,.15);}
+.sig-legal{font-size:11px;color:var(--muted);line-height:1.6;margin-top:12px;padding:10px 14px;background:rgba(255,255,255,.02);border-radius:8px;}
+
+/* ── CLABE card ── */
+.clabe-card{background:#080812;border:1px solid rgba(0,229,160,.25);border-radius:12px;padding:20px 24px;}
+.clabe-label{font-size:10px;font-weight:700;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;}
+.clabe-val{font-size:22px;font-weight:700;font-family:'JetBrains Mono',monospace;color:var(--white);letter-spacing:2px;display:flex;align-items:center;gap:12px;}
+.copy-btn{background:rgba(0,229,160,.1);border:1px solid rgba(0,229,160,.25);color:var(--green);padding:4px 12px;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;border:none;font-family:inherit;transition:background .2s;}
+.copy-btn:hover{background:rgba(0,229,160,.2);}
+.clabe-sub{font-size:12px;color:var(--muted);margin-top:6px;}
+
+/* ── Buttons ── */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:15px 32px;border-radius:100px;font-size:15px;font-weight:800;cursor:pointer;border:none;font-family:inherit;transition:all .2s;width:100%;}
+.btn-primary{background:var(--green);color:#05050e;}
+.btn-primary:hover{background:#00cfb4;}
+.btn-secondary{background:rgba(255,255,255,.06);color:var(--white);border:1px solid var(--border);}
+.btn-primary:disabled{opacity:.4;cursor:not-allowed;}
+.btn-ghost{background:transparent;color:var(--muted);font-size:13px;padding:10px;width:auto;}
+
+/* ── Confetti / Success ── */
+.success-icon{width:80px;height:80px;border-radius:50%;background:rgba(0,229,160,.1);border:2px solid rgba(0,229,160,.3);display:flex;align-items:center;justify-content:center;font-size:36px;margin:0 auto 24px;animation:pop .5s ease;}
+@keyframes pop{0%{transform:scale(.5);opacity:0;}70%{transform:scale(1.1);}100%{transform:scale(1);opacity:1;}}
+.contrato-num{font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:700;color:var(--green);letter-spacing:2px;text-align:center;margin:16px 0;}
+.next-step{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--border);}
+.next-step:last-child{border-bottom:none;}
+.next-step-num{width:24px;height:24px;border-radius:50%;background:rgba(0,229,160,.1);border:1px solid rgba(0,229,160,.3);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--green);flex-shrink:0;}
+
+/* ── Animations ── */
+.page-section{display:none;animation:fadeUp .35s ease;}
+.page-section.active{display:block;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+</style>
+</head>
+<body>
+<div class="topbar"></div>
+<div class="wrap">
+  <div class="nav">
+    <div class="logo"><div class="dot"></div>TREV'AINNOVATE</div>
+    <div style="font-size:12px;color:var(--muted);">Proceso de contratación seguro</div>
+  </div>
+
+  <!-- STEPPER -->
+  <div class="stepper" id="stepper">
+    <div class="step active" id="s1"><div class="step-num">1</div><div class="step-label">Resumen</div></div>
+    <div class="step-line" id="l1"></div>
+    <div class="step" id="s2"><div class="step-num">2</div><div class="step-label">Contrato</div></div>
+    <div class="step-line" id="l2"></div>
+    <div class="step" id="s3"><div class="step-num">3</div><div class="step-label">Pago</div></div>
+    <div class="step-line" id="l3"></div>
+    <div class="step" id="s4"><div class="step-num">✓</div><div class="step-label">Confirmado</div></div>
+  </div>
+
+  <!-- ═══ PASO 1: RESUMEN ═══ -->
+  <div class="page-section active" id="step1">
+    <span class="lbl">Paso 1 de 3</span>
+    <h1 class="h1">Tu proyecto<br><span class="grad" id="p1-titulo">está listo para iniciar</span></h1>
+    <p class="body" style="margin-bottom:32px;" id="p1-sub">Revisa lo que incluye tu propuesta antes de continuar.</p>
+
+    <div class="card" style="margin-bottom:20px;">
+      <div style="font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px;">Servicios contratados</div>
+      <div id="services-list"></div>
+    </div>
+
+    <div class="card green" style="margin-bottom:32px;">
+      <div id="price-rows"></div>
+    </div>
+
+    <div style="background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.2);border-radius:10px;padding:14px 16px;margin-bottom:32px;font-size:12px;color:var(--white);display:flex;gap:10px;align-items:flex-start;">
+      <span style="font-size:16px;flex-shrink:0;">🔒</span>
+      <span>Garantía de 30 días — si al término del primer mes no estás satisfecho, reembolsamos el pago inicial sin condiciones.</span>
+    </div>
+
+    <button class="btn btn-primary" onclick="goTo(2)">Revisar y firmar contrato →</button>
+  </div>
+
+  <!-- ═══ PASO 2: CONTRATO + FIRMA ═══ -->
+  <div class="page-section" id="step2">
+    <span class="lbl">Paso 2 de 3</span>
+    <h1 class="h1" style="font-size:26px;margin-bottom:6px;">Contrato de servicios</h1>
+    <p class="body" style="margin-bottom:28px;">Contrato No. <span class="mono" id="p2-numcontrato">—</span> · Fecha: <span id="p2-fecha">—</span></p>
+
+    <!-- Resumen contrato -->
+    <div class="card" style="margin-bottom:20px;font-size:13px;line-height:1.75;color:#ccc;">
+      <p><strong style="color:var(--white);">Prestador:</strong> Santiago Juárez, operando bajo la marca comercial Trev'ainnovate · contacto@trevainnovate.com</p>
+      <p style="margin-top:8px;"><strong style="color:var(--white);">Cliente:</strong> <span id="p2-empresa">—</span> · Representante: <span id="p2-contacto">—</span> · <span id="p2-cargo">—</span></p>
+      <p style="margin-top:12px;">El PRESTADOR entregará los servicios descritos en el paso anterior bajo los siguientes compromisos:</p>
+      <ul style="margin:10px 0 0 18px;color:var(--muted);">
+        <li>Entrega en los plazos acordados en kickoff</li>
+        <li>Confidencialidad absoluta sobre información del cliente</li>
+        <li>Respuesta en máximo <strong style="color:var(--white);">24 horas hábiles</strong> ante cualquier incidente</li>
+        <li>Reporte mensual de actividad y métricas vía portal</li>
+        <li>Garantía de 30 días sin condiciones</li>
+      </ul>
+      <p style="margin-top:12px;">Vigencia mínima: <strong style="color:var(--white);">3 meses</strong>, renovación automática mes a mes con aviso previo de 15 días.</p>
+      <p style="margin-top:12px;">Pago: <strong style="color:var(--white);">50% al firmar + 50% al activar en producción.</strong> Transferencia SPEI · CLABE: <span class="mono" style="color:var(--green);">722969020483622462</span></p>
+    </div>
+
+    <!-- FIRMA -->
+    <div class="card" style="margin-bottom:24px;">
+      <div style="font-size:13px;font-weight:700;margin-bottom:14px;">Firma del representante del cliente</div>
+      <div class="sig-tabs">
+        <button class="sig-tab active" onclick="setSigMode('draw')">✍️ Dibujar firma</button>
+        <button class="sig-tab" onclick="setSigMode('type')">⌨️ Escribir nombre</button>
+      </div>
+
+      <!-- Canvas -->
+      <div id="sig-draw-wrap" class="sig-canvas-wrap">
+        <canvas id="sig-canvas"></canvas>
+        <span class="sig-canvas-hint">Firma aquí</span>
+        <button class="sig-clear" onclick="clearCanvas()">Borrar</button>
+      </div>
+
+      <!-- Typed -->
+      <div id="sig-type-wrap" style="display:none;">
+        <input class="sig-typed" id="sig-typed-input" type="text" placeholder="Escribe tu nombre completo" oninput="checkSig()">
+      </div>
+
+      <div class="sig-legal">
+        Al firmar confirmo que soy representante autorizado de <strong id="sig-empresa-name">la empresa</strong>, he leído los términos del contrato y acepto las condiciones de servicio de Trev'ainnovate. Esta firma tiene validez como acuerdo de prestación de servicios entre las partes. Fecha y hora: <span id="sig-timestamp">—</span>
+      </div>
+    </div>
+
+    <button class="btn btn-primary" id="btn-firmar" onclick="firmar()" disabled>Firmar contrato</button>
+    <button class="btn btn-ghost" onclick="goTo(1)" style="margin-top:10px;">← Volver al resumen</button>
+  </div>
+
+  <!-- ═══ PASO 3: PAGO ═══ -->
+  <div class="page-section" id="step3">
+    <span class="lbl">Paso 3 de 3</span>
+    <h1 class="h1" style="font-size:26px;margin-bottom:6px;">Anticipo inicial</h1>
+    <p class="body" style="margin-bottom:28px;">Realiza la transferencia SPEI con los datos exactos. El proyecto arranca al confirmar el pago.</p>
+
+    <div class="clabe-card" style="margin-bottom:12px;">
+      <div class="clabe-label">Banco</div>
+      <div style="font-size:16px;font-weight:700;color:var(--white);margin-bottom:16px;">Mercado Pago</div>
+      <div class="clabe-label">CLABE interbancaria</div>
+      <div class="clabe-val">
+        <span id="clabe-display">722969020483622462</span>
+        <button class="copy-btn" onclick="copiarCLABE()">Copiar</button>
+      </div>
+      <div class="clabe-sub">Beneficiario: Santiago Juárez</div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:28px;">
+      <div class="clabe-card">
+        <div class="clabe-label">Monto a transferir</div>
+        <div style="font-size:22px;font-weight:900;font-family:'JetBrains Mono',monospace;color:var(--green);" id="p3-monto">$—</div>
+        <div class="clabe-sub">MXN · 50% anticipo</div>
+      </div>
+      <div class="clabe-card">
+        <div class="clabe-label">Concepto</div>
+        <div style="font-size:13px;font-weight:700;color:var(--white);line-height:1.4;" id="p3-concepto">—</div>
+        <div class="clabe-sub">Cópialo exactamente</div>
+      </div>
+    </div>
+
+    <div style="background:rgba(59,130,246,.06);border:1px solid rgba(59,130,246,.2);border-radius:10px;padding:14px 16px;margin-bottom:28px;font-size:12px;color:var(--white);display:flex;gap:10px;align-items:flex-start;">
+      <span style="font-size:16px;flex-shrink:0;">💡</span>
+      <span>Una vez realizada la transferencia, presiona el botón de abajo. Santiago recibirá una notificación inmediata y te contactará para arrancar el kickoff.</span>
+    </div>
+
+    <button class="btn btn-primary" onclick="confirmarPago()">Ya realicé la transferencia →</button>
+    <button class="btn btn-ghost" onclick="goTo(2)" style="margin-top:10px;">← Volver</button>
+  </div>
+
+  <!-- ═══ PASO 4: CONFIRMACIÓN ═══ -->
+  <div class="page-section" id="step4">
+    <div style="text-align:center;padding:20px 0 40px;">
+      <div class="success-icon">✓</div>
+      <span class="lbl" style="display:block;text-align:center;">Proyecto iniciado</span>
+      <h1 class="h1" style="text-align:center;font-size:30px;">¡Bienvenido a<br><span class="grad">Trev'ainnovate!</span></h1>
+      <p class="body" style="text-align:center;margin-top:8px;">Tu contrato ha sido registrado y el equipo ya fue notificado.</p>
+      <div class="contrato-num" id="p4-contrato">—</div>
+    </div>
+
+    <div class="card green glow" style="margin-bottom:24px;">
+      <div style="font-size:13px;font-weight:700;margin-bottom:16px;">Próximos pasos</div>
+      <div class="next-step">
+        <div class="next-step-num">1</div>
+        <div>
+          <div style="font-size:13px;font-weight:600;margin-bottom:2px;">Confirma el pago</div>
+          <div style="font-size:12px;color:var(--muted);">Si no lo has hecho, completa la transferencia SPEI con los datos del paso anterior.</div>
+        </div>
+      </div>
+      <div class="next-step">
+        <div class="next-step-num">2</div>
+        <div>
+          <div style="font-size:13px;font-weight:600;margin-bottom:2px;">Kickoff — en menos de 24h</div>
+          <div style="font-size:12px;color:var(--muted);">Santiago te contactará para agendar la sesión inicial de 90 minutos donde mapeamos accesos y confirmamos el alcance.</div>
+        </div>
+      </div>
+      <div class="next-step">
+        <div class="next-step-num">3</div>
+        <div>
+          <div style="font-size:13px;font-weight:600;margin-bottom:2px;">Portal cliente activo</div>
+          <div style="font-size:12px;color:var(--muted);">En los primeros 3 días recibirás acceso a tu portal en tiempo real: DNS, SSL, uptime e incidentes.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:24px;text-align:center;">
+      <div style="font-size:13px;color:var(--muted);margin-bottom:14px;">Contacto directo</div>
+      <div style="font-size:15px;font-weight:700;">Santiago Juárez</div>
+      <div style="font-size:13px;color:var(--muted);margin-top:4px;">📱 223 129 4663 · contacto@trevainnovate.com</div>
+    </div>
+
+    <a href="https://trevainnovate.com" class="btn btn-secondary" style="text-decoration:none;">Ir a trevainnovate.com</a>
+  </div>
+
+</div><!-- /wrap -->
+
+<script>
+// ── Parámetros URL ──
+const p = new URLSearchParams(window.location.search);
+const empresa   = p.get('empresa')   || 'Tu empresa';
+const contacto  = p.get('contacto')  || '';
+const cargo     = p.get('cargo')     || '';
+const giro      = p.get('giro')      || '';
+const setup     = parseInt(p.get('setup')    || '0');
+const retainer  = parseInt(p.get('retainer') || '0');
+const numContrato = p.get('num')     || `001-${new Date().getFullYear()}`;
+const ciudad    = p.get('ciudad')    || 'México';
+
+// ── Catálogo de servicios ──
+const SERVICIOS = {
+  hotel: [
+    { icon:'🌐', name:'Sitio web profesional', desc:'Cloudflare Pages · Galería · Formulario de reservación · CRM conectado' },
+    { icon:'🤖', name:'Bot WhatsApp 2-en-1', desc:'Cotiza habitaciones y mesas del restaurante las 24 horas' },
+    { icon:'🛡️', name:'Correo corporativo protegido', desc:'SPF · DMARC · DKIM · Monitoreo mensual · Reporte PDF' },
+  ],
+  plastico: [
+    { icon:'🌐', name:'Sitio web industrial', desc:'Cloudflare Pages · Configurador de producto · Formulario CRM' },
+    { icon:'⚙️', name:'Automatización operativa', desc:'Cobranza automática · Cotizador · Captura pedidos · CFDI auto' },
+    { icon:'🛡️', name:'Correo corporativo protegido', desc:'SPF · DMARC · DKIM · Monitoreo mensual · Reporte PDF' },
+  ],
+  gasolinera: [
+    { icon:'📊', name:'CRM y seguimiento comercial', desc:'Pipeline Notion · Seguimiento automático · Recordatorios WhatsApp' },
+    { icon:'📈', name:'Reportes automáticos', desc:'Dashboard de ventas · Alertas de inventario · Notificaciones operadores' },
+    { icon:'🛡️', name:'Correo corporativo protegido', desc:'SPF · DMARC · DKIM · Monitoreo mensual · Reporte PDF' },
+  ],
+};
+
+const servicios = SERVICIOS[giro] || [
+  { icon:'⚙️', name:'Servicios tecnológicos', desc:'Según propuesta acordada' },
+  { icon:'🛡️', name:'Soporte y mantenimiento', desc:'Retainer mensual activo desde el primer día' },
+];
+
+// ── Paso 1: Renderizar servicios y precios ──
+document.getElementById('p1-titulo').textContent = `${empresa} está lista para iniciar`;
+document.getElementById('p1-sub').textContent = `Revisa lo que incluye tu propuesta, ${contacto || 'estimado cliente'}.`;
+
+const sl = document.getElementById('services-list');
+sl.innerHTML = servicios.map(s => `
+  <div class="service-item">
+    <div class="service-icon" style="background:rgba(0,229,160,.08);">${s.icon}</div>
+    <div><div class="service-name">${s.name}</div><div class="service-desc">${s.desc}</div></div>
+  </div>`).join('');
+
+const pr = document.getElementById('price-rows');
+let priceHTML = '';
+if (setup)    priceHTML += `<div class="price-row"><span>Setup / Implementación</span><span class="price-val mono">$${setup.toLocaleString('es-MX')} MXN</span></div>`;
+if (retainer) priceHTML += `<div class="price-row"><span>Retainer mensual</span><span class="price-val mono">$${retainer.toLocaleString('es-MX')} MXN/mes</span></div>`;
+if (setup) {
+  const anticipo = Math.round(setup / 2);
+  priceHTML += `<div class="price-row total"><span>Anticipo hoy (50%)</span><span class="price-val mono">$${anticipo.toLocaleString('es-MX')} MXN</span></div>`;
+}
+pr.innerHTML = priceHTML || '<div class="price-row"><span>Según propuesta acordada</span><span class="price-val">—</span></div>';
+
+// Paso 3: monto y concepto
+const anticipo = Math.round(setup / 2);
+document.getElementById('p3-monto').textContent = `$${anticipo.toLocaleString('es-MX')}`;
+document.getElementById('p3-concepto').textContent = `${empresa} — Anticipo 50% · Cto ${numContrato}`;
+document.getElementById('p4-contrato').textContent = `Contrato No. ${numContrato}`;
+
+// Paso 2: datos contrato
+document.getElementById('p2-numcontrato').textContent = numContrato;
+document.getElementById('p2-fecha').textContent = new Date().toLocaleDateString('es-MX', { day:'2-digit', month:'long', year:'numeric' });
+document.getElementById('p2-empresa').textContent = empresa;
+document.getElementById('p2-contacto').textContent = contacto;
+document.getElementById('p2-cargo').textContent = cargo;
+document.getElementById('sig-empresa-name').textContent = empresa;
+document.getElementById('sig-timestamp').textContent = new Date().toLocaleString('es-MX');
+
+// ── Navegación entre pasos ──
+let currentStep = 1;
+function goTo(n) {
+  document.getElementById(`step${currentStep}`).classList.remove('active');
+  currentStep = n;
+  document.getElementById(`step${n}`).classList.add('active');
+  updateStepper(n);
+  window.scrollTo({ top: 0, behavior:'smooth' });
+}
+
+function updateStepper(n) {
+  [1,2,3,4].forEach(i => {
+    const s = document.getElementById(`s${i}`);
+    s.classList.remove('active','done');
+    if (i < n) s.classList.add('done');
+    else if (i === n) s.classList.add('active');
+    if (i < 4) {
+      const l = document.getElementById(`l${i}`);
+      l.classList.toggle('done', i < n);
+    }
+  });
+  // Checkmark en done
+  [1,2,3].forEach(i => {
+    const s = document.getElementById(`s${i}`);
+    const num = s.querySelector('.step-num');
+    num.textContent = s.classList.contains('done') ? '✓' : i;
+  });
+}
+
+// ── Firma: canvas ──
+let sigMode = 'draw';
+let drawing = false;
+let hasSig = false;
+const canvas = document.getElementById('sig-canvas');
+const ctx = canvas.getContext('2d');
+
+function initCanvas() {
+  canvas.width = canvas.offsetWidth * window.devicePixelRatio;
+  canvas.height = canvas.offsetHeight * window.devicePixelRatio;
+  ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+  ctx.strokeStyle = '#00e5a0';
+  ctx.lineWidth = 2.5;
+  ctx.lineCap = 'round';
+  ctx.lineJoin = 'round';
+}
+window.addEventListener('load', initCanvas);
+window.addEventListener('resize', initCanvas);
+
+function getPos(e) {
+  const r = canvas.getBoundingClientRect();
+  const src = e.touches ? e.touches[0] : e;
+  return { x: src.clientX - r.left, y: src.clientY - r.top };
+}
+
+canvas.addEventListener('mousedown', e => { drawing = true; const {x,y} = getPos(e); ctx.beginPath(); ctx.moveTo(x,y); });
+canvas.addEventListener('mousemove', e => { if (!drawing) return; const {x,y} = getPos(e); ctx.lineTo(x,y); ctx.stroke(); hasSig = true; checkSig(); });
+canvas.addEventListener('mouseup', () => drawing = false);
+canvas.addEventListener('touchstart', e => { e.preventDefault(); drawing = true; const {x,y} = getPos(e); ctx.beginPath(); ctx.moveTo(x,y); });
+canvas.addEventListener('touchmove', e => { e.preventDefault(); if (!drawing) return; const {x,y} = getPos(e); ctx.lineTo(x,y); ctx.stroke(); hasSig = true; checkSig(); });
+canvas.addEventListener('touchend', () => drawing = false);
+
+function clearCanvas() { ctx.clearRect(0,0,canvas.width,canvas.height); hasSig = false; checkSig(); }
+
+function setSigMode(mode) {
+  sigMode = mode;
+  document.querySelectorAll('.sig-tab').forEach((t,i) => t.classList.toggle('active', (i===0 && mode==='draw') || (i===1 && mode==='type')));
+  document.getElementById('sig-draw-wrap').style.display = mode === 'draw' ? 'block' : 'none';
+  document.getElementById('sig-type-wrap').style.display = mode === 'type' ? 'block' : 'none';
+  checkSig();
+}
+
+function checkSig() {
+  const valid = sigMode === 'draw' ? hasSig : document.getElementById('sig-typed-input').value.trim().length > 3;
+  document.getElementById('btn-firmar').disabled = !valid;
+}
+
+function firmar() {
+  document.getElementById('sig-timestamp').textContent = new Date().toLocaleString('es-MX');
+  // Notificar a n8n (silencioso, no bloquea)
+  const payload = {
+    evento: 'contrato_firmado',
+    empresa, contacto, cargo, giro,
+    setup, retainer, numContrato, ciudad,
+    timestamp: new Date().toISOString(),
+    firma: sigMode === 'type' ? document.getElementById('sig-typed-input').value : 'canvas'
+  };
+  fetch('/api/contrato-firmado', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload) }).catch(()=>{});
+  goTo(3);
+}
+
+function copiarCLABE() {
+  navigator.clipboard.writeText('722969020483622462').then(() => {
+    const btn = event.target;
+    btn.textContent = '✓';
+    setTimeout(() => btn.textContent = 'Copiar', 2000);
+  });
+}
+
+function confirmarPago() {
+  const payload = {
+    evento: 'pago_confirmado',
+    empresa, contacto, numContrato,
+    monto: anticipo,
+    timestamp: new Date().toISOString()
+  };
+  fetch('/api/contrato-firmado', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload) }).catch(()=>{});
+  goTo(4);
+}
+</script>
+</body>
+</html>

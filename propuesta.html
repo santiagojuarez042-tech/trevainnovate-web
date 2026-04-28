@@ -3,843 +3,1025 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Propuesta Comercial — Trev'ainnovate</title>
+<title>Propuesta — Trev'ainnovate</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --bg:    #05050e; --bg2: #0b0b1c; --bg3: #111128;
+  --bg: #05050e; --bg2: #0b0b1c; --bg3: #111128;
   --green: #00e5a0; --blue: #3b82f6; --purple: #8b5cf6;
   --amber: #f59e0b; --red: #ef4444;
   --white: #f1f5f9; --muted: #8892a4;
   --border: rgba(255,255,255,0.07);
 }
 
-@page { size: A4 portrait; margin: 0; }
-
-body {
-  background: #111;
-  font-family: 'Inter', sans-serif;
-  color: var(--white);
-  -webkit-font-smoothing: antialiased;
-}
+body { background: #111; font-family: 'Inter', sans-serif; color: var(--white); -webkit-font-smoothing: antialiased; }
 
 .page {
-  width: 210mm; height: 297mm;
+  width: 100%; min-height: 100vh;
   position: relative; overflow: hidden;
   background: var(--bg);
   display: flex; flex-direction: column;
-  margin: 0 auto 2mm;
-  page-break-after: always;
+  border-bottom: 1px solid rgba(255,255,255,.04);
 }
+@media print { .page { min-height: 297mm; page-break-after: always; } }
 
-/* ── TOP BAR ── */
 .topbar { height: 3px; background: linear-gradient(90deg, var(--green), var(--blue), var(--purple)); flex-shrink: 0; }
 
-/* ── HEADER STRIP ── */
 .page-header {
   display: flex; align-items: center; justify-content: space-between;
-  padding: 6mm 10mm 5mm;
-  border-bottom: 1px solid var(--border);
-  flex-shrink: 0;
+  padding: 18px 5vw 16px; border-bottom: 1px solid var(--border); flex-shrink: 0;
 }
-.page-header-logo { display: flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 800; color: var(--white); }
+.logo { display: flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 800; }
 .logo-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 8px rgba(0,229,160,.7); }
-.page-header-meta { font-size: 9px; color: var(--muted); font-family: 'JetBrains Mono', monospace; text-align: right; line-height: 1.6; }
-.page-header-confidential { font-size: 8px; font-weight: 700; color: rgba(255,255,255,.2); text-transform: uppercase; letter-spacing: .12em; }
+.meta { font-size: 9px; color: var(--muted); font-family: 'JetBrains Mono', monospace; text-align: right; line-height: 1.6; }
 
-/* ── CONTENT AREA ── */
-.page-body { flex: 1; padding: 8mm 10mm; display: flex; flex-direction: column; }
+.page-body { flex: 1; padding: 44px 7vw; display: flex; flex-direction: column; overflow: visible; width: 100%; box-sizing: border-box; }
 
-/* ── FOOTER ── */
 .page-footer {
-  padding: 4mm 10mm;
-  border-top: 1px solid var(--border);
-  display: flex; align-items: center; justify-content: space-between;
-  flex-shrink: 0;
+  padding: 14px 5vw; border-top: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between; flex-shrink: 0;
 }
 .page-footer span { font-size: 8px; color: rgba(255,255,255,.2); font-family: 'JetBrains Mono', monospace; }
-.page-num { font-size: 8px; color: rgba(255,255,255,.2); font-family: 'JetBrains Mono', monospace; }
 
-/* ── TYPOGRAPHY ── */
-.label { font-size: 9px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--green); margin-bottom: 6px; display: block; }
-.label.b { color: var(--blue); }
-.label.p { color: var(--purple); }
-.h1 { font-size: 32px; font-weight: 900; line-height: 1.06; letter-spacing: -.02em; }
-.h2 { font-size: 20px; font-weight: 800; line-height: 1.1; }
-.h3 { font-size: 13px; font-weight: 700; }
-.body { font-size: 11px; color: var(--muted); line-height: 1.65; }
+/* Typography */
+.label { font-size: 11px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--green); margin-bottom: 12px; display: block; }
+.h2 { font-size: 34px; font-weight: 800; line-height: 1.08; }
+.h3 { font-size: 14px; font-weight: 700; }
+.body-text { font-size: 14px; color: var(--muted); line-height: 1.75; }
 .grad { background: linear-gradient(135deg,#00e5a0,#3b82f6,#8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.mono { font-family: 'JetBrains Mono', monospace; }
 
-/* ── COVER ── */
-.cover-bg { position: absolute; inset: 0; background: radial-gradient(ellipse at 80% 20%, rgba(0,229,160,.06) 0%, transparent 55%), radial-gradient(ellipse at 20% 80%, rgba(59,130,246,.05) 0%, transparent 55%); pointer-events: none; }
+/* Cover */
+.cover-bg { position: absolute; inset: 0; background: radial-gradient(ellipse at 75% 25%, rgba(0,229,160,.07) 0%, transparent 55%), radial-gradient(ellipse at 25% 75%, rgba(59,130,246,.05) 0%, transparent 55%); pointer-events: none; }
 .cover-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.02) 1px, transparent 1px); background-size: 20mm 20mm; pointer-events: none; }
-.cover-body { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 12mm 12mm 8mm; position: relative; z-index: 1; }
-.cover-tag { display: inline-flex; align-items: center; gap: 8px; padding: 5px 12px; border-radius: 99px; background: rgba(0,229,160,.08); border: 1px solid rgba(0,229,160,.2); font-size: 9px; font-weight: 700; color: var(--green); letter-spacing: .12em; text-transform: uppercase; margin-bottom: 20px; width: fit-content; }
-.cover-tag-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--green); }
-.cover-h { font-size: 38px; font-weight: 900; line-height: 1.04; letter-spacing: -.02em; margin-bottom: 16px; }
-.cover-sub { font-size: 13px; color: var(--muted); line-height: 1.6; max-width: 120mm; margin-bottom: 28px; }
-.cover-client-box { background: var(--bg2); border: 1px solid rgba(0,229,160,.2); border-radius: 12px; padding: 14px 18px; display: inline-block; margin-bottom: 28px; }
-.cover-client-label { font-size: 8px; font-weight: 700; color: var(--green); letter-spacing: .15em; text-transform: uppercase; margin-bottom: 5px; }
-.cover-client-name { font-size: 18px; font-weight: 800; color: var(--white); }
-.cover-client-contact { font-size: 10px; color: var(--muted); margin-top: 3px; }
-.cover-meta { display: flex; gap: 24px; }
-.cover-meta-item label { display: block; font-size: 8px; color: rgba(255,255,255,.3); text-transform: uppercase; letter-spacing: .1em; margin-bottom: 3px; }
-.cover-meta-item span { font-size: 11px; color: rgba(255,255,255,.6); font-family: 'JetBrains Mono', monospace; }
+.cover-inner { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 12mm; position: relative; z-index: 1; }
 
-/* ── STATUS CARDS (diagnosis) ── */
-.status-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 12px; }
-.status-card { border-radius: 10px; padding: 12px 14px; border: 1px solid; }
-.status-card.ok { background: rgba(0,229,160,.05); border-color: rgba(0,229,160,.2); }
-.status-card.fail { background: rgba(239,68,68,.05); border-color: rgba(239,68,68,.2); }
-.status-card.warn { background: rgba(245,158,11,.05); border-color: rgba(245,158,11,.2); }
-.status-card.unknown { background: rgba(255,255,255,.03); border-color: var(--border); }
-.sc-label { font-size: 9px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .1em; margin-bottom: 6px; }
-.sc-status { font-size: 13px; font-weight: 800; margin-bottom: 4px; }
-.sc-status.ok { color: var(--green); }
-.sc-status.fail { color: #ef4444; }
-.sc-status.warn { color: var(--amber); }
-.sc-status.unknown { color: rgba(255,255,255,.3); }
-.sc-desc { font-size: 10px; color: var(--muted); line-height: 1.5; }
-.score-bar-wrap { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; }
-.score-bar-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-.score-bar-label { font-size: 9px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .1em; }
-.score-bar-val { font-size: 16px; font-weight: 900; font-family: 'JetBrains Mono', monospace; }
-.score-track { height: 6px; background: rgba(255,255,255,.07); border-radius: 99px; overflow: hidden; }
-.score-fill-bar { height: 100%; border-radius: 99px; transition: width .5s; }
+/* Blocks */
+.block { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; }
+.block.green { border-color: rgba(0,229,160,.2); }
+.block.blue  { border-color: rgba(59,130,246,.2); }
+.block.amber { border-color: rgba(245,158,11,.2); }
+.block.red   { border-color: rgba(239,68,68,.2); }
 
-/* ── FEATURE ROWS ── */
-.feature-row { display: flex; gap: 10px; margin-bottom: 8px; }
-.feature-icon { font-size: 16px; flex-shrink: 0; width: 28px; }
-.feature-body .feature-title { font-size: 11px; font-weight: 700; color: var(--white); margin-bottom: 2px; }
-.feature-body .feature-desc { font-size: 10px; color: var(--muted); line-height: 1.5; }
+/* Grid */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+.three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 22px; }
 
-/* ── INCLUDE LIST ── */
-.include-list { display: flex; flex-direction: column; gap: 6px; }
-.include-item { display: flex; align-items: flex-start; gap: 8px; font-size: 10.5px; color: rgba(255,255,255,.75); line-height: 1.5; }
-.include-item::before { content: '✓'; color: var(--green); font-weight: 800; font-size: 10px; flex-shrink: 0; margin-top: 1px; }
+/* Include list */
+.check-list { display: flex; flex-direction: column; gap: 6px; }
+.check-item { display: flex; align-items: flex-start; gap: 8px; font-size: 10.5px; color: rgba(255,255,255,.75); line-height: 1.5; }
+.check-item::before { content: '✓'; color: var(--green); font-weight: 800; font-size: 10px; flex-shrink: 0; margin-top: 1px; }
 
-/* ── TWO COLUMNS ── */
-.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 10mm; }
-.three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6mm; }
+/* Findings */
+.finding { display: flex; align-items: flex-start; gap: 10px; padding: 9px 12px; background: rgba(255,255,255,.025); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 5px; }
+.finding-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
+.finding-text { font-size: 10.5px; color: rgba(255,255,255,.8); line-height: 1.45; }
 
-/* ── SECTION BLOCK ── */
-.section-block { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; }
-.section-block.green { border-color: rgba(0,229,160,.2); }
-.section-block.blue { border-color: rgba(59,130,246,.2); }
-.section-block.purple { border-color: rgba(139,92,246,.2); }
+/* DNS cards */
+.dns-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; margin-bottom: 10px; }
+.dns-card { border-radius: 9px; padding: 11px 13px; border: 1px solid; }
+.dns-card.ok   { background: rgba(0,229,160,.05); border-color: rgba(0,229,160,.2); }
+.dns-card.fail { background: rgba(239,68,68,.05);  border-color: rgba(239,68,68,.2); }
+.dns-card.warn { background: rgba(245,158,11,.05); border-color: rgba(245,158,11,.2); }
+.dns-card.unknown { background: rgba(255,255,255,.03); border-color: var(--border); }
+.dns-label  { font-size: 8.5px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .1em; margin-bottom: 5px; }
+.dns-status { font-size: 12px; font-weight: 800; margin-bottom: 3px; }
+.dns-status.ok   { color: var(--green); }
+.dns-status.fail { color: #ef4444; }
+.dns-status.warn { color: var(--amber); }
+.dns-status.unknown { color: rgba(255,255,255,.3); }
+.dns-desc { font-size: 9.5px; color: var(--muted); line-height: 1.45; }
 
-/* ── TIMELINE ── */
+/* Score bar */
+.score-wrap { background: var(--bg2); border: 1px solid var(--border); border-radius: 9px; padding: 11px 13px; }
+.score-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 7px; }
+.score-label { font-size: 8.5px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .1em; }
+.score-val { font-size: 15px; font-weight: 900; font-family: 'JetBrains Mono', monospace; }
+.score-track { height: 5px; background: rgba(255,255,255,.07); border-radius: 99px; overflow: hidden; }
+.score-fill { height: 100%; border-radius: 99px; }
+
+/* Agent cards */
+.agent-item { display: flex; gap: 11px; align-items: flex-start; padding: 10px 13px; background: rgba(255,255,255,.025); border: 1px solid var(--border); border-radius: 9px; margin-bottom: 6px; }
+.agent-icon { font-size: 18px; flex-shrink: 0; line-height: 1; margin-top: 1px; }
+.agent-name { font-size: 11px; font-weight: 700; color: var(--white); margin-bottom: 3px; }
+.agent-desc { font-size: 9.5px; color: var(--muted); line-height: 1.45; }
+.agent-badge { font-size: 7.5px; font-weight: 700; padding: 2px 6px; border-radius: 4px; background: rgba(0,229,160,.1); color: var(--green); border: 1px solid rgba(0,229,160,.2); font-family: 'JetBrains Mono', monospace; margin-top: 4px; display: inline-block; }
+
+/* Timeline */
 .tl { position: relative; padding-left: 20px; }
-.tl::before { content: ''; position: absolute; left: 5px; top: 6px; bottom: 6px; width: 2px; background: linear-gradient(to bottom, var(--green), var(--blue), var(--purple)); border-radius: 2px; opacity: .3; }
-.tl-item { position: relative; margin-bottom: 14px; }
+.tl::before { content: ''; position: absolute; left: 5px; top: 8px; bottom: 8px; width: 2px; background: linear-gradient(to bottom, var(--green), var(--blue), var(--purple)); border-radius: 2px; opacity: .25; }
+.tl-item { position: relative; margin-bottom: 13px; }
 .tl-item:last-child { margin-bottom: 0; }
 .tl-dot { position: absolute; left: -17px; top: 3px; width: 8px; height: 8px; border-radius: 50%; border: 2px solid; background: var(--bg); }
 .tl-dot.g { border-color: var(--green); }
 .tl-dot.b { border-color: var(--blue); }
 .tl-dot.p { border-color: var(--purple); }
-.tl-tag { font-size: 8px; font-weight: 700; font-family: 'JetBrains Mono', monospace; color: var(--muted); text-transform: uppercase; letter-spacing: .1em; margin-bottom: 3px; }
+.tl-tag { font-size: 8px; font-weight: 700; font-family: 'JetBrains Mono', monospace; color: var(--muted); text-transform: uppercase; letter-spacing: .1em; margin-bottom: 2px; }
 .tl-h { font-size: 11px; font-weight: 700; color: var(--white); margin-bottom: 2px; }
-.tl-p { font-size: 10px; color: var(--muted); line-height: 1.5; }
+.tl-p { font-size: 9.5px; color: var(--muted); line-height: 1.5; }
 
-/* ── PRICING ── */
-.price-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 16px; }
-.price-card.featured { border-color: rgba(0,229,160,.3); background: rgba(0,229,160,.03); }
-.price-tag { font-size: 8px; font-weight: 700; color: var(--green); text-transform: uppercase; letter-spacing: .12em; margin-bottom: 8px; }
-.price-name { font-size: 13px; font-weight: 800; color: var(--white); margin-bottom: 4px; }
-.price-val { font-size: 24px; font-weight: 900; color: var(--green); line-height: 1; margin-bottom: 2px; font-family: 'JetBrains Mono', monospace; }
-.price-period { font-size: 9px; color: var(--muted); margin-bottom: 10px; }
-.price-includes { display: flex; flex-direction: column; gap: 5px; }
-.price-include-item { font-size: 9.5px; color: rgba(255,255,255,.65); display: flex; align-items: flex-start; gap: 6px; line-height: 1.4; }
-.price-include-item::before { content: '✓'; color: var(--green); font-size: 9px; font-weight: 800; flex-shrink: 0; }
+/* Next steps */
+.step { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 10px; }
+.step-num { width: 24px; height: 24px; border-radius: 50%; background: linear-gradient(135deg, var(--green), var(--blue)); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 900; color: var(--bg); flex-shrink: 0; }
+.step-title { font-size: 11px; font-weight: 700; color: var(--white); margin-bottom: 2px; }
+.step-desc { font-size: 9.5px; color: var(--muted); line-height: 1.5; }
 
-/* ── GUARANTEE ── */
-.guarantee-box { background: linear-gradient(135deg, rgba(0,229,160,.05), rgba(59,130,246,.04)); border: 1px solid rgba(0,229,160,.2); border-radius: 12px; padding: 16px 18px; text-align: center; }
-.guarantee-icon { font-size: 28px; margin-bottom: 8px; }
-.guarantee-title { font-size: 14px; font-weight: 900; margin-bottom: 6px; }
-.guarantee-body { font-size: 10px; color: var(--muted); line-height: 1.6; max-width: 100mm; margin: 0 auto; }
-.guarantee-badges { display: flex; justify-content: center; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
-.gbadge { font-size: 9px; font-weight: 700; padding: 4px 10px; border-radius: 6px; background: rgba(255,255,255,.05); border: 1px solid var(--border); color: rgba(255,255,255,.6); }
+/* CTA */
+.cta { background: linear-gradient(135deg, rgba(0,229,160,.07), rgba(59,130,246,.05)); border: 1px solid rgba(0,229,160,.22); border-radius: 13px; padding: 18px 20px; text-align: center; }
+.cta-h { font-size: 16px; font-weight: 900; margin-bottom: 6px; }
+.cta-sub { font-size: 10.5px; color: var(--muted); margin-bottom: 14px; }
+.cta-row { display: flex; justify-content: center; gap: 28px; flex-wrap: wrap; }
+.cta-item strong { display: block; font-size: 8px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 2px; font-family: 'Inter', sans-serif; }
+.cta-item span { font-size: 11px; color: rgba(255,255,255,.7); font-family: 'JetBrains Mono', monospace; }
 
-/* ── NEXT STEPS ── */
-.next-step { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 10px; }
-.ns-num { width: 24px; height: 24px; border-radius: 50%; background: linear-gradient(135deg, var(--green), var(--blue)); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 900; color: var(--bg); flex-shrink: 0; }
-.ns-body .ns-title { font-size: 11px; font-weight: 700; color: var(--white); margin-bottom: 2px; }
-.ns-body .ns-desc { font-size: 10px; color: var(--muted); line-height: 1.5; }
+@media print { body { background: var(--bg) !important; } .page { border-bottom: none; } }
 
-/* ── INFRA CARD ── */
-.infra-item { display: flex; gap: 10px; align-items: flex-start; padding: 10px 12px; background: rgba(255,255,255,.02); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 6px; }
-.infra-icon-sm { font-size: 16px; flex-shrink: 0; }
-.infra-item-name { font-size: 10.5px; font-weight: 700; color: var(--white); margin-bottom: 2px; }
-.infra-item-desc { font-size: 9.5px; color: var(--muted); line-height: 1.4; }
-.infra-item-badge { font-size: 8px; font-weight: 700; padding: 2px 6px; border-radius: 4px; background: rgba(0,229,160,.1); color: var(--green); border: 1px solid rgba(0,229,160,.2); font-family: 'JetBrains Mono', monospace; margin-top: 4px; display: inline-block; }
+/* ── FULL-SCREEN RESPONSIVE ── */
+html { scroll-behavior: smooth; }
+body { overflow-x: hidden; }
 
-/* ── CONTACT CTA ── */
-.cta-box { background: linear-gradient(135deg, rgba(0,229,160,.08), rgba(59,130,246,.06)); border: 1px solid rgba(0,229,160,.25); border-radius: 14px; padding: 20px 22px; text-align: center; }
-.cta-h { font-size: 18px; font-weight: 900; margin-bottom: 8px; }
-.cta-sub { font-size: 11px; color: var(--muted); margin-bottom: 16px; }
-.cta-contacts { display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; }
-.cta-contact { font-size: 11px; color: rgba(255,255,255,.7); font-family: 'JetBrains Mono', monospace; }
-.cta-contact strong { color: var(--white); display: block; margin-bottom: 2px; font-family: 'Inter', sans-serif; font-size: 10px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .08em; }
-
-@media print {
-  body { background: var(--bg) !important; }
-  .page { margin: 0; }
+/* ── FLOATING SIDE NAV ── */
+.fnav {
+  position: fixed; right: 26px; top: 50%; transform: translateY(-50%);
+  z-index: 1000; display: flex; flex-direction: column; gap: 12px; align-items: flex-end;
 }
+.fnav-item {
+  display: flex; align-items: center; gap: 10px;
+  cursor: pointer; text-decoration: none;
+}
+.fnav-label {
+  font-size: 11px; font-weight: 600; color: var(--white);
+  background: rgba(5,5,14,.94); border: 1px solid rgba(255,255,255,.09);
+  padding: 4px 12px; border-radius: 7px;
+  opacity: 0; transform: translateX(8px);
+  transition: opacity .18s, transform .18s;
+  white-space: nowrap; pointer-events: none; letter-spacing: .01em;
+  font-family: 'Inter', sans-serif;
+}
+.fnav-item:hover .fnav-label { opacity: 1; transform: translateX(0); }
+.fnav-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: rgba(255,255,255,.15); border: 1.5px solid rgba(255,255,255,.1);
+  transition: all .22s; flex-shrink: 0;
+}
+.fnav-item:hover .fnav-dot {
+  background: var(--green); border-color: var(--green);
+  box-shadow: 0 0 8px rgba(0,229,160,.45);
+}
+.fnav-item.fnav-active .fnav-dot {
+  background: var(--green); border-color: var(--green);
+  width: 10px; height: 10px; box-shadow: 0 0 14px rgba(0,229,160,.55);
+}
+.fnav-item.fnav-active .fnav-label { opacity: 1; transform: translateX(0); color: var(--green); }
+
+/* ── FOOTER NAV ARROWS ── */
+.nav-arrow {
+  font-size: 10px; color: rgba(255,255,255,.22); text-decoration: none;
+  font-weight: 600; transition: color .18s; letter-spacing: .02em;
+  font-family: 'JetBrains Mono', monospace;
+}
+.nav-arrow:hover { color: var(--green); }
+
+@media (max-width: 700px) { .fnav { display: none; } }
 </style>
 </head>
 <body>
 
 <script>
-// ── Parámetros de URL ───────────────────────────────────────────
 const P = new URLSearchParams(window.location.search);
+
 const cliente  = P.get('cliente')  || 'Su Empresa';
 const contacto = P.get('contacto') || 'Estimado cliente';
 const dominio  = P.get('dominio')  || null;
-const spf      = P.get('spf')      || 'unknown'; // ok | warn | fail | unknown
+const spf      = P.get('spf')      || 'unknown';
 const dmarc    = P.get('dmarc')    || 'unknown';
 const dkim     = P.get('dkim')     || 'unknown';
 const score    = parseInt(P.get('score') || '0');
-const servicio = P.get('servicio') || 'combo';   // seguridad | automatizacion | combo
-const autoDesc = P.get('auto')     || '';         // descripción del proceso a automatizar
-const mailboxes= parseInt(P.get('mbx') || '20'); // número de correos
-const fecha    = P.get('fecha')    || new Date().toLocaleDateString('es-MX',{day:'numeric',month:'long',year:'numeric'});
+const nivelRaw = P.get('nivel') || '2';
+const esProyecto = nivelRaw === 'proyecto';
+const nivel    = esProyecto ? 1 : parseInt(nivelRaw);
+const agentesParam  = P.get('agentes')   || '';
+const hallazgosParam= P.get('hallazgos') || '';
+const areasParam    = P.get('areas')     || '';
+const setup    = parseInt(P.get('setup')   || '0');
+const mensual  = parseInt(P.get('mensual') || '0');
+const segmento = P.get('segmento') || '';  // pyme_pequena | pyme_mediana | empresa
+const fecha    = P.get('fecha') || new Date().toLocaleDateString('es-MX',{day:'numeric',month:'long',year:'numeric'});
 
-const hasSeg   = servicio === 'seguridad' || servicio === 'combo';
-const hasAuto  = servicio === 'automatizacion' || servicio === 'combo';
-const hasDiag  = dominio !== null;
+const hasDiag     = dominio !== null || areasParam.length > 0 || hallazgosParam.length > 0;
+const hasAgentes  = agentesParam.length > 0;
+const hasSetup    = setup > 0;
+const hasMensual  = mensual > 0;
 
-// Precios fijos MXN
-const priceDNSShield  = 4990;  // DNS Shield mensual
-const priceAIShield   = 9990;  // AI Shield mensual
-const priceAuto       = parseInt(P.get('auto_price') || '0'); // automatización mensual/único
-const setupFee        = 0;     // sin cargo de setup
+const AGENTS = {
+  sdr:         { icon:'🎯', name:'SDR Comercial',          desc:'Prospecta y califica leads de forma autónoma. Envía secuencias personalizadas y agenda demos sin intervención humana. Opera 24/7.' },
+  followup:    { icon:'📧', name:'Follow-up de Leads',     desc:'Detecta en qué etapa está cada prospecto y actúa en consecuencia: persiste, pausa o escala según las señales de la conversación.' },
+  propuesta:   { icon:'📋', name:'Generador de Propuestas',desc:'Construye propuestas comerciales personalizadas en segundos a partir del diagnóstico de cada cliente.' },
+  whatsapp:    { icon:'💬', name:'Atención WhatsApp',      desc:'Responde preguntas, cotiza y resuelve solicitudes frecuentes. Escala a humano solo cuando la situación lo requiere. Disponible 24/7.' },
+  email:       { icon:'📬', name:'Gestión de Correo',      desc:'Clasifica, responde y prioriza correos entrantes. Extrae datos relevantes y notifica al equipo solo con lo que necesita acción.' },
+  onboarding:  { icon:'🚀', name:'Onboarding de Clientes', desc:'Acompaña al cliente nuevo en cada paso del proceso de activación. Sin intervención manual en casos estándar.' },
+  reporte:     { icon:'📊', name:'Reportes Ejecutivos',    desc:'Genera reportes de ventas, operaciones o seguridad en tiempo real. Entregados automáticamente al canal que prefieran.' },
+  coordinacion:{ icon:'🔄', name:'Coordinación Operativa', desc:'Sincroniza equipos, sistemas y tareas pendientes. Detecta cuellos de botella y avisa antes de que paren la operación.' },
+  facturacion: { icon:'🧾', name:'Facturación Asistida',   desc:'Genera CFDIs, rastrea pagos pendientes y notifica cuando algo requiere revisión humana.' },
+  dmarc_agent: { icon:'🛡️', name:'DMARC Analyst',         desc:'Configura y monitorea SPF/DKIM/DMARC. Analiza reportes de seguridad de correo y alerta ante cualquier intento de suplantación.' },
+  threat:      { icon:'🔍', name:'Threat Intelligence',    desc:'Monitorea fuentes abiertas para detectar si el dominio o las credenciales del equipo aparecen en filtraciones.' },
+  incident:    { icon:'⚡', name:'Incident Response',      desc:'Detecta caídas de servicio, analiza la causa raíz y ejecuta protocolos de recuperación automáticamente.' },
+};
+
+const NIVEL_NAME  = ['','Lite','Popular','Pro','Empresa Digital'];
+const NIVEL_COLOR = ['','var(--blue)','var(--green)','var(--purple)','var(--amber)'];
 
 function scoreColor(s){ return s>=70?'var(--green)':s>=35?'var(--amber)':'#ef4444'; }
-function scoreLabel(s){ return s>=70?'BAJO':'RIESGO'; }
-
 function statusLabel(v){
-  if(v==='ok') return { text:'✅ Correcto', cls:'ok' };
-  if(v==='warn') return { text:'⚠️ Parcial', cls:'warn' };
+  if(v==='ok')   return { text:'✅ Correcto', cls:'ok' };
+  if(v==='warn') return { text:'⚠️ Parcial',  cls:'warn' };
   if(v==='fail') return { text:'❌ Expuesto', cls:'fail' };
   return { text:'— Sin datos', cls:'unknown' };
 }
+function fmt(n){ return '$' + n.toLocaleString('es-MX') + ' MXN'; }
 
 window.onload = () => {
-  // Rellenar campos dinámicos
   document.querySelectorAll('[data-cliente]').forEach(el => el.textContent = cliente);
   document.querySelectorAll('[data-contacto]').forEach(el => el.textContent = contacto);
   document.querySelectorAll('[data-dominio]').forEach(el => el.textContent = dominio || 'su dominio');
   document.querySelectorAll('[data-fecha]').forEach(el => el.textContent = fecha);
-  document.querySelectorAll('[data-mailboxes]').forEach(el => el.textContent = mailboxes);
 
-  // Status cards
+  // Nivel badge en portada
+  const nb = document.getElementById('nivel-badge');
+  if(nb){ nb.textContent = `Nivel ${nivel} — ${NIVEL_NAME[nivel] || 'Personalizado'}`; nb.style.color = NIVEL_COLOR[nivel]; }
+
+  // DNS cards
   ['spf','dmarc','dkim'].forEach(k => {
     const val = k==='spf'?spf:k==='dmarc'?dmarc:dkim;
-    const st = statusLabel(val);
-    const card = document.getElementById('sc-'+k);
-    if(!card) return;
-    card.classList.add(st.cls);
-    card.querySelector('.sc-status').textContent = st.text;
-    card.querySelector('.sc-status').className = 'sc-status '+st.cls;
+    const st  = statusLabel(val);
+    const el  = document.getElementById('sc-'+k);
+    if(!el) return;
+    el.classList.add(st.cls);
+    el.querySelector('.dns-status').textContent = st.text;
+    el.querySelector('.dns-status').className = 'dns-status '+st.cls;
   });
 
-  // Score
+  // Score bar
   const fill = document.getElementById('score-fill');
-  const scVal = document.getElementById('score-val');
-  if(fill){ fill.style.width = score+'%'; fill.style.background = `linear-gradient(90deg,${scoreColor(score)},${scoreColor(score)}88)`; }
-  if(scVal){ scVal.textContent = score+'/100'; scVal.style.color = scoreColor(score); }
+  const scv  = document.getElementById('score-val');
+  if(fill){ fill.style.width=score+'%'; fill.style.background=`linear-gradient(90deg,${scoreColor(score)},${scoreColor(score)}88)`; }
+  if(scv){ scv.textContent=score+'/100'; scv.style.color=scoreColor(score); }
 
-  // Mostrar/ocultar páginas según servicio
-  document.querySelectorAll('.page-auto').forEach(p => p.style.display = hasAuto ? '' : 'none');
-  document.querySelectorAll('.page-diag').forEach(p => p.style.display = hasDiag ? '' : 'none');
-
-  // Combo total dinámico
-  const comboEl = document.getElementById('combo-total');
-  if(comboEl){
-    let total = 0;
-    if(hasSeg) total += priceDNSShield;
-    if(hasAuto && priceAuto) total += priceAuto;
-    if(total > 0) comboEl.textContent = '$' + total.toLocaleString('es-MX') + ' MXN';
+  // Áreas críticas del diagnóstico
+  const acContainer = document.getElementById('areas-criticas-list');
+  const acSection   = document.getElementById('areas-criticas-section');
+  if(acContainer && areasParam){
+    const areas = areasParam.split(',').map(s=>s.trim()).filter(Boolean);
+    if(areas.length > 0){
+      acContainer.innerHTML = areas.map(a =>
+        `<span style="display:inline-flex;align-items:center;gap:6px;font-size:12px;padding:6px 14px;border-radius:7px;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);color:rgba(255,255,255,.85);margin:3px;font-weight:500;">${a}</span>`
+      ).join('');
+      if(acSection) acSection.style.display = 'block';
+    }
   }
+
+  // DNS section: solo si hay dominio
+  const dnsSection = document.getElementById('dns-section');
+  if(dnsSection) dnsSection.style.display = dominio !== null ? '' : 'none';
+
+  // Hallazgos operativos
+  const hContainer = document.getElementById('hallazgos-list');
+  if(hContainer && hallazgosParam){
+    const items = hallazgosParam.split('|').map(s=>s.trim()).filter(Boolean);
+    hContainer.innerHTML = items.map(txt =>
+      `<div class="finding">
+        <div class="finding-dot" style="background:var(--amber)"></div>
+        <div class="finding-text">${txt}</div>
+      </div>`
+    ).join('');
+  }
+
+  // Agentes del cliente
+  const aContainer = document.getElementById('agentes-lista');
+  if(aContainer && hasAgentes){
+    const keys = agentesParam.split(',').map(s=>s.trim()).filter(Boolean);
+    aContainer.innerHTML = keys.map(k => {
+      const a = AGENTS[k] || { icon:'🤖', name:k, desc:'Agente personalizado para su operación.' };
+      return `<div class="agent-item">
+        <div class="agent-icon">${a.icon}</div>
+        <div>
+          <div class="agent-name">${a.name}</div>
+          <div class="agent-desc">${a.desc}</div>
+          <div class="agent-badge">INCLUIDO · NIVEL ${nivel}</div>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  // Pricing blocks: proyecto vs equipo de agentes
+  const elInvTitulo = document.getElementById('inv-titulo');
+  const elInvSub    = document.getElementById('inv-sub');
+  if (esProyecto) {
+    document.getElementById('pricing-proyecto').style.display = 'flex';
+    if(elInvTitulo) elInvTitulo.innerHTML = 'Proyecto puntual. <span class="grad">El primer paso.</span>';
+    if(elInvSub)    elInvSub.textContent  = 'Construcción y entrega en 5–10 días. Pago único, sin mensualidad.';
+    // price-setup already shows default $8,000–15,000 — override only if param sent
+    const elSetup = document.getElementById('price-setup');
+    if(elSetup && hasSetup) elSetup.textContent = fmt(setup);
+  } else {
+    document.getElementById('pricing-agentes').style.display = 'flex';
+    if(elInvTitulo) elInvTitulo.innerHTML = 'Un equipo completo. <span class="grad">Sin el costo de uno.</span>';
+    if(elInvSub)    elInvSub.textContent  = 'La inversión se divide en dos momentos: el arranque y la operación mensual.';
+    const elSetupA  = document.getElementById('price-setup-agentes');
+    const elMensual = document.getElementById('price-mensual');
+    const elTotal   = document.getElementById('price-total-anual');
+    if(elSetupA)  elSetupA.textContent  = hasSetup   ? fmt(setup)   : 'A definir';
+    if(elMensual) elMensual.textContent = hasMensual ? fmt(mensual) : 'A definir';
+    if(elTotal && hasSetup && hasMensual) elTotal.textContent = fmt(setup + mensual*12);
+  }
+
+  // Páginas condicionales
+  document.querySelectorAll('.page-diag').forEach(p=>p.style.display=hasDiag?'':'none');
+  document.querySelectorAll('.page-agentes').forEach(p=>p.style.display=hasAgentes?'':'none');
+
+  // Numeración
+  setTimeout(()=>{
+    const visible = Array.from(document.querySelectorAll('.page')).filter(p=>p.style.display!=='none');
+    visible.forEach((p,i)=>{
+      const pn = p.querySelector('.pn');
+      if(pn) pn.textContent = `${i+1} / ${visible.length}`;
+    });
+  }, 60);
 };
 </script>
 
 <!-- ══════════════════════════════════════════════════════
-     PÁGINA 1 — PORTADA
+     P1 — PORTADA
 ══════════════════════════════════════════════════════ -->
-<div class="page">
+<div class="page" id="portada">
   <div class="topbar"></div>
   <div class="cover-bg"></div>
   <div class="cover-grid"></div>
 
-  <div style="padding:6mm 10mm 5mm; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid var(--border); position:relative; z-index:1;">
-    <div class="page-header-logo">
-      <div class="logo-dot"></div>
-      <span>TREV'AINNOVATE</span>
-    </div>
-    <span class="page-header-confidential">Propuesta Comercial Confidencial</span>
+  <div style="padding:6mm 10mm 5mm;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);position:relative;z-index:1;">
+    <div class="logo"><div class="logo-dot"></div>TREV'AINNOVATE</div>
+    <span style="font-size:8px;font-weight:700;color:rgba(255,255,255,.18);text-transform:uppercase;letter-spacing:.12em;">Propuesta Comercial Confidencial</span>
   </div>
 
-  <div class="cover-body">
-    <div class="cover-tag"><div class="cover-tag-dot"></div>Propuesta Comercial · <span data-fecha></span></div>
-    <h1 class="cover-h">Eficiencia operativa.<br><span class="grad">Seguridad real.</span><br>Sin compromisos.</h1>
-    <p class="cover-sub">Automatización inteligente + seguridad de correo administrada para empresas en México que quieren crecer sin riesgos.</p>
-
-    <div class="cover-client-box">
-      <div class="cover-client-label">Preparado para</div>
-      <div class="cover-client-name" data-cliente></div>
-      <div class="cover-client-contact" data-contacto></div>
+  <div class="cover-inner">
+    <div style="display:inline-flex;align-items:center;gap:8px;padding:5px 12px;border-radius:99px;background:rgba(0,229,160,.08);border:1px solid rgba(0,229,160,.2);font-size:9px;font-weight:700;color:var(--green);letter-spacing:.12em;text-transform:uppercase;margin-bottom:22px;width:fit-content;">
+      <div style="width:5px;height:5px;border-radius:50%;background:var(--green);"></div>
+      Ecosistema de Agentes IA · <span data-fecha></span>
     </div>
 
-    <div class="cover-meta">
-      <div class="cover-meta-item">
-        <label>Elaborado por</label>
-        <span>Santiago Juárez T.</span>
+    <h1 style="font-size:38px;font-weight:900;line-height:1.04;letter-spacing:-.02em;margin-bottom:16px;">
+      Esto es lo que<br>encontramos en<br><span class="grad" data-cliente></span>.
+    </h1>
+    <p style="font-size:13px;color:var(--muted);line-height:1.6;max-width:115mm;margin-bottom:28px;">
+      Un diagnóstico completo de su operación y el equipo digital que recomendamos desplegar para resolver cada brecha identificada.
+    </p>
+
+    <div style="background:var(--bg2);border:1px solid rgba(0,229,160,.2);border-radius:12px;padding:14px 18px;display:inline-block;margin-bottom:26px;">
+      <div style="font-size:8px;font-weight:700;color:var(--green);letter-spacing:.15em;text-transform:uppercase;margin-bottom:5px;">Preparado para</div>
+      <div style="font-size:18px;font-weight:800;" data-cliente></div>
+      <div style="font-size:10px;color:var(--muted);margin-top:3px;" data-contacto></div>
+    </div>
+
+    <div style="display:flex;gap:20px;align-items:center;">
+      <div>
+        <div style="font-size:8px;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:3px;">Nivel propuesto</div>
+        <div id="nivel-badge" style="font-size:11px;font-weight:800;font-family:'JetBrains Mono',monospace;"></div>
       </div>
-      <div class="cover-meta-item">
-        <label>Fecha</label>
-        <span data-fecha></span>
-      </div>
-      <div class="cover-meta-item">
-        <label>Validez</label>
-        <span>30 días</span>
-      </div>
-      <div class="cover-meta-item">
-        <label>Versión</label>
-        <span>1.0</span>
-      </div>
+      <div style="width:1px;height:28px;background:var(--border);"></div>
+      <div><div style="font-size:8px;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:3px;">Elaborado por</div><div style="font-size:11px;color:rgba(255,255,255,.6);font-family:'JetBrains Mono',monospace;">Santiago Juárez T. · CEO</div></div>
+      <div style="width:1px;height:28px;background:var(--border);"></div>
+      <div><div style="font-size:8px;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:3px;">Validez</div><div style="font-size:11px;color:rgba(255,255,255,.6);font-family:'JetBrains Mono',monospace;">30 días</div></div>
     </div>
   </div>
 
-  <div class="page-footer">
-    <span>trevainnovate.com · contacto@trevainnovate.com · 223 129 4663</span>
-    <span>1 / 8</span>
-  </div>
+  <div class="page-footer"><span></span><span class="pn">1 / 5</span><a class="nav-arrow" href="#quienes">→ Quiénes somos</a></div>
 </div>
 
 <!-- ══════════════════════════════════════════════════════
-     PÁGINA 2 — DIAGNÓSTICO (solo si viene con dominio)
+     P2 — QUIÉNES SOMOS + QUÉ HACEMOS
 ══════════════════════════════════════════════════════ -->
-<div class="page page-diag">
+<div class="page" id="quienes" style="background:var(--bg);">
   <div class="topbar"></div>
-  <div class="page-header">
-    <div class="page-header-logo"><div class="logo-dot"></div>TREV'AINNOVATE</div>
-    <div class="page-header-meta"><span data-cliente></span><br><span data-fecha></span></div>
-  </div>
-  <div class="page-body">
-    <span class="label">Diagnóstico de seguridad</span>
-    <h2 class="h2" style="margin-bottom:5px;">Así está <span class="grad" data-dominio></span> hoy</h2>
-    <p class="body" style="margin-bottom:14px;">Auditoría DNS realizada en tiempo real. Los datos a continuación son el estado actual y público de su correo corporativo.</p>
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 70% 30%,rgba(0,229,160,.05) 0%,transparent 60%),radial-gradient(ellipse at 20% 80%,rgba(59,130,246,.04) 0%,transparent 55%);pointer-events:none;"></div>
 
-    <div class="status-grid">
-      <div class="status-card" id="sc-spf">
-        <div class="sc-label">SPF — Remitente autorizado</div>
-        <div class="sc-status">—</div>
-        <div class="sc-desc">Controla qué servidores pueden enviar correo usando su dominio</div>
-      </div>
-      <div class="status-card" id="sc-dmarc">
-        <div class="sc-label">DMARC — Política anti-fraude</div>
-        <div class="sc-status">—</div>
-        <div class="sc-desc">Define qué hacer cuando alguien intenta suplantar su dominio</div>
-      </div>
-      <div class="status-card" id="sc-dkim">
-        <div class="sc-label">DKIM — Firma criptográfica</div>
-        <div class="sc-status">—</div>
-        <div class="sc-desc">Firma digital que verifica que el correo salió de sus servidores</div>
-      </div>
-      <div class="score-bar-wrap">
-        <div class="score-bar-top">
-          <span class="score-bar-label">Puntuación de seguridad</span>
-          <span class="score-bar-val" id="score-val">—</span>
+  <div style="padding:6mm 10mm 5mm;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);position:relative;z-index:1;flex-shrink:0;">
+    <div class="logo"><div class="logo-dot"></div>TREV'AINNOVATE</div>
+    <div class="meta"><span data-cliente></span><br><span data-fecha></span></div>
+  </div>
+
+  <!-- ZONA 1 — Headline grande -->
+  <div style="padding:10mm 10mm 7mm;border-bottom:1px solid var(--border);flex-shrink:0;position:relative;z-index:1;">
+    <div style="font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--green);margin-bottom:10px;">Quiénes somos · Qué hacemos</div>
+    <h2 style="font-size:36px;font-weight:900;line-height:1.04;letter-spacing:-.02em;margin-bottom:8px;">
+      No somos un consultor.<br>
+      <span class="grad">Somos una operación.</span>
+    </h2>
+    <p style="font-size:14px;color:var(--muted);line-height:1.65;max-width:165mm;">Trev'ainnovate despliega equipos de agentes inteligentes que operan tu negocio 24/7. Nuestra propia empresa corre sobre los mismos agentes que vendemos — cada lead, reporte y alerta de seguridad los maneja un agente, no una persona.</p>
+  </div>
+
+  <!-- ZONA 2 — Outcomes + Tres capas -->
+  <div style="flex:1;display:grid;grid-template-columns:1fr 1fr;gap:0;position:relative;z-index:1;min-height:0;">
+
+    <!-- Outcomes para el prospecto -->
+    <div style="padding:9mm 8mm 7mm 10mm;border-right:1px solid var(--border);display:flex;flex-direction:column;justify-content:space-between;">
+      <div style="font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;">Lo que gana tu empresa</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;flex:1;align-content:center;">
+        <div style="background:rgba(0,229,160,.05);border:1px solid rgba(0,229,160,.15);border-radius:12px;padding:18px 18px;">
+          <div style="font-size:44px;font-weight:900;color:var(--green);font-family:'JetBrains Mono',monospace;line-height:1;">-80%</div>
+          <div style="font-size:12px;font-weight:700;color:rgba(255,255,255,.85);margin-top:6px;line-height:1.35;">tiempo en tareas<br>administrativas</div>
+          <div style="font-size:10px;color:rgba(255,255,255,.4);margin-top:7px;line-height:1.5;">Lo que hoy hace alguien, mañana lo ejecuta el sistema.</div>
         </div>
-        <div class="score-track"><div class="score-fill-bar" id="score-fill" style="width:0%"></div></div>
+        <div style="background:rgba(59,130,246,.05);border:1px solid rgba(59,130,246,.15);border-radius:12px;padding:18px 18px;">
+          <div style="font-size:32px;font-weight:900;color:var(--blue);font-family:'JetBrains Mono',monospace;line-height:1.1;">Tiempo<br>real</div>
+          <div style="font-size:12px;font-weight:700;color:rgba(255,255,255,.85);margin-top:6px;line-height:1.35;">visibilidad de toda<br>tu operación</div>
+          <div style="font-size:10px;color:rgba(255,255,255,.4);margin-top:7px;line-height:1.5;">Ventas, inventario y flujo — sin tener que ir a preguntar.</div>
+        </div>
+        <div style="background:rgba(139,92,246,.05);border:1px solid rgba(139,92,246,.15);border-radius:12px;padding:18px 18px;">
+          <div style="font-size:44px;font-weight:900;color:var(--purple);font-family:'JetBrains Mono',monospace;line-height:1;">24/7</div>
+          <div style="font-size:12px;font-weight:700;color:rgba(255,255,255,.85);margin-top:6px;line-height:1.35;">protección activa<br>de tu dominio</div>
+          <div style="font-size:10px;color:rgba(255,255,255,.4);margin-top:7px;line-height:1.5;">Tu correo y accesos digitales monitoreados. Sin equipo de TI.</div>
+        </div>
+        <div style="background:rgba(245,158,11,.05);border:1px solid rgba(245,158,11,.15);border-radius:12px;padding:18px 18px;">
+          <div style="font-size:44px;font-weight:900;color:var(--amber);font-family:'JetBrains Mono',monospace;line-height:1;">×3</div>
+          <div style="font-size:12px;font-weight:700;color:rgba(255,255,255,.85);margin-top:6px;line-height:1.35;">capacidad sin<br>agregar personas</div>
+          <div style="font-size:10px;color:rgba(255,255,255,.4);margin-top:7px;line-height:1.5;">El sistema absorbe el crecimiento. Escalar no multiplica el costo.</div>
+        </div>
       </div>
     </div>
 
-    <div class="section-block" style="margin-top:10px;">
-      <div class="h3" style="margin-bottom:8px;">¿Qué significa esto en la práctica?</div>
-      <div class="two-col">
-        <div class="include-list">
-          <div class="include-item" style="color:rgba(239,68,68,.9);">Sin SPF estricto: cualquiera puede enviar correos usando <strong data-dominio style="color:#ef4444"></strong></div>
-          <div class="include-item" style="color:rgba(239,68,68,.9);">Sin DMARC activo: los correos falsos llegan a la bandeja de sus clientes y proveedores</div>
+    <!-- Concepto + tres capas -->
+    <div style="padding:9mm 10mm 7mm 8mm;display:flex;flex-direction:column;gap:10px;">
+      <div style="font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);">Tres capas · Una sola operación</div>
+
+      <!-- Automatización -->
+      <div style="background:rgba(245,158,11,.05);border:1px solid rgba(245,158,11,.22);border-radius:12px;padding:14px 16px;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+          <div style="font-size:22px;">⚙️</div>
+          <div>
+            <div style="font-size:13px;font-weight:800;color:rgba(245,158,11,.95);">Automatización</div>
+            <div style="font-size:9px;color:rgba(255,255,255,.35);margin-top:1px;">La base eficiente · Inversión única</div>
+          </div>
         </div>
-        <div class="include-list">
-          <div class="include-item" style="color:rgba(239,68,68,.9);">Sin DKIM: sus correos legítimos no tienen firma verificable — son tratados como sospechosos</div>
-          <div class="include-item" style="color:rgba(245,158,11,.8);">Phishing por suplantación de dominio: vector #1 de fraude a empresas en México</div>
+        <div style="font-size:10.5px;color:rgba(255,255,255,.65);line-height:1.6;margin-bottom:9px;">Ejecuta procesos repetitivos sin error, sin descanso, sin costo variable. Reglas claras, resultado garantizado.</div>
+        <div style="display:flex;gap:14px;">
+          <div style="font-size:9px;color:rgba(245,158,11,.75);">✓ CRM y reportes en tiempo real</div>
+          <div style="font-size:9px;color:rgba(245,158,11,.75);">✓ Notificaciones automáticas</div>
+          <div style="font-size:9px;color:rgba(245,158,11,.75);">✓ Facturación e integraciones</div>
+        </div>
+      </div>
+
+      <!-- Agente IA -->
+      <div style="background:rgba(0,229,160,.04);border:1px solid rgba(0,229,160,.22);border-radius:12px;padding:14px 16px;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+          <div style="font-size:22px;">🧠</div>
+          <div>
+            <div style="font-size:13px;font-weight:800;color:var(--green);">Agente IA</div>
+            <div style="font-size:9px;color:rgba(255,255,255,.35);margin-top:1px;">Criterio que escala · Retainer mensual</div>
+          </div>
+        </div>
+        <div style="font-size:10.5px;color:rgba(255,255,255,.65);line-height:1.6;margin-bottom:9px;">Razona, evalúa contexto y toma decisiones. Opera donde las reglas no alcanzan y el criterio humano es demasiado costoso.</div>
+        <div style="display:flex;gap:14px;">
+          <div style="font-size:9px;color:rgba(0,229,160,.75);">✓ Atención al cliente con criterio real</div>
+          <div style="font-size:9px;color:rgba(0,229,160,.75);">✓ Detección de urgencias</div>
+          <div style="font-size:9px;color:rgba(0,229,160,.75);">✓ Seguimiento y cierre de ventas</div>
+        </div>
+      </div>
+
+      <!-- Seguridad Administrada -->
+      <div style="background:rgba(139,92,246,.04);border:1px solid rgba(139,92,246,.22);border-radius:12px;padding:14px 16px;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+          <div style="font-size:22px;">🛡️</div>
+          <div>
+            <div style="font-size:13px;font-weight:800;color:var(--purple);">Seguridad Administrada</div>
+            <div style="font-size:9px;color:rgba(255,255,255,.35);margin-top:1px;">La capa que protege todo lo demás · Retainer mensual</div>
+          </div>
+        </div>
+        <div style="font-size:10.5px;color:rgba(255,255,255,.65);line-height:1.6;margin-bottom:9px;">Monitoreo activo de tu dominio, correo e identidad digital. Si algo está expuesto, lo detectamos antes de que cueste — y lo resolvemos sin que tengas que intervenir.</div>
+        <div style="display:flex;gap:14px;">
+          <div style="font-size:9px;color:rgba(139,92,246,.75);">✓ SPF · DMARC · DKIM siempre válidos</div>
+          <div style="font-size:9px;color:rgba(139,92,246,.75);">✓ Alertas de amenaza en tiempo real</div>
+          <div style="font-size:9px;color:rgba(139,92,246,.75);">✓ Sin equipo de TI interno</div>
         </div>
       </div>
     </div>
   </div>
-  <div class="page-footer">
-    <span>trevainnovate.com · contacto@trevainnovate.com · 223 129 4663</span>
-    <span>2 / 8</span>
+
+  <!-- ZONA 3 — Stack técnico -->
+  <div style="padding:4mm 10mm;border-top:1px solid var(--border);flex-shrink:0;display:flex;align-items:center;gap:12px;position:relative;z-index:1;">
+    <div style="font-size:8px;font-weight:700;color:rgba(255,255,255,.2);text-transform:uppercase;letter-spacing:.12em;white-space:nowrap;">Stack técnico</div>
+    <div style="display:flex;flex-wrap:wrap;gap:5px;">
+      <span style="font-size:8px;padding:3px 8px;border-radius:4px;background:rgba(255,255,255,.04);border:1px solid var(--border);color:rgba(255,255,255,.4);font-family:'JetBrains Mono',monospace;">n8n self-hosted</span>
+      <span style="font-size:8px;padding:3px 8px;border-radius:4px;background:rgba(255,255,255,.04);border:1px solid var(--border);color:rgba(255,255,255,.4);font-family:'JetBrains Mono',monospace;">Claude AI</span>
+      <span style="font-size:8px;padding:3px 8px;border-radius:4px;background:rgba(255,255,255,.04);border:1px solid var(--border);color:rgba(255,255,255,.4);font-family:'JetBrains Mono',monospace;">Cloudflare</span>
+      <span style="font-size:8px;padding:3px 8px;border-radius:4px;background:rgba(255,255,255,.04);border:1px solid var(--border);color:rgba(255,255,255,.4);font-family:'JetBrains Mono',monospace;">BetterStack</span>
+      <span style="font-size:8px;padding:3px 8px;border-radius:4px;background:rgba(255,255,255,.04);border:1px solid var(--border);color:rgba(255,255,255,.4);font-family:'JetBrains Mono',monospace;">Supabase</span>
+      <span style="font-size:8px;padding:3px 8px;border-radius:4px;background:rgba(255,255,255,.04);border:1px solid var(--border);color:rgba(255,255,255,.4);font-family:'JetBrains Mono',monospace;">Vapi</span>
+      <span style="font-size:8px;padding:3px 8px;border-radius:4px;background:rgba(255,255,255,.04);border:1px solid var(--border);color:rgba(255,255,255,.4);font-family:'JetBrains Mono',monospace;">Resend</span>
+    </div>
   </div>
+
+  <div class="page-footer"><a class="nav-arrow" href="#portada">← Portada</a><span class="pn">2 / 5</span><a class="nav-arrow" href="#diagnostico">→ Diagnóstico</a></div>
 </div>
 
 <!-- ══════════════════════════════════════════════════════
-     PÁGINA 3 — LA SOLUCIÓN
+     P3 — DIAGNÓSTICO (condicional: dominio o hallazgos)
 ══════════════════════════════════════════════════════ -->
-<div class="page">
+<div class="page page-diag" id="diagnostico">
   <div class="topbar"></div>
   <div class="page-header">
-    <div class="page-header-logo"><div class="logo-dot"></div>TREV'AINNOVATE</div>
-    <div class="page-header-meta"><span data-cliente></span><br><span data-fecha></span></div>
+    <div class="logo"><div class="logo-dot"></div>TREV'AINNOVATE</div>
+    <div class="meta"><span data-cliente></span><br><span data-fecha></span></div>
   </div>
   <div class="page-body">
-    <span class="label">La solución</span>
-    <h2 class="h2" style="margin-bottom:5px;">Un ecosistema diseñado para <span class="grad">proteger y escalar.</span></h2>
-    <p class="body" style="margin-bottom:16px;">No vendemos software. Entregamos un servicio administrado: configuramos, monitoreamos, automatizamos y reportamos. Su empresa opera sin riesgos y con más eficiencia desde el primer mes.</p>
+    <span class="label">Diagnóstico</span>
+    <h2 class="h2" style="margin-bottom:5px;">Esto es lo que encontramos <span class="grad">en su empresa.</span></h2>
+    <p class="body-text" style="margin-bottom:14px;">Los datos a continuación provienen del análisis de su operación y de la auditoría técnica de <strong style="color:var(--white);" data-dominio></strong>. No hay estimaciones — son el estado real al día de hoy.</p>
 
-    <div class="two-col">
-      <div class="section-block green" style="display:flex;flex-direction:column;gap:10px;">
+    <div class="two-col" style="flex:1;align-items:start;">
+      <!-- Columna izquierda: DNS (si viene de auditoría) + Áreas críticas (si viene de diagnóstico) -->
+      <div>
+        <!-- DNS — solo si hay dominio -->
+        <div id="dns-section">
+          <div style="font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.12em;margin-bottom:8px;">Seguridad de correo · <span data-dominio></span></div>
+          <div class="dns-grid">
+            <div class="dns-card" id="sc-spf">
+              <div class="dns-label">SPF</div>
+              <div class="dns-status">—</div>
+              <div class="dns-desc">Servidores autorizados a enviar en su nombre</div>
+            </div>
+            <div class="dns-card" id="sc-dmarc">
+              <div class="dns-label">DMARC</div>
+              <div class="dns-status">—</div>
+              <div class="dns-desc">Política contra suplantación de su dominio</div>
+            </div>
+            <div class="dns-card" id="sc-dkim">
+              <div class="dns-label">DKIM</div>
+              <div class="dns-status">—</div>
+              <div class="dns-desc">Firma criptográfica de correos salientes</div>
+            </div>
+            <div class="score-wrap">
+              <div class="score-top">
+                <span class="score-label">Score de seguridad</span>
+                <span class="score-val" id="score-val">—</span>
+              </div>
+              <div class="score-track"><div class="score-fill" id="score-fill" style="width:0%"></div></div>
+            </div>
+          </div>
+          <div class="block" style="margin-top:8px;background:rgba(239,68,68,.04);border-color:rgba(239,68,68,.15);">
+            <div class="h3" style="font-size:11px;margin-bottom:6px;color:rgba(239,68,68,.9);">¿Qué implica esto?</div>
+            <p style="font-size:9.5px;color:var(--muted);line-height:1.55;">Con la configuración actual, cualquier persona puede enviar correos usando <strong style="color:var(--white);" data-dominio></strong> y llegar a la bandeja de sus clientes y proveedores. Es el vector #1 de fraude B2B en México.</p>
+          </div>
+        </div>
+
+        <!-- Áreas críticas — viene del diagnóstico de 24 puntos -->
+        <div id="areas-criticas-section" style="display:none;">
+          <div style="font-size:9px;font-weight:700;color:var(--red);text-transform:uppercase;letter-spacing:.12em;margin-bottom:10px;display:flex;align-items:center;gap:6px;">🔴 Áreas con mayor urgencia identificadas</div>
+          <div id="areas-criticas-list" style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:12px;"></div>
+          <div class="block" style="background:rgba(239,68,68,.04);border-color:rgba(239,68,68,.15);">
+            <div class="h3" style="font-size:11px;margin-bottom:5px;color:rgba(239,68,68,.85);">Qué significa esto</div>
+            <p style="font-size:9.5px;color:var(--muted);line-height:1.55;">Las áreas marcadas como críticas tienen problemas activos que están costando tiempo, dinero u oportunidades hoy. Son el punto de partida de la implementación.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hallazgos operativos -->
+      <div>
+        <div style="font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.12em;margin-bottom:8px;">Hallazgos operativos</div>
+        <div id="hallazgos-list">
+          <!-- Poblado por JS desde param hallazgos -->
+          <div class="finding"><div class="finding-dot" style="background:var(--muted)"></div><div class="finding-text" style="color:var(--muted);">Agrega hallazgos con el parámetro hallazgos= en la URL.</div></div>
+        </div>
+
+        <div class="block green" style="margin-top:10px;">
+          <div class="h3" style="font-size:11px;margin-bottom:5px;">Cómo lo medimos</div>
+          <p style="font-size:9.5px;color:var(--muted);line-height:1.55;">El diagnóstico combina la auditoría técnica del dominio con las respuestas del formulario de operaciones. Cada hallazgo tiene un score que determina la prioridad y el nivel de servicio recomendado.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="page-footer"><a class="nav-arrow" href="#quienes">← Quiénes somos</a><span class="pn">3 / 5</span><a class="nav-arrow" href="#equipo">→ Su equipo</a></div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     P3 — SU EQUIPO DIGITAL (condicional: agentes)
+══════════════════════════════════════════════════════ -->
+<div class="page page-agentes" id="equipo">
+  <div class="topbar"></div>
+  <div class="page-header">
+    <div class="logo"><div class="logo-dot"></div>TREV'AINNOVATE</div>
+    <div class="meta"><span data-cliente></span><br><span data-fecha></span></div>
+  </div>
+  <div class="page-body">
+    <span class="label">Solución propuesta</span>
+    <h2 class="h2" style="margin-bottom:5px;">El equipo digital <span class="grad">de <span data-cliente></span>.</span></h2>
+    <p class="body-text" style="margin-bottom:14px;">Cada agente fue seleccionado directamente por los hallazgos del diagnóstico. No es un catálogo — es lo que su operación necesita específicamente.</p>
+
+    <div id="agentes-lista" style="flex:1;">
+      <!-- Poblado por JS -->
+    </div>
+
+    <div class="block green" style="margin-top:10px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
         <div>
-          <span class="label" style="margin-bottom:4px;">Módulo 1</span>
-          <div class="h3" style="margin-bottom:6px;">Seguridad de Correo Administrada</div>
-          <p class="body">Blindaje completo de su correo corporativo contra phishing, suplantación y fraude. Activo en menos de 24 horas sin cambiar su proveedor.</p>
+          <div class="h3" style="font-size:11px;margin-bottom:4px;">Los agentes se coordinan entre ellos</div>
+          <p style="font-size:9.5px;color:var(--muted);line-height:1.5;max-width:110mm;">No son piezas aisladas. Comparten contexto, se pasan información y escalan a usted solo cuando la situación lo requiere. Es un equipo, no un conjunto de herramientas.</p>
         </div>
-        <div class="include-list">
-          <div class="include-item">Configuración SPF / DKIM / DMARC — activación &lt;24h</div>
-          <div class="include-item">Monitor automatizado diario — verifica integridad DNS cada mañana</div>
-          <div class="include-item">Alerta inmediata si algo cambia o falla</div>
-          <div class="include-item">Reporte semanal de seguridad enviado a su equipo</div>
-          <div class="include-item">Reporte mensual con score, tendencia y recomendaciones</div>
-          <div class="include-item">Sin cambiar su proveedor de correo · Sin downtime</div>
-          <div class="include-item">Portal de cliente 24/7 — score DNS, amenazas y automatizaciones en tiempo real</div>
-        </div>
-      </div>
-      <div class="section-block blue" style="display:flex;flex-direction:column;gap:10px;">
-        <div>
-          <span class="label b" style="margin-bottom:4px;">Módulo 2</span>
-          <div class="h3" style="margin-bottom:6px;">Automatización Inteligente</div>
-          <p class="body">Identificamos el proceso que más tiempo consume en su empresa y lo automatizamos. Menos errores, cero capturas manuales, horas liberadas desde la primera semana.</p>
-        </div>
-        <div class="include-list">
-          <div class="include-item">Discovery session — mapeo de procesos</div>
-          <div class="include-item">Flujos n8n a medida para su operación</div>
-          <div class="include-item">Integraciones con sus herramientas actuales</div>
-          <div class="include-item">ROI documentado y medible</div>
-          <div class="include-item">Soporte y mantenimiento incluidos</div>
-          <div class="include-item">Sin límite de ejecuciones</div>
+        <div style="text-align:center;flex-shrink:0;">
+          <div style="font-size:22px;font-weight:900;color:var(--green);font-family:'JetBrains Mono',monospace;">24/7</div>
+          <div style="font-size:8.5px;color:var(--muted);">Operación continua</div>
         </div>
       </div>
     </div>
-
-    <div class="section-block" style="margin-top:10px; background:rgba(255,255,255,.02);">
-      <div style="display:flex; justify-content:space-around; text-align:center; gap:10px;">
-        <div><div style="font-size:22px;font-weight:900;color:var(--green);font-family:'JetBrains Mono',monospace;">&lt;24h</div><div style="font-size:9px;color:var(--muted);">Activación seguridad</div></div>
-        <div><div style="font-size:22px;font-weight:900;color:var(--blue);font-family:'JetBrains Mono',monospace;">3 capas</div><div style="font-size:9px;color:var(--muted);">SPF · DKIM · DMARC</div></div>
-        <div><div style="font-size:22px;font-weight:900;color:var(--purple);font-family:'JetBrains Mono',monospace;">695%</div><div style="font-size:9px;color:var(--muted);">ROI automatización</div></div>
-        <div><div style="font-size:22px;font-weight:900;color:var(--amber);font-family:'JetBrains Mono',monospace;">30d</div><div style="font-size:9px;color:var(--muted);">Garantía de resultados</div></div>
-      </div>
-    </div>
   </div>
-  <div class="page-footer">
-    <span>trevainnovate.com · contacto@trevainnovate.com · 223 129 4663</span>
-    <span>3 / 8</span>
-  </div>
+  <div class="page-footer"><a class="nav-arrow" href="#diagnostico">← Diagnóstico</a><span class="pn">4 / 5</span><a class="nav-arrow" href="#inversion">→ Inversión</a></div>
 </div>
 
 <!-- ══════════════════════════════════════════════════════
-     PÁGINA 4 — INFRAESTRUCTURA TÉCNICA
+     P4 — INVERSIÓN + PLAN
 ══════════════════════════════════════════════════════ -->
-<div class="page">
+<div class="page" id="inversion">
   <div class="topbar"></div>
   <div class="page-header">
-    <div class="page-header-logo"><div class="logo-dot"></div>TREV'AINNOVATE</div>
-    <div class="page-header-meta"><span data-cliente></span><br><span data-fecha></span></div>
+    <div class="logo"><div class="logo-dot"></div>TREV'AINNOVATE</div>
+    <div class="meta"><span data-cliente></span><br><span data-fecha></span></div>
   </div>
   <div class="page-body">
-    <span class="label">Stack técnico</span>
-    <h2 class="h2" style="margin-bottom:5px;">La infraestructura <span class="grad">detrás de cada entrega.</span></h2>
-    <p class="body" style="margin-bottom:14px;">No promesas genéricas. Herramientas reales, configuración precisa, cero margen de error. Esta es la arquitectura que se despliega para su empresa.</p>
+    <span class="label" id="inv-label">Inversión y plan de arranque</span>
+    <h2 class="h2" id="inv-titulo" style="margin-bottom:5px;"></h2>
+    <p class="body-text" id="inv-sub" style="margin-bottom:14px;"></p>
 
-    <div class="two-col">
-      <div>
-        <div class="infra-item">
-          <div class="infra-icon-sm">🛡️</div>
-          <div>
-            <div class="infra-item-name">Motor AI de Email Security</div>
-            <div class="infra-item-desc">Analiza 200+ indicadores por mensaje. Detecta phishing, BEC y spear phishing antes de que lleguen a la bandeja de entrada.</div>
-            <div class="infra-item-badge">OPERACIONAL · 99.2% detección</div>
+    <div class="two-col" style="margin-bottom:12px;align-items:start;">
+      <!-- Pricing: proyecto -->
+      <div id="pricing-proyecto" style="display:none;flex-direction:column;gap:8px;">
+        <div class="block b" style="padding:20px 22px;">
+          <div style="font-size:9px;font-weight:700;color:var(--amber);text-transform:uppercase;letter-spacing:.14em;margin-bottom:8px;">Plan Lite · Setup único + retainer mensual</div>
+          <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:4px;">
+            <div style="font-size:22px;font-weight:900;color:var(--amber);font-family:'JetBrains Mono',monospace;line-height:1;">$12,000</div>
+            <div style="font-size:11px;color:var(--muted);">MXN setup</div>
+          </div>
+          <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:14px;">
+            <div style="font-size:22px;font-weight:900;color:var(--blue);font-family:'JetBrains Mono',monospace;line-height:1;">$3,500</div>
+            <div style="font-size:11px;color:var(--muted);">MXN / mes operación</div>
+          </div>
+          <div class="check-list">
+            <div class="check-item">Arquitectura y build de 1–2 agentes clave</div>
+            <div class="check-item">Integración con sus sistemas actuales</div>
+            <div class="check-item">Primer agente operando en 3 días</div>
+            <div class="check-item">Infraestructura, soporte y mejora continua incluidos</div>
           </div>
         </div>
-        <div class="infra-item">
-          <div class="infra-icon-sm">📋</div>
-          <div>
-            <div class="infra-item-name">DMARC Analytics Engine</div>
-            <div class="infra-item-desc">SPF + DKIM + DMARC configurados en modo estricto (p=reject). Reportes XML procesados automáticamente.</div>
-            <div class="infra-item-badge">Aggregate + Forensic reports</div>
-          </div>
-        </div>
-        <div class="infra-item">
-          <div class="infra-icon-sm">☁️</div>
-          <div>
-            <div class="infra-item-name">Cloudflare DNS</div>
-            <div class="infra-item-desc">DNS administrado con registros SPF/DKIM/DMARC controlados. CDN global, zero-downtime.</div>
-            <div class="infra-item-badge">Proxied DNS · Global CDN</div>
+        <div class="block" style="padding:14px 18px;background:rgba(245,158,11,.04);border-color:rgba(245,158,11,.18);">
+          <div style="font-size:11px;color:var(--muted);line-height:1.6;">
+            <strong style="color:var(--white);display:block;margin-bottom:4px;">El siguiente paso natural</strong>
+            La mayoría de clientes que empieza en Plan Lite escala a Plan Popular en los primeros 60 días — una vez que ven lo que es posible con agentes operando 24/7.
           </div>
         </div>
       </div>
-      <div>
-        <div class="infra-item">
-          <div class="infra-icon-sm">⚙️</div>
-          <div>
-            <div class="infra-item-name">n8n Orchestration (self-hosted)</div>
-            <div class="infra-item-desc">Motor de automatización propio en VPS. Sin límites de ejecuciones. Lógica de negocio personalizada. Conecta cualquier sistema.</div>
-            <div class="infra-item-badge">Self-hosted · Sin costo por ops</div>
+
+      <!-- Pricing: equipo de agentes -->
+      <div id="pricing-agentes" style="display:none;flex-direction:column;gap:8px;">
+        <div class="block green" style="padding:16px 18px;">
+          <div style="font-size:8px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.14em;margin-bottom:6px;">Setup · una vez</div>
+          <div id="price-setup-agentes" style="font-size:26px;font-weight:900;color:var(--green);font-family:'JetBrains Mono',monospace;line-height:1;margin-bottom:4px;">—</div>
+          <div style="font-size:9px;color:var(--muted);margin-bottom:10px;">Construcción, despliegue y ajuste fino del equipo digital</div>
+          <div class="check-list">
+            <div class="check-item">Arquitectura y build de los agentes</div>
+            <div class="check-item">Integración con sus sistemas actuales</div>
+            <div class="check-item">Pruebas y ajuste fino antes de producción</div>
+            <div class="check-item">Primer agente operando en 3 días</div>
           </div>
         </div>
-        <div class="infra-item">
-          <div class="infra-icon-sm">🔔</div>
-          <div>
-            <div class="infra-item-name">Sistema de Alertas en Tiempo Real</div>
-            <div class="infra-item-desc">Ante cualquier amenaza detectada, usted recibe alerta inmediata por Telegram o email. Sin llamadas innecesarias — solo cuando importa.</div>
-            <div class="infra-item-badge">Telegram · Email · Tiempo real</div>
+        <div class="block blue" style="padding:16px 18px;">
+          <div style="font-size:8px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.14em;margin-bottom:6px;">Operación mensual · recurrente</div>
+          <div id="price-mensual" style="font-size:26px;font-weight:900;color:var(--blue);font-family:'JetBrains Mono',monospace;line-height:1;margin-bottom:4px;">—</div>
+          <div style="font-size:9px;color:var(--muted);margin-bottom:10px;">El equipo digital operando, mejorando y siendo monitoreado</div>
+          <div class="check-list">
+            <div class="check-item">Infraestructura y hosting incluidos</div>
+            <div class="check-item">Monitoreo y mejora continua mensual</div>
+            <div class="check-item">Reporte de actividad mensual</div>
+            <div class="check-item">Soporte en español · respuesta &lt;4h</div>
+            <div class="check-item">Portal del cliente 24/7 — sin costo adicional</div>
           </div>
         </div>
-        <div class="infra-item">
-          <div class="infra-icon-sm">📊</div>
-          <div>
-            <div class="infra-item-name">Dashboard de Reportes Mensual</div>
-            <div class="infra-item-desc">Reporte automático el día 1 de cada mes: amenazas bloqueadas, orígenes, tendencias. Lenguaje claro, sin tecnicismos.</div>
-            <div class="infra-item-badge">Automático · PDF · On-demand</div>
-          </div>
+        <div class="block" style="padding:10px 14px;display:flex;justify-content:space-between;align-items:center;">
+          <div style="font-size:9px;color:var(--muted);">Inversión total primer año</div>
+          <div id="price-total-anual" style="font-size:14px;font-weight:900;color:rgba(255,255,255,.5);font-family:'JetBrains Mono',monospace;">—</div>
         </div>
       </div>
-    </div>
-  </div>
-  <div class="page-footer">
-    <span>trevainnovate.com · contacto@trevainnovate.com · 223 129 4663</span>
-    <span>4 / 8</span>
-  </div>
-</div>
 
-<!-- ══════════════════════════════════════════════════════
-     PÁGINA 5 — AUTOMATIZACIÓN (condicional)
-══════════════════════════════════════════════════════ -->
-<div class="page page-auto">
-  <div class="topbar"></div>
-  <div class="page-header">
-    <div class="page-header-logo"><div class="logo-dot"></div>TREV'AINNOVATE</div>
-    <div class="page-header-meta"><span data-cliente></span><br><span data-fecha></span></div>
-  </div>
-  <div class="page-body">
-    <span class="label b">Módulo 2 — Personalizado</span>
-    <h2 class="h2" style="margin-bottom:5px;">Automatización <span class="grad">específica para <span data-cliente></span>.</span></h2>
-    <p class="body" style="margin-bottom:14px;" id="auto-desc-el">Flujos diseñados para eliminar las tareas manuales más costosas de su operación.</p>
-
-    <div class="two-col" style="margin-bottom:12px;">
+      <!-- Plan de arranque -->
       <div>
-        <div class="h3" style="margin-bottom:10px;">Qué automatizamos primero</div>
-        <div class="include-list" id="auto-list">
-          <div class="include-item">Captura y clasificación automática de leads</div>
-          <div class="include-item">Notificaciones y seguimiento sin intervención humana</div>
-          <div class="include-item">Sincronización entre sus sistemas actuales (CRM, ERP, correo)</div>
-          <div class="include-item">Reportes y métricas generados automáticamente</div>
-          <div class="include-item">Respuestas automáticas a consultas frecuentes</div>
-        </div>
-      </div>
-      <div>
-        <div class="h3" style="margin-bottom:10px;">El proceso</div>
+        <div style="font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.12em;margin-bottom:10px;">Plan de arranque</div>
         <div class="tl">
           <div class="tl-item">
             <div class="tl-dot g"></div>
-            <div class="tl-tag">Semana 1</div>
-            <div class="tl-h">Discovery session</div>
-            <div class="tl-p">Mapeo de procesos actuales, identificación de quick wins y estimación de horas ahorradas.</div>
+            <div class="tl-tag">Día 1</div>
+            <div class="tl-h">Kickoff + accesos</div>
+            <div class="tl-p">30 minutos. Definimos canales, recopilamos accesos y arrancamos la configuración.</div>
           </div>
           <div class="tl-item">
             <div class="tl-dot g"></div>
-            <div class="tl-tag">Semanas 1–2</div>
-            <div class="tl-h">Construcción e implementación</div>
-            <div class="tl-p">Desarrollo de los flujos n8n, pruebas controladas e implementación en producción.</div>
+            <div class="tl-tag">Días 1–3</div>
+            <div class="tl-h">Primer agente en producción</div>
+            <div class="tl-p">Build, pruebas y despliegue. El agente de mayor impacto va primero.</div>
           </div>
           <div class="tl-item">
             <div class="tl-dot b"></div>
+            <div class="tl-tag">Semana 2</div>
+            <div class="tl-h">Equipo completo operando</div>
+            <div class="tl-p">Todos los agentes activos e integrados con sus sistemas. Se empiezan a coordinar entre ellos.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot p"></div>
             <div class="tl-tag">Mes 1</div>
-            <div class="tl-h">ROI documentado</div>
-            <div class="tl-p">Reporte con horas automatizadas, errores eliminados y valor económico generado.</div>
+            <div class="tl-h">Primer reporte de resultados</div>
+            <div class="tl-p">Operaciones ejecutadas, tiempo liberado, oportunidades generadas. Número real, no estimación.</div>
+          </div>
+        </div>
+
+        <div class="block" style="margin-top:10px;background:rgba(0,229,160,.03);border-color:rgba(0,229,160,.12);">
+          <div style="font-size:9px;color:var(--muted);line-height:1.55;">
+            <strong style="color:var(--white);display:block;margin-bottom:4px;">¿Por qué no hay contratos anuales?</strong>
+            El compromiso lo generan los resultados, no el papel. Si al mes no mide impacto concreto, le devolvemos el 100% de la operación mensual. Sin preguntas.
           </div>
         </div>
       </div>
     </div>
 
-    <div class="section-block blue">
-      <div class="h3" style="margin-bottom:6px;">Integraciones disponibles</div>
-      <div style="display:flex; flex-wrap:wrap; gap:6px; margin-top:6px;">
-        <span style="font-size:9px;padding:3px 8px;border-radius:4px;background:rgba(255,255,255,.05);border:1px solid var(--border);color:rgba(255,255,255,.5);font-family:'JetBrains Mono',monospace;">Google Workspace</span>
-        <span style="font-size:9px;padding:3px 8px;border-radius:4px;background:rgba(255,255,255,.05);border:1px solid var(--border);color:rgba(255,255,255,.5);font-family:'JetBrains Mono',monospace;">Microsoft 365</span>
-        <span style="font-size:9px;padding:3px 8px;border-radius:4px;background:rgba(255,255,255,.05);border:1px solid var(--border);color:rgba(255,255,255,.5);font-family:'JetBrains Mono',monospace;">WhatsApp Business</span>
-        <span style="font-size:9px;padding:3px 8px;border-radius:4px;background:rgba(255,255,255,.05);border:1px solid var(--border);color:rgba(255,255,255,.5);font-family:'JetBrains Mono',monospace;">Notion</span>
-        <span style="font-size:9px;padding:3px 8px;border-radius:4px;background:rgba(255,255,255,.05);border:1px solid var(--border);color:rgba(255,255,255,.5);font-family:'JetBrains Mono',monospace;">HubSpot</span>
-        <span style="font-size:9px;padding:3px 8px;border-radius:4px;background:rgba(255,255,255,.05);border:1px solid var(--border);color:rgba(255,255,255,.5);font-family:'JetBrains Mono',monospace;">Salesforce</span>
-        <span style="font-size:9px;padding:3px 8px;border-radius:4px;background:rgba(255,255,255,.05);border:1px solid var(--border);color:rgba(255,255,255,.5);font-family:'JetBrains Mono',monospace;">SAP / Microsip</span>
-        <span style="font-size:9px;padding:3px 8px;border-radius:4px;background:rgba(255,255,255,.05);border:1px solid var(--border);color:rgba(255,255,255,.5);font-family:'JetBrains Mono',monospace;">Google Sheets</span>
-        <span style="font-size:9px;padding:3px 8px;border-radius:4px;background:rgba(255,255,255,.05);border:1px solid var(--border);color:rgba(255,255,255,.5);font-family:'JetBrains Mono',monospace;">Telegram</span>
-        <span style="font-size:9px;padding:3px 8px;border-radius:4px;background:rgba(255,255,255,.05);border:1px solid var(--border);color:rgba(255,255,255,.5);font-family:'JetBrains Mono',monospace;">Slack</span>
-        <span style="font-size:9px;padding:3px 8px;border-radius:4px;background:rgba(255,255,255,.05);border:1px solid var(--border);color:rgba(255,255,255,.5);font-family:'JetBrains Mono',monospace;">+40 más</span>
+    <!-- Contexto económico compacto -->
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;">
+      <div style="background:rgba(239,68,68,.05);border:1px solid rgba(239,68,68,.15);border-radius:8px;padding:10px 12px;">
+        <div style="font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;">Empleado equivalente</div>
+        <div style="font-size:16px;font-weight:900;color:#ef4444;font-family:'JetBrains Mono',monospace;">$18–28K/mes</div>
+        <div style="font-size:8px;color:var(--muted);margin-top:2px;">sueldo + IMSS + prestaciones · 1 persona · horario fijo</div>
+      </div>
+      <div style="background:rgba(245,158,11,.05);border:1px solid rgba(245,158,11,.15);border-radius:8px;padding:10px 12px;">
+        <div style="font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;">Un solo incidente BEC</div>
+        <div style="font-size:16px;font-weight:900;color:var(--amber);font-family:'JetBrains Mono',monospace;">$180K+</div>
+        <div style="font-size:8px;color:var(--muted);margin-top:2px;">MXN promedio · fuente: IBM 2024 · sin contar reputación</div>
+      </div>
+      <div style="background:rgba(0,229,160,.05);border:1px solid rgba(0,229,160,.2);border-radius:8px;padding:10px 12px;">
+        <div style="font-size:8px;color:var(--green);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;">Equipo digital completo</div>
+        <div id="price-mensual-ctx" style="font-size:16px;font-weight:900;color:var(--green);font-family:'JetBrains Mono',monospace;">—</div>
+        <div style="font-size:8px;color:var(--muted);margin-top:2px;">24/7 · respuesta &lt;90s · tareas ilimitadas simultáneas</div>
       </div>
     </div>
   </div>
-  <div class="page-footer">
-    <span>trevainnovate.com · contacto@trevainnovate.com · 223 129 4663</span>
-    <span>5 / 8</span>
+    <!-- Alcance -->
+    <div style="margin-top:10px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.07);border-radius:8px;padding:10px 14px;">
+      <div style="font-size:8px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;">Alcance del sistema — qué hace y qué no hace</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
+        <div style="font-size:9px;color:rgba(255,255,255,.75);line-height:1.7;">
+          <div style="font-size:8px;font-weight:700;color:var(--green);margin-bottom:4px;">✓ Los agentes ejecutan</div>
+          Tareas operativas y repetitivas · clasificación y routing de leads · notificaciones y seguimientos · reportes automáticos · monitoreo de sistemas · sincronización de datos entre plataformas
+        </div>
+        <div style="font-size:9px;color:rgba(255,255,255,.75);line-height:1.7;">
+          <div style="font-size:8px;font-weight:700;color:#ef4444;margin-bottom:4px;">✕ Los agentes no reemplazan</div>
+          Decisiones estratégicas · negociaciones complejas · juicio humano en casos de excepción · definición de producto o precios · relaciones institucionales clave
+        </div>
+      </div>
+    </div>
   </div>
+  <div class="page-footer"><a class="nav-arrow" href="#equipo">← Su equipo</a><span class="pn">5 / 6</span><a class="nav-arrow" href="#garantia">→ Cierre</a></div>
 </div>
 
 <!-- ══════════════════════════════════════════════════════
-     PÁGINA 6 — PLAN DE IMPLEMENTACIÓN
+     P5 — GARANTÍA + PRÓXIMOS PASOS
 ══════════════════════════════════════════════════════ -->
-<div class="page">
+<div class="page" id="garantia">
   <div class="topbar"></div>
   <div class="page-header">
-    <div class="page-header-logo"><div class="logo-dot"></div>TREV'AINNOVATE</div>
-    <div class="page-header-meta"><span data-cliente></span><br><span data-fecha></span></div>
-  </div>
-  <div class="page-body">
-    <span class="label">Plan de implementación</span>
-    <h2 class="h2" style="margin-bottom:5px;">De cero a operando. <span class="grad">En días, no meses.</span></h2>
-    <p class="body" style="margin-bottom:16px;">Esto es exactamente lo que ocurre desde que aprueban esta propuesta. Sin sorpresas, sin retrasos no comunicados.</p>
-
-    <div class="two-col">
-      <div class="tl">
-        <div class="tl-item">
-          <div class="tl-dot g"></div>
-          <div class="tl-tag">Día 1 — Activación</div>
-          <div class="tl-h">Kickoff + accesos</div>
-          <div class="tl-p">Llamada de kickoff, recopilación de accesos necesarios (admin de correo). Sin downtime en ningún punto del proceso.</div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-dot g"></div>
-          <div class="tl-tag">Día 1–2 — Seguridad</div>
-          <div class="tl-h">Blindaje de correo activo</div>
-          <div class="tl-p">SPF / DKIM / DMARC configurados. Motor de IA activo. Primeras alertas funcionando. Su empresa pasa de expuesta a protegida.</div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-dot b"></div>
-          <div class="tl-tag">Semana 1–2 — Automatización</div>
-          <div class="tl-h">Primer flujo en producción</div>
-          <div class="tl-p">Discovery session → diseño → implementación → pruebas → producción. Su equipo libera horas desde la primera semana.</div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-dot p"></div>
-          <div class="tl-tag">Mes 1 — Consolidación</div>
-          <div class="tl-h">ROI documentado</div>
-          <div class="tl-p">Primer reporte mensual: amenazas bloqueadas, horas automatizadas, valor económico generado. Número real, no proyección.</div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-dot p"></div>
-          <div class="tl-tag">Mes 2+ — Escalada</div>
-          <div class="tl-h">Ecosistema autónomo</div>
-          <div class="tl-p">Nuevos flujos según prioridades. Propuesta de expansión basada en datos reales del mes anterior.</div>
-        </div>
-      </div>
-      <div>
-        <div class="section-block" style="margin-bottom:10px;">
-          <div class="h3" style="margin-bottom:10px;">Lo que necesitamos de su parte</div>
-          <div class="include-list">
-            <div class="include-item">Acceso de administrador global a Google Workspace o Microsoft 365</div>
-            <div class="include-item">30 minutos para el kickoff call</div>
-            <div class="include-item">Definir el proceso prioritario a automatizar</div>
-            <div class="include-item">Canal de comunicación preferido (WhatsApp, email, Telegram)</div>
-          </div>
-        </div>
-        <div class="section-block green">
-          <div class="h3" style="margin-bottom:8px;">Lo que garantizamos nosotros</div>
-          <div class="include-list">
-            <div class="include-item">Seguridad activa en menos de 24 horas</div>
-            <div class="include-item">Sin tiempo fuera de servicio durante la implementación</div>
-            <div class="include-item">Comunicación proactiva — usted siempre sabe qué está pasando</div>
-            <div class="include-item">Primer flujo de automatización en producción antes de 15 días</div>
-            <div class="include-item">Soporte en español, respuesta en menos de 4 horas en días hábiles</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="page-footer">
-    <span>trevainnovate.com · contacto@trevainnovate.com · 223 129 4663</span>
-    <span>6 / 8</span>
-  </div>
-</div>
-
-<!-- ══════════════════════════════════════════════════════
-     PÁGINA 7 — INVERSIÓN
-══════════════════════════════════════════════════════ -->
-<div class="page">
-  <div class="topbar"></div>
-  <div class="page-header">
-    <div class="page-header-logo"><div class="logo-dot"></div>TREV'AINNOVATE</div>
-    <div class="page-header-meta"><span data-cliente></span><br><span data-fecha></span></div>
-  </div>
-  <div class="page-body">
-    <span class="label">Inversión</span>
-    <h2 class="h2" style="margin-bottom:5px;">Estructura clara. <span class="grad">Sin letra chica.</span></h2>
-    <p class="body" style="margin-bottom:14px;">Precios fijos, sin sorpresas en la factura mensual. Todos los costos operativos de infraestructura están incluidos.</p>
-
-    <div class="three-col" style="margin-bottom:12px;">
-      <div class="price-card">
-        <div class="price-tag">Seguridad · Base</div>
-        <div class="price-name">DNS Shield</div>
-        <div class="price-val">$4,990</div>
-        <div class="price-period">MXN / mes · hasta 20 correos</div>
-        <div class="price-includes">
-          <div class="price-include-item">SPF / DKIM / DMARC configurado</div>
-          <div class="price-include-item">Monitoring DMARC automatizado</div>
-          <div class="price-include-item">Alertas en tiempo real</div>
-          <div class="price-include-item">Reporte mensual automático</div>
-          <div class="price-include-item">Soporte prioritario</div>
-        </div>
-      </div>
-      <div class="price-card featured">
-        <div class="price-tag">Seguridad · Avanzado ★</div>
-        <div class="price-name">AI Shield</div>
-        <div class="price-val">$9,990</div>
-        <div class="price-period">MXN / mes · hasta 20 correos</div>
-        <div class="price-includes">
-          <div class="price-include-item">Todo lo de DNS Shield</div>
-          <div class="price-include-item">Motor IA — análisis avanzado por correo</div>
-          <div class="price-include-item">Filtrado de adjuntos sospechosos</div>
-          <div class="price-include-item">Análisis de URLs en tiempo real</div>
-          <div class="price-include-item">Dashboard de amenazas mensual</div>
-          <div class="price-include-item">Revisión quincenal de configuración</div>
-        </div>
-      </div>
-      <div class="price-card">
-        <div class="price-tag">Automatización</div>
-        <div class="price-name">Flujos a medida</div>
-        <div class="price-val">Desde $15K</div>
-        <div class="price-period">MXN · proyecto único o retainer</div>
-        <div class="price-includes">
-          <div class="price-include-item">Discovery + mapeo de procesos</div>
-          <div class="price-include-item">Flujos n8n ilimitados</div>
-          <div class="price-include-item">Integraciones personalizadas</div>
-          <div class="price-include-item">Soporte y mantenimiento</div>
-          <div class="price-include-item">ROI documentado</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- JUSTIFICACIÓN DE PRECIO -->
-    <div class="section-block" style="background:rgba(0,229,160,.04);border-color:rgba(0,229,160,.15);margin-bottom:10px;">
-      <div class="h3" style="margin-bottom:8px;font-size:11px;">¿Por qué $4,990 MXN al mes?</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
-        <div style="background:rgba(0,0,0,.2);border-radius:6px;padding:8px 10px;">
-          <div style="font-size:9px;color:var(--muted);margin-bottom:3px;text-transform:uppercase;letter-spacing:.08em;">Consultor IT independiente</div>
-          <div style="font-size:14px;font-weight:800;color:var(--red);font-family:'JetBrains Mono',monospace;">$8,000–15,000</div>
-          <div style="font-size:8px;color:var(--muted);">MXN/mes · solo monitoreo básico</div>
-        </div>
-        <div style="background:rgba(0,0,0,.2);border-radius:6px;padding:8px 10px;">
-          <div style="font-size:9px;color:var(--muted);margin-bottom:3px;text-transform:uppercase;letter-spacing:.08em;">Costo promedio 1 incidente BEC</div>
-          <div style="font-size:14px;font-weight:800;color:var(--amber);font-family:'JetBrains Mono',monospace;">$180,000+</div>
-          <div style="font-size:8px;color:var(--muted);">MXN · fuente: IBM / ESET México 2024</div>
-        </div>
-        <div style="background:rgba(0,229,160,.08);border-radius:6px;padding:8px 10px;border:1px solid rgba(0,229,160,.2);">
-          <div style="font-size:9px;color:var(--green);margin-bottom:3px;text-transform:uppercase;letter-spacing:.08em;">DNS Shield — servicio completo</div>
-          <div style="font-size:14px;font-weight:800;color:var(--green);font-family:'JetBrains Mono',monospace;">$4,990</div>
-          <div style="font-size:8px;color:var(--muted);">MXN/mes · monitor + alertas + reportes</div>
-        </div>
-      </div>
-      <p style="font-size:9px;color:var(--muted);margin-top:7px;">Si en un año se previene <strong style="color:var(--white);">un solo intento de fraude</strong>, el ROI del servicio es <strong style="color:var(--green);">30x o más.</strong> El costo de no tenerlo es exponencialmente mayor.</p>
-    </div>
-
-    <!-- COMBO RECOMENDADO -->
-    <div class="section-block" style="background:rgba(255,255,255,.02);">
-      <div style="display:flex; gap:24px; align-items:flex-start; flex-wrap:wrap;">
-        <div style="flex:1;">
-          <div class="h3" style="margin-bottom:6px;">Recomendado para <span data-cliente></span></div>
-          <p class="body">DNS Shield + Automatización: protección activa desde el día 1, eficiencia operativa desde la primera semana. El ahorro de tiempo de la automatización cubre el costo de seguridad en los primeros 90 días.</p>
-        </div>
-        <div style="text-align:right; flex-shrink:0;">
-          <div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px;">Inversión mensual</div>
-          <div style="font-size:28px;font-weight:900;color:var(--green);font-family:'JetBrains Mono',monospace;" id="combo-total">$4,990 MXN</div>
-          <div style="font-size:9px;color:var(--muted);">seguridad + operación garantizada</div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="page-footer">
-    <span>trevainnovate.com · contacto@trevainnovate.com · 223 129 4663</span>
-    <span>7 / 8</span>
-  </div>
-</div>
-
-<!-- ══════════════════════════════════════════════════════
-     PÁGINA 8 — GARANTÍA + PRÓXIMOS PASOS
-══════════════════════════════════════════════════════ -->
-<div class="page">
-  <div class="topbar"></div>
-  <div class="page-header">
-    <div class="page-header-logo"><div class="logo-dot"></div>TREV'AINNOVATE</div>
-    <div class="page-header-meta"><span data-cliente></span><br><span data-fecha></span></div>
+    <div class="logo"><div class="logo-dot"></div>TREV'AINNOVATE</div>
+    <div class="meta"><span data-cliente></span><br><span data-fecha></span></div>
   </div>
   <div class="page-body">
     <div class="two-col" style="margin-bottom:12px;">
       <div>
         <span class="label">Garantía</span>
-        <div class="guarantee-box" style="text-align:left; padding:14px 16px;">
-          <div style="font-size:24px;margin-bottom:8px;">🛡️</div>
+        <div class="block green" style="padding:16px 18px;">
+          <div style="font-size:22px;margin-bottom:8px;">🤝</div>
           <div class="h3" style="margin-bottom:8px;">30 días. Sin letra chica.</div>
-          <p class="body" style="margin-bottom:10px;">Si en los primeros 30 días no puede medir un impacto concreto en seguridad o eficiencia, le devolvemos el 100% de su inversión. Sin preguntas.</p>
-          <div style="display:flex;flex-direction:column;gap:5px;">
-            <div class="include-item" style="font-size:10px;">Activación en menos de 24 horas</div>
-            <div class="include-item" style="font-size:10px;">Sin contratos anuales forzosos</div>
-            <div class="include-item" style="font-size:10px;">Soporte en español, respuesta &lt;4h</div>
-            <div class="include-item" style="font-size:10px;">ROI documentado mensualmente</div>
+          <p class="body-text" style="margin-bottom:12px;">Si al final del primer mes no puede mostrar un resultado concreto — en eficiencia, ventas o seguridad — le devolvemos el 100% de la operación mensual. Sin preguntas y sin trámites.</p>
+          <div class="check-list">
+            <div class="check-item">Primer agente operando en 3 días</div>
+            <div class="check-item">Sin contratos anuales ni penalizaciones</div>
+            <div class="check-item">Ajuste ilimitado el primer mes</div>
+            <div class="check-item">Soporte en español · respuesta &lt;4h hábiles</div>
+            <div class="check-item">ROI documentado cada mes, en lenguaje de negocio</div>
           </div>
         </div>
       </div>
+
       <div>
         <span class="label">Próximos pasos</span>
-        <div class="next-step">
-          <div class="ns-num">1</div>
-          <div class="ns-body">
-            <div class="ns-title">Aprobar esta propuesta</div>
-            <div class="ns-desc">Responder a este documento con confirmación por correo o WhatsApp. No se requiere firma formal para arrancar.</div>
+        <div class="step">
+          <div class="step-num">1</div>
+          <div>
+            <div class="step-title">Firma digital + anticipo 50%</div>
+            <div class="step-desc">Complete la firma abajo y realice el anticipo del 50% para reservar su lugar en el calendario de desarrollo.</div>
           </div>
         </div>
-        <div class="next-step">
-          <div class="ns-num">2</div>
-          <div class="ns-body">
-            <div class="ns-title">Kickoff call — 30 minutos</div>
-            <div class="ns-desc">Definimos canal de comunicación, recopilamos accesos y agendamos el primer entregable. Puede ser el mismo día.</div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div>
+            <div class="step-title">Kickoff — 30 minutos</div>
+            <div class="step-desc">Agendamos dentro de las siguientes 24h. Definimos el agente de mayor impacto y recopilamos accesos.</div>
           </div>
         </div>
-        <div class="next-step">
-          <div class="ns-num">3</div>
-          <div class="ns-body">
-            <div class="ns-title">Seguridad activa en 24h</div>
-            <div class="ns-desc">Con acceso al admin de correo, el blindaje queda activo antes de que termine el día siguiente.</div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div>
+            <div class="step-title">Primer agente en producción</div>
+            <div class="step-desc">Con los accesos en mano, el primer agente está operando antes de que termine la semana.</div>
           </div>
         </div>
-        <div class="next-step">
-          <div class="ns-num">4</div>
-          <div class="ns-body">
-            <div class="ns-title">Primer reporte al mes</div>
-            <div class="ns-desc">Recibirá métricas reales: amenazas bloqueadas, horas ahorradas, ROI calculado. Número real, no estimación.</div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div>
+            <div class="step-title">Reporte a 30 días</div>
+            <div class="step-desc">Métricas reales: conversaciones manejadas, tareas ejecutadas, tiempo liberado. Números, no proyecciones.</div>
+          </div>
+        </div>
+
+        <div style="margin-top:12px;padding:12px 14px;background:rgba(0,229,160,.04);border:1px solid rgba(0,229,160,.12);border-radius:10px;">
+          <div style="font-size:11px;color:var(--muted);line-height:1.6;">
+            <strong style="color:var(--white);display:block;margin-bottom:3px;">Garantía sin letra chica</strong>
+            Si al primer mes no hay un resultado concreto medible, le devolvemos el 100% de la operación mensual. Sin preguntas.
           </div>
         </div>
       </div>
     </div>
 
-    <div class="cta-box">
-      <div class="cta-h">¿Comenzamos esta semana?</div>
-      <div class="cta-sub">Esta propuesta tiene vigencia de 30 días a partir de la fecha de emisión. Estamos listos para arrancar en 24 horas.</div>
-      <div class="cta-contacts">
-        <div class="cta-contact"><strong>WhatsApp</strong>223 129 4663</div>
-        <div class="cta-contact"><strong>Email</strong>contacto@trevainnovate.com</div>
-        <div class="cta-contact"><strong>Web</strong>trevainnovate.com</div>
+    <!-- ── FIRMA + ANTICIPO ─────────────────────────────── -->
+    <div style="margin-top:16px;border:1px solid rgba(0,229,160,.25);border-radius:14px;overflow:hidden;">
+      <div style="background:linear-gradient(135deg,rgba(0,229,160,.07),rgba(59,130,246,.05));padding:18px 22px;border-bottom:1px solid rgba(0,229,160,.15);">
+        <div style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--green);margin-bottom:4px;">Cierre de propuesta</div>
+        <div style="font-size:18px;font-weight:900;color:var(--white);">Firma digital y anticipo de inicio</div>
+        <div style="font-size:12px;color:var(--muted);margin-top:4px;">Al firmar, acepta los términos de esta propuesta y autoriza el inicio del proyecto. El desarrollo comienza con el anticipo del 50%.</div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0;">
+        <!-- FIRMA -->
+        <div style="padding:20px 22px;border-right:1px solid var(--border);">
+          <div id="firma-widget">
+            <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:12px;">Paso 1 — Firma digital</div>
+            <div style="margin-bottom:10px;">
+              <label style="display:block;font-size:11px;color:rgba(255,255,255,.5);margin-bottom:5px;">Nombre completo del firmante</label>
+              <input id="firma-nombre" type="text" placeholder="Ej. Juan García Martínez"
+                style="width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.15);border-radius:8px;padding:10px 14px;color:var(--white);font-size:13px;font-family:'Inter',sans-serif;outline:none;transition:border-color .2s;"
+                onfocus="this.style.borderColor='rgba(0,229,160,.4)'" onblur="this.style.borderColor='rgba(255,255,255,.15)'">
+            </div>
+            <div style="margin-bottom:14px;display:flex;align-items:flex-start;gap:8px;">
+              <input type="checkbox" id="firma-acepto" style="margin-top:2px;accent-color:var(--green);width:14px;height:14px;flex-shrink:0;">
+              <label for="firma-acepto" style="font-size:11px;color:rgba(255,255,255,.5);line-height:1.5;cursor:pointer;">
+                He leído y acepto los términos de esta propuesta comercial, incluyendo el plan de inversión y garantía descritos.
+              </label>
+            </div>
+            <div id="firma-error" style="display:none;font-size:11px;color:#ef4444;margin-bottom:8px;">Complete su nombre y marque la casilla para continuar.</div>
+            <button id="btn-firmar" onclick="firmarPropuesta()"
+              style="width:100%;background:linear-gradient(135deg,var(--green),#00b580);border:none;border-radius:9px;padding:12px 20px;color:#05050e;font-size:13px;font-weight:800;font-family:'Inter',sans-serif;cursor:pointer;transition:opacity .2s;"
+              onmouseover="this.style.opacity='.88'" onmouseout="this.style.opacity='1'">
+              ✍️ Firmar propuesta →
+            </button>
+          </div>
+
+          <div id="firma-confirmada" style="display:none;">
+            <div style="font-size:10px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px;">✅ Firma registrada</div>
+            <div style="background:rgba(0,229,160,.06);border:1px solid rgba(0,229,160,.2);border-radius:10px;padding:14px 16px;margin-bottom:12px;">
+              <div style="font-size:13px;font-weight:700;color:var(--white);" id="firma-display-nombre"></div>
+              <div style="font-size:10px;color:var(--muted);margin-top:3px;" id="firma-display-ts"></div>
+              <div style="font-size:10px;color:var(--muted);margin-top:2px;" id="firma-display-empresa"></div>
+            </div>
+            <a id="firma-mailto" href="#"
+              style="display:block;text-align:center;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:10px 16px;color:rgba(255,255,255,.7);font-size:11px;font-weight:600;text-decoration:none;transition:border-color .2s;"
+              onmouseover="this.style.borderColor='rgba(255,255,255,.25)'" onmouseout="this.style.borderColor='rgba(255,255,255,.12)'">
+              📧 Enviar confirmación a Santiago →
+            </a>
+          </div>
+        </div>
+
+        <!-- ANTICIPO -->
+        <div style="padding:20px 22px;">
+          <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:12px;">Paso 2 — Anticipo 50%</div>
+          <div style="background:rgba(59,130,246,.05);border:1px solid rgba(59,130,246,.18);border-radius:10px;padding:14px 16px;margin-bottom:12px;">
+            <div style="font-size:10px;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;">Anticipo de inicio · 50%</div>
+            <div id="anticipo-monto" style="font-size:28px;font-weight:900;color:var(--blue);font-family:'JetBrains Mono',monospace;line-height:1;margin-bottom:4px;">A coordinar</div>
+            <div style="font-size:10px;color:rgba(255,255,255,.4);">El saldo restante se liquida en la entrega.</div>
+          </div>
+
+          <div style="margin-bottom:10px;">
+            <div style="font-size:10px;font-weight:700;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;">Opciones de pago</div>
+            <a href="https://buy.stripe.com/ENLACE_STRIPE" target="_blank"
+              style="display:flex;align-items:center;justify-content:space-between;background:rgba(99,102,241,.08);border:1px solid rgba(99,102,241,.22);border-radius:8px;padding:11px 14px;text-decoration:none;margin-bottom:7px;transition:border-color .2s;"
+              onmouseover="this.style.borderColor='rgba(99,102,241,.45)'" onmouseout="this.style.borderColor='rgba(99,102,241,.22)'">
+              <span style="font-size:12px;font-weight:700;color:rgba(255,255,255,.85);">💳 Pagar con tarjeta</span>
+              <span style="font-size:10px;color:rgba(255,255,255,.35);font-family:'JetBrains Mono',monospace;">Stripe / Visa / MC →</span>
+            </a>
+            <div style="background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:8px;padding:11px 14px;">
+              <div style="font-size:11px;font-weight:700;color:rgba(255,255,255,.6);margin-bottom:6px;">🏦 Transferencia SPEI</div>
+              <div style="font-size:10px;color:rgba(255,255,255,.35);line-height:1.7;font-family:'JetBrains Mono',monospace;">
+                Banco: BBVA<br>
+                CLABE: 012 180 XXXXXXXXXXXXXX<br>
+                Beneficiario: Santiago Juárez Treviño<br>
+                Concepto: Propuesta <span data-cliente></span>
+              </div>
+            </div>
+          </div>
+
+          <div style="font-size:10px;color:rgba(255,255,255,.3);line-height:1.5;">
+            Envíe su comprobante a <strong style="color:rgba(255,255,255,.5);">contacto@trevainnovate.com</strong> y agendamos el kickoff en las siguientes 24h.
+          </div>
+        </div>
       </div>
     </div>
   </div>
   <div class="page-footer">
     <span>Trev'ainnovate · Santiago Juárez Treviño · trevainnovate.com</span>
-    <span>8 / 8</span>
+    <span class="pn">5 / 5</span>
   </div>
 </div>
 
+<script>
+// Poblar precio en contexto económico + anticipo
+window.addEventListener('load', () => {
+  const ctx = document.getElementById('price-mensual-ctx');
+  if(ctx && hasMensual) ctx.textContent = fmt(mensual) + '/mes';
+  else if(ctx) ctx.textContent = 'A definir';
+
+  // Anticipo 50%
+  const antiEl = document.getElementById('anticipo-monto');
+  if(antiEl && hasSetup) {
+    antiEl.textContent = fmt(Math.round(setup * 0.5));
+    antiEl.nextElementSibling && (antiEl.nextElementSibling.textContent = 'El saldo restante (' + fmt(setup - Math.round(setup*0.5)) + ') se liquida en la entrega.');
+  }
+});
+
+function firmarPropuesta() {
+  const nombre = (document.getElementById('firma-nombre') || {}).value || '';
+  const acepto = (document.getElementById('firma-acepto') || {}).checked;
+  const err = document.getElementById('firma-error');
+  if (!nombre.trim() || !acepto) { if(err) err.style.display = 'block'; return; }
+  if(err) err.style.display = 'none';
+
+  const ts = new Date().toLocaleString('es-MX', { dateStyle:'long', timeStyle:'short' });
+  const refId = 'TRV-' + Date.now().toString(36).toUpperCase();
+
+  const dn = document.getElementById('firma-display-nombre');
+  const dt = document.getElementById('firma-display-ts');
+  const de = document.getElementById('firma-display-empresa');
+  if(dn) dn.textContent = nombre.trim();
+  if(dt) dt.textContent = ts + ' · Ref: ' + refId;
+  if(de) de.textContent = 'Propuesta para: ' + cliente;
+
+  // Mailto con resumen
+  const subject = encodeURIComponent('Propuesta aceptada · ' + cliente + ' · ' + refId);
+  const body = encodeURIComponent(
+    'Hola Santiago,\n\n' +
+    'Acepto formalmente la propuesta comercial de Trev\'ainnovate.\n\n' +
+    'Firmante: ' + nombre.trim() + '\n' +
+    'Empresa: ' + cliente + '\n' +
+    'Fecha y hora: ' + ts + '\n' +
+    'Referencia: ' + refId + '\n\n' +
+    'Procederé con el anticipo del 50% y quedo en espera del kickoff.\n\n' +
+    'Saludos'
+  );
+  const mailtoEl = document.getElementById('firma-mailto');
+  if(mailtoEl) mailtoEl.href = 'mailto:contacto@trevainnovate.com?subject=' + subject + '&body=' + body;
+
+  document.getElementById('firma-widget').style.display = 'none';
+  document.getElementById('firma-confirmada').style.display = 'block';
+}
+</script>
+
+
+<!-- ── FLOATING NAV ── -->
+<nav class="fnav">
+  <a class="fnav-item" href="#portada"><span class="fnav-label">Portada</span><span class="fnav-dot"></span></a>
+  <a class="fnav-item" href="#quienes"><span class="fnav-label">Quiénes somos</span><span class="fnav-dot"></span></a>
+  <a class="fnav-item" href="#diagnostico"><span class="fnav-label">Diagnóstico</span><span class="fnav-dot"></span></a>
+  <a class="fnav-item" href="#equipo"><span class="fnav-label">Su equipo</span><span class="fnav-dot"></span></a>
+  <a class="fnav-item" href="#inversion"><span class="fnav-label">Inversión</span><span class="fnav-dot"></span></a>
+  <a class="fnav-item" href="#garantia"><span class="fnav-label">Garantía</span><span class="fnav-dot"></span></a>
+</nav>
+
+<script>
+(function(){
+  const items = document.querySelectorAll('.fnav-item');
+  const sections = document.querySelectorAll('.page[id]');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if(e.isIntersecting && e.intersectionRatio > .4) {
+        items.forEach(it => it.classList.remove('fnav-active'));
+        const active = document.querySelector('.fnav-item[href="#'+e.target.id+'"]');
+        if(active) active.classList.add('fnav-active');
+      }
+    });
+  }, { threshold: .4 });
+  sections.forEach(s => { if(s.style.display !== 'none') io.observe(s); });
+})();
+</script>
 </body>
 </html>
