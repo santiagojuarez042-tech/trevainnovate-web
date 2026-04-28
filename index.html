@@ -286,6 +286,8 @@ input[type=range]::-webkit-slider-thumb:hover { transform:scale(1.25); }
 #casos { padding:100px 0; }
 .casos-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:20px; }
 @media(max-width:700px){ .casos-grid { grid-template-columns:1fr; } }
+@media(max-width:900px){ .agents-grid { grid-template-columns:repeat(2,1fr) !important; } }
+@media(max-width:560px){ .agents-grid { grid-template-columns:1fr !important; } }
 .caso { padding:28px; border-radius:14px; background:var(--bg2); border:1px solid var(--border); transition:all .25s ease; display:flex; flex-direction:column; }
 .caso:hover { border-color:rgba(0,229,160,.25); transform:translateY(-3px); box-shadow:0 8px 30px rgba(0,229,160,.07); }
 .caso-sector { display:inline-block; padding:3px 10px; border-radius:99px; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.1em; background:rgba(0,229,160,.08); color:var(--green); border:1px solid rgba(0,229,160,.15); margin-bottom:14px; }
@@ -1189,6 +1191,7 @@ a.audit-cta-btn:hover { transform:translateY(-2px); box-shadow:0 4px 16px rgba(0
   <div class="nav-links">
     <a href="#proteccion">Seguridad</a>
     <a href="#autoflow">Automatización</a>
+    <a href="#agentes">Agentes</a>
     <a href="#casos">Casos reales</a>
     <a href="#calc">Calcule su ahorro</a>
     <a href="#contacto">Contacto</a>
@@ -1202,6 +1205,7 @@ a.audit-cta-btn:hover { transform:translateY(-2px); box-shadow:0 4px 16px rgba(0
 <div class="nav-mobile-menu" id="nav-mobile-menu">
   <a href="#proteccion" class="nav-mob-link">Seguridad</a>
   <a href="#autoflow" class="nav-mob-link">Automatización</a>
+  <a href="#agentes" class="nav-mob-link">Agentes</a>
   <a href="#casos" class="nav-mob-link">Casos reales</a>
   <a href="#calc" class="nav-mob-link">Calcule su ahorro</a>
   <a href="#contacto" class="nav-mob-link">Contacto</a>
@@ -1253,7 +1257,7 @@ a.audit-cta-btn:hover { transform:translateY(-2px); box-shadow:0 4px 16px rgba(0
             Si su dominio no pasó alguna prueba, cualquier persona puede enviar correos usando el nombre de su empresa ante clientes y proveedores — sin que usted lo sepa.
           </p>
           <div class="hero-ctas reveal d3">
-            <a href="#contacto" class="btn btn-p">Agendar diagnóstico gratuito</a>
+            <a href="/diagnostico" class="btn btn-p">Hacer el diagnóstico gratuito →</a>
             <a href="#autoflow" class="btn btn-g">Ver automatización</a>
           </div>
           <div class="hero-stats reveal d4">
@@ -1290,11 +1294,30 @@ a.audit-cta-btn:hover { transform:translateY(-2px); box-shadow:0 4px 16px rgba(0
             </div>
             <div id="audit-cta" class="audit-cta" style="display:none;">
               <div class="audit-cta-txt"><strong>Su dominio está expuesto.</strong> Blindaje completo en menos de 24h.</div>
-              <a href="#contacto" class="audit-cta-btn">Proteger ahora →</a>
+              <a href="/diagnostico" class="audit-cta-btn">Ver mi propuesta →</a>
             </div>
           </div>
         </div>
 
+      </div>
+
+      <!-- Pricing strip -->
+      <div class="pricing-strip reveal">
+        <div style="display:flex;align-items:center;gap:10px;padding:14px 20px;border-radius:10px;background:rgba(59,130,246,.07);border:1px solid rgba(59,130,246,.2);flex:1;min-width:220px;">
+          <div style="font-size:22px;font-weight:900;color:var(--blue);font-family:'JetBrains Mono',monospace;white-space:nowrap;">$8K+</div>
+          <div>
+            <div style="font-size:12px;font-weight:700;color:var(--white);">Proyecto de Automatización</div>
+            <div style="font-size:11px;color:var(--muted);">Pago único · entrega 5–10 días · el primer paso</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;padding:14px 20px;border-radius:10px;background:rgba(0,229,160,.07);border:1px solid rgba(0,229,160,.2);flex:1;min-width:220px;">
+          <div style="font-size:22px;font-weight:900;color:var(--green);font-family:'JetBrains Mono',monospace;white-space:nowrap;">$3.5K<span style="font-size:13px;font-weight:600;">/mes</span></div>
+          <div>
+            <div style="font-size:12px;font-weight:700;color:var(--white);">Equipo de Agentes</div>
+            <div style="font-size:11px;color:var(--muted);">Retainer mensual · agentes 24/7 · operación completa</div>
+          </div>
+        </div>
+        <a href="/diagnostico" style="display:inline-flex;align-items:center;gap:8px;padding:14px 22px;border-radius:10px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);color:var(--white);font-size:12px;font-weight:700;text-decoration:none;white-space:nowrap;flex-shrink:0;">Ver mi propuesta →</a>
       </div>
 
       <!-- Análisis detallado: ancho completo, aparece tras auditar -->
@@ -1848,6 +1871,73 @@ a.audit-cta-btn:hover { transform:translateY(-2px); box-shadow:0 4px 16px rgba(0
   </div>
 </section>
 
+<!-- ══ EQUIPO DE AGENTES ═══════════════════════════════ -->
+<section id="agentes" style="padding:100px 0;position:relative;z-index:1;">
+  <div class="container">
+    <div class="sec-head center reveal">
+      <span class="sec-label">Equipo de Agentes</span>
+      <h2 class="sec-title">No son flujos.<br><span class="grad">Son operadores digitales.</span></h2>
+      <p class="sec-sub">Cada agente tiene un rol, razona con IA y actúa solo. Ventas, atención, seguridad y operaciones — cubiertos 24/7 sin intervención humana.</p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px;" class="reveal agents-grid">
+
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:22px;transition:border-color .3s,transform .3s;" onmouseover="this.style.borderColor='rgba(0,229,160,.3)';this.style.transform='translateY(-3px)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.07)';this.style.transform='none'">
+        <div style="font-size:28px;margin-bottom:10px;">🎯</div>
+        <div style="font-size:13px;font-weight:800;color:var(--white);margin-bottom:4px;">SDR Comercial</div>
+        <div style="font-size:10px;font-weight:700;color:var(--green);font-family:'JetBrains Mono',monospace;letter-spacing:.1em;margin-bottom:10px;">VENTAS · 24/7</div>
+        <div style="font-size:12px;color:var(--muted);line-height:1.55;">Prospecta y califica leads de forma autónoma. Envía secuencias personalizadas y agenda demos sin intervención humana.</div>
+      </div>
+
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:22px;transition:border-color .3s,transform .3s;" onmouseover="this.style.borderColor='rgba(0,229,160,.3)';this.style.transform='translateY(-3px)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.07)';this.style.transform='none'">
+        <div style="font-size:28px;margin-bottom:10px;">💬</div>
+        <div style="font-size:13px;font-weight:800;color:var(--white);margin-bottom:4px;">Atención WhatsApp</div>
+        <div style="font-size:10px;font-weight:700;color:var(--green);font-family:'JetBrains Mono',monospace;letter-spacing:.1em;margin-bottom:10px;">ATENCIÓN · 24/7</div>
+        <div style="font-size:12px;color:var(--muted);line-height:1.55;">Responde, cotiza y resuelve solicitudes frecuentes. Escala a humano solo cuando la situación lo requiere.</div>
+      </div>
+
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:22px;transition:border-color .3s,transform .3s;" onmouseover="this.style.borderColor='rgba(0,229,160,.3)';this.style.transform='translateY(-3px)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.07)';this.style.transform='none'">
+        <div style="font-size:28px;margin-bottom:10px;">📧</div>
+        <div style="font-size:13px;font-weight:800;color:var(--white);margin-bottom:4px;">Follow-up de Leads</div>
+        <div style="font-size:10px;font-weight:700;color:var(--blue);font-family:'JetBrains Mono',monospace;letter-spacing:.1em;margin-bottom:10px;">VENTAS · AUTOMÁTICO</div>
+        <div style="font-size:12px;color:var(--muted);line-height:1.55;">Detecta en qué etapa está cada prospecto y actúa: persiste, pausa o escala según las señales de la conversación.</div>
+      </div>
+
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:22px;transition:border-color .3s,transform .3s;" onmouseover="this.style.borderColor='rgba(0,229,160,.3)';this.style.transform='translateY(-3px)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.07)';this.style.transform='none'">
+        <div style="font-size:28px;margin-bottom:10px;">🛡️</div>
+        <div style="font-size:13px;font-weight:800;color:var(--white);margin-bottom:4px;">DMARC Analyst</div>
+        <div style="font-size:10px;font-weight:700;color:var(--purple);font-family:'JetBrains Mono',monospace;letter-spacing:.1em;margin-bottom:10px;">SEGURIDAD · CONTINUO</div>
+        <div style="font-size:12px;color:var(--muted);line-height:1.55;">Configura y monitorea SPF/DKIM/DMARC. Analiza reportes y alerta ante cualquier intento de suplantación.</div>
+      </div>
+
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:22px;transition:border-color .3s,transform .3s;" onmouseover="this.style.borderColor='rgba(0,229,160,.3)';this.style.transform='translateY(-3px)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.07)';this.style.transform='none'">
+        <div style="font-size:28px;margin-bottom:10px;">📊</div>
+        <div style="font-size:13px;font-weight:800;color:var(--white);margin-bottom:4px;">Reportes Ejecutivos</div>
+        <div style="font-size:10px;font-weight:700;color:var(--blue);font-family:'JetBrains Mono',monospace;letter-spacing:.1em;margin-bottom:10px;">VISIBILIDAD · ON-DEMAND</div>
+        <div style="font-size:12px;color:var(--muted);line-height:1.55;">Genera reportes de ventas, operaciones o seguridad en tiempo real. Entregados automáticamente al canal que prefieran.</div>
+      </div>
+
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:22px;transition:border-color .3s,transform .3s;" onmouseover="this.style.borderColor='rgba(0,229,160,.3)';this.style.transform='translateY(-3px)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.07)';this.style.transform='none'">
+        <div style="font-size:28px;margin-bottom:10px;">🚀</div>
+        <div style="font-size:13px;font-weight:800;color:var(--white);margin-bottom:4px;">Onboarding de Clientes</div>
+        <div style="font-size:10px;font-weight:700;color:var(--green);font-family:'JetBrains Mono',monospace;letter-spacing:.1em;margin-bottom:10px;">OPERACIONES · AUTOMÁTICO</div>
+        <div style="font-size:12px;color:var(--muted);line-height:1.55;">Acompaña al cliente nuevo en cada paso del proceso de activación. Sin intervención manual en casos estándar.</div>
+      </div>
+
+    </div>
+
+    <!-- Upgrade path -->
+    <div style="margin-top:32px;padding:22px 28px;border-radius:14px;background:rgba(0,229,160,.05);border:1px solid rgba(0,229,160,.15);display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;" class="reveal">
+      <div>
+        <div style="font-size:12px;font-weight:700;color:var(--white);margin-bottom:4px;">¿Por dónde empezar?</div>
+        <div style="font-size:12px;color:var(--muted);">El diagnóstico identifica qué agente tiene mayor impacto inmediato en su operación. La mayoría empieza con uno y escala en los primeros 60 días.</div>
+      </div>
+      <a href="/diagnostico" style="display:inline-flex;align-items:center;gap:8px;padding:13px 24px;border-radius:10px;background:linear-gradient(135deg,#00e5a0,#00c48c);color:#05050e;font-size:13px;font-weight:800;text-decoration:none;white-space:nowrap;flex-shrink:0;">Ver qué agentes necesito →</a>
+    </div>
+
+  </div>
+</section>
+
 <!-- ══ PLAN OPERATIVO D/S/M ══════════════════════════ -->
 <section id="plan-operativo">
   <div class="container">
@@ -2068,7 +2158,7 @@ a.audit-cta-btn:hover { transform:translateY(-2px); box-shadow:0 4px 16px rgba(0
   </div>
 </div>
 
-<a href="#contacto" class="fab-cta" id="fab-cta">Agendar diagnóstico →</a>
+<a href="/diagnostico" class="fab-cta" id="fab-cta">Hacer el diagnóstico →</a>
 
 <a href="https://wa.me/522231294663" target="_blank" rel="noopener noreferrer" class="wa-float" aria-label="Chatear por WhatsApp">
   <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
@@ -2986,11 +3076,13 @@ async function startAudit() {
     const mx = mxData.Answer.map(r => r.data).join(' · ');
     mxStr = mx;
     tAppend('tok', `[+] MX: ${(mx.length > 70 ? mx.slice(0,70)+'…' : mx)}`);
-    setCard('mx','ok','✅ Activo', mx, 'Su empresa tiene servidor de correo configurado');
+    const mxLow = mx.toLowerCase();
+    const mxLabel = mxLow.includes('google') ? 'Google Workspace' : mxLow.includes('outlook') || mxLow.includes('protection.outlook') ? 'Microsoft 365' : mxLow.includes('zoho') ? 'Zoho Mail' : mxLow.includes('mailhostbox') || mxLow.includes('mxbiz') ? 'Hosting de correo detectado' : 'Servidor de correo activo';
+    setCard('mx','ok','✅ Activo', mxLabel, 'Su empresa tiene servidor de correo configurado');
     mxOk = true;
   } else {
     tAppend('twarn', `[!] Sin registros MX — dominio sin correo configurado`);
-    setCard('mx','warn','⚠️ Sin servidor','No encontrado','No se detectó servidor de correo en este dominio');
+    setCard('mx','warn','⚠️ Sin servidor','Sin servidor detectado','No se detectó servidor de correo en este dominio');
   }
   await tSleep(380);
 
@@ -3016,17 +3108,17 @@ async function startAudit() {
   if (!spfFound) {
     tAppend('terr', `[✗] CRÍTICO: Sin registro SPF — cualquiera puede enviar como ${sanitize(domain)}`);
     tAppend('tdim', `    → Respuesta DNS: sin registros TXT con v=spf1`);
-    setCard('spf','fail','❌ Expuesto','No encontrado','Cualquiera puede enviar correos haciéndose pasar por su empresa');
+    setCard('spf','fail','❌ Expuesto','Sin configuración — dominio desprotegido','Cualquiera puede enviar correos haciéndose pasar por su empresa');
     spfScore = 0;
   } else if (!spfStrict) {
     tAppend('twarn', `[!] SPF con política ~all (soft fail) — protección débil`);
     tAppend('tdim', `    → "${spfVal.length>80?spfVal.substring(0,80)+'…':spfVal}"`);
-    setCard('spf','warn','⚠️ Incompleto', spfVal, 'Hay protección parcial, pero su dominio aún es suplantable');
+    setCard('spf','warn','⚠️ Incompleto','Configuración básica, protección débil','Hay protección parcial, pero su dominio aún es suplantable');
     spfScore = 15;
   } else {
     tAppend('tok', `[+] SPF configurado con -all (política estricta)`);
     tAppend('tdim', `    → "${spfVal.length>80?spfVal.substring(0,80)+'…':spfVal}"`);
-    setCard('spf','ok','✅ Protegido', spfVal, 'Sus remitentes están correctamente autorizados');
+    setCard('spf','ok','✅ Protegido','Solo servidores autorizados pueden enviar','Sus remitentes están correctamente autorizados');
     spfScore = 30;
   }
   await tSleep(380);
@@ -3054,22 +3146,22 @@ async function startAudit() {
   if (!dmarcFound) {
     tAppend('terr', `[✗] CRÍTICO: Sin DMARC — phishing desde ${sanitize(domain)} llega sin filtro`);
     tAppend('tdim', `    → Respuesta DNS: sin registro en _dmarc.${sanitize(domain)}`);
-    setCard('dmarc','fail','❌ Sin política','No encontrado','Correos fraudulentos de su dominio no son bloqueados');
+    setCard('dmarc','fail','❌ Sin política','Sin política de protección activa','Correos fraudulentos de su dominio no son bloqueados');
     dmarcScore = 0;
   } else if (dmarcPolicy === 'none') {
     tAppend('twarn', `[!] DMARC p=none — solo monitoreo, sin rechazo activo`);
     tAppend('tdim', `    → "${dmarcVal.length>90?dmarcVal.substring(0,90)+'…':dmarcVal}"`);
-    setCard('dmarc','warn','⚠️ Solo observa', dmarcVal, 'La política existe pero no bloquea correos falsos');
+    setCard('dmarc','warn','⚠️ Solo observa','Monitoreo activo, sin bloqueo de correos falsos','La política existe pero no bloquea correos falsos');
     dmarcScore = 12;
   } else if (dmarcPolicy === 'quarantine') {
     tAppend('twarn', `[~] DMARC p=quarantine — protección parcial (cuarentena)`);
     tAppend('tdim', `    → "${dmarcVal.length>90?dmarcVal.substring(0,90)+'…':dmarcVal}"`);
-    setCard('dmarc','warn','⚠️ Parcial', dmarcVal, 'Protección parcial — se recomienda bloqueo total');
+    setCard('dmarc','warn','⚠️ Parcial','Correos sospechosos van a spam, no rechazados','Protección parcial — se recomienda bloqueo total');
     dmarcScore = 25;
   } else {
     tAppend('tok', `[+] DMARC con p=reject — correos falsos son rechazados`);
     tAppend('tdim', `    → "${dmarcVal.length>90?dmarcVal.substring(0,90)+'…':dmarcVal}"`);
-    setCard('dmarc','ok','✅ Blindado', dmarcVal, 'Correos fraudulentos de su dominio son rechazados automáticamente');
+    setCard('dmarc','ok','✅ Blindado','Correos falsos bloqueados en origen','Correos fraudulentos de su dominio son rechazados automáticamente');
     dmarcScore = 40;
   }
   await tSleep(380);
@@ -3089,10 +3181,10 @@ async function startAudit() {
   await tSleep(200);
   if (dkimFound) {
     tAppend('tok', `[+] DKIM encontrado — selector: ${dkimSel}`);
-    setCard('dkim','ok','✅ Firmado',`${dkimSel}._domainkey.${domain}`,'Sus correos llevan firma digital — los destinatarios pueden verificarlos');
+    setCard('dkim','ok','✅ Firmado','Firma digital activa y verificable','Sus correos llevan firma digital — los destinatarios pueden verificarlos');
   } else {
     tAppend('twarn', `[!] DKIM no detectado en selectores estándar`);
-    setCard('dkim','warn','⚠️ Sin firma','No detectado en selectores comunes','Sus correos no llevan firma digital verificable');
+    setCard('dkim','warn','⚠️ Sin firma','Sin firma digital en sus correos','Sus correos no llevan firma digital verificable');
   }
   const dkimScore = dkimFound ? 30 : 0;
   await tSleep(360);
@@ -3517,7 +3609,7 @@ document.getElementById('audit-input').addEventListener('keydown', e => {
     size:/peque[ñn]|grande|mediana|empleados|tama[ñn]o/i,
   };
   const RS={
-    precio:'Nuestros servicios inician desde **$4,990 MXN/mes** para blindaje de correo corporativo, y desde **$8,500 MXN/mes** para automatización de procesos.\n\nEl diagnóstico inicial es **completamente gratuito** — sin compromiso. Agenda uno y le presentamos exactamente qué necesita su empresa con números reales.',
+    precio:'Trabajamos en dos modalidades:\n\n**Proyecto de Automatización** — Pago único desde **$8,000 MXN**. Automatizamos el proceso de mayor fricción en su operación. Entrega en 5–10 días.\n\n**Equipo de Agentes** — Retainer mensual desde **$3,500 MXN/mes**. Agentes digitales que operan 24/7 en ventas, atención, operaciones y seguridad.\n\nEl diagnóstico es **completamente gratuito** — le presentamos exactamente qué necesita con números reales.',
     tiempo:'El blindaje de seguridad se activa en **menos de 24 horas**. Sin migración, sin tiempo fuera de servicio.\n\nEl primer flujo de automatización entra en producción entre **5 y 15 días hábiles**, dependiendo del proceso elegido.',
     garantia:'**Garantía de 30 días.** Si en el primer mes no puede medir un impacto concreto, le devolvemos el 100% de su inversión. Sin preguntas, sin letra chica.\n\nEs la confianza que tenemos en lo que entregamos.',
     contacto:'Con gusto agendamos una llamada. Puede:\n\n📱 **WhatsApp:** 223 129 4663\n✉️ **Correo:** contacto@trevainnovate.com\n\nO usar el formulario en la sección de contacto — respondemos en menos de 2 horas.',
