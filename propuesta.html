@@ -201,8 +201,8 @@ const dmarc    = P.get('dmarc')    || 'unknown';
 const dkim     = P.get('dkim')     || 'unknown';
 const score    = parseInt(P.get('score') || '0');
 const nivelRaw = P.get('nivel') || '2';
-const esProyecto = nivelRaw === 'proyecto';
-const nivel    = esProyecto ? 1 : parseInt(nivelRaw);
+const esProyecto = false; // eliminado — todos los planes usan estructura setup+mensual
+const nivel    = parseInt(nivelRaw) || 1;
 const agentesParam  = P.get('agentes')   || '';
 const hallazgosParam= P.get('hallazgos') || '';
 const areasParam    = P.get('areas')     || '';
@@ -319,17 +319,20 @@ window.onload = () => {
   // Pricing blocks: proyecto vs equipo de agentes
   const elInvTitulo = document.getElementById('inv-titulo');
   const elInvSub    = document.getElementById('inv-sub');
-  if (esProyecto) {
-    document.getElementById('pricing-proyecto').style.display = 'flex';
-    if(elInvTitulo) elInvTitulo.innerHTML = 'Proyecto puntual. <span class="grad">El primer paso.</span>';
-    if(elInvSub)    elInvSub.textContent  = 'Construcción y entrega en 5–10 días. Pago único, sin mensualidad.';
-    // price-setup already shows default $8,000–15,000 — override only if param sent
-    const elSetup = document.getElementById('price-setup');
-    if(elSetup && hasSetup) elSetup.textContent = fmt(setup);
-  } else {
+  {
     document.getElementById('pricing-agentes').style.display = 'flex';
-    if(elInvTitulo) elInvTitulo.innerHTML = 'Un equipo completo. <span class="grad">Sin el costo de uno.</span>';
-    if(elInvSub)    elInvSub.textContent  = 'La inversión se divide en dos momentos: el arranque y la operación mensual.';
+    const titulosPorNivel = {
+      1: 'Plan Lite. <span class="grad">El primer paso.</span>',
+      2: 'Plan Popular. <span class="grad">El más solicitado.</span>',
+      3: 'Plan Pro. <span class="grad">Ecosistema completo.</span>'
+    };
+    const subsPorNivel = {
+      1: 'Setup único + operación mensual. Primer agente operando en 3 días.',
+      2: 'Equipo de agentes funcionando 24/7. Sin ausentismo, sin costo variable.',
+      3: 'Ecosistema completo con seguridad administrada integrada. 24 horas, 7 días, sin pausas.'
+    };
+    if(elInvTitulo) elInvTitulo.innerHTML = titulosPorNivel[nivel] || titulosPorNivel[1];
+    if(elInvSub)    elInvSub.textContent  = subsPorNivel[nivel]    || subsPorNivel[1];
     const elSetupA  = document.getElementById('price-setup-agentes');
     const elMensual = document.getElementById('price-mensual');
     const elTotal   = document.getElementById('price-total-anual');
