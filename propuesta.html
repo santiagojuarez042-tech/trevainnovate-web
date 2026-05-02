@@ -214,12 +214,13 @@ const segmento   = P.get('segmento')   || '';  // pyme_pequena | pyme_mediana | 
 const objetivo   = P.get('objetivo')   || '';  // frase síntesis de la estrategia
 const estrategia = P.get('estrategia') || '';  // bullets separados por | → A → B → C
 const webPrecio  = parseInt(P.get('web_precio') || '0') || 0;
-const fecha     = P.get('fecha') || new Date().toLocaleDateString('es-MX',{day:'numeric',month:'long',year:'numeric'});
+const gancho     = P.get('gancho') === 'true';  // bundle especial con precio de lanzamiento
+const fecha      = P.get('fecha') || new Date().toLocaleDateString('es-MX',{day:'numeric',month:'long',year:'numeric'});
 
-const hasDiag     = dominio !== null || areasParam.length > 0 || hallazgosParam.length > 0;
-const hasAgentes  = agentesParam.length > 0;
-const hasSetup    = setup > 0;
-const hasMensual  = mensual > 0;
+const hasDiag      = dominio !== null || areasParam.length > 0 || hallazgosParam.length > 0;
+const hasAgentes   = agentesParam.length > 0;
+const hasSetup     = setup > 0;
+const hasMensual   = mensual > 0;
 const hasWebPrecio = webPrecio > 0;
 
 const AGENTS = {
@@ -374,16 +375,21 @@ window.onload = () => {
     document.getElementById('pricing-agentes').style.display = 'flex';
     const titulosPorNivel = {
       1: 'Plan Lite. <span class="grad">El primer paso.</span>',
-      2: 'Plan Popular. <span class="grad">El más solicitado.</span>',
+      2: gancho ? 'Bundle completo. <span class="grad">Todo incluido.</span>' : 'Plan Popular. <span class="grad">El más solicitado.</span>',
       3: 'Plan Pro. <span class="grad">Ecosistema completo.</span>'
     };
     const subsPorNivel = {
       1: 'Setup único + operación mensual. Primer agente operando en 3 días.',
-      2: 'Equipo de agentes funcionando 24/7. Sin ausentismo, sin costo variable.',
+      2: gancho ? 'Sitio web + automatización + seguridad. Un solo setup. Sin costos separados. Sin sorpresas.' : 'Equipo de agentes funcionando 24/7. Sin ausentismo, sin costo variable.',
       3: 'Ecosistema completo con seguridad administrada integrada. 24 horas, 7 días, sin pausas.'
     };
     if(elInvTitulo) elInvTitulo.innerHTML = titulosPorNivel[nivel] || titulosPorNivel[1];
     if(elInvSub)    elInvSub.textContent  = subsPorNivel[nivel]    || subsPorNivel[1];
+
+    // Gancho banner
+    const elGancho = document.getElementById('gancho-banner');
+    if(gancho && elGancho) elGancho.style.display = 'flex';
+
     const elSetupA  = document.getElementById('price-setup-agentes');
     const elMensual = document.getElementById('price-mensual');
     const elTotal   = document.getElementById('price-total-anual');
@@ -393,7 +399,7 @@ window.onload = () => {
       const totalAnual = setup + mensual*12 + (hasWebPrecio ? webPrecio : 0);
       elTotal.textContent = fmt(totalAnual);
     }
-    // Página web — bloque separado
+    // Página web — bloque separado (solo si es extra, no bundle)
     const elWebBlock = document.getElementById('web-precio-block');
     const elWebPrice = document.getElementById('price-web');
     if(hasWebPrecio && elWebBlock){
@@ -723,7 +729,16 @@ window.onload = () => {
   <div class="page-body">
     <span class="label" id="inv-label">Inversión y plan de arranque</span>
     <h2 class="h2" id="inv-titulo" style="margin-bottom:5px;"></h2>
-    <p class="body-text" id="inv-sub" style="margin-bottom:14px;"></p>
+    <p class="body-text" id="inv-sub" style="margin-bottom:10px;"></p>
+
+    <!-- Gancho banner — visible solo si gancho=true -->
+    <div id="gancho-banner" style="display:none;align-items:center;gap:10px;background:rgba(0,229,160,.06);border:1px solid rgba(0,229,160,.25);border-radius:8px;padding:9px 14px;margin-bottom:12px;">
+      <div style="font-size:16px;">🎁</div>
+      <div>
+        <div style="font-size:9px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.12em;">Bundle de arranque · precio de lanzamiento</div>
+        <div style="font-size:9px;color:rgba(255,255,255,.7);line-height:1.5;margin-top:2px;">Sitio web + automatización + seguridad administrada — todo en un solo pago de setup. Sin cobros separados por cada componente. Precio especial para los primeros clientes que arrancan este mes.</div>
+      </div>
+    </div>
 
     <div class="two-col" style="margin-bottom:12px;align-items:start;">
       <!-- Pricing: proyecto -->
