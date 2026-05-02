@@ -317,7 +317,7 @@ const AGENTS = {
   },
 };
 
-const NIVEL_NAME  = ['','Lite','Popular','Pro','Empresa Digital'];
+const NIVEL_NAME  = ['','Lite','Pro','Premium','Empresa Digital'];
 const NIVEL_COLOR = ['','var(--blue)','var(--green)','var(--purple)','var(--amber)'];
 
 function scoreColor(s){ return s>=70?'var(--green)':s>=35?'var(--amber)':'#ef4444'; }
@@ -476,8 +476,8 @@ window.onload = () => {
     document.getElementById('pricing-agentes').style.display = 'flex';
     const titulosPorNivel = {
       1: 'Plan Lite. <span class="grad">El primer paso.</span>',
-      2: gancho ? 'Bundle completo. <span class="grad">Todo incluido.</span>' : 'Plan Popular. <span class="grad">El más solicitado.</span>',
-      3: 'Plan Pro. <span class="grad">Ecosistema completo.</span>'
+      2: gancho ? 'Bundle completo. <span class="grad">Todo incluido.</span>' : 'Plan Pro. <span class="grad">El más solicitado.</span>',
+      3: 'Plan Premium. <span class="grad">Ecosistema completo.</span>'
     };
     const subsPorNivel = {
       1: 'Setup único + operación mensual. Primer agente operando en 3 días.',
@@ -833,7 +833,7 @@ window.onload = () => {
       <!-- Pricing: proyecto -->
       <div id="pricing-proyecto" style="display:none;flex-direction:column;gap:8px;">
         <div class="block b" style="padding:20px 22px;">
-          <div style="font-size:9px;font-weight:700;color:var(--amber);text-transform:uppercase;letter-spacing:.14em;margin-bottom:8px;">Plan Lite · Setup único + retainer mensual</div>
+          <div style="font-size:9px;font-weight:700;color:var(--amber);text-transform:uppercase;letter-spacing:.14em;margin-bottom:8px;">Plan Lite · Setup único + retainer mensual — el primer paso</div>
           <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:4px;">
             <div style="font-size:22px;font-weight:900;color:var(--amber);font-family:'JetBrains Mono',monospace;line-height:1;">$12,000</div>
             <div style="font-size:11px;color:var(--muted);">MXN setup</div>
@@ -852,7 +852,7 @@ window.onload = () => {
         <div class="block" style="padding:14px 18px;background:rgba(245,158,11,.04);border-color:rgba(245,158,11,.18);">
           <div style="font-size:11px;color:var(--muted);line-height:1.6;">
             <strong style="color:var(--white);display:block;margin-bottom:4px;">El siguiente paso natural</strong>
-            La mayoría de clientes que empieza en Plan Lite escala a Plan Popular en los primeros 60 días — una vez que ven lo que es posible con agentes operando 24/7.
+            La mayoría de clientes que empieza en Plan Lite escala a Plan Pro en los primeros 60 días — una vez que ven lo que es posible con agentes operando 24/7.
           </div>
         </div>
       </div>
