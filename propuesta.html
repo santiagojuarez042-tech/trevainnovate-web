@@ -206,8 +206,10 @@ const nivel    = parseInt(nivelRaw) || 1;
 const agentesParam  = P.get('agentes')   || '';
 const hallazgosParam= P.get('hallazgos') || '';
 const areasParam    = P.get('areas')     || '';
-const setup    = parseInt(P.get('setup')   || '0');
-const mensual  = parseInt(P.get('mensual') || '0');
+const PRECIO_SETUP   = { 1: 12000, 2: 18000, 3: 30000 };
+const PRECIO_MENSUAL = { 1: 3500,  2: 7500,  3: 14500 };
+const setup    = parseInt(P.get('setup')   || '0') || PRECIO_SETUP[nivel]   || 0;
+const mensual  = parseInt(P.get('mensual') || '0') || PRECIO_MENSUAL[nivel] || 0;
 const segmento = P.get('segmento') || '';  // pyme_pequena | pyme_mediana | empresa
 const fecha    = P.get('fecha') || new Date().toLocaleDateString('es-MX',{day:'numeric',month:'long',year:'numeric'});
 
@@ -229,6 +231,7 @@ const AGENTS = {
   dmarc_agent: { icon:'🛡️', name:'DMARC Analyst',         desc:'Configura y monitorea SPF/DKIM/DMARC. Analiza reportes de seguridad de correo y alerta ante cualquier intento de suplantación.' },
   threat:      { icon:'🔍', name:'Threat Intelligence',    desc:'Monitorea fuentes abiertas para detectar si el dominio o las credenciales del equipo aparecen en filtraciones.' },
   incident:    { icon:'⚡', name:'Incident Response',      desc:'Detecta caídas de servicio, analiza la causa raíz y ejecuta protocolos de recuperación automáticamente.' },
+  web:         { icon:'🌐', name:'Creación de Página Web',  desc:'Diseño y desarrollo completo del sitio en Cloudflare Pages. Dominio propio, SSL, velocidad máxima, landing optimizada para conversión. Entrega en 5–7 días. Primer activo digital que trabaja 24/7.' },
 };
 
 const NIVEL_NAME  = ['','Lite','Popular','Pro','Empresa Digital'];
