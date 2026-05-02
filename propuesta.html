@@ -210,13 +210,17 @@ const PRECIO_SETUP   = { 1: 12000, 2: 18000, 3: 30000 };
 const PRECIO_MENSUAL = { 1: 3500,  2: 7500,  3: 14500 };
 const setup    = parseInt(P.get('setup')   || '0') || PRECIO_SETUP[nivel]   || 0;
 const mensual  = parseInt(P.get('mensual') || '0') || PRECIO_MENSUAL[nivel] || 0;
-const segmento = P.get('segmento') || '';  // pyme_pequena | pyme_mediana | empresa
-const fecha    = P.get('fecha') || new Date().toLocaleDateString('es-MX',{day:'numeric',month:'long',year:'numeric'});
+const segmento   = P.get('segmento')   || '';  // pyme_pequena | pyme_mediana | empresa
+const objetivo   = P.get('objetivo')   || '';  // frase síntesis de la estrategia
+const estrategia = P.get('estrategia') || '';  // bullets separados por | → A → B → C
+const webPrecio  = parseInt(P.get('web_precio') || '0') || 0;
+const fecha     = P.get('fecha') || new Date().toLocaleDateString('es-MX',{day:'numeric',month:'long',year:'numeric'});
 
 const hasDiag     = dominio !== null || areasParam.length > 0 || hallazgosParam.length > 0;
 const hasAgentes  = agentesParam.length > 0;
 const hasSetup    = setup > 0;
 const hasMensual  = mensual > 0;
+const hasWebPrecio = webPrecio > 0;
 
 const AGENTS = {
   sdr:         { icon:'🎯', name:'SDR Comercial',          desc:'Prospecta y califica leads de forma autónoma. Envía secuencias personalizadas y agenda demos sin intervención humana. Opera 24/7.' },
@@ -302,6 +306,24 @@ window.onload = () => {
     ).join('');
   }
 
+  // Bloque de estrategia
+  if(objetivo || estrategia){
+    const blk = document.getElementById('estrategia-block');
+    if(blk) blk.style.display = 'block';
+    const elObj = document.getElementById('objetivo-text');
+    if(elObj && objetivo) elObj.textContent = objetivo;
+    const elFlow = document.getElementById('estrategia-flow');
+    if(elFlow && estrategia){
+      const pasos = estrategia.split('|').map(s=>s.trim()).filter(Boolean);
+      elFlow.innerHTML = pasos.map((p,i) =>
+        `<span style="font-size:9px;color:var(--white);opacity:.85;">${p}</span>${i < pasos.length-1 ? '<span style="color:var(--green);font-size:10px;opacity:.6;margin:0 1px;">→</span>' : ''}`
+      ).join('');
+    }
+    // Ocultar subtítulo genérico si hay estrategia
+    const sub = document.getElementById('solucion-sub');
+    if(sub) sub.style.display = 'none';
+  }
+
   // Solución: separar proyectos (web) de agentes
   const PROYECTO_KEYS = ['web'];
   const aContainer = document.getElementById('agentes-lista');
@@ -367,7 +389,17 @@ window.onload = () => {
     const elTotal   = document.getElementById('price-total-anual');
     if(elSetupA)  elSetupA.textContent  = hasSetup   ? fmt(setup)   : 'A definir';
     if(elMensual) elMensual.textContent = hasMensual ? fmt(mensual) : 'A definir';
-    if(elTotal && hasSetup && hasMensual) elTotal.textContent = fmt(setup + mensual*12);
+    if(elTotal && hasSetup && hasMensual) {
+      const totalAnual = setup + mensual*12 + (hasWebPrecio ? webPrecio : 0);
+      elTotal.textContent = fmt(totalAnual);
+    }
+    // Página web — bloque separado
+    const elWebBlock = document.getElementById('web-precio-block');
+    const elWebPrice = document.getElementById('price-web');
+    if(hasWebPrecio && elWebBlock){
+      elWebBlock.style.display = 'block';
+      if(elWebPrice) elWebPrice.textContent = fmt(webPrecio);
+    }
   }
 
   // Páginas condicionales
@@ -649,7 +681,15 @@ window.onload = () => {
   <div class="page-body">
     <span class="label">Solución propuesta</span>
     <h2 class="h2" style="margin-bottom:5px;">Lo que vamos a construir <span class="grad">en <span data-cliente></span>.</span></h2>
-    <p class="body-text" style="margin-bottom:14px;">Cada pieza responde a un hallazgo específico del diagnóstico. Los proyectos son entregas únicas; los agentes operan de forma continua una vez desplegados. Todo está diseñado para trabajar en conjunto.</p>
+
+    <!-- Bloque estrategia — visible solo si hay params -->
+    <div id="estrategia-block" style="display:none;margin-bottom:12px;background:rgba(0,229,160,.04);border:1px solid rgba(0,229,160,.16);border-radius:10px;padding:11px 14px;">
+      <div style="font-size:8px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.14em;margin-bottom:5px;">🎯 Estrategia — por qué cada pieza</div>
+      <div id="objetivo-text" style="font-size:12px;font-weight:700;color:var(--white);line-height:1.4;margin-bottom:7px;"></div>
+      <div id="estrategia-flow" style="display:flex;flex-wrap:wrap;align-items:center;gap:4px;"></div>
+    </div>
+
+    <p id="solucion-sub" class="body-text" style="margin-bottom:10px;">Cada pieza responde a un hallazgo específico del diagnóstico. Los proyectos son entregas únicas; los agentes operan de forma continua una vez desplegados. Todo está diseñado para trabajar en conjunto.</p>
 
     <div id="agentes-lista" style="flex:1;">
       <!-- Poblado por JS -->
@@ -737,6 +777,11 @@ window.onload = () => {
             <div class="check-item">Soporte en español · respuesta &lt;4h</div>
             <div class="check-item">Portal del cliente 24/7 — sin costo adicional</div>
           </div>
+        </div>
+        <div id="web-precio-block" style="display:none;background:rgba(245,158,11,.04);border:1px solid rgba(245,158,11,.2);border-radius:8px;padding:12px 14px;">
+          <div style="font-size:8px;font-weight:700;color:var(--amber);text-transform:uppercase;letter-spacing:.14em;margin-bottom:4px;">🌐 Creación de Página Web · pago único</div>
+          <div id="price-web" style="font-size:22px;font-weight:900;color:var(--amber);font-family:'JetBrains Mono',monospace;line-height:1;margin-bottom:3px;">—</div>
+          <div style="font-size:8.5px;color:var(--muted);">Sitio profesional en Cloudflare Pages · SSL · dominio propio · entrega 5–7 días</div>
         </div>
         <div class="block" style="padding:10px 14px;display:flex;justify-content:space-between;align-items:center;">
           <div style="font-size:9px;color:var(--muted);">Inversión total primer año</div>
