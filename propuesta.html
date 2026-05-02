@@ -302,21 +302,47 @@ window.onload = () => {
     ).join('');
   }
 
-  // Agentes del cliente
+  // Solución: separar proyectos (web) de agentes
+  const PROYECTO_KEYS = ['web'];
   const aContainer = document.getElementById('agentes-lista');
   if(aContainer && hasAgentes){
     const keys = agentesParam.split(',').map(s=>s.trim()).filter(Boolean);
-    aContainer.innerHTML = keys.map(k => {
-      const a = AGENTS[k] || { icon:'🤖', name:k, desc:'Agente personalizado para su operación.' };
-      return `<div class="agent-item">
-        <div class="agent-icon">${a.icon}</div>
-        <div>
-          <div class="agent-name">${a.name}</div>
-          <div class="agent-desc">${a.desc}</div>
-          <div class="agent-badge">INCLUIDO · NIVEL ${nivel}</div>
-        </div>
-      </div>`;
-    }).join('');
+    const proyectos = keys.filter(k => PROYECTO_KEYS.includes(k));
+    const agentes   = keys.filter(k => !PROYECTO_KEYS.includes(k));
+
+    let html = '';
+
+    if(proyectos.length > 0){
+      html += `<div style="font-size:8.5px;font-weight:700;color:var(--amber);text-transform:uppercase;letter-spacing:.14em;margin-bottom:7px;margin-top:4px;">⚙️ Proyecto — entrega única</div>`;
+      html += proyectos.map(k => {
+        const a = AGENTS[k] || { icon:'🌐', name:k, desc:'' };
+        return `<div class="agent-item" style="border-color:rgba(245,158,11,.2);background:rgba(245,158,11,.03);">
+          <div class="agent-icon">${a.icon}</div>
+          <div>
+            <div class="agent-name">${a.name}</div>
+            <div class="agent-desc">${a.desc}</div>
+            <div class="agent-badge" style="background:rgba(245,158,11,.1);color:var(--amber);border-color:rgba(245,158,11,.25);">PROYECTO · ENTREGA 5–7 DÍAS</div>
+          </div>
+        </div>`;
+      }).join('');
+    }
+
+    if(agentes.length > 0){
+      html += `<div style="font-size:8.5px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.14em;margin-bottom:7px;${proyectos.length?'margin-top:12px;':''}">🤖 Agentes — operación continua 24/7</div>`;
+      html += agentes.map(k => {
+        const a = AGENTS[k] || { icon:'🤖', name:k, desc:'Agente personalizado para su operación.' };
+        return `<div class="agent-item">
+          <div class="agent-icon">${a.icon}</div>
+          <div>
+            <div class="agent-name">${a.name}</div>
+            <div class="agent-desc">${a.desc}</div>
+            <div class="agent-badge">INCLUIDO · NIVEL ${nivel}</div>
+          </div>
+        </div>`;
+      }).join('');
+    }
+
+    aContainer.innerHTML = html;
   }
 
   // Pricing blocks: proyecto vs equipo de agentes
@@ -622,8 +648,8 @@ window.onload = () => {
   </div>
   <div class="page-body">
     <span class="label">Solución propuesta</span>
-    <h2 class="h2" style="margin-bottom:5px;">El equipo digital <span class="grad">de <span data-cliente></span>.</span></h2>
-    <p class="body-text" style="margin-bottom:14px;">Cada agente fue seleccionado directamente por los hallazgos del diagnóstico. No es un catálogo — es lo que su operación necesita específicamente.</p>
+    <h2 class="h2" style="margin-bottom:5px;">Lo que vamos a construir <span class="grad">en <span data-cliente></span>.</span></h2>
+    <p class="body-text" style="margin-bottom:14px;">Cada pieza responde a un hallazgo específico del diagnóstico. Los proyectos son entregas únicas; los agentes operan de forma continua una vez desplegados. Todo está diseñado para trabajar en conjunto.</p>
 
     <div id="agentes-lista" style="flex:1;">
       <!-- Poblado por JS -->
@@ -632,8 +658,8 @@ window.onload = () => {
     <div class="block green" style="margin-top:10px;">
       <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
         <div>
-          <div class="h3" style="font-size:11px;margin-bottom:4px;">Los agentes se coordinan entre ellos</div>
-          <p style="font-size:9.5px;color:var(--muted);line-height:1.5;max-width:110mm;">No son piezas aisladas. Comparten contexto, se pasan información y escalan a usted solo cuando la situación lo requiere. Es un equipo, no un conjunto de herramientas.</p>
+          <div class="h3" style="font-size:11px;margin-bottom:4px;">Un sistema, no piezas sueltas</div>
+          <p style="font-size:9.5px;color:var(--muted);line-height:1.5;max-width:110mm;">El sitio web captura leads, los agentes los procesan y los siguen. La seguridad protege todo el ecosistema. Cada pieza alimenta a las demás — no son herramientas independientes.</p>
         </div>
         <div style="text-align:center;flex-shrink:0;">
           <div style="font-size:22px;font-weight:900;color:var(--green);font-family:'JetBrains Mono',monospace;">24/7</div>
