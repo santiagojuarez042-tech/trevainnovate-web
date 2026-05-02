@@ -224,19 +224,97 @@ const hasMensual   = mensual > 0;
 const hasWebPrecio = webPrecio > 0;
 
 const AGENTS = {
-  sdr:         { icon:'🎯', name:'SDR Comercial',          desc:'Prospecta y califica leads de forma autónoma. Envía secuencias personalizadas y agenda demos sin intervención humana. Opera 24/7.' },
-  followup:    { icon:'📧', name:'Follow-up de Leads',     desc:'Detecta en qué etapa está cada prospecto y actúa en consecuencia: persiste, pausa o escala según las señales de la conversación.' },
-  propuesta:   { icon:'📋', name:'Generador de Propuestas',desc:'Construye propuestas comerciales personalizadas en segundos a partir del diagnóstico de cada cliente.' },
-  whatsapp:    { icon:'💬', name:'Atención WhatsApp',      desc:'Responde preguntas, cotiza y resuelve solicitudes frecuentes. Escala a humano solo cuando la situación lo requiere. Disponible 24/7.' },
-  email:       { icon:'📬', name:'Gestión de Correo',      desc:'Clasifica, responde y prioriza correos entrantes. Extrae datos relevantes y notifica al equipo solo con lo que necesita acción.' },
-  onboarding:  { icon:'🚀', name:'Onboarding de Clientes', desc:'Acompaña al cliente nuevo en cada paso del proceso de activación. Sin intervención manual en casos estándar.' },
-  reporte:     { icon:'📊', name:'Reportes Ejecutivos',    desc:'Genera reportes de ventas, operaciones o seguridad en tiempo real. Entregados automáticamente al canal que prefieran.' },
-  coordinacion:{ icon:'🔄', name:'Coordinación Operativa', desc:'Sincroniza equipos, sistemas y tareas pendientes. Detecta cuellos de botella y avisa antes de que paren la operación.' },
-  facturacion: { icon:'🧾', name:'Facturación Asistida',   desc:'Genera CFDIs, rastrea pagos pendientes y notifica cuando algo requiere revisión humana.' },
-  dmarc_agent: { icon:'🛡️', name:'DMARC Analyst',         desc:'Configura y monitorea SPF/DKIM/DMARC. Analiza reportes de seguridad de correo y alerta ante cualquier intento de suplantación.' },
-  threat:      { icon:'🔍', name:'Threat Intelligence',    desc:'Monitorea fuentes abiertas para detectar si el dominio o las credenciales del equipo aparecen en filtraciones.' },
-  incident:    { icon:'⚡', name:'Incident Response',      desc:'Detecta caídas de servicio, analiza la causa raíz y ejecuta protocolos de recuperación automáticamente.' },
-  web:         { icon:'🌐', name:'Creación de Página Web',  desc:'Diseño y desarrollo completo del sitio en Cloudflare Pages. Dominio propio, SSL, velocidad máxima, landing optimizada para conversión. Entrega en 5–7 días. Primer activo digital que trabaja 24/7.' },
+  web: {
+    icon:'🌐', name:'Creación de Página Web', tipo:'proyecto', fase:1,
+    match:['web','sitio','presencia','digital','google','internet','página'],
+    resuelve:'Sin presencia web → el negocio no existe para clientes que buscan en Google.',
+    detalle:['Landing B2C con SEO local optimizado para la ciudad','Dominio propio, SSL, velocidad máxima en móvil','Menú / catálogo digital + formulario de contacto','Entrega en 5–7 días hábiles · sin dependencia futura'],
+    resultado:'Canal de captación activo 24/7. Primeras visitas orgánicas en 2–3 semanas.'
+  },
+  sdr: {
+    icon:'🎯', name:'SDR Comercial', tipo:'agente', fase:2,
+    match:['lead','prospección','cliente','venta','contacto','correo frío'],
+    resuelve:'Prospección manual = tiempo del equipo que no escala ni se mide.',
+    detalle:['Identifica y contacta prospectos de forma autónoma','Envía secuencias personalizadas por industria y diagnóstico','Agenda demos sin intervención humana · opera 24/7','Notifica solo cuando hay respuesta o acción requerida'],
+    resultado:'Flujo constante de demos agendadas sin esfuerzo del equipo.'
+  },
+  followup: {
+    icon:'📧', name:'Follow-up de Leads', tipo:'agente', fase:2,
+    match:['seguimiento','cotización','lead','cierre','prospecto'],
+    resuelve:'Cotizaciones sin seguimiento = ingreso que se pierde entre conversaciones.',
+    detalle:['Detecta en qué etapa está cada prospecto automáticamente','Envía el mensaje correcto en el momento correcto','Persiste, pausa o escala según señales de respuesta','Registra cada acción en el CRM sin intervención manual'],
+    resultado:'Tasa de cierre mayor · 0 prospectos caídos por falta de seguimiento.'
+  },
+  propuesta: {
+    icon:'📋', name:'Generador de Propuestas', tipo:'agente', fase:2,
+    match:['propuesta','cotización','presupuesto','precio'],
+    resuelve:'Armar propuestas manualmente tarda horas y cada una sale diferente.',
+    detalle:['Genera propuestas personalizadas en segundos desde el diagnóstico','Calcula precio según perfil del cliente automáticamente','Envía PDF por correo y registra en CRM','Consistencia total en presentación y argumentación'],
+    resultado:'De diagnóstico a propuesta enviada en menos de 2 minutos.'
+  },
+  whatsapp: {
+    icon:'💬', name:'Atención WhatsApp', tipo:'agente', fase:3,
+    match:['whatsapp','atención','consulta','respuesta','cliente','mensaj'],
+    resuelve:'Clientes esperan respuesta fuera de horario — cada mensaje sin respuesta es una oportunidad perdida.',
+    detalle:['Responde preguntas frecuentes y cotiza en segundos','Disponible 24/7, incluso fines de semana y festivos','Escala a humano solo cuando la situación lo requiere','Integrado con inventario y catálogo en tiempo real'],
+    resultado:'Tiempo de respuesta < 90 segundos. Sin pérdida de clientes por demora.'
+  },
+  email: {
+    icon:'📬', name:'Gestión de Correo', tipo:'agente', fase:3,
+    match:['correo','email','comunicación','inbox','mensaje'],
+    resuelve:'Inbox sin clasificar = información importante enterrada en ruido.',
+    detalle:['Clasifica, prioriza y responde correos entrantes automáticamente','Extrae datos relevantes (pagos, solicitudes, seguimientos)','Notifica al equipo solo lo que requiere acción humana','Integrado con CRM para trazabilidad completa'],
+    resultado:'Cero correos importantes sin atender. Tiempo del equipo recuperado.'
+  },
+  onboarding: {
+    icon:'🚀', name:'Onboarding de Clientes', tipo:'agente', fase:3,
+    match:['onboarding','activación','nuevo cliente','bienvenida'],
+    resuelve:'Onboarding manual es lento, inconsistente y depende de que alguien recuerde hacerlo.',
+    detalle:['Guía al cliente nuevo paso a paso desde el día 1','Envía recordatorios, documentos y accesos automáticamente','Sin intervención manual en casos estándar','Registra progreso y alerta si hay cliente atascado'],
+    resultado:'100% de clientes onboarded. Experiencia consistente desde el primer día.'
+  },
+  reporte: {
+    icon:'📊', name:'Reportes Ejecutivos', tipo:'agente', fase:3,
+    match:['reporte','datos','métrica','resultado','visibilidad','análisis'],
+    resuelve:'Sin datos consolidados = decisiones por intuición, no por información.',
+    detalle:['Genera reportes de ventas, operaciones o seguridad automáticamente','Entregados por Telegram o correo en el horario que elijan','Compara periodos y detecta tendencias sin intervención','Métricas en tiempo real disponibles cuando se necesiten'],
+    resultado:'Decisiones basadas en datos. Reporte disponible en 0 clics.'
+  },
+  coordinacion: {
+    icon:'🔄', name:'Coordinación Operativa', tipo:'agente', fase:3,
+    match:['coordinación','operación','proceso','manual','equipo','tiempo','sucursal'],
+    resuelve:'Coordinación por WhatsApp entre áreas = caos, duplicados y decisiones tardías.',
+    detalle:['Sincroniza tareas y estados entre equipos en tiempo real','Detecta cuellos de botella antes de que paren la operación','Genera alertas automáticas cuando algo requiere acción','Registro completo de lo que pasó, cuándo y quién'],
+    resultado:'Operación fluida entre turnos y sucursales. Menos errores por falta de comunicación.'
+  },
+  facturacion: {
+    icon:'🧾', name:'Facturación Asistida', tipo:'agente', fase:3,
+    match:['factura','cfdi','cobro','pago','facturación'],
+    resuelve:'Facturación manual = horas en captura, errores y cobros que llegan tarde.',
+    detalle:['Genera CFDIs automáticamente desde la venta o pedido','Rastrea pagos pendientes y envía recordatorios','Notifica solo cuando hay excepción que requiere revisión','Integrado con SAT · timbrado en segundos'],
+    resultado:'Facturación el mismo día. Cero cobros olvidados.'
+  },
+  dmarc_agent: {
+    icon:'🛡️', name:'DMARC Analyst', tipo:'agente', fase:4,
+    match:['dmarc','spf','dkim','dominio','suplantación','correo falso','vulnerab'],
+    resuelve:'Sin DMARC activo, cualquiera puede enviar correos haciéndose pasar por la empresa ante sus clientes.',
+    detalle:['Configura SPF, DKIM y DMARC en el dominio','Monitorea reportes de autenticación diariamente','Alerta inmediata ante cualquier intento de suplantación','Dashboard de salud del dominio actualizado en tiempo real'],
+    resultado:'Dominio blindado en 48h. Cero riesgo de fraude por correo falso.'
+  },
+  threat: {
+    icon:'🔍', name:'Threat Intelligence', tipo:'agente', fase:4,
+    match:['filtración','breach','credencial','darkweb','amenaza','vulnerabilidad'],
+    resuelve:'Credenciales filtradas en internet son la principal puerta de entrada a ataques.',
+    detalle:['Monitorea fuentes abiertas y dark web continuamente','Alerta si el dominio o credenciales aparecen en filtraciones','Escaneo de vulnerabilidades externas del dominio','Reporte mensual de exposición digital'],
+    resultado:'Amenazas detectadas antes de convertirse en incidentes.'
+  },
+  incident: {
+    icon:'⚡', name:'Incident Response', tipo:'agente', fase:4,
+    match:['caída','incidente','monitoreo','uptime','recuperación','servicio'],
+    resuelve:'Sin monitoreo activo, una caída de servicio se detecta cuando el cliente ya se fue.',
+    detalle:['Monitorea disponibilidad 24/7 con alertas en segundos','Analiza la causa raíz automáticamente','Ejecuta protocolos de recuperación cuando es posible','Notifica al equipo con contexto completo del incidente'],
+    resultado:'Tiempo de detección < 60 segundos. Impacto mínimo en operación.'
+  },
 };
 
 const NIVEL_NAME  = ['','Lite','Popular','Pro','Empresa Digital'];
@@ -307,65 +385,88 @@ window.onload = () => {
     ).join('');
   }
 
-  // Bloque de estrategia
+  // ── Slide Solución: objetivo + flujo operativo + componentes detallados ─────
+  const hallazgosArr = hallazgosParam ? hallazgosParam.split('|').map(s=>s.trim()).filter(Boolean) : [];
+
+  // Función: busca el hallazgo más relevante para un agente
+  function findHallazgo(agentKey) {
+    const a = AGENTS[agentKey];
+    if(!a || !a.match || hallazgosArr.length === 0) return null;
+    return hallazgosArr.find(h => a.match.some(kw => h.toLowerCase().includes(kw.toLowerCase()))) || null;
+  }
+
+  // Objetivo prominente
   if(objetivo || estrategia){
     const blk = document.getElementById('estrategia-block');
     if(blk) blk.style.display = 'block';
     const elObj = document.getElementById('objetivo-text');
     if(elObj && objetivo) elObj.textContent = objetivo;
-    const elFlow = document.getElementById('estrategia-flow');
-    if(elFlow && estrategia){
-      const pasos = estrategia.split('|').map(s=>s.trim()).filter(Boolean);
-      elFlow.innerHTML = pasos.map((p,i) =>
-        `<span style="font-size:9px;color:var(--white);opacity:.85;">${p}</span>${i < pasos.length-1 ? '<span style="color:var(--green);font-size:10px;opacity:.6;margin:0 1px;">→</span>' : ''}`
-      ).join('');
-    }
-    // Ocultar subtítulo genérico si hay estrategia
     const sub = document.getElementById('solucion-sub');
     if(sub) sub.style.display = 'none';
   }
 
-  // Solución: separar proyectos (web) de agentes
-  const PROYECTO_KEYS = ['web'];
+  // Flujo operativo por fases
+  const allKeys = hasAgentes ? agentesParam.split(',').map(s=>s.trim()).filter(Boolean) : [];
+  const fases = [
+    { id:1, label:'Construir', icon:'🏗️', color:'var(--amber)',  bg:'rgba(245,158,11,.08)',  border:'rgba(245,158,11,.22)' },
+    { id:2, label:'Atraer',    icon:'🎯', color:'var(--blue)',   bg:'rgba(59,130,246,.08)',  border:'rgba(59,130,246,.22)' },
+    { id:3, label:'Operar',    icon:'⚙️', color:'var(--green)',  bg:'rgba(0,229,160,.06)',   border:'rgba(0,229,160,.2)'   },
+    { id:4, label:'Proteger',  icon:'🛡️', color:'var(--purple)', bg:'rgba(139,92,246,.08)', border:'rgba(139,92,246,.22)' },
+  ];
+  const elFlujo = document.getElementById('flujo-operativo');
+  if(elFlujo && allKeys.length > 0){
+    const fasesTienenItems = fases.filter(f => allKeys.some(k => (AGENTS[k]||{}).fase === f.id));
+    elFlujo.style.display = 'grid';
+    elFlujo.style.gridTemplateColumns = `repeat(${fasesTienenItems.length}, 1fr)`;
+    elFlujo.innerHTML = fasesTienenItems.map((f,i) => {
+      const items = allKeys.filter(k => (AGENTS[k]||{}).fase === f.id);
+      return `<div style="background:${f.bg};border:1px solid ${f.border};border-radius:8px;padding:8px 10px;position:relative;">
+        ${i>0?`<div style="position:absolute;left:-8px;top:50%;transform:translateY(-50%);font-size:11px;color:rgba(255,255,255,.25);">▶</div>`:''}
+        <div style="font-size:7.5px;font-weight:700;color:${f.color};text-transform:uppercase;letter-spacing:.12em;margin-bottom:5px;">${f.icon} Fase ${f.id} — ${f.label}</div>
+        ${items.map(k=>{ const a=AGENTS[k]||{}; return `<div style="font-size:8.5px;color:rgba(255,255,255,.8);line-height:1.5;">• ${a.name||k}</div>`; }).join('')}
+      </div>`;
+    }).join('');
+  }
+
+  // Renderizar componentes detallados
   const aContainer = document.getElementById('agentes-lista');
-  if(aContainer && hasAgentes){
-    const keys = agentesParam.split(',').map(s=>s.trim()).filter(Boolean);
-    const proyectos = keys.filter(k => PROYECTO_KEYS.includes(k));
-    const agentes   = keys.filter(k => !PROYECTO_KEYS.includes(k));
+  if(aContainer && allKeys.length > 0){
+    // Ordenar por fase
+    const sorted = [...allKeys].sort((a,b) => ((AGENTS[a]||{}).fase||9) - ((AGENTS[b]||{}).fase||9));
 
-    let html = '';
+    aContainer.innerHTML = sorted.map(k => {
+      const a = AGENTS[k];
+      if(!a) return '';
+      const esProy = a.tipo === 'proyecto';
+      const c = esProy ? { accent:'var(--amber)', bg:'rgba(245,158,11,.04)', border:'rgba(245,158,11,.2)', badge:'PROYECTO · ENTREGA 5–7 DÍAS' }
+                       : { accent:'var(--green)',  bg:'rgba(0,229,160,.03)',  border:'rgba(0,229,160,.15)', badge:`AGENTE · OPERACIÓN CONTINUA` };
+      const hallazgo = findHallazgo(k);
+      const resuelveText = hallazgo || a.resuelve || '';
+      const detalleHtml = (a.detalle||[]).map(d=>`<div style="display:flex;gap:5px;margin-bottom:2px;"><span style="color:${c.accent};flex-shrink:0;">›</span><span>${d}</span></div>`).join('');
 
-    if(proyectos.length > 0){
-      html += `<div style="font-size:8.5px;font-weight:700;color:var(--amber);text-transform:uppercase;letter-spacing:.14em;margin-bottom:7px;margin-top:4px;">⚙️ Proyecto — entrega única</div>`;
-      html += proyectos.map(k => {
-        const a = AGENTS[k] || { icon:'🌐', name:k, desc:'' };
-        return `<div class="agent-item" style="border-color:rgba(245,158,11,.2);background:rgba(245,158,11,.03);">
-          <div class="agent-icon">${a.icon}</div>
-          <div>
-            <div class="agent-name">${a.name}</div>
-            <div class="agent-desc">${a.desc}</div>
-            <div class="agent-badge" style="background:rgba(245,158,11,.1);color:var(--amber);border-color:rgba(245,158,11,.25);">PROYECTO · ENTREGA 5–7 DÍAS</div>
+      return `<div style="background:${c.bg};border:1px solid ${c.border};border-radius:10px;padding:12px 14px;margin-bottom:8px;">
+        <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:8px;">
+          <div style="font-size:18px;line-height:1;flex-shrink:0;margin-top:1px;">${a.icon}</div>
+          <div style="flex:1;">
+            <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:4px;margin-bottom:3px;">
+              <div style="font-size:12px;font-weight:800;color:var(--white);letter-spacing:-.01em;">${a.name}</div>
+              <div style="font-size:7px;font-weight:700;color:${c.accent};text-transform:uppercase;letter-spacing:.12em;background:${c.bg};border:1px solid ${c.border};border-radius:4px;padding:2px 7px;">${c.badge}</div>
+            </div>
+            ${resuelveText ? `<div style="font-size:8.5px;color:rgba(255,255,255,.5);font-style:italic;line-height:1.4;margin-bottom:6px;">Detectado: ${resuelveText}</div>` : ''}
           </div>
-        </div>`;
-      }).join('');
-    }
-
-    if(agentes.length > 0){
-      html += `<div style="font-size:8.5px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.14em;margin-bottom:7px;${proyectos.length?'margin-top:12px;':''}">🤖 Agentes — operación continua 24/7</div>`;
-      html += agentes.map(k => {
-        const a = AGENTS[k] || { icon:'🤖', name:k, desc:'Agente personalizado para su operación.' };
-        return `<div class="agent-item">
-          <div class="agent-icon">${a.icon}</div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
           <div>
-            <div class="agent-name">${a.name}</div>
-            <div class="agent-desc">${a.desc}</div>
-            <div class="agent-badge">INCLUIDO · NIVEL ${nivel}</div>
+            <div style="font-size:7.5px;font-weight:700;color:${c.accent};text-transform:uppercase;letter-spacing:.1em;margin-bottom:5px;">Qué hace</div>
+            <div style="font-size:8.5px;color:rgba(255,255,255,.75);line-height:1.6;">${detalleHtml}</div>
           </div>
-        </div>`;
-      }).join('');
-    }
-
-    aContainer.innerHTML = html;
+          <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:7px;padding:8px 10px;">
+            <div style="font-size:7.5px;font-weight:700;color:${c.accent};text-transform:uppercase;letter-spacing:.1em;margin-bottom:5px;">Resultado esperado</div>
+            <div style="font-size:8.5px;color:rgba(255,255,255,.8);line-height:1.6;font-weight:500;">${a.resultado||''}</div>
+          </div>
+        </div>
+      </div>`;
+    }).join('');
   }
 
   // Pricing blocks: proyecto vs equipo de agentes
@@ -688,31 +789,19 @@ window.onload = () => {
     <span class="label">Solución propuesta</span>
     <h2 class="h2" style="margin-bottom:5px;">Lo que vamos a construir <span class="grad">en <span data-cliente></span>.</span></h2>
 
-    <!-- Bloque estrategia — visible solo si hay params -->
-    <div id="estrategia-block" style="display:none;margin-bottom:12px;background:rgba(0,229,160,.04);border:1px solid rgba(0,229,160,.16);border-radius:10px;padding:11px 14px;">
-      <div style="font-size:8px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.14em;margin-bottom:5px;">🎯 Estrategia — por qué cada pieza</div>
-      <div id="objetivo-text" style="font-size:12px;font-weight:700;color:var(--white);line-height:1.4;margin-bottom:7px;"></div>
-      <div id="estrategia-flow" style="display:flex;flex-wrap:wrap;align-items:center;gap:4px;"></div>
+    <!-- Objetivo estratégico — visible si hay params -->
+    <div id="estrategia-block" style="display:none;margin-bottom:10px;background:rgba(0,229,160,.04);border:1px solid rgba(0,229,160,.18);border-radius:10px;padding:10px 14px;">
+      <div style="font-size:7.5px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.14em;margin-bottom:4px;">🎯 Objetivo estratégico</div>
+      <div id="objetivo-text" style="font-size:12.5px;font-weight:800;color:var(--white);line-height:1.35;letter-spacing:-.01em;"></div>
     </div>
 
-    <p id="solucion-sub" class="body-text" style="margin-bottom:10px;">Cada pieza responde a un hallazgo específico del diagnóstico. Los proyectos son entregas únicas; los agentes operan de forma continua una vez desplegados. Todo está diseñado para trabajar en conjunto.</p>
+    <!-- Flujo operativo por fases — poblado por JS -->
+    <div id="flujo-operativo" style="display:none;gap:6px;margin-bottom:12px;"></div>
 
-    <div id="agentes-lista" style="flex:1;">
-      <!-- Poblado por JS -->
-    </div>
+    <p id="solucion-sub" class="body-text" style="margin-bottom:10px;">Cada componente responde a un hallazgo del diagnóstico. Los proyectos son entregas únicas; los agentes operan en continuo. Todo está diseñado para trabajar en conjunto.</p>
 
-    <div class="block green" style="margin-top:10px;">
-      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
-        <div>
-          <div class="h3" style="font-size:11px;margin-bottom:4px;">Un sistema, no piezas sueltas</div>
-          <p style="font-size:9.5px;color:var(--muted);line-height:1.5;max-width:110mm;">El sitio web captura leads, los agentes los procesan y los siguen. La seguridad protege todo el ecosistema. Cada pieza alimenta a las demás — no son herramientas independientes.</p>
-        </div>
-        <div style="text-align:center;flex-shrink:0;">
-          <div style="font-size:22px;font-weight:900;color:var(--green);font-family:'JetBrains Mono',monospace;">24/7</div>
-          <div style="font-size:8.5px;color:var(--muted);">Operación continua</div>
-        </div>
-      </div>
-    </div>
+    <!-- Componentes detallados — poblados por JS -->
+    <div id="agentes-lista"></div>
   </div>
   <div class="page-footer"><a class="nav-arrow" href="#diagnostico">← Diagnóstico</a><span class="pn">4 / 5</span><a class="nav-arrow" href="#inversion">→ Inversión</a></div>
 </div>
