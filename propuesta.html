@@ -349,8 +349,8 @@ const AGENTS = {
     icon:'🌐', name:'Creación de Página Web', tipo:'proyecto', fase:1,
     match:['web','sitio','presencia','digital','google','internet','página'],
     resuelve:'Sin presencia web → el negocio no existe para clientes que buscan en Google.',
-    detalle:['Landing B2C con SEO local optimizado para la ciudad','Dominio propio, SSL, velocidad máxima en móvil','Menú / catálogo digital + formulario de contacto','Entrega en 5–7 días hábiles · sin dependencia futura'],
-    resultado:'Resultado esperado (60 días): canal propio activo 24/7 y base para mover 20%–35% del flujo de delivery a venta directa.'
+    detalle:['Canal de pedidos directo vía WhatsApp — cada venta sin comisión de terceros','SEO local activo: clientes que buscan en Google llegan al negocio, no a la competencia','Dashboard de visitas y conversiones en tiempo real — Cloudflare Analytics incluido','Entrega en 5–7 días · infraestructura propia · sin dependencia de agencia futura'],
+    resultado:'Resultado esperado (60 días): canal propio activo 24/7 · cada pedido directo recupera el 30% que se va a plataformas de delivery.'
   },
   sdr: {
     icon:'🎯', name:'SDR Comercial', tipo:'agente', fase:2,
@@ -419,8 +419,8 @@ const AGENTS = {
     icon:'🛡️', name:'DMARC Analyst', tipo:'agente', fase:4,
     match:['dmarc','spf','dkim','dominio','suplantación','correo falso','vulnerab'],
     resuelve:'Sin DMARC activo, cualquiera puede enviar correos haciéndose pasar por la empresa ante sus clientes.',
-    detalle:['Configura SPF, DKIM y DMARC en el dominio','Monitorea reportes de autenticación diariamente','Alerta inmediata ante cualquier intento de suplantación','Dashboard de salud del dominio actualizado en tiempo real'],
-    resultado:'Resultado esperado (2–4 semanas): score técnico de seguridad >70/100 y riesgo de suplantación materialmente reducido.'
+    detalle:['Al registrar el dominio lo blindamos en 48h: SPF, DKIM y DMARC configurados antes del primer correo','Monitoreo diario automático — si alguien intenta enviar correos suplantando la empresa, se detecta y bloquea','Alerta inmediata ante cualquier degradación de protección','Log de auditoría disponible: historial completo de autenticación y eventos de seguridad'],
+    resultado:'Resultado esperado (48h desde registro): dominio blindado con score >70/100 · riesgo de fraude por correo eliminado desde el arranque.'
   },
   threat: {
     icon:'🔍', name:'Threat Intelligence', tipo:'agente', fase:4,
@@ -680,7 +680,7 @@ window.onload = () => {
       if(!a) return '';
       const esProy = a.tipo === 'proyecto';
       const c = esProy ? { accent:'var(--amber)', bg:'rgba(245,158,11,.04)', border:'rgba(245,158,11,.2)', badge:'PROYECTO · ENTREGA 5–7 DÍAS' }
-                       : { accent:'var(--green)',  bg:'rgba(0,229,160,.03)',  border:'rgba(0,229,160,.15)', badge:`AGENTE · OPERACIÓN CONTINUA` };
+                       : { accent:'var(--green)',  bg:'rgba(0,229,160,.03)',  border:'rgba(0,229,160,.15)', badge:`MÓDULO · OPERACIÓN CONTINUA` };
       const hallazgo = findHallazgo(k);
       const resuelveText = hallazgo || a.resuelve || '';
       const detalleHtml = (a.detalle||[]).map(d=>`<div style="display:flex;gap:5px;margin-bottom:2px;"><span style="color:${c.accent};flex-shrink:0;">›</span><span>${d}</span></div>`).join('');
@@ -715,7 +715,7 @@ window.onload = () => {
       3: 'Plan Premium. <span class="grad">Ecosistema completo.</span>'
     };
     const subsPorNivel = {
-      1: 'Setup único + operación mensual. Primer agente operando en 3 días.',
+      1: gancho ? 'Capacidad operativa completa: pedidos propios, coordinación y supervisión — un solo setup, sin costos separados.' : 'Setup único + operación mensual. Primer módulo operando en 3 días.',
       2: gancho ? 'Sitio web + automatización + seguridad. Un solo setup. Sin costos separados. Sin sorpresas.' : 'Equipo de agentes funcionando 24/7. Sin ausentismo, sin costo variable.',
       3: 'Ecosistema completo con seguridad administrada integrada. 24 horas, 7 días, sin pausas.'
     };
@@ -778,14 +778,14 @@ window.onload = () => {
   <div class="cover-inner">
     <div style="display:inline-flex;align-items:center;gap:8px;padding:5px 12px;border-radius:99px;background:rgba(0,229,160,.08);border:1px solid rgba(0,229,160,.2);font-size:9px;font-weight:700;color:var(--green);letter-spacing:.12em;text-transform:uppercase;margin-bottom:22px;width:fit-content;">
       <div style="width:5px;height:5px;border-radius:50%;background:var(--green);"></div>
-      Ecosistema de Agentes IA · <span data-fecha></span>
+      Operación Digital 24/7 · <span data-fecha></span>
     </div>
 
     <h1 style="font-size:38px;font-weight:900;line-height:1.04;letter-spacing:-.02em;margin-bottom:16px;">
       Esto es lo que<br>encontramos en<br><span class="grad" data-cliente></span>.
     </h1>
     <p style="font-size:13px;color:var(--muted);line-height:1.6;max-width:115mm;margin-bottom:28px;">
-      Un diagnóstico completo de su operación y el equipo digital que recomendamos desplegar para resolver cada brecha identificada.
+      Un diagnóstico completo de su operación y el sistema que recomendamos activar para resolver cada punto crítico de rentabilidad.
     </p>
 
     <div style="background:var(--bg2);border:1px solid rgba(0,229,160,.2);border-radius:12px;padding:14px 18px;display:inline-block;margin-bottom:26px;">
@@ -1044,23 +1044,38 @@ window.onload = () => {
     <!-- Flujo operativo por fases — poblado por JS -->
     <div id="flujo-operativo" style="display:none;gap:6px;margin-bottom:12px;"></div>
 
-    <p id="solucion-sub" class="body-text" style="margin-bottom:10px;">Cada componente responde a un hallazgo del diagnóstico. Los proyectos son entregas únicas; los agentes operan en continuo. Todo está diseñado para trabajar en conjunto.</p>
+    <p id="solucion-sub" class="body-text" style="margin-bottom:10px;">Cada módulo responde a un punto crítico de rentabilidad identificado en el diagnóstico. Los proyectos son entregas únicas; los módulos de operación corren en continuo, 24/7, sin intervención manual.</p>
 
     <!-- Componentes detallados — poblados por JS -->
     <div id="agentes-lista"></div>
 
     <!-- Contexto estratégico restaurado (histórico 91e9994) -->
     <div class="block green" style="margin-top:10px;">
-      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
-        <div>
-          <div class="h3" style="font-size:11px;margin-bottom:4px;">Un sistema, no piezas sueltas</div>
-          <p style="font-size:9.5px;color:var(--muted);line-height:1.5;max-width:110mm;">El sitio web captura leads, los agentes los procesan y los siguen. La seguridad protege todo el ecosistema. Cada pieza alimenta a las demás — no son herramientas independientes.</p>
-        </div>
+      <div style="margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;">
+        <div class="h3" style="font-size:11px;">Operación Digital 24/7 — 3 pilares, 1 sistema</div>
         <div style="text-align:center;flex-shrink:0;">
-          <div style="font-size:22px;font-weight:900;color:var(--green);font-family:'JetBrains Mono',monospace;">24/7</div>
-          <div style="font-size:8.5px;color:var(--muted);">Operación continua</div>
+          <div style="font-size:20px;font-weight:900;color:var(--green);font-family:'JetBrains Mono',monospace;">24/7</div>
+          <div style="font-size:7.5px;color:var(--muted);">Operación continua</div>
         </div>
       </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;margin-bottom:8px;">
+        <div style="background:rgba(0,229,160,.05);border:1px solid rgba(0,229,160,.18);border-radius:7px;padding:8px 10px;">
+          <div style="font-size:13px;margin-bottom:3px;">🛒</div>
+          <div style="font-size:8.5px;font-weight:700;color:var(--white);margin-bottom:2px;">Centro de Pedidos Propios</div>
+          <div style="font-size:7.5px;color:var(--muted);line-height:1.45;">Canal directo sin comisiones — cada venta ingresa completa al negocio</div>
+        </div>
+        <div style="background:rgba(59,130,246,.05);border:1px solid rgba(59,130,246,.18);border-radius:7px;padding:8px 10px;">
+          <div style="font-size:13px;margin-bottom:3px;">⚙️</div>
+          <div style="font-size:8.5px;font-weight:700;color:var(--white);margin-bottom:2px;">Coordinación Automatizada</div>
+          <div style="font-size:7.5px;color:var(--muted);line-height:1.45;">Inventario, transferencias y reportes — de papel y WhatsApp a registro automático</div>
+        </div>
+        <div style="background:rgba(139,92,246,.05);border:1px solid rgba(139,92,246,.18);border-radius:7px;padding:8px 10px;">
+          <div style="font-size:13px;margin-bottom:3px;">🧠</div>
+          <div style="font-size:8.5px;font-weight:700;color:var(--white);margin-bottom:2px;">Supervisor Digital 24/7</div>
+          <div style="font-size:7.5px;color:var(--muted);line-height:1.45;">Monitoreo continuo, alertas de excepción y log de incidencias — sin intervención manual en operación normal</div>
+        </div>
+      </div>
+      <p style="font-size:8.5px;color:rgba(255,255,255,.4);line-height:1.5;margin:0;">Infraestructura propia — ningún módulo depende de plataformas externas para operar.</p>
     </div>
   </div>
   <div class="page-footer"><a class="nav-arrow" href="#diagnostico">← Diagnóstico</a><span class="pn">4 / 5</span><a class="nav-arrow" href="#inversion">→ Inversión</a></div>
@@ -1076,7 +1091,7 @@ window.onload = () => {
     <div class="meta"><span data-cliente></span><br><span data-fecha></span></div>
   </div>
   <div class="page-body">
-    <span class="label" id="inv-label">Inversión y plan de arranque</span>
+    <span class="label" id="inv-label">Capacidad Operativa y plan de arranque</span>
     <h2 class="h2" id="inv-titulo" style="margin-bottom:5px;"></h2>
     <p class="body-text" id="inv-sub" style="margin-bottom:10px;"></p>
 
@@ -1105,7 +1120,7 @@ window.onload = () => {
           <div class="check-list">
             <div class="check-item">Arquitectura y build de 1–2 agentes clave</div>
             <div class="check-item">Integración con sus sistemas actuales</div>
-            <div class="check-item">Primer agente operando en 3 días</div>
+            <div class="check-item">Primer módulo en operación en 3 días</div>
             <div class="check-item">Infraestructura, soporte y mejora continua incluidos</div>
           </div>
         </div>
@@ -1120,18 +1135,18 @@ window.onload = () => {
       <!-- Pricing: equipo de agentes -->
       <div id="pricing-agentes" style="display:none;flex-direction:column;gap:8px;">
         <div class="block green" style="padding:16px 18px;">
-          <div style="font-size:8px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.14em;margin-bottom:6px;">Setup · una vez</div>
+          <div style="font-size:8px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.14em;margin-bottom:6px;">Activación · pago único</div>
           <div id="price-setup-agentes" style="font-size:26px;font-weight:900;color:var(--green);font-family:'JetBrains Mono',monospace;line-height:1;margin-bottom:4px;">—</div>
           <div style="font-size:9px;color:var(--muted);margin-bottom:10px;">Construcción, despliegue y ajuste fino del equipo digital</div>
           <div class="check-list">
             <div class="check-item">Arquitectura y build de los agentes</div>
             <div class="check-item">Integración con sus sistemas actuales</div>
             <div class="check-item">Pruebas y ajuste fino antes de producción</div>
-            <div class="check-item">Primer agente operando en 3 días</div>
+            <div class="check-item">Primer módulo en operación en 3 días</div>
           </div>
         </div>
         <div class="block blue" style="padding:16px 18px;">
-          <div style="font-size:8px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.14em;margin-bottom:6px;">Operación mensual · recurrente</div>
+          <div style="font-size:8px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.14em;margin-bottom:6px;">Capacidad mensual · recurrente</div>
           <div id="price-mensual" style="font-size:26px;font-weight:900;color:var(--blue);font-family:'JetBrains Mono',monospace;line-height:1;margin-bottom:4px;">—</div>
           <div style="font-size:9px;color:var(--muted);margin-bottom:10px;">El equipo digital operando, mejorando y siendo monitoreado</div>
           <div class="check-list">
@@ -1166,7 +1181,7 @@ window.onload = () => {
           <div class="tl-item">
             <div class="tl-dot g"></div>
             <div class="tl-tag">Días 1–3</div>
-            <div class="tl-h">Primer agente en producción</div>
+            <div class="tl-h">Primer módulo en producción</div>
             <div class="tl-p">Build, pruebas y despliegue. El agente de mayor impacto va primero.</div>
           </div>
           <div class="tl-item">
@@ -1284,7 +1299,7 @@ window.onload = () => {
           <div class="h3" style="margin-bottom:8px;">30 días. Sin letra chica.</div>
           <p class="body-text" style="margin-bottom:12px;">Si al final del primer mes no puede mostrar un resultado concreto — en eficiencia, ventas o seguridad — le devolvemos el 100% de la operación mensual. Sin preguntas y sin trámites.</p>
           <div class="check-list">
-            <div class="check-item">Primer agente operando en 3 días</div>
+            <div class="check-item">Primer módulo en operación en 3 días</div>
             <div class="check-item">Sin contratos anuales ni penalizaciones</div>
             <div class="check-item">Ajuste ilimitado el primer mes</div>
             <div class="check-item">Soporte en español · respuesta &lt;4h hábiles</div>
@@ -1312,8 +1327,8 @@ window.onload = () => {
         <div class="step">
           <div class="step-num">3</div>
           <div>
-            <div class="step-title">Primer agente en producción</div>
-            <div class="step-desc">Con los accesos en mano, el primer agente está operando antes de que termine la semana.</div>
+            <div class="step-title">Primer módulo en producción</div>
+            <div class="step-desc">Con los accesos en mano, el primer módulo está operando antes de que termine la semana.</div>
           </div>
         </div>
         <div class="step">
