@@ -396,12 +396,26 @@ window.onload = () => {
     return hallazgosArr.find(h => a.match.some(kw => h.toLowerCase().includes(kw.toLowerCase()))) || null;
   }
 
-  // Objetivo prominente
+  // Objetivo/estrategia prominente
   if(objetivo || estrategia){
     const blk = document.getElementById('estrategia-block');
     if(blk) blk.style.display = 'block';
+
     const elObj = document.getElementById('objetivo-text');
-    if(elObj && objetivo) elObj.textContent = objetivo;
+    if(elObj) elObj.textContent = objetivo || '';
+
+    const elFlow = document.getElementById('estrategia-flow');
+    if(elFlow && estrategia){
+      const pasos = estrategia.split('|').map(s=>s.trim()).filter(Boolean);
+      elFlow.innerHTML = pasos.map((p,i) =>
+        `<span style="font-size:9px;color:var(--white);opacity:.85;">${p}</span>${i < pasos.length-1 ? '<span style="color:var(--green);font-size:10px;opacity:.6;margin:0 1px;">→</span>' : ''}`
+      ).join('');
+      elFlow.style.display = pasos.length ? 'flex' : 'none';
+    } else if(elFlow){
+      elFlow.style.display = 'none';
+      elFlow.innerHTML = '';
+    }
+
     const sub = document.getElementById('solucion-sub');
     if(sub) sub.style.display = 'none';
   }
@@ -784,10 +798,11 @@ window.onload = () => {
     <span class="label">Solución propuesta</span>
     <h2 class="h2" style="margin-bottom:5px;">Lo que vamos a construir <span class="grad">en <span data-cliente></span>.</span></h2>
 
-    <!-- Objetivo estratégico — visible si hay params -->
+    <!-- Objetivo estratégico + flujo de estrategia — visible si hay params -->
     <div id="estrategia-block" style="display:none;margin-bottom:10px;background:rgba(0,229,160,.04);border:1px solid rgba(0,229,160,.18);border-radius:10px;padding:10px 14px;">
       <div style="font-size:7.5px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.14em;margin-bottom:4px;">🎯 Objetivo estratégico</div>
-      <div id="objetivo-text" style="font-size:12.5px;font-weight:800;color:var(--white);line-height:1.35;letter-spacing:-.01em;"></div>
+      <div id="objetivo-text" style="font-size:12.5px;font-weight:800;color:var(--white);line-height:1.35;letter-spacing:-.01em;margin-bottom:7px;"></div>
+      <div id="estrategia-flow" style="display:none;flex-wrap:wrap;align-items:center;gap:4px;"></div>
     </div>
 
     <!-- Flujo operativo por fases — poblado por JS -->
