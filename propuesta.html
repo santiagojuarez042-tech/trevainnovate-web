@@ -35,23 +35,23 @@ body { background: #111; font-family: 'Inter', sans-serif; color: var(--white); 
   display: flex; align-items: center; justify-content: space-between;
   padding: 18px 5vw 16px; border-bottom: 1px solid var(--border); flex-shrink: 0;
 }
-.logo { display: flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 800; }
+.logo { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 800; }
 .logo-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 8px rgba(0,229,160,.7); }
-.meta { font-size: 9px; color: var(--muted); font-family: 'JetBrains Mono', monospace; text-align: right; line-height: 1.6; }
+.meta { font-size: 11px; color: var(--muted); font-family: 'JetBrains Mono', monospace; text-align: right; line-height: 1.65; }
 
-.page-body { flex: 1; padding: 44px 7vw; display: flex; flex-direction: column; overflow: visible; width: 100%; box-sizing: border-box; }
+.page-body { flex: 1; padding: 52px 7.2vw; display: flex; flex-direction: column; gap: 14px; overflow: visible; width: 100%; box-sizing: border-box; }
 
 .page-footer {
-  padding: 14px 5vw; border-top: 1px solid var(--border);
+  padding: 16px 5.4vw; border-top: 1px solid var(--border);
   display: flex; align-items: center; justify-content: space-between; flex-shrink: 0;
 }
-.page-footer span { font-size: 8px; color: rgba(255,255,255,.2); font-family: 'JetBrains Mono', monospace; }
+.page-footer span { font-size: 11px; color: rgba(255,255,255,.3); font-family: 'JetBrains Mono', monospace; }
 
 /* Typography */
-.label { font-size: 11px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--green); margin-bottom: 12px; display: block; }
-.h2 { font-size: 34px; font-weight: 800; line-height: 1.08; }
-.h3 { font-size: 14px; font-weight: 700; }
-.body-text { font-size: 14px; color: var(--muted); line-height: 1.75; }
+.label { font-size: 13px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--green); margin-bottom: 14px; display: block; }
+.h2 { font-size: 42px; font-weight: 800; line-height: 1.12; }
+.h3 { font-size: 18px; font-weight: 700; }
+.body-text { font-size: 18px; color: var(--muted); line-height: 1.8; }
 .grad { background: linear-gradient(135deg,#00e5a0,#3b82f6,#8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
 .mono { font-family: 'JetBrains Mono', monospace; }
 
@@ -73,43 +73,65 @@ body { background: #111; font-family: 'Inter', sans-serif; color: var(--white); 
 
 /* Include list */
 .check-list { display: flex; flex-direction: column; gap: 6px; }
-.check-item { display: flex; align-items: flex-start; gap: 8px; font-size: 10.5px; color: rgba(255,255,255,.75); line-height: 1.5; }
-.check-item::before { content: '✓'; color: var(--green); font-weight: 800; font-size: 10px; flex-shrink: 0; margin-top: 1px; }
+.check-item { display: flex; align-items: flex-start; gap: 10px; font-size: 14.5px; color: rgba(255,255,255,.82); line-height: 1.65; }
+.check-item::before { content: '✓'; color: var(--green); font-weight: 800; font-size: 13px; flex-shrink: 0; margin-top: 2px; }
 
 /* Findings */
-.finding { display: flex; align-items: flex-start; gap: 10px; padding: 9px 12px; background: rgba(255,255,255,.025); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 5px; }
-.finding-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
-.finding-text { font-size: 10.5px; color: rgba(255,255,255,.8); line-height: 1.45; }
+.finding { display: flex; align-items: flex-start; gap: 12px; padding: 12px 14px; background: rgba(255,255,255,.03); border: 1px solid var(--border); border-radius: 10px; margin-bottom: 9px; }
+.finding-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 8px; }
+.finding-text { font-size: 14.5px; color: rgba(255,255,255,.88); line-height: 1.65; }
 
 /* DNS cards */
-.dns-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; margin-bottom: 10px; }
-.dns-card { border-radius: 9px; padding: 11px 13px; border: 1px solid; }
+.dns-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
+.dns-card { border-radius: 11px; padding: 14px 16px; border: 1px solid; }
 .dns-card.ok   { background: rgba(0,229,160,.05); border-color: rgba(0,229,160,.2); }
 .dns-card.fail { background: rgba(239,68,68,.05);  border-color: rgba(239,68,68,.2); }
 .dns-card.warn { background: rgba(245,158,11,.05); border-color: rgba(245,158,11,.2); }
 .dns-card.unknown { background: rgba(255,255,255,.03); border-color: var(--border); }
-.dns-label  { font-size: 8.5px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .1em; margin-bottom: 5px; }
-.dns-status { font-size: 12px; font-weight: 800; margin-bottom: 3px; }
+.dns-label  { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .1em; margin-bottom: 6px; }
+.dns-status { font-size: 18px; font-weight: 800; margin-bottom: 4px; }
 .dns-status.ok   { color: var(--green); }
 .dns-status.fail { color: #ef4444; }
 .dns-status.warn { color: var(--amber); }
 .dns-status.unknown { color: rgba(255,255,255,.3); }
-.dns-desc { font-size: 9.5px; color: var(--muted); line-height: 1.45; }
+.dns-desc { font-size: 13px; color: var(--muted); line-height: 1.55; }
 
 /* Score bar */
-.score-wrap { background: var(--bg2); border: 1px solid var(--border); border-radius: 9px; padding: 11px 13px; }
-.score-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 7px; }
-.score-label { font-size: 8.5px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .1em; }
-.score-val { font-size: 15px; font-weight: 900; font-family: 'JetBrains Mono', monospace; }
-.score-track { height: 5px; background: rgba(255,255,255,.07); border-radius: 99px; overflow: hidden; }
+.score-wrap { background: var(--bg2); border: 1px solid var(--border); border-radius: 11px; padding: 14px 16px; }
+.score-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.score-label { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .1em; }
+.score-val { font-size: 24px; font-weight: 900; font-family: 'JetBrains Mono', monospace; }
+.score-track { height: 8px; background: rgba(255,255,255,.09); border-radius: 99px; overflow: hidden; }
 .score-fill { height: 100%; border-radius: 99px; }
 
+/* Diagnóstico visual */
+.diag-visual-board { background: linear-gradient(135deg, rgba(255,255,255,.02), rgba(59,130,246,.03)); border: 1px solid var(--border); border-radius: 14px; padding: 14px 16px; margin-bottom: 14px; }
+.diag-kpi-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin-bottom: 12px; }
+.diag-cat { background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.07); border-radius: 10px; padding: 11px 12px; cursor: pointer; transition: transform .2s, border-color .2s, box-shadow .2s; }
+.diag-cat:hover { transform: translateY(-2px); border-color: rgba(0,229,160,.35); box-shadow: 0 10px 24px rgba(0,0,0,.2); }
+.diag-cat.active { border-color: rgba(0,229,160,.45); background: rgba(0,229,160,.07); }
+.diag-cat-tag { font-size: 10px; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); font-weight: 700; margin-bottom: 4px; }
+.diag-cat-name { font-size: 13.5px; font-weight: 700; line-height: 1.4; margin-bottom: 6px; color: rgba(255,255,255,.92); }
+.diag-cat-score { font-size: 18px; font-family: 'JetBrains Mono', monospace; font-weight: 900; margin-bottom: 6px; }
+.diag-cat-track { height: 7px; border-radius: 99px; background: rgba(255,255,255,.08); overflow: hidden; }
+.diag-cat-fill { height: 100%; border-radius: 99px; }
+.diag-detail-panel { border: 1px solid rgba(255,255,255,.08); border-radius: 12px; padding: 14px 16px; background: rgba(5,5,14,.5); }
+.diag-detail-title { font-size: 18px; font-weight: 800; margin-bottom: 5px; }
+.diag-detail-sub { font-size: 13px; color: var(--muted); line-height: 1.6; margin-bottom: 8px; }
+.diag-detail-list { margin: 0; padding-left: 18px; display: grid; gap: 5px; }
+.diag-detail-list li { font-size: 14px; line-height: 1.55; color: rgba(255,255,255,.85); }
+.metric-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+.metric-card { background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.09); border-radius: 10px; padding: 12px 13px; }
+.metric-label { font-size: 10px; text-transform: uppercase; letter-spacing: .09em; color: var(--muted); margin-bottom: 4px; font-weight: 700; }
+.metric-value { font-size: 20px; font-weight: 900; font-family: 'JetBrains Mono', monospace; line-height: 1.1; margin-bottom: 4px; }
+.metric-sub { font-size: 12.5px; color: rgba(255,255,255,.72); line-height: 1.5; }
+
 /* Agent cards */
-.agent-item { display: flex; gap: 11px; align-items: flex-start; padding: 10px 13px; background: rgba(255,255,255,.025); border: 1px solid var(--border); border-radius: 9px; margin-bottom: 6px; }
-.agent-icon { font-size: 18px; flex-shrink: 0; line-height: 1; margin-top: 1px; }
-.agent-name { font-size: 11px; font-weight: 700; color: var(--white); margin-bottom: 3px; }
-.agent-desc { font-size: 9.5px; color: var(--muted); line-height: 1.45; }
-.agent-badge { font-size: 7.5px; font-weight: 700; padding: 2px 6px; border-radius: 4px; background: rgba(0,229,160,.1); color: var(--green); border: 1px solid rgba(0,229,160,.2); font-family: 'JetBrains Mono', monospace; margin-top: 4px; display: inline-block; }
+.agent-item { display: flex; gap: 13px; align-items: flex-start; padding: 13px 15px; background: rgba(255,255,255,.03); border: 1px solid var(--border); border-radius: 11px; margin-bottom: 8px; }
+.agent-icon { font-size: 24px; flex-shrink: 0; line-height: 1; margin-top: 1px; }
+.agent-name { font-size: 15px; font-weight: 700; color: var(--white); margin-bottom: 4px; }
+.agent-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+.agent-badge { font-size: 10px; font-weight: 700; padding: 4px 8px; border-radius: 6px; background: rgba(0,229,160,.1); color: var(--green); border: 1px solid rgba(0,229,160,.2); font-family: 'JetBrains Mono', monospace; margin-top: 6px; display: inline-block; }
 
 /* Timeline */
 .tl { position: relative; padding-left: 20px; }
@@ -120,23 +142,23 @@ body { background: #111; font-family: 'Inter', sans-serif; color: var(--white); 
 .tl-dot.g { border-color: var(--green); }
 .tl-dot.b { border-color: var(--blue); }
 .tl-dot.p { border-color: var(--purple); }
-.tl-tag { font-size: 8px; font-weight: 700; font-family: 'JetBrains Mono', monospace; color: var(--muted); text-transform: uppercase; letter-spacing: .1em; margin-bottom: 2px; }
-.tl-h { font-size: 11px; font-weight: 700; color: var(--white); margin-bottom: 2px; }
-.tl-p { font-size: 9.5px; color: var(--muted); line-height: 1.5; }
+.tl-tag { font-size: 10px; font-weight: 700; font-family: 'JetBrains Mono', monospace; color: var(--muted); text-transform: uppercase; letter-spacing: .1em; margin-bottom: 3px; }
+.tl-h { font-size: 15px; font-weight: 700; color: var(--white); margin-bottom: 4px; }
+.tl-p { font-size: 13.5px; color: var(--muted); line-height: 1.65; }
 
 /* Next steps */
 .step { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 10px; }
-.step-num { width: 24px; height: 24px; border-radius: 50%; background: linear-gradient(135deg, var(--green), var(--blue)); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 900; color: var(--bg); flex-shrink: 0; }
-.step-title { font-size: 11px; font-weight: 700; color: var(--white); margin-bottom: 2px; }
-.step-desc { font-size: 9.5px; color: var(--muted); line-height: 1.5; }
+.step-num { width: 30px; height: 30px; border-radius: 50%; background: linear-gradient(135deg, var(--green), var(--blue)); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 900; color: var(--bg); flex-shrink: 0; }
+.step-title { font-size: 15px; font-weight: 700; color: var(--white); margin-bottom: 3px; }
+.step-desc { font-size: 13.5px; color: var(--muted); line-height: 1.65; }
 
 /* CTA */
 .cta { background: linear-gradient(135deg, rgba(0,229,160,.07), rgba(59,130,246,.05)); border: 1px solid rgba(0,229,160,.22); border-radius: 13px; padding: 18px 20px; text-align: center; }
-.cta-h { font-size: 16px; font-weight: 900; margin-bottom: 6px; }
-.cta-sub { font-size: 10.5px; color: var(--muted); margin-bottom: 14px; }
+.cta-h { font-size: 22px; font-weight: 900; margin-bottom: 8px; }
+.cta-sub { font-size: 14px; color: var(--muted); margin-bottom: 16px; }
 .cta-row { display: flex; justify-content: center; gap: 28px; flex-wrap: wrap; }
-.cta-item strong { display: block; font-size: 8px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 2px; font-family: 'Inter', sans-serif; }
-.cta-item span { font-size: 11px; color: rgba(255,255,255,.7); font-family: 'JetBrains Mono', monospace; }
+.cta-item strong { display: block; font-size: 10px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 3px; font-family: 'Inter', sans-serif; }
+.cta-item span { font-size: 14px; color: rgba(255,255,255,.8); font-family: 'JetBrains Mono', monospace; }
 
 @media print { body { background: var(--bg) !important; } .page { border-bottom: none; } }
 
@@ -154,7 +176,7 @@ body { overflow-x: hidden; }
   cursor: pointer; text-decoration: none;
 }
 .fnav-label {
-  font-size: 11px; font-weight: 600; color: var(--white);
+  font-size: 12px; font-weight: 600; color: var(--white);
   background: rgba(5,5,14,.94); border: 1px solid rgba(255,255,255,.09);
   padding: 4px 12px; border-radius: 7px;
   opacity: 0; transform: translateX(8px);
@@ -180,13 +202,27 @@ body { overflow-x: hidden; }
 
 /* ── FOOTER NAV ARROWS ── */
 .nav-arrow {
-  font-size: 10px; color: rgba(255,255,255,.22); text-decoration: none;
+  font-size: 12px; color: rgba(255,255,255,.28); text-decoration: none;
   font-weight: 600; transition: color .18s; letter-spacing: .02em;
   font-family: 'JetBrains Mono', monospace;
 }
 .nav-arrow:hover { color: var(--green); }
 
-@media (max-width: 700px) { .fnav { display: none; } }
+@media (max-width: 980px) {
+  .two-col, .three-col { grid-template-columns: 1fr; }
+  .dns-grid { grid-template-columns: 1fr; }
+  .diag-kpi-grid, .metric-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 700px) {
+  .fnav { display: none; }
+  .page-header { padding: 16px 5.8vw 14px; }
+  .page-body { padding: 30px 6vw; gap: 16px; }
+  .h2 { font-size: 36px; line-height: 1.15; }
+  .body-text { font-size: 18px; line-height: 1.82; }
+  .label { font-size: 13px; }
+  .diag-kpi-grid, .metric-grid { grid-template-columns: 1fr; }
+}
 </style>
 </head>
 <body>
@@ -207,16 +243,100 @@ const nivel    = parseInt(nivelRaw) || 1;
 const agentesParam  = P.get('agentes')   || '';
 const hallazgosParam= P.get('hallazgos') || '';
 const areasParam    = P.get('areas')     || '';
-const PRECIO_SETUP   = { 1: 12000, 2: 18000, 3: 30000 };
-const PRECIO_MENSUAL = { 1: 3500,  2: 7500,  3: 14500 };
-const setup    = parseInt(P.get('setup')   || '0') || PRECIO_SETUP[nivel]   || 0;
-const mensual  = parseInt(P.get('mensual') || '0') || PRECIO_MENSUAL[nivel] || 0;
+const PRECIO_SETUP   = { 1: 12000, 2: 16000, 3: 30000 };
+const PRECIO_MENSUAL = { 1: 3500,  2: 2899,  3: 14500 };
+let setup    = parseInt(P.get('setup')   || '0') || PRECIO_SETUP[nivel]   || 0;
+let mensual  = parseInt(P.get('mensual') || '0') || PRECIO_MENSUAL[nivel] || 0;
 const segmento   = P.get('segmento')   || '';  // pyme_pequena | pyme_mediana | empresa
 const objetivo   = P.get('objetivo')   || '';  // frase síntesis de la estrategia
 const estrategia = P.get('estrategia') || '';  // bullets separados por | → A → B → C
 const webPrecio  = parseInt(P.get('web_precio') || '0') || 0;
 const gancho     = P.get('gancho') === 'true';  // bundle especial con precio de lanzamiento
 const fecha      = P.get('fecha') || new Date().toLocaleDateString('es-MX',{day:'numeric',month:'long',year:'numeric'});
+
+const clienteNormalizado = (cliente || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
+if (clienteNormalizado.includes('boba station')) {
+  setup = 16000;
+  mensual = 2899;
+}
+
+const BOBA_BASELINE = {
+  sucursales: 2,
+  empleados: 35,
+  deliveryComisionesMes: 5940,
+  deliveryComisionesAnual: 71280,
+  tiempoSemanalMin: 2,
+  tiempoSemanalMax: 5,
+  tiempoMensualMin: 10,
+  tiempoMensualMax: 20,
+  mermaReduccionMin: 8,
+  mermaReduccionMax: 15,
+  incrementoVentaDirectaMin: 3,
+  incrementoVentaDirectaMax: 7,
+};
+
+const DIAG_CATEGORIES = [
+  {
+    key: 'A',
+    name: 'Comercial y Canales',
+    score: 42,
+    detail: '10% de ventas dependen de delivery con comisión de 30%.',
+    hallazgos: [
+      'Fuga real de $5,940 MXN/mes por comisiones de marketplaces.',
+      'Sin canal propio para capturar recompra y datos del cliente.',
+      'No hay mecanismo para migrar clientes recurrentes a venta directa.'
+    ],
+    expected: 'Resultado esperado (90 días): recuperar entre 20% y 35% de la venta que hoy se va a delivery.'
+  },
+  {
+    key: 'B',
+    name: 'Operación Multi-sucursal',
+    score: 38,
+    detail: '2 sucursales operando con transferencias e inventario manual.',
+    hallazgos: [
+      'Sin tablero único de inventario entre sucursales.',
+      'Transferencias con riesgo de diferencia en captura.',
+      'Errores de producto y faltantes no trazados por turno.'
+    ],
+    expected: 'Resultado esperado (90 días): bajar incidencias operativas en inventario entre 8% y 15%.'
+  },
+  {
+    key: 'C',
+    name: 'Control Administrativo',
+    score: 46,
+    detail: 'Coordinación manual de nómina, pedidos y tareas clave.',
+    hallazgos: [
+      'Se invierten 2 a 5 horas por semana en coordinación manual.',
+      'Dependencia de mensajes y seguimiento humano para tareas repetitivas.',
+      'No existe trazabilidad completa por actividad y responsable.'
+    ],
+    expected: 'Resultado esperado (primer mes): liberar entre 10 y 20 horas/mes de carga administrativa.'
+  },
+  {
+    key: 'D',
+    name: 'Datos y Visibilidad',
+    score: 35,
+    detail: 'SoftRestaurant activo, pero con visibilidad ejecutiva limitada.',
+    hallazgos: [
+      'No hay lectura consolidada en tiempo real de mermas y min/max.',
+      'Alertas operativas no priorizadas por impacto económico.',
+      'Decisiones de reabasto y ajuste se hacen tarde o por intuición.'
+    ],
+    expected: 'Resultado esperado (60 días): tablero operativo diario con alertas accionables por sucursal.'
+  },
+  {
+    key: 'E',
+    name: 'Riesgo Digital',
+    score: score > 0 ? score : 22,
+    detail: 'Dominio sin blindaje SPF/DMARC/DKIM y canal WhatsApp vulnerable.',
+    hallazgos: [
+      'SPF, DMARC y DKIM en estado fail al corte actual.',
+      'Sin sitio propio validado para reforzar identidad de marca.',
+      'Exposición a suplantación de identidad con impacto comercial.'
+    ],
+    expected: 'Resultado esperado (2-4 semanas): score de seguridad >70/100 y validación técnica estable.'
+  }
+];
 
 const hasDiag      = dominio !== null || areasParam.length > 0 || hallazgosParam.length > 0;
 const hasAgentes   = agentesParam.length > 0;
@@ -230,7 +350,7 @@ const AGENTS = {
     match:['web','sitio','presencia','digital','google','internet','página'],
     resuelve:'Sin presencia web → el negocio no existe para clientes que buscan en Google.',
     detalle:['Landing B2C con SEO local optimizado para la ciudad','Dominio propio, SSL, velocidad máxima en móvil','Menú / catálogo digital + formulario de contacto','Entrega en 5–7 días hábiles · sin dependencia futura'],
-    resultado:'Canal de captación activo 24/7. Primeras visitas orgánicas en 2–3 semanas.'
+    resultado:'Resultado esperado (60 días): canal propio activo 24/7 y base para mover 20%–35% del flujo de delivery a venta directa.'
   },
   sdr: {
     icon:'🎯', name:'SDR Comercial', tipo:'agente', fase:2,
@@ -258,7 +378,7 @@ const AGENTS = {
     match:['whatsapp','atención','consulta','respuesta','cliente','mensaj'],
     resuelve:'Clientes esperan respuesta fuera de horario — cada mensaje sin respuesta es una oportunidad perdida.',
     detalle:['Responde preguntas frecuentes y cotiza en segundos','Disponible 24/7, incluso fines de semana y festivos','Escala a humano solo cuando la situación lo requiere','Integrado con inventario y catálogo en tiempo real'],
-    resultado:'Tiempo de respuesta < 90 segundos. Sin pérdida de clientes por demora.'
+    resultado:'Resultado esperado (45 días): tiempo de respuesta <90 segundos y aumento de conversión en WhatsApp de +3% a +7%.'
   },
   email: {
     icon:'📬', name:'Gestión de Correo', tipo:'agente', fase:3,
@@ -279,14 +399,14 @@ const AGENTS = {
     match:['reporte','datos','métrica','resultado','visibilidad','análisis'],
     resuelve:'Sin datos consolidados = decisiones por intuición, no por información.',
     detalle:['Genera reportes de ventas, operaciones o seguridad automáticamente','Entregados por Telegram o correo en el horario que elijan','Compara periodos y detecta tendencias sin intervención','Métricas en tiempo real disponibles cuando se necesiten'],
-    resultado:'Decisiones basadas en datos. Reporte disponible en 0 clics.'
+    resultado:'Resultado esperado (30 días): tablero diario por sucursal con alertas críticas y reportes automáticos sin carga manual.'
   },
   coordinacion: {
     icon:'🔄', name:'Coordinación Operativa', tipo:'agente', fase:3,
     match:['coordinación','operación','proceso','manual','equipo','tiempo','sucursal'],
     resuelve:'Coordinación por WhatsApp entre áreas = caos, duplicados y decisiones tardías.',
     detalle:['Sincroniza tareas y estados entre equipos en tiempo real','Detecta cuellos de botella antes de que paren la operación','Genera alertas automáticas cuando algo requiere acción','Registro completo de lo que pasó, cuándo y quién'],
-    resultado:'Operación fluida entre turnos y sucursales. Menos errores por falta de comunicación.'
+    resultado:'Resultado esperado (90 días): reducción de incidencias de inventario/transferencias en rango de 8%–15%.'
   },
   facturacion: {
     icon:'🧾', name:'Facturación Asistida', tipo:'agente', fase:3,
@@ -300,7 +420,7 @@ const AGENTS = {
     match:['dmarc','spf','dkim','dominio','suplantación','correo falso','vulnerab'],
     resuelve:'Sin DMARC activo, cualquiera puede enviar correos haciéndose pasar por la empresa ante sus clientes.',
     detalle:['Configura SPF, DKIM y DMARC en el dominio','Monitorea reportes de autenticación diariamente','Alerta inmediata ante cualquier intento de suplantación','Dashboard de salud del dominio actualizado en tiempo real'],
-    resultado:'Dominio blindado en 48h. Cero riesgo de fraude por correo falso.'
+    resultado:'Resultado esperado (2–4 semanas): score técnico de seguridad >70/100 y riesgo de suplantación materialmente reducido.'
   },
   threat: {
     icon:'🔍', name:'Threat Intelligence', tipo:'agente', fase:4,
@@ -321,7 +441,6 @@ const AGENTS = {
 const NIVEL_NAME  = ['','Lite','Pro','Premium','Empresa Digital'];
 const NIVEL_COLOR = ['','var(--blue)','var(--green)','var(--purple)','var(--amber)'];
 
-function scoreColor(s){ return s>=70?'var(--green)':s>=35?'var(--amber)':'#ef4444'; }
 function statusLabel(v){
   if(v==='ok')   return { text:'✅ Correcto', cls:'ok' };
   if(v==='warn') return { text:'⚠️ Parcial',  cls:'warn' };
@@ -329,6 +448,110 @@ function statusLabel(v){
   return { text:'— Sin datos', cls:'unknown' };
 }
 function fmt(n){ return '$' + n.toLocaleString('es-MX') + ' MXN'; }
+function pct(n){ return Number(n).toFixed(1).replace('.0','') + '%'; }
+function scoreColor(s){ return s>=70?'var(--green)':s>=35?'var(--amber)':'#ef4444'; }
+function categoryBand(s){ return s>=70?'Sólido':s>=45?'Controlable':s>=30?'Riesgo alto':'Crítico'; }
+
+function renderDiagVisual(){
+  const grid = document.getElementById('diag-kpi-grid');
+  const detail = document.getElementById('diag-detail-panel');
+  if(!grid || !detail) return;
+
+  const categories = DIAG_CATEGORIES.map(c => ({...c, score: Math.max(0, Math.min(100, Number(c.score) || 0))}));
+
+  function renderDetail(cat){
+    detail.innerHTML = `
+      <div class="diag-detail-title" style="color:${scoreColor(cat.score)}">Cat ${cat.key} · ${cat.name} — ${cat.score}/100 (${categoryBand(cat.score)})</div>
+      <div class="diag-detail-sub">${cat.detail}</div>
+      <ul class="diag-detail-list">${cat.hallazgos.map(h=>`<li>${h}</li>`).join('')}</ul>
+      <div style="margin-top:10px;padding:10px 12px;border-radius:10px;background:rgba(0,229,160,.08);border:1px solid rgba(0,229,160,.2);font-size:13.5px;line-height:1.55;color:rgba(255,255,255,.9);">
+        <strong style="color:var(--green);display:block;margin-bottom:4px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;">Resultado esperado</strong>
+        ${cat.expected}
+      </div>
+    `;
+  }
+
+  grid.innerHTML = categories.map((cat, idx) => `
+    <button type="button" class="diag-cat ${idx===0?'active':''}" data-cat="${cat.key}" aria-label="Ver Cat ${cat.key}">
+      <div class="diag-cat-tag">Cat ${cat.key}</div>
+      <div class="diag-cat-name">${cat.name}</div>
+      <div class="diag-cat-score" style="color:${scoreColor(cat.score)}">${cat.score}/100</div>
+      <div class="diag-cat-track"><div class="diag-cat-fill" style="width:${cat.score}%;background:${scoreColor(cat.score)}"></div></div>
+    </button>
+  `).join('');
+
+  renderDetail(categories[0]);
+  grid.querySelectorAll('.diag-cat').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const key = btn.getAttribute('data-cat');
+      const cat = categories.find(c => c.key === key);
+      if(!cat) return;
+      grid.querySelectorAll('.diag-cat').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderDetail(cat);
+    });
+  });
+}
+
+function renderMetricasReales(){
+  const mComisionMes = document.getElementById('metric-comision-mes');
+  const mComisionAnio = document.getElementById('metric-comision-anio');
+  const mTiempo = document.getElementById('metric-tiempo');
+  const mMermas = document.getElementById('metric-mermas');
+  const mVentas = document.getElementById('metric-ventas');
+  const mRoi = document.getElementById('metric-roi');
+
+  if(!mComisionMes || !mComisionAnio || !mTiempo || !mMermas || !mVentas || !mRoi) return;
+
+  const setupSistema = hasSetup ? setup : BOBA_BASELINE.setup;
+  const mensualSistema = hasMensual ? mensual : BOBA_BASELINE.mensual;
+  const inversionAnual = setupSistema + (mensualSistema * 12);
+  const ahorroAnualConservador = BOBA_BASELINE.deliveryComisionesAnual;
+  const netoAnualConservador = ahorroAnualConservador - inversionAnual;
+  const roiConservador = inversionAnual > 0 ? (netoAnualConservador / inversionAnual) * 100 : 0;
+  const netoMensualConservador = BOBA_BASELINE.deliveryComisionesMes - mensualSistema;
+  const payback = netoMensualConservador > 0 ? (setupSistema / netoMensualConservador) : null;
+
+  mComisionMes.textContent = '$5,940/mes';
+  mComisionAnio.textContent = '$71,280/año';
+  mTiempo.textContent = `${BOBA_BASELINE.tiempoMensualMin}-${BOBA_BASELINE.tiempoMensualMax} hrs/mes`;
+  mMermas.textContent = `${BOBA_BASELINE.mermaReduccionMin}%-${BOBA_BASELINE.mermaReduccionMax}%`;
+  mVentas.textContent = `+${BOBA_BASELINE.incrementoVentaDirectaMin}% a +${BOBA_BASELINE.incrementoVentaDirectaMax}%`;
+
+  mRoi.textContent = `${pct(roiConservador)} anual`;
+
+  const roiSub = document.getElementById('metric-roi-sub');
+  if (roiSub) {
+    const paybackTxt = payback ? `Payback estimado: ${payback.toFixed(1)} meses.` : 'Payback sujeto al mix de ventas directas.';
+    roiSub.textContent = `Escenario conservador (solo ahorro por comisiones): ${fmt(ahorroAnualConservador)} - ${fmt(inversionAnual)} = ${fmt(netoAnualConservador)}. ${paybackTxt}`;
+  }
+}
+
+function upscaleInlineTypography(){
+  const scale = window.innerWidth <= 700 ? 1.85 : 1.55;
+  document.querySelectorAll('[style*="font-size"]').forEach(el => {
+    const current = el.style.fontSize || '';
+    if(!current.includes('px')) return;
+    if(!el.dataset.baseFontSize){
+      el.dataset.baseFontSize = String(parseFloat(current));
+    }
+    const base = parseFloat(el.dataset.baseFontSize || '0');
+    if(!base || base > 26) return;
+
+    let next = base;
+    if(base <= 12) next = base * scale;
+    else if(base <= 16) next = base * (scale - 0.12);
+    else if(base <= 22) next = base * 1.08;
+
+    el.style.fontSize = `${Math.min(next, 56).toFixed(2).replace(/\.00$/, '')}px`;
+  });
+}
+
+let __typoResizeTimer = null;
+window.addEventListener('resize', () => {
+  clearTimeout(__typoResizeTimer);
+  __typoResizeTimer = setTimeout(() => upscaleInlineTypography(), 120);
+});
 
 window.onload = () => {
   document.querySelectorAll('[data-cliente]').forEach(el => el.textContent = cliente);
@@ -356,6 +579,9 @@ window.onload = () => {
   const scv  = document.getElementById('score-val');
   if(fill){ fill.style.width=score+'%'; fill.style.background=`linear-gradient(90deg,${scoreColor(score)},${scoreColor(score)}88)`; }
   if(scv){ scv.textContent=score+'/100'; scv.style.color=scoreColor(score); }
+
+  // Diagnóstico visual por categorías (Cat A-E)
+  renderDiagVisual();
 
   // Áreas críticas del diagnóstico
   const acContainer = document.getElementById('areas-criticas-list');
@@ -467,11 +693,11 @@ window.onload = () => {
         <div>
           <div style="font-size:11px;font-weight:800;color:var(--white);margin-bottom:2px;">${a.name}</div>
           ${resuelveText ? `<div style="font-size:7.5px;color:rgba(255,255,255,.45);font-style:italic;line-height:1.4;margin-bottom:5px;">${resuelveText}</div>` : ''}
-          <div style="font-size:7.5px;font-weight:700;color:${c.accent};text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px;">Qué hace</div>
+          <div style="font-size:7.5px;font-weight:700;color:${c.accent};text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px;">Para qué</div>
           <div style="font-size:8px;color:rgba(255,255,255,.7);line-height:1.55;">${detalleHtml}</div>
         </div>
         <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:6px;padding:7px 9px;">
-          <div style="font-size:7.5px;font-weight:700;color:${c.accent};text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px;">Resultado</div>
+          <div style="font-size:7.5px;font-weight:700;color:${c.accent};text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px;">Resultado esperado</div>
           <div style="font-size:8px;color:rgba(255,255,255,.8);line-height:1.6;font-weight:500;">${a.resultado||''}</div>
         </div>
       </div>`;
@@ -521,6 +747,9 @@ window.onload = () => {
   // Páginas condicionales
   document.querySelectorAll('.page-diag').forEach(p=>p.style.display=hasDiag?'':'none');
   document.querySelectorAll('.page-agentes').forEach(p=>p.style.display=hasAgentes?'':'none');
+
+  renderMetricasReales();
+  upscaleInlineTypography();
 
   // Numeración
   setTimeout(()=>{
@@ -720,6 +949,13 @@ window.onload = () => {
     <h2 class="h2" style="margin-bottom:5px;">Esto es lo que encontramos <span class="grad">en su empresa.</span></h2>
     <p class="body-text" style="margin-bottom:14px;">Los datos a continuación provienen del análisis de su operación y de la auditoría técnica de <strong style="color:var(--white);" data-dominio></strong>. No hay estimaciones — son el estado real al día de hoy.</p>
 
+    <div class="diag-visual-board">
+      <div style="font-size:11px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.12em;margin-bottom:8px;">Radiografía operativa por categoría (Cat A-E)</div>
+      <div style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:10px;">Visual diseñado para junta ejecutiva: cada categoría muestra score actual, hallazgos comprobables y resultado esperado con rango conservador.</div>
+      <div class="diag-kpi-grid" id="diag-kpi-grid"></div>
+      <div class="diag-detail-panel" id="diag-detail-panel"></div>
+    </div>
+
     <div class="two-col" style="flex:1;align-items:start;">
       <!-- Columna izquierda: DNS (si viene de auditoría) + Áreas críticas (si viene de diagnóstico) -->
       <div>
@@ -795,7 +1031,7 @@ window.onload = () => {
     <div class="meta"><span data-cliente></span><br><span data-fecha></span></div>
   </div>
   <div class="page-body">
-    <span class="label">Solución propuesta</span>
+    <span class="label">Solución Operativa</span>
     <h2 class="h2" style="margin-bottom:5px;">Lo que vamos a construir <span class="grad">en <span data-cliente></span>.</span></h2>
 
     <!-- Objetivo estratégico + flujo de estrategia — visible si hay params -->
@@ -953,6 +1189,43 @@ window.onload = () => {
             El compromiso lo generan los resultados, no el papel. Si al mes no mide impacto concreto, le devolvemos el 100% de la operación mensual. Sin preguntas.
           </div>
         </div>
+      </div>
+    </div>
+
+    <div class="block blue" style="margin-bottom:12px;background:linear-gradient(135deg,rgba(59,130,246,.08),rgba(0,229,160,.04));border-color:rgba(59,130,246,.28);">
+      <div style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin-bottom:6px;">Métricas reales proyectadas · Boba Station</div>
+      <div style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:10px;">Base actual validada: 2 sucursales, 35 colaboradores, 10% de ventas por delivery y operación sobre SoftRestaurant. Escenario conservador para proteger credibilidad comercial.</div>
+      <div class="metric-grid">
+        <div class="metric-card">
+          <div class="metric-label">Ahorro comisiones</div>
+          <div class="metric-value" id="metric-comision-mes" style="color:var(--green);">—</div>
+          <div class="metric-sub">Ahorro mensual directo al migrar pedidos a canal propio.</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Ahorro anual</div>
+          <div class="metric-value" id="metric-comision-anio" style="color:var(--green);">—</div>
+          <div class="metric-sub">Solo por comisiones actuales de delivery.</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Tiempo liberado</div>
+          <div class="metric-value" id="metric-tiempo" style="color:var(--blue);">—</div>
+          <div class="metric-sub">Administración operativa menos manual por semana/mes.</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Mermas / errores</div>
+          <div class="metric-value" id="metric-mermas" style="color:var(--amber);">—</div>
+          <div class="metric-sub">Reducción estimada al controlar inventario y transferencias.</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Ventas directas</div>
+          <div class="metric-value" id="metric-ventas" style="color:var(--purple);">—</div>
+          <div class="metric-sub">Incremento proyectado en 6 meses con canal propio.</div>
+        </div>
+      </div>
+      <div style="margin-top:10px;padding:10px 12px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:10px;">
+        <div class="metric-label" style="margin-bottom:4px;">ROI del sistema (conservador)</div>
+        <div class="metric-value" id="metric-roi" style="font-size:22px;color:var(--green);margin-bottom:5px;">—</div>
+        <div class="metric-sub" id="metric-roi-sub">—</div>
       </div>
     </div>
 
@@ -1162,6 +1435,8 @@ window.addEventListener('load', () => {
     antiEl.textContent = fmt(Math.round(setup * 0.5));
     antiEl.nextElementSibling && (antiEl.nextElementSibling.textContent = 'El saldo restante (' + fmt(setup - Math.round(setup*0.5)) + ') se liquida en la entrega.');
   }
+
+  upscaleInlineTypography();
 });
 
 function firmarPropuesta() {
