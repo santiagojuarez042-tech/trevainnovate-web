@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portal Cliente — Trev'ainnovate</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#05050e;--bg2:#0b0b1c;--bg3:#111128;
+  --green:#00e5a0;--blue:#3b82f6;--purple:#8b5cf6;--amber:#f59e0b;--red:#ef4444;
+  --white:#f1f5f9;--muted:#8892a4;--border:rgba(255,255,255,0.07);
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);font-family:'Inter',sans-serif;color:var(--white);-webkit-font-smoothing:antialiased;min-height:100vh}
+
+/* NAV */
+.nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:0 20px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;gap:12px}
+.nav-logo{font-size:12px;font-weight:800;letter-spacing:.06em;white-space:nowrap;flex-shrink:0}
+.nav-logo span{color:var(--green)}
+.nav-center{display:flex;align-items:center;gap:8px;min-width:0}
+.nav-client{font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nav-right{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.live{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--muted);font-family:'JetBrains Mono',monospace}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 6px var(--green);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+.pill{font-size:10px;font-weight:700;padding:3px 10px;border-radius:99px;white-space:nowrap}
+
+/* LAYOUT */
+.wrap{max-width:900px;margin:0 auto;padding:24px 16px 64px}
+.sec{margin-bottom:24px}
+.sec-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:rgba(255,255,255,.3);margin-bottom:10px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+@media(max-width:600px){.grid2,.grid3,.grid4{grid-template-columns:1fr 1fr}.hide-sm{display:none}}
+@media(max-width:400px){.grid4{grid-template-columns:1fr}}
+
+/* CARDS */
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:16px}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,rgba(0,229,160,.07) 0%,rgba(59,130,246,.05) 50%,rgba(139,92,246,.04) 100%);border:1px solid rgba(0,229,160,.18);border-radius:14px;padding:22px 20px;margin-bottom:20px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-40px;right:-40px;width:160px;height:160px;background:radial-gradient(circle,rgba(0,229,160,.12),transparent 70%);pointer-events:none}
+.hero-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:14px}
+.hero-fase{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:var(--green);margin-bottom:4px}
+.hero-title{font-size:20px;font-weight:900;line-height:1.15;letter-spacing:-.02em}
+.hero-sub{font-size:12px;color:var(--muted);margin-top:5px;line-height:1.55}
+.status-badge{display:flex;align-items:center;gap:6px;padding:6px 12px;border-radius:8px;font-size:11px;font-weight:700;white-space:nowrap;flex-shrink:0}
+.hero-stats{display:flex;gap:16px;padding-top:14px;border-top:1px solid rgba(255,255,255,.06);flex-wrap:wrap}
+.hero-stat{display:flex;flex-direction:column;gap:2px}
+.hero-stat-val{font-size:16px;font-weight:900;font-family:'JetBrains Mono',monospace;line-height:1}
+.hero-stat-lbl{font-size:9px;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.1em}
+
+/* AGENT CARDS */
+.agent-card{background:var(--bg2);border-radius:12px;overflow:hidden;border:1px solid var(--border);transition:border-color .2s}
+.agent-card:hover{border-color:rgba(255,255,255,.14)}
+.agent-head{padding:12px 14px;display:flex;align-items:center;justify-content:space-between;gap:8px;border-bottom:1px solid var(--border)}
+.agent-icon{font-size:18px;flex-shrink:0;line-height:1}
+.agent-name{font-size:11px;font-weight:800;flex:1;min-width:0}
+.agent-status{font-size:8.5px;font-weight:700;padding:2px 8px;border-radius:4px;white-space:nowrap;letter-spacing:.04em}
+.s-active{background:rgba(0,229,160,.12);color:var(--green);border:1px solid rgba(0,229,160,.25)}
+.s-setup{background:rgba(245,158,11,.1);color:var(--amber);border:1px solid rgba(245,158,11,.22)}
+.s-pending{background:rgba(255,255,255,.04);color:rgba(255,255,255,.3);border:1px solid rgba(255,255,255,.08)}
+.agent-body{padding:10px 14px}
+.agent-task{font-size:8.5px;color:rgba(255,255,255,.5);line-height:1.55;margin-bottom:6px}
+.agent-last{font-size:7.5px;color:rgba(255,255,255,.25);font-family:'JetBrains Mono',monospace}
+
+/* METRICS */
+.metric-card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:14px 16px}
+.metric-lbl{font-size:9px;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.1em;margin-bottom:5px}
+.metric-val{font-size:22px;font-weight:900;font-family:'JetBrains Mono',monospace;line-height:1;margin-bottom:3px}
+.metric-sub{font-size:9px;color:rgba(255,255,255,.3);line-height:1.4}
+.metric-connecting{font-size:10px;color:rgba(255,255,255,.2);font-family:'JetBrains Mono',monospace;display:flex;align-items:center;gap:5px;margin-top:4px}
+.blink{animation:blink 1.4s step-end infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+
+/* TIMELINE */
+.timeline{display:flex;flex-direction:column;gap:0}
+.tl-item{display:flex;gap:14px;padding-bottom:20px;position:relative}
+.tl-item:last-child{padding-bottom:0}
+.tl-left{display:flex;flex-direction:column;align-items:center;flex-shrink:0;width:28px}
+.tl-node{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0;z-index:1}
+.tl-line{flex:1;width:2px;background:var(--border);margin-top:2px}
+.tl-content{padding-top:4px;flex:1;min-width:0}
+.tl-title{font-size:11px;font-weight:700;margin-bottom:2px}
+.tl-desc{font-size:9.5px;color:var(--muted);line-height:1.55}
+.tl-date{font-size:8px;color:rgba(255,255,255,.2);font-family:'JetBrains Mono',monospace;margin-top:3px}
+.n-done{background:rgba(0,229,160,.15);border:2px solid var(--green);color:var(--green)}
+.n-active{background:rgba(59,130,246,.15);border:2px solid var(--blue);color:var(--blue);box-shadow:0 0 12px rgba(59,130,246,.3)}
+.n-pending{background:rgba(255,255,255,.04);border:2px solid rgba(255,255,255,.1);color:rgba(255,255,255,.25)}
+.line-done{background:rgba(0,229,160,.3)}
+.line-active{background:linear-gradient(to bottom,rgba(0,229,160,.3),rgba(255,255,255,.07))}
+
+/* CADENCIA */
+.cad-col{background:var(--bg2);border-radius:10px;padding:12px 14px;border:1px solid var(--border)}
+.cad-head{font-size:10px;font-weight:800;margin-bottom:3px}
+.cad-sub{font-size:8px;color:rgba(255,255,255,.25);font-family:'JetBrains Mono',monospace;margin-bottom:9px}
+.cad-item{display:flex;gap:5px;margin-bottom:5px}
+.cad-icon{font-size:10px;flex-shrink:0;margin-top:1px}
+.cad-text{font-size:8.5px;color:rgba(255,255,255,.55);line-height:1.5}
+
+/* REPORTS */
+.report-item{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:8px;background:rgba(255,255,255,.02);border:1px solid var(--border);margin-bottom:6px}
+.report-icon{font-size:16px;flex-shrink:0}
+.report-info{flex:1;min-width:0}
+.report-title{font-size:11px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.report-date{font-size:9px;color:var(--muted);font-family:'JetBrains Mono',monospace;margin-top:1px}
+.report-badge{font-size:8px;font-weight:700;padding:2px 8px;border-radius:4px;white-space:nowrap}
+
+/* SOPORTE */
+.support-card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.support-info{}
+.support-name{font-size:13px;font-weight:800;margin-bottom:2px}
+.support-role{font-size:11px;color:var(--muted)}
+.support-time{font-size:9.5px;color:rgba(255,255,255,.3);margin-top:4px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:8px;font-size:12px;font-weight:700;font-family:'Inter',sans-serif;text-decoration:none;border:none;cursor:pointer;transition:opacity .18s}
+.btn:hover{opacity:.85}
+.btn-wa{background:#25d366;color:#fff}
+.btn-mail{background:rgba(59,130,246,.15);color:var(--blue);border:1px solid rgba(59,130,246,.3)}
+</style>
+</head>
+<body>
+
+<script>
+const P = new URLSearchParams(window.location.search);
+const cliente   = P.get('cliente')  || 'Tu Empresa';
+const contacto  = P.get('contacto') || 'Cliente';
+const nivel     = parseInt(P.get('nivel') || '1');
+const faseActual= parseInt(P.get('fase')  || '0');  // 0=firmado, 1=setup, 2=primer agente, 3=pruebas, 4=operacion plena
+const inicio    = P.get('inicio')   || null;
+const mesNum    = parseInt(P.get('mes') || '1');
+const agentesParam = P.get('agentes') || '';
+
+const PLAN = {1:'Lite',2:'Pro',3:'Premium'};
+const PLAN_COLOR = {1:'var(--blue)',2:'var(--green)',3:'var(--purple)'};
+
+const AGENTS_DEF = {
+  web:          { icon:'🌐', name:'Sitio Web', desc:'Construyendo tu presencia en Google y Maps desde cero.', tarea:'Diseño, dominio, SSL y SEO local activo.' },
+  coordinacion: { icon:'🔄', name:'Coordinación Operativa', desc:'Sincronizando inventario y operaciones entre las 2 sucursales.', tarea:'Conectado a tu sistema de punto de venta.' },
+  reporte:      { icon:'📊', name:'Reportes Ejecutivos', desc:'Consolidando ventas de ambas sucursales en un solo lugar.', tarea:'Reporte diario vía Telegram a las 8am.' },
+  dmarc_agent:  { icon:'🛡️', name:'DMARC Analyst', desc:'Configurando y monitoreando la seguridad de tu dominio.', tarea:'SPF, DKIM y DMARC activos — cero suplantación.' },
+  sdr:          { icon:'🎯', name:'SDR Comercial', desc:'Identificando y contactando prospectos de forma autónoma.', tarea:'15–30 demos agendadas/mes en piloto.' },
+  followup:     { icon:'📧', name:'Follow-up de Leads', desc:'Dando seguimiento a cada prospecto hasta el cierre.', tarea:'0 prospectos caídos por falta de contacto.' },
+  whatsapp:     { icon:'💬', name:'Atención WhatsApp', desc:'Respondiendo mensajes y pedidos 24/7.', tarea:'Respuesta en menos de 90 segundos.' },
+  email:        { icon:'📬', name:'Gestión de Correo', desc:'Clasificando y atendiendo el inbox automáticamente.', tarea:'Inbox sin correos importantes sin leer.' },
+  incident:     { icon:'⚡', name:'Incident Response', desc:'Monitoreando uptime y respondiendo a caídas en <60s.', tarea:'99.9% uptime garantizado.' },
+  threat:       { icon:'🔍', name:'Threat Intelligence', desc:'Vigilando filtraciones y amenazas al dominio.', tarea:'Alerta inmediata si algo aparece en dark web.' },
+  facturacion:  { icon:'🧾', name:'Facturación Asistida', desc:'Emitiendo CFDIs automáticamente desde la venta.', tarea:'Timbrado en segundos, sin captura manual.' },
+  crm:          { icon:'🗂️', name:'CRM Inteligente', desc:'Gestionando el pipeline de clientes automáticamente.', tarea:'Etapas actualizadas sin intervención.' },
+};
+
+// Estado por agente según fase del proyecto
+function agentStatus(key, fase) {
+  const order = ['web','coordinacion','reporte','dmarc_agent','sdr','followup','whatsapp','email','incident','threat','facturacion','crm'];
+  const idx = order.indexOf(key);
+  if(fase >= 4) return 'active';
+  if(fase === 3) return idx <= 1 ? 'active' : (idx <= 3 ? 'setup' : 'pending');
+  if(fase === 2) return idx === 0 ? 'active' : (idx <= 2 ? 'setup' : 'pending');
+  if(fase === 1) return 'setup';
+  return 'pending';
+}
+
+const FASE_INFO = [
+  { label:'Firma recibida',           desc:'Propuesta aceptada · anticipo en proceso' },
+  { label:'Setup técnico',            desc:'Configurando infraestructura, dominio y accesos' },
+  { label:'Primer agente en producción', desc:'Equipo parcial activo, resto en configuración' },
+  { label:'Pruebas y ajustes',        desc:'Todos los agentes en pruebas con datos reales' },
+  { label:'Operación plena',          desc:'Equipo completo operando 24/7' },
+];
+
+// Métricas según agentes
+const METRICAS = {
+  web:          { icon:'🌐', label:'Visitas esta semana', val:'—', sub:'Disponible al activar web', unit:'' },
+  reporte:      { icon:'📊', label:'Ventas hoy',          val:'—', sub:'Disponible al activar reportes', unit:'' },
+  coordinacion: { icon:'🔄', label:'Alertas de stock',    val:'—', sub:'Disponible al activar coordinación', unit:'' },
+  dmarc_agent:  { icon:'🛡️', label:'Estado del dominio',  val:'—', sub:'Disponible al activar DMARC', unit:'' },
+  sdr:          { icon:'🎯', label:'Leads esta semana',    val:'—', sub:'Disponible al activar SDR', unit:'' },
+  whatsapp:     { icon:'💬', label:'Mensajes atendidos',   val:'—', sub:'Disponible al activar WhatsApp', unit:'' },
+};
+</script>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-logo">TREV'<span>AI</span>NNOVATE</div>
+  <div class="nav-center">
+    <div style="width:1px;height:18px;background:var(--border);flex-shrink:0;"></div>
+    <div class="nav-client" id="nav-client"></div>
+  </div>
+  <div class="nav-right">
+    <div class="live"><div class="dot"></div><span class="hide-sm">Sistema activo</span></div>
+    <div class="pill" id="nav-plan" style="border:1px solid;"></div>
+  </div>
+</nav>
+
+<!-- MAIN -->
+<div class="wrap">
+
+  <!-- HERO -->
+  <div class="hero" id="hero">
+    <div class="hero-top">
+      <div>
+        <div class="hero-fase" id="hero-fase"></div>
+        <div class="hero-title" id="hero-title"></div>
+        <div class="hero-sub" id="hero-sub"></div>
+      </div>
+      <div class="status-badge" id="status-badge"></div>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-val" id="stat-plan"></div>
+        <div class="hero-stat-lbl">Plan</div>
+      </div>
+      <div style="width:1px;background:rgba(255,255,255,.07);"></div>
+      <div class="hero-stat">
+        <div class="hero-stat-val" id="stat-mes"></div>
+        <div class="hero-stat-lbl">Mes de contrato</div>
+      </div>
+      <div style="width:1px;background:rgba(255,255,255,.07);"></div>
+      <div class="hero-stat">
+        <div class="hero-stat-val" id="stat-agentes"></div>
+        <div class="hero-stat-lbl">Agentes</div>
+      </div>
+      <div style="width:1px;background:rgba(255,255,255,.07);"></div>
+      <div class="hero-stat">
+        <div class="hero-stat-val" id="stat-inicio"></div>
+        <div class="hero-stat-lbl">Inicio</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MÉTRICAS -->
+  <div class="sec">
+    <div class="sec-title">Métricas en vivo</div>
+    <div class="grid4" id="metricas-grid"></div>
+  </div>
+
+  <!-- AGENTES -->
+  <div class="sec">
+    <div class="sec-title">Tu equipo de agentes</div>
+    <div class="grid2" id="agentes-grid"></div>
+  </div>
+
+  <!-- TIMELINE + CADENCIA -->
+  <div class="grid2" style="margin-bottom:24px;align-items:start;">
+
+    <!-- Timeline -->
+    <div>
+      <div class="sec-title">Ruta de implementación</div>
+      <div class="card" style="padding:18px 16px;">
+        <div class="timeline" id="timeline"></div>
+      </div>
+    </div>
+
+    <!-- Cadencia -->
+    <div>
+      <div class="sec-title">Qué recibes y cuándo</div>
+      <div style="display:flex;flex-direction:column;gap:8px;" id="cadencia"></div>
+    </div>
+
+  </div>
+
+  <!-- REPORTES RECIENTES -->
+  <div class="sec">
+    <div class="sec-title">Reportes recientes</div>
+    <div id="reportes-list"></div>
+  </div>
+
+  <!-- SOPORTE -->
+  <div class="sec">
+    <div class="sec-title">Soporte directo</div>
+    <div class="support-card">
+      <div class="support-info">
+        <div class="support-name">Santiago Juárez Treviño</div>
+        <div class="support-role">CEO · Trev'ainnovate · tu punto de contacto directo</div>
+        <div class="support-time">⏱ Respuesta en menos de 4 horas hábiles · Lunes a Sábado</div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <a class="btn btn-wa" href="https://wa.me/524421234567?text=Hola%20Santiago%2C%20tengo%20una%20pregunta%20sobre%20mi%20proyecto" target="_blank">
+          💬 WhatsApp
+        </a>
+        <a class="btn btn-mail" href="mailto:contacto@trevainnovate.com">
+          📧 Correo
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div style="text-align:center;padding-top:16px;border-top:1px solid var(--border);">
+    <div style="font-size:10px;color:rgba(255,255,255,.18);font-family:'JetBrains Mono',monospace;">
+      TREV'AINNOVATE · Portal de cliente · <span id="footer-cliente"></span> · Actualizado: <span id="footer-fecha"></span>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ── Poblar UI ──────────────────────────────────────────────
+document.getElementById('nav-client').textContent = cliente;
+document.getElementById('footer-cliente').textContent = cliente;
+document.getElementById('footer-fecha').textContent = new Date().toLocaleDateString('es-MX',{day:'numeric',month:'long',year:'numeric'});
+
+// Plan pill
+const planEl = document.getElementById('nav-plan');
+planEl.textContent = 'Plan ' + (PLAN[nivel] || 'Personalizado');
+planEl.style.background = `${PLAN_COLOR[nivel]}18`;
+planEl.style.color = PLAN_COLOR[nivel];
+planEl.style.borderColor = `${PLAN_COLOR[nivel]}44`;
+
+// Hero
+const faseInfo = FASE_INFO[Math.min(faseActual, 4)];
+document.getElementById('hero-fase').textContent = `Fase ${faseActual} de 4`;
+document.getElementById('hero-title').textContent = `Hola, ${contacto}. Tu proyecto está en marcha.`;
+document.getElementById('hero-sub').textContent = faseInfo.desc;
+document.getElementById('stat-plan').textContent = PLAN[nivel] || 'Lite';
+document.getElementById('stat-mes').textContent = `${mesNum}° mes`;
+const allKeys = agentesParam ? agentesParam.split(',').map(s=>s.trim()).filter(Boolean) : [];
+document.getElementById('stat-agentes').textContent = allKeys.length || '—';
+document.getElementById('stat-inicio').textContent = inicio
+  ? new Date(inicio + 'T12:00:00').toLocaleDateString('es-MX',{day:'numeric',month:'short'})
+  : 'Por definir';
+
+const statusConf = faseActual === 0
+  ? { text:'⏳ Configurando', bg:'rgba(245,158,11,.1)', color:'var(--amber)', border:'rgba(245,158,11,.3)' }
+  : faseActual < 4
+  ? { text:'🔧 En implementación', bg:'rgba(59,130,246,.1)', color:'var(--blue)', border:'rgba(59,130,246,.3)' }
+  : { text:'🟢 Operación plena', bg:'rgba(0,229,160,.1)', color:'var(--green)', border:'rgba(0,229,160,.3)' };
+const sb = document.getElementById('status-badge');
+sb.textContent = statusConf.text;
+sb.style.cssText += `background:${statusConf.bg};color:${statusConf.color};border:1px solid ${statusConf.border};`;
+
+// ── Métricas ───────────────────────────────────────────────
+const metricGrid = document.getElementById('metricas-grid');
+const metricKeys = allKeys.filter(k => METRICAS[k]).slice(0, 4);
+if(metricKeys.length === 0) {
+  // Métricas base siempre visibles
+  ['web','reporte','coordinacion','dmarc_agent'].forEach(k => metricKeys.push(k));
+}
+metricGrid.innerHTML = metricKeys.map(k => {
+  const m = METRICAS[k];
+  const isActive = agentStatus(k, faseActual) === 'active';
+  return `<div class="metric-card">
+    <div class="metric-lbl">${m.icon} ${m.label}</div>
+    <div class="metric-val" style="color:${isActive ? 'var(--white)' : 'rgba(255,255,255,.15)'};">${isActive ? m.val : '—'}</div>
+    <div class="metric-connecting">
+      ${isActive ? `<span style="color:rgba(255,255,255,.25);">${m.sub}</span>` : `<span class="blink">▌</span><span>Conectando...</span>`}
+    </div>
+  </div>`;
+}).join('');
+
+// ── Agentes ────────────────────────────────────────────────
+const agGrid = document.getElementById('agentes-grid');
+if(allKeys.length > 0) {
+  agGrid.innerHTML = allKeys.map(k => {
+    const a = AGENTS_DEF[k];
+    if(!a) return '';
+    const st = agentStatus(k, faseActual);
+    const stLabel = st === 'active' ? '● Activo' : st === 'setup' ? '◐ Configurando' : '○ Pendiente';
+    const stClass = st === 'active' ? 's-active' : st === 'setup' ? 's-setup' : 's-pending';
+    const lastActivity = st === 'active'
+      ? 'Última actividad: hoy'
+      : st === 'setup'
+      ? 'En configuración — disponible pronto'
+      : 'Se activa en siguiente fase';
+    return `<div class="agent-card">
+      <div class="agent-head">
+        <div style="display:flex;align-items:center;gap:8px;flex:1;min-width:0;">
+          <span class="agent-icon">${a.icon}</span>
+          <span class="agent-name">${a.name}</span>
+        </div>
+        <span class="agent-status ${stClass}">${stLabel}</span>
+      </div>
+      <div class="agent-body">
+        <div class="agent-task">${st === 'active' ? a.tarea : a.desc}</div>
+        <div class="agent-last">${lastActivity}</div>
+      </div>
+    </div>`;
+  }).join('');
+} else {
+  agGrid.innerHTML = '<div style="font-size:12px;color:var(--muted);">Sin agentes configurados.</div>';
+}
+
+// ── Timeline ───────────────────────────────────────────────
+const tlSteps = [
+  { label:'Firma + anticipo', desc:'Propuesta aceptada · anticipo del 50% recibido', date: inicio || '—' },
+  { label:'Setup técnico', desc:'Infraestructura, dominio, accesos y ambiente de staging configurados', date:'Semana 1' },
+  { label:'Primer agente activo', desc:'Agente principal funcionando con datos reales · primeras métricas', date:'Semana 1–2' },
+  { label:'Pruebas y ajustes', desc:'Todos los agentes en operación, validando resultados y refinando', date:'Semana 3–4' },
+  { label:'Operación plena', desc:'Equipo completo 24/7 · reportes automáticos · soporte continuo', date:'Mes 2+' },
+];
+const tlEl = document.getElementById('timeline');
+tlEl.innerHTML = tlSteps.map((s, i) => {
+  const done = i < faseActual;
+  const active = i === faseActual;
+  const nodeClass = done ? 'n-done' : active ? 'n-active' : 'n-pending';
+  const lineClass = done ? 'line-done' : active ? 'line-active' : '';
+  const isLast = i === tlSteps.length - 1;
+  return `<div class="tl-item">
+    <div class="tl-left">
+      <div class="tl-node ${nodeClass}">${done ? '✓' : i + 1}</div>
+      ${!isLast ? `<div class="tl-line ${lineClass}"></div>` : ''}
+    </div>
+    <div class="tl-content">
+      <div class="tl-title" style="color:${done ? 'var(--green)' : active ? 'var(--white)' : 'rgba(255,255,255,.35)'};">${s.label}</div>
+      <div class="tl-desc" style="color:${active ? 'rgba(255,255,255,.55)' : 'rgba(255,255,255,.3)'};">${s.desc}</div>
+      <div class="tl-date">${s.date}</div>
+    </div>
+  </div>`;
+}).join('');
+
+// ── Cadencia ───────────────────────────────────────────────
+const CADS = {
+  web:          { d: null, s: null, m:'Visitas al sitio · fuentes de tráfico · conversiones del mes' },
+  reporte:      { d:'Ventas del día por sucursal — Telegram 8am', s:'Comparativa semana a semana · productos top y caídas', m:'Reporte ejecutivo · métricas · ROI · recomendaciones' },
+  coordinacion: { d:'Estado de inventario ambas sucursales · alertas activas', s:'Operaciones por turno · incidencias de la semana', m: null },
+  dmarc_agent:  { d: null, s:'Digest de correo · intentos de suplantación detectados', m:'Postura de seguridad · estado SPF/DKIM/DMARC' },
+  sdr:          { d:'Leads contactados · demos agendadas', s:'Pipeline actualizado · conversión por etapa', m:'Análisis de campaña · costo por lead' },
+  whatsapp:     { d:'Conversaciones atendidas · tiempo de respuesta', s: null, m:'Consultas frecuentes · % resolución automática' },
+  incident:     { d:'Uptime · incidencias resueltas 24h', s: null, m:'Disponibilidad mensual · tiempo de respuesta' },
+  threat:       { d: null, s:'Alertas de filtración detectadas', m:'Reporte de exposición digital' },
+};
+const cad = { d:[], s:[], m:['Informe mensual consolidado de todos tus agentes','Acceso al portal actualizado con métricas reales'] };
+allKeys.forEach(k => {
+  const c = CADS[k]; if(!c) return;
+  if(c.d) cad.d.push(c.d);
+  if(c.s) cad.s.push(c.s);
+  if(c.m) cad.m.push(c.m);
+});
+const cadDef = [
+  { key:'d', emoji:'☀️', label:'Diario', sub:'Cada mañana · 8am', color:'var(--amber)', items: cad.d },
+  { key:'s', emoji:'📊', label:'Semanal', sub:'Lunes · 8am', color:'var(--blue)', items: cad.s },
+  { key:'m', emoji:'📋', label:'Mensual', sub:'Día 1 de cada mes', color:'var(--green)', items: cad.m },
+];
+const cadEl = document.getElementById('cadencia');
+cadEl.innerHTML = cadDef.filter(c => c.items.length > 0).map(c => `
+  <div class="cad-col" style="border-color:${c.color}22;">
+    <div class="cad-head" style="color:${c.color};">${c.emoji} ${c.label}</div>
+    <div class="cad-sub">${c.sub}</div>
+    ${c.items.map(i => `<div class="cad-item"><span class="cad-icon" style="color:${c.color};">›</span><span class="cad-text">${i}</span></div>`).join('')}
+  </div>`).join('');
+
+// ── Reportes ───────────────────────────────────────────────
+const reportesEl = document.getElementById('reportes-list');
+if(faseActual >= 2) {
+  const reportes = [
+    { icon:'☀️', title:'Reporte diario — ' + new Date().toLocaleDateString('es-MX',{day:'numeric',month:'long'}), date:'Hoy 8:00am', badge:'Diario', color:'var(--amber)' },
+    { icon:'📊', title:'Reporte semanal — semana del ' + new Date().toLocaleDateString('es-MX',{day:'numeric',month:'short'}), date:'Lunes pasado 8:00am', badge:'Semanal', color:'var(--blue)' },
+  ];
+  reportesEl.innerHTML = reportes.map(r => `
+    <div class="report-item">
+      <span class="report-icon">${r.icon}</span>
+      <div class="report-info">
+        <div class="report-title">${r.title}</div>
+        <div class="report-date">${r.date}</div>
+      </div>
+      <span class="report-badge" style="background:${r.color}18;color:${r.color};border:1px solid ${r.color}33;">${r.badge}</span>
+    </div>`).join('');
+} else {
+  reportesEl.innerHTML = `<div style="padding:16px;text-align:center;border:1px dashed rgba(255,255,255,.08);border-radius:10px;">
+    <div style="font-size:11px;color:rgba(255,255,255,.25);">Los reportes automáticos aparecerán aquí una vez que los agentes estén activos.</div>
+    <div style="font-size:9px;color:rgba(255,255,255,.15);margin-top:4px;font-family:'JetBrains Mono',monospace;">Disponible en Fase 2</div>
+  </div>`;
+}
+</script>
+</body>
+</html>

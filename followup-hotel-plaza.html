@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Follow-up Hotel Plaza de Armas · Trev'ainnovate</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background: #f0f0f0; font-family: 'Inter', Arial, sans-serif; }
+
+.page { max-width: 700px; margin: 40px auto; padding: 0 16px 60px; }
+
+/* Meta bar */
+.meta { background: #05050e; border-radius: 10px; padding: 18px 24px; margin-bottom: 28px; font-size: 13px; line-height: 2; }
+.meta .row { display: flex; gap: 12px; }
+.meta .key { color: #00e5a0; font-weight: 700; min-width: 70px; }
+.meta .val { color: #f1f5f9; }
+.meta-title { color: #8892a4; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 14px; }
+
+/* Texto plano para copiar */
+.plain { background: #1a1a2e; border-radius: 10px; padding: 18px 24px; margin-bottom: 28px; }
+.plain-title { color: #8892a4; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 12px; }
+.plain pre { font-family: 'Courier New', monospace; font-size: 13px; color: #e2e8f0; line-height: 1.8; white-space: pre-wrap; word-break: break-word; }
+
+/* Email card */
+.email { background: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 32px rgba(0,0,0,0.12); }
+
+.email-header { background: #05050e; padding: 28px 40px; border-bottom: 1px solid rgba(0,229,160,0.15); }
+.email-header img { height: 44px; width: auto; display: block; }
+
+.email-content { padding: 44px 40px; }
+.email-content p { font-size: 15.5px; line-height: 1.85; color: #222; margin-bottom: 22px; }
+.saludo { font-size: 17px; font-weight: 700; color: #111; margin-bottom: 24px; }
+
+/* CTA box */
+.cta { background: #05050e; border: 1px solid rgba(0,229,160,0.25); border-radius: 12px; padding: 30px; margin: 32px 0; text-align: center; }
+.cta-tag { font-size: 11px; font-weight: 700; color: #00e5a0; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 10px; }
+.cta-titulo { font-size: 19px; font-weight: 800; color: #f1f5f9; margin-bottom: 8px; }
+.cta-sub { font-size: 13px; color: #8892a4; margin-bottom: 22px; }
+.cta-btn { display: inline-block; background: #00e5a0; color: #05050e; font-weight: 800; font-size: 15px; padding: 14px 34px; border-radius: 100px; text-decoration: none; letter-spacing: 0.2px; }
+.cta-url { font-family: 'Courier New', monospace; font-size: 12px; color: #8892a4; margin-top: 14px; word-break: break-all; }
+
+/* Firma */
+.firma { border-top: 1px solid #eaeaea; padding-top: 28px; margin-top: 32px; }
+.firma-nombre { font-size: 15px; font-weight: 700; color: #111; margin-bottom: 3px; }
+.firma-cargo { font-size: 13px; color: #888; margin-bottom: 14px; }
+.firma-links { font-size: 13px; color: #555; line-height: 2; }
+.firma-links a { color: #00e5a0; text-decoration: none; }
+
+/* Footer */
+.email-footer { background: #f7f7f7; padding: 18px 40px; text-align: center; font-size: 12px; color: #aaa; border-top: 1px solid #eee; line-height: 1.8; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- META -->
+  <div class="meta">
+    <div class="meta-title">📋 Datos para Zoho Mail</div>
+    <div class="row"><span class="key">PARA</span><span class="val">estefania101517@gmail.com</span></div>
+    <div class="row"><span class="key">DE</span><span class="val">contacto@trevainnovate.com</span></div>
+    <div class="row">
+      <span class="key">ASUNTO</span>
+      <span class="val" id="asunto-text">Lo que cambiaría en hotelplazadearmas.com en 30 días, Estefanía</span>
+      <button onclick="copiarAsunto()" id="btn-asunto" style="margin-left:10px;background:#1a1a2e;color:#00e5a0;border:1px solid #00e5a0;border-radius:6px;padding:3px 10px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;flex-shrink:0;">Copiar asunto</button>
+    </div>
+    <div class="row"><span class="key">NOTA</span><span class="val">Responder al hilo del correo anterior si es posible</span></div>
+  </div>
+
+  <!-- BOTÓN PRINCIPAL: COPIAR CON DISEÑO -->
+  <div style="margin-bottom:20px;background:#0f0f1e;border:1px solid rgba(0,229,160,0.3);border-radius:10px;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;">
+    <div>
+      <div style="color:#00e5a0;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px;">Paso 1</div>
+      <div style="color:#f1f5f9;font-size:13px;">Copia el email con diseño completo — pégalo directo en el cuerpo de Zoho Mail (modo rich text)</div>
+    </div>
+    <button id="btn-html" onclick="copiarConDiseno()" style="background:#00e5a0;color:#05050e;border:none;border-radius:8px;padding:11px 24px;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit;white-space:nowrap;flex-shrink:0;">
+      Copiar email
+    </button>
+  </div>
+
+  <!-- TEXTO PLANO (fallback) -->
+  <div class="plain">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+      <div class="plain-title" style="margin-bottom:0;">📄 Alternativa — texto plano</div>
+      <button id="btn-copy" onclick="copiarTexto()" style="background:#1a1a2e;color:#8892a4;border:1px solid #333;border-radius:8px;padding:7px 16px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;">
+        Copiar texto
+      </button>
+    </div>
+    <pre id="texto-plain">Estefanía,
+
+Le escribí hace unos días. Quiero ser concreto sobre lo que cambiaría en el hotel en los primeros 30 días.
+
+El sitio nuevo no es solo diseño. Es un sistema que trabaja cuando recepción no puede: el bot responde cotizaciones de habitaciones y del restaurante a las 2 de la mañana, captura el dato del cliente y agenda seguimiento automático. Las reservaciones que hoy se pierden porque nadie contestó a tiempo — esas se recuperan.
+
+En la propuesta hay tres opciones. La más básica ya incluye el sitio reconstruido y el bot activo desde $15,000 MXN.
+
+Si tiene 20 minutos esta semana:
+trevainnovate.com/propuesta-hotel-plaza
+
+Santiago Juárez · Trev'ainnovate
+223 129 4663 · contacto@trevainnovate.com</pre>
+  </div>
+
+  <script>
+  // ── Generar HTML con 100% estilos inline (compatible con Zoho, Gmail, Outlook) ──
+  function generarEmailHTML() {
+    return `<div style="max-width:600px;margin:0 auto;font-family:'Helvetica Neue',Arial,sans-serif;background:#ffffff;border-radius:8px;overflow:hidden;border:1px solid #e5e7eb;">
+
+  <!-- HEADER CON LOGO -->
+  <div style="background:#05050e;padding:28px 40px;border-bottom:2px solid #00e5a0;">
+    <table cellpadding="0" cellspacing="0" border="0">
+      <tr>
+        <td style="vertical-align:middle;">
+          <span style="font-family:'Helvetica Neue',Arial,sans-serif;font-size:22px;font-weight:900;color:#ffffff;letter-spacing:-0.5px;line-height:1;">Trev&#39;<span style="color:#00e5a0;">ainnovate</span></span>
+          <br><span style="font-size:11px;color:#8892a4;letter-spacing:1.5px;text-transform:uppercase;font-weight:600;">Automatización &middot; Seguridad &middot; Visibilidad Digital</span>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- CONTENIDO -->
+  <div style="padding:44px 40px;background:#ffffff;">
+    <p style="font-size:17px;font-weight:700;color:#111111;margin:0 0 24px 0;font-family:'Helvetica Neue',Arial,sans-serif;">Estefanía,</p>
+
+    <p style="font-size:15px;line-height:1.85;color:#222222;margin:0 0 22px 0;font-family:'Helvetica Neue',Arial,sans-serif;">Le escribí hace unos días. Quiero ser concreto sobre lo que cambiaría en el hotel en los primeros <strong>30 días</strong>.</p>
+
+    <!-- Highlight box -->
+    <div style="background:#f0fdf8;border-left:4px solid #00e5a0;padding:18px 20px;margin:0 0 22px 0;border-radius:0 8px 8px 0;">
+      <p style="margin:0;font-size:15px;color:#111111;line-height:1.75;font-family:'Helvetica Neue',Arial,sans-serif;">El sitio nuevo no es solo diseño. Es un sistema que trabaja cuando recepción no puede: el bot responde cotizaciones de habitaciones y del restaurante <strong>a las 2 de la mañana</strong>, captura el dato del cliente y agenda seguimiento automático. Las reservaciones que hoy se pierden porque nadie contestó a tiempo &mdash; <strong style="color:#059669;">esas se recuperan</strong>.</p>
+    </div>
+
+    <p style="font-size:15px;line-height:1.85;color:#222222;margin:0 0 22px 0;font-family:'Helvetica Neue',Arial,sans-serif;">En la propuesta hay tres opciones. La más básica ya incluye el <strong>sitio reconstruido y el bot activo</strong> desde <strong>$15,000 MXN</strong>.</p>
+
+    <p style="font-size:15px;line-height:1.85;color:#222222;margin:0 0 32px 0;font-family:'Helvetica Neue',Arial,sans-serif;">Si tiene <strong>20 minutos esta semana</strong>, con gusto la recorremos juntos. Sin compromiso.</p>
+
+    <!-- CTA BOX -->
+    <div style="background:#05050e;border:1px solid rgba(0,229,160,0.35);border-radius:12px;padding:30px;margin:0 0 32px 0;text-align:center;">
+      <p style="font-size:11px;font-weight:700;color:#00e5a0;letter-spacing:1.5px;text-transform:uppercase;margin:0 0 10px 0;font-family:'Helvetica Neue',Arial,sans-serif;">&#10022; Propuesta personalizada &middot; Hotel Plaza de Armas</p>
+      <p style="font-size:19px;font-weight:800;color:#f1f5f9;margin:0 0 8px 0;font-family:'Helvetica Neue',Arial,sans-serif;">Ver propuesta completa</p>
+      <p style="font-size:13px;color:#8892a4;margin:0 0 22px 0;font-family:'Helvetica Neue',Arial,sans-serif;">Bot &middot; Web &middot; Seguridad de correo &middot; Garantía de 30 días</p>
+      <a href="https://trevainnovate.com/propuesta-hotel-plaza" style="display:inline-block;background:#00e5a0;color:#05050e;font-weight:800;font-size:15px;padding:14px 34px;border-radius:100px;text-decoration:none;font-family:'Helvetica Neue',Arial,sans-serif;">Abrir propuesta &rarr;</a>
+      <p style="font-family:'Courier New',monospace;font-size:12px;color:#8892a4;margin:14px 0 0 0;">trevainnovate.com/propuesta-hotel-plaza</p>
+    </div>
+
+    <p style="font-size:15px;color:#222222;margin:0 0 8px 0;font-family:'Helvetica Neue',Arial,sans-serif;">Saludos,</p>
+
+    <!-- FIRMA -->
+    <div style="border-top:1px solid #eaeaea;padding-top:28px;margin-top:8px;">
+      <p style="font-size:15px;font-weight:700;color:#111111;margin:0 0 3px 0;font-family:'Helvetica Neue',Arial,sans-serif;">Santiago Juárez &middot; Trev&#39;ainnovate</p>
+      <p style="font-size:13px;color:#888888;margin:0 0 14px 0;font-family:'Helvetica Neue',Arial,sans-serif;">Automatización e infraestructura digital para hotelería y gastronomía</p>
+      <p style="font-size:13px;color:#555555;line-height:2;margin:0;font-family:'Helvetica Neue',Arial,sans-serif;">
+        📧 <a href="mailto:contacto@trevainnovate.com" style="color:#00e5a0;text-decoration:none;">contacto@trevainnovate.com</a><br>
+        📱 <a href="tel:+522231294663" style="color:#00e5a0;text-decoration:none;">223 129 4663</a><br>
+        🌐 <a href="https://trevainnovate.com" style="color:#00e5a0;text-decoration:none;">trevainnovate.com</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div style="background:#f7f7f7;padding:18px 40px;text-align:center;font-size:12px;color:#aaaaaa;border-top:1px solid #eeeeee;line-height:1.8;font-family:'Helvetica Neue',Arial,sans-serif;">
+    Correo enviado a Estefanía Navarro &middot; Hotel Plaza de Armas &middot; Querétaro<br>
+    Trev&#39;ainnovate &middot; contacto@trevainnovate.com &middot; trevainnovate.com
+  </div>
+
+</div>`;
+  }
+
+  // ── Copiar email con diseño HTML completo ──
+  async function copiarConDiseno() {
+    const btn = document.getElementById('btn-html');
+    const html = generarEmailHTML();
+
+    try {
+      await navigator.clipboard.write([
+        new ClipboardItem({
+          'text/html': new Blob([html], { type: 'text/html' }),
+          'text/plain': new Blob([document.getElementById('texto-plain').innerText], { type: 'text/plain' })
+        })
+      ]);
+      btn.textContent = '✓ Copiado — pega en Zoho';
+      btn.style.background = '#059669';
+    } catch (e) {
+      // Fallback para Safari / Firefox
+      const tmp = document.createElement('div');
+      tmp.innerHTML = html;
+      tmp.style.position = 'fixed';
+      tmp.style.left = '-9999px';
+      document.body.appendChild(tmp);
+      const range = document.createRange();
+      range.selectNodeContents(tmp);
+      window.getSelection().removeAllRanges();
+      window.getSelection().addRange(range);
+      document.execCommand('copy');
+      window.getSelection().removeAllRanges();
+      document.body.removeChild(tmp);
+      btn.textContent = '✓ Copiado';
+      btn.style.background = '#059669';
+    }
+    setTimeout(() => {
+      btn.textContent = 'Copiar email';
+      btn.style.background = '#00e5a0';
+    }, 3000);
+  }
+
+  // ── Copiar asunto ──
+  function copiarAsunto() {
+    const asunto = document.getElementById('asunto-text').innerText;
+    navigator.clipboard.writeText(asunto).then(() => {
+      const btn = document.getElementById('btn-asunto');
+      btn.textContent = '✓ Copiado';
+      setTimeout(() => { btn.textContent = 'Copiar asunto'; }, 2000);
+    });
+  }
+
+  // ── Copiar texto plano (fallback) ──
+  function copiarTexto() {
+    const texto = document.getElementById('texto-plain').innerText;
+    navigator.clipboard.writeText(texto).then(() => {
+      const btn = document.getElementById('btn-copy');
+      btn.textContent = '✓ Copiado';
+      setTimeout(() => { btn.textContent = 'Copiar texto'; }, 2500);
+    }).catch(() => {
+      const el = document.getElementById('texto-plain');
+      const range = document.createRange();
+      range.selectNodeContents(el);
+      window.getSelection().removeAllRanges();
+      window.getSelection().addRange(range);
+      document.execCommand('copy');
+      window.getSelection().removeAllRanges();
+    });
+  }
+  </script>
+
+  <!-- EMAIL HTML -->
+  <div class="email">
+
+    <div class="email-header">
+      <img src="https://trevainnovate.com/logo-wordmark.svg" alt="Trev'ainnovate">
+    </div>
+
+    <div class="email-content">
+      <p class="saludo">Estefanía,</p>
+
+      <p>Le escribí hace unos días. Quiero ser concreto sobre lo que cambiaría en el hotel en los primeros <strong>30 días</strong>.</p>
+
+      <div style="background:#fff8f0;border-left:3px solid #c4933f;padding:16px 20px;margin:0 0 22px;border-radius:0 8px 8px 0;">
+        <p style="margin:0;font-size:15px;color:#111;line-height:1.7;">El sitio nuevo no es solo diseño. Es un sistema que trabaja cuando recepción no puede: el bot responde cotizaciones de habitaciones y del restaurante <strong>a las 2 de la mañana</strong>, captura el dato del cliente y agenda seguimiento automático. Las reservaciones que hoy se pierden porque nadie contestó a tiempo — <strong style="color:#c4933f;">esas se recuperan</strong>.</p>
+      </div>
+
+      <p>En la propuesta hay tres opciones. La más básica ya incluye el <strong>sitio reconstruido y el bot activo</strong> desde <strong>$15,000 MXN</strong>.</p>
+
+      <p>Si tiene <strong>20 minutos esta semana</strong>, con gusto la recorremos juntos. Sin compromiso.</p>
+
+      <div class="cta">
+        <div class="cta-tag">✦ Propuesta personalizada · Hotel Plaza de Armas</div>
+        <div class="cta-titulo">Ver propuesta completa</div>
+        <div class="cta-sub">Bot · Web · Seguridad de correo · Garantía de 30 días</div>
+        <a class="cta-btn" href="https://trevainnovate.com/propuesta-hotel-plaza">
+          Abrir propuesta →
+        </a>
+        <div class="cta-url">trevainnovate.com/propuesta-hotel-plaza</div>
+      </div>
+
+      <p style="margin-bottom:8px">Saludos,</p>
+
+      <div class="firma">
+        <div class="firma-nombre">Santiago Juárez · Trev'ainnovate</div>
+        <div class="firma-cargo">Automatización e infraestructura digital para hotelería y gastronomía</div>
+        <div class="firma-links">
+          📧 <a href="mailto:contacto@trevainnovate.com">contacto@trevainnovate.com</a><br>
+          📱 <a href="tel:+522231294663">223 129 4663</a><br>
+          🌐 <a href="https://trevainnovate.com" target="_blank">trevainnovate.com</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="email-footer">
+      Correo enviado a Estefanía Navarro · Hotel Plaza de Armas · Querétaro<br>
+      Trev'ainnovate · contacto@trevainnovate.com · trevainnovate.com
+    </div>
+
+  </div>
+</div>
+</body>
+</html>
