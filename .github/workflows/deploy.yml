@@ -13,9 +13,9 @@ jobs:
         run: npm install -D wrangler
 
       - name: Deploy
-        # Usamos CLOUDFLARE_API_TOKEN directamente delante del comando
-        run: |
-          npx wrangler pages deploy . --project-name=trevainnovate --commit-dirty=true
+        run: npx wrangler pages deploy . --project-name=trevainnovate --commit-dirty=true
         env:
+          # Usamos los nombres exactos que tienes en tus Secrets
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_EMAIL: ${{ secrets.CF_MAIL }}
           CLOUDFLARE_ACCOUNT_ID: "21975dec590b6bf41f0c59d007f0251e"
