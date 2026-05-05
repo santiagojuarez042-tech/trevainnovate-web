@@ -726,18 +726,18 @@ window.onload = () => {
   const elInvSub    = document.getElementById('inv-sub');
   {
     document.getElementById('pricing-agentes').style.display = 'flex';
-    const titulosPorNivel = {
-      1: 'Plan Lite. <span class="grad">El primer paso.</span>',
-      2: gancho ? 'Bundle completo. <span class="grad">Todo incluido.</span>' : 'Plan Pro. <span class="grad">El más solicitado.</span>',
-      3: 'Plan Premium. <span class="grad">Ecosistema completo.</span>'
+    const titulosPorTier = {
+      Starter:    'Módulo de Capacidad. <span class="grad">El primer paso.</span>',
+      Growth:     gancho ? 'Bundle completo. <span class="grad">Todo incluido.</span>' : 'Dos Módulos. <span class="grad">El más solicitado.</span>',
+      Enterprise: 'Ecosistema Completo. <span class="grad">Control Total.</span>'
     };
-    const subsPorNivel = {
-      1: gancho ? 'Capacidad operativa completa: pedidos propios, coordinación y supervisión — un solo setup, sin costos separados.' : 'Setup único + operación mensual. Primer módulo operando en 3 días.',
-      2: gancho ? 'Sitio web + automatización + seguridad. Un solo setup. Sin costos separados. Sin sorpresas.' : 'Equipo de agentes funcionando 24/7. Sin ausentismo, sin costo variable.',
-      3: 'Ecosistema completo con seguridad administrada integrada. 24 horas, 7 días, sin pausas.'
+    const subsPorTier = {
+      Starter:    'Setup único + operación mensual. Primer Módulo de Capacidad operando en 3 días.',
+      Growth:     gancho ? 'Dos Módulos de Capacidad. Un solo setup. Sin costos separados. Sin sorpresas.' : 'Dos Módulos activos 24/7. Sin ausentismo, sin costo variable.',
+      Enterprise: '3 Módulos de Capacidad Operativa con seguridad administrada integrada. 24 horas, 7 días, sin pausas.'
     };
-    if(elInvTitulo) elInvTitulo.innerHTML = titulosPorNivel[nivel] || titulosPorNivel[1];
-    if(elInvSub)    elInvSub.textContent  = subsPorNivel[nivel]    || subsPorNivel[1];
+    if(elInvTitulo) elInvTitulo.innerHTML = titulosPorTier[tierName] || titulosPorTier['Starter'];
+    if(elInvSub)    elInvSub.textContent  = subsPorTier[tierName]    || subsPorTier['Starter'];
 
     // Gancho banner
     const elGancho = document.getElementById('gancho-banner');
