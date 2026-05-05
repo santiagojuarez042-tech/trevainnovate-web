@@ -243,10 +243,23 @@ const nivel    = parseInt(nivelRaw) || 1;
 const agentesParam  = P.get('agentes')   || '';
 const hallazgosParam= P.get('hallazgos') || '';
 const areasParam    = P.get('areas')     || '';
-const PRECIO_SETUP   = { 1: 12000, 2: 16000, 3: 30000 };
-const PRECIO_MENSUAL = { 1: 3500,  2: 2899,  3: 14500 };
-let setup    = parseInt(P.get('setup')   || '0') || PRECIO_SETUP[nivel]   || 0;
-let mensual  = parseInt(P.get('mensual') || '0') || PRECIO_MENSUAL[nivel] || 0;
+// ── Tier Engine — Cálculo automático por módulos activos ──────────────────
+const TIERS = {
+  'Starter':    { minModules: 1, setup: 15000, mrr: 4500,  label: 'Starter',    desc: '1 Módulo de Capacidad activo' },
+  'Growth':     { minModules: 2, setup: 25000, mrr: 7000,  label: 'Growth',     desc: '2 Módulos de Capacidad activos' },
+  'Enterprise': { minModules: 3, setup: 45000, mrr: 12000, label: 'Enterprise', desc: '3+ Módulos · Ecosistema completo' }
+};
+const MODULE_MAP = {
+  web:'Conversión de Leads', followup:'Conversión de Leads', coordinacion:'Gestión Operativa',
+  reporte:'Visibilidad y Seguridad', dmarc_agent:'Visibilidad y Seguridad',
+  sdr:'Conversión de Leads', onboarding:'Gestión Operativa', seguridad:'Visibilidad y Seguridad'
+};
+const moduleCount   = agentesParam ? [...new Set(agentesParam.split(',').map(k=>MODULE_MAP[k.trim()]||k.trim()).filter(Boolean))].length : 0;
+const tierName      = moduleCount >= 3 ? 'Enterprise' : moduleCount >= 2 ? 'Growth' : 'Starter';
+const currentTier   = TIERS[tierName];
+// Si vienen precios explícitos en la URL, éstos tienen prioridad (override por cliente)
+let setup    = parseInt(P.get('setup')   || '0') || currentTier.setup;
+let mensual  = parseInt(P.get('mensual') || '0') || currentTier.mrr;
 const segmento   = P.get('segmento')   || '';  // pyme_pequena | pyme_mediana | empresa
 const objetivo   = P.get('objetivo')   || '';  // frase síntesis de la estrategia
 const estrategia = P.get('estrategia') || '';  // bullets separados por | → A → B → C
@@ -559,9 +572,13 @@ window.onload = () => {
   document.querySelectorAll('[data-dominio]').forEach(el => el.textContent = dominio || 'su dominio');
   document.querySelectorAll('[data-fecha]').forEach(el => el.textContent = fecha);
 
-  // Nivel badge en portada
+  // Nivel badge en portada — muestra Tier calculado
   const nb = document.getElementById('nivel-badge');
-  if(nb){ nb.textContent = `Nivel ${nivel} — ${NIVEL_NAME[nivel] || 'Personalizado'}`; nb.style.color = NIVEL_COLOR[nivel]; }
+  const TIER_COLOR = { Starter: '#f59e0b', Growth: '#10b981', Enterprise: '#818cf8' };
+  if(nb){
+    nb.textContent = `${currentTier.label} · ${currentTier.desc}`;
+    nb.style.color = TIER_COLOR[tierName] || '#94a3b8';
+  }
 
   // DNS cards
   ['spf','dmarc','dkim'].forEach(k => {
