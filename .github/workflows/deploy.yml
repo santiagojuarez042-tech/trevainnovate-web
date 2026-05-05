@@ -15,6 +15,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # Este paso instala la versión más reciente de Wrangler (v4+)
+      # Esto soluciona el 'exit code 1' cuando wrangler-action intenta usar una versión antigua
+      - name: Install Wrangler latest
+        run: npm install -D wrangler@latest
+
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/wrangler-action@v3
         with:
