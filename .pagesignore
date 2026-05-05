@@ -1,0 +1,9 @@
+node_modules/
+*.pdf
+*.zip
+package.json
+package-lock.json
+generar-*.js
+cf-deploy.js
+overhaul-gasolineras.js
+deploy.zip
