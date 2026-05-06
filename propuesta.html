@@ -387,7 +387,7 @@ const AGENTS = {
     resultado:'De diagnóstico a propuesta enviada en menos de 2 minutos.'
   },
   whatsapp: {
-    icon:'💬', name:'Atención WhatsApp', tipo:'agente', fase:3,
+    icon:'💬', name:'Atención WhatsApp', tipo:'agente', fase:2,
     match:['whatsapp','atención','consulta','respuesta','cliente','mensaj'],
     resuelve:'Clientes esperan respuesta fuera de horario — cada mensaje sin respuesta es una oportunidad perdida.',
     detalle:['Responde preguntas frecuentes y cotiza en segundos','Disponible 24/7, incluso fines de semana y festivos','Escala a humano solo cuando la situación lo requiere','Integrado con inventario y catálogo en tiempo real'],
@@ -786,6 +786,31 @@ window.onload = () => {
   document.querySelectorAll('.page-diag').forEach(p=>p.style.display=hasDiag?'':'none');
   document.querySelectorAll('.page-agentes').forEach(p=>p.style.display=hasAgentes?'':'none');
 
+  // ── Pilares dinámicos — cada agente activo genera su pilar ────────────────
+  const PILAR_MAP = {
+    web:         { icon:'🛒', title:'Canal Propio sin Comisiones',    desc:'Sitio web con pedidos directos vía WhatsApp — cada venta ingresa completa, sin ceder el 30% a delivery.', color:'rgba(0,229,160,.05)', border:'rgba(0,229,160,.18)' },
+    whatsapp:    { icon:'💬', title:'Atención al Cliente 24/7',        desc:'Responde, cotiza y toma pedidos por WhatsApp a cualquier hora — sin que nadie tenga que estar al teléfono.', color:'rgba(59,130,246,.05)', border:'rgba(59,130,246,.18)' },
+    reporte:     { icon:'📊', title:'Visibilidad Operativa en Tiempo Real', desc:'Tablero diario por sucursal: ventas, inventario y anomalías — sin tener que ir a preguntar.', color:'rgba(139,92,246,.05)', border:'rgba(139,92,246,.18)' },
+    coordinacion:{ icon:'⚙️', title:'Coordinación Automatizada',       desc:'Inventario, transferencias y tareas — de papel y mensajes manuales a registro automático.', color:'rgba(59,130,246,.05)', border:'rgba(59,130,246,.18)' },
+    sdr:         { icon:'🎯', title:'Prospección Autónoma',             desc:'Identifica y contacta prospectos sin intervención humana — flujo constante de oportunidades.', color:'rgba(245,158,11,.05)', border:'rgba(245,158,11,.18)' },
+    followup:    { icon:'📧', title:'Seguimiento de Leads',             desc:'Cada prospecto recibe el mensaje correcto en el momento correcto — cero caídos por falta de seguimiento.', color:'rgba(245,158,11,.05)', border:'rgba(245,158,11,.18)' },
+    dmarc_agent: { icon:'🛡️', title:'Dominio Blindado 24/7',           desc:'SPF, DKIM y DMARC activos desde el día 1 — nadie puede enviar correos haciéndose pasar por la empresa.', color:'rgba(139,92,246,.05)', border:'rgba(139,92,246,.18)' },
+    onboarding:  { icon:'🚀', title:'Activación de Clientes',          desc:'Cada cliente nuevo onboarded automáticamente desde el día 1 — sin intervención manual en casos estándar.', color:'rgba(0,229,160,.05)', border:'rgba(0,229,160,.18)' },
+  };
+  const pilaresGrid = document.getElementById('pilares-grid');
+  if(pilaresGrid && allKeys.length > 0){
+    const pilaresActivos = allKeys.filter(k => PILAR_MAP[k]);
+    pilaresGrid.style.gridTemplateColumns = `repeat(${Math.min(pilaresActivos.length, 3)}, 1fr)`;
+    pilaresGrid.innerHTML = pilaresActivos.map(k => {
+      const p = PILAR_MAP[k];
+      return `<div style="background:${p.color};border:1px solid ${p.border};border-radius:7px;padding:8px 10px;">
+        <div style="font-size:13px;margin-bottom:3px;">${p.icon}</div>
+        <div style="font-size:8.5px;font-weight:700;color:var(--white);margin-bottom:2px;">${p.title}</div>
+        <div style="font-size:7.5px;color:var(--muted);line-height:1.45;">${p.desc}</div>
+      </div>`;
+    }).join('');
+  }
+
   renderMetricasReales();
   upscaleInlineTypography();
 
@@ -1087,32 +1112,16 @@ window.onload = () => {
     <!-- Componentes detallados — poblados por JS -->
     <div id="agentes-lista"></div>
 
-    <!-- Contexto estratégico restaurado (histórico 91e9994) -->
-    <div class="block green" style="margin-top:10px;">
+    <!-- Bloque 3 pilares — dinámico según agentes activos -->
+    <div id="pilares-bloque" class="block green" style="margin-top:10px;">
       <div style="margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;">
-        <div class="h3" style="font-size:11px;">Operación Digital 24/7 — 3 pilares, 1 sistema</div>
+        <div class="h3" style="font-size:11px;" id="pilares-titulo">Sistema Operativo Digital — 1 infraestructura, sin fricción</div>
         <div style="text-align:center;flex-shrink:0;">
           <div style="font-size:20px;font-weight:900;color:var(--green);font-family:'JetBrains Mono',monospace;">24/7</div>
           <div style="font-size:7.5px;color:var(--muted);">Operación continua</div>
         </div>
       </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;margin-bottom:8px;">
-        <div style="background:rgba(0,229,160,.05);border:1px solid rgba(0,229,160,.18);border-radius:7px;padding:8px 10px;">
-          <div style="font-size:13px;margin-bottom:3px;">🛒</div>
-          <div style="font-size:8.5px;font-weight:700;color:var(--white);margin-bottom:2px;">Centro de Pedidos Propios</div>
-          <div style="font-size:7.5px;color:var(--muted);line-height:1.45;">Canal directo sin comisiones — cada venta ingresa completa al negocio</div>
-        </div>
-        <div style="background:rgba(59,130,246,.05);border:1px solid rgba(59,130,246,.18);border-radius:7px;padding:8px 10px;">
-          <div style="font-size:13px;margin-bottom:3px;">⚙️</div>
-          <div style="font-size:8.5px;font-weight:700;color:var(--white);margin-bottom:2px;">Coordinación Automatizada</div>
-          <div style="font-size:7.5px;color:var(--muted);line-height:1.45;">Inventario, transferencias y reportes — de papel y WhatsApp a registro automático</div>
-        </div>
-        <div style="background:rgba(139,92,246,.05);border:1px solid rgba(139,92,246,.18);border-radius:7px;padding:8px 10px;">
-          <div style="font-size:13px;margin-bottom:3px;">🧠</div>
-          <div style="font-size:8.5px;font-weight:700;color:var(--white);margin-bottom:2px;">Supervisor Digital 24/7</div>
-          <div style="font-size:7.5px;color:var(--muted);line-height:1.45;">Monitoreo continuo, alertas de excepción y log de incidencias — sin intervención manual en operación normal</div>
-        </div>
-      </div>
+      <div id="pilares-grid" style="display:grid;gap:7px;margin-bottom:8px;"></div>
       <p style="font-size:8.5px;color:rgba(255,255,255,.4);line-height:1.5;margin:0;">Infraestructura propia — ningún módulo depende de plataformas externas para operar.</p>
     </div>
   </div>
