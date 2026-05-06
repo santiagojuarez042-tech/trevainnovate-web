@@ -250,9 +250,9 @@ const TIERS = {
   'Enterprise': { minModules: 3, setup: 45000, mrr: 12000, label: 'Enterprise', desc: '3+ Módulos · Ecosistema completo' }
 };
 const MODULE_MAP = {
-  web:'Conversión de Leads', followup:'Conversión de Leads', coordinacion:'Gestión Operativa',
-  reporte:'Visibilidad y Seguridad', dmarc_agent:'Visibilidad y Seguridad',
-  sdr:'Conversión de Leads', onboarding:'Gestión Operativa', seguridad:'Visibilidad y Seguridad'
+  web:'Conversión de Leads', followup:'Conversión de Leads', sdr:'Conversión de Leads', whatsapp:'Conversión de Leads',
+  coordinacion:'Gestión Operativa', onboarding:'Gestión Operativa', facturacion:'Gestión Operativa',
+  reporte:'Visibilidad y Seguridad', dmarc_agent:'Visibilidad y Seguridad', seguridad:'Visibilidad y Seguridad', threat:'Visibilidad y Seguridad', incident:'Visibilidad y Seguridad'
 };
 const moduleCount   = agentesParam ? [...new Set(agentesParam.split(',').map(k=>MODULE_MAP[k.trim()]||k.trim()).filter(Boolean))].length : 0;
 const tierName      = moduleCount >= 3 ? 'Enterprise' : moduleCount >= 2 ? 'Growth' : 'Starter';
@@ -363,7 +363,7 @@ const AGENTS = {
     match:['web','sitio','presencia','digital','google','internet','página'],
     resuelve:'Sin presencia web → el negocio no existe para clientes que buscan en Google.',
     detalle:['Canal de pedidos directo vía WhatsApp — cada venta sin comisión de terceros','SEO local activo: clientes que buscan en Google llegan al negocio, no a la competencia','Dashboard de visitas y conversiones en tiempo real — Cloudflare Analytics incluido','Entrega en 5–7 días · infraestructura propia · sin dependencia de agencia futura'],
-    resultado:'Resultado esperado (60 días): canal propio activo 24/7 · cada pedido directo recupera el 30% que se va a plataformas de delivery.'
+    resultado:'Resultado esperado (60 días): canal propio activo 24/7 · cada pedido directo recupera el 30% que se va a delivery. Incluye blindaje SPF/DMARC/DKIM del dominio al activar.'
   },
   sdr: {
     icon:'🎯', name:'SDR Comercial', tipo:'agente', fase:2,
@@ -652,8 +652,8 @@ window.onload = () => {
   }
 
   // Objetivo/estrategia prominente — Boba Station: valores hardcoded si no vienen por URL
-  const objetivoFinal   = objetivo   || (clienteNormalizado.includes('boba station') ? 'Recuperar $71K/año en comisiones de delivery + liberar 20h/mes de carga operativa con 4 módulos activos 24/7.' : '');
-  const estrategiaFinal = estrategia || (clienteNormalizado.includes('boba station') ? 'Canal Propio Activo|Coordinación Automatizada|Tablero Diario por Sucursal|Dominio Blindado' : '');
+  const objetivoFinal   = objetivo   || (clienteNormalizado.includes('boba station') ? 'Recuperar $71K/año en comisiones de delivery + atención al cliente 24/7 + visibilidad total de 2 sucursales. Sin agregar personal.' : '');
+  const estrategiaFinal = estrategia || (clienteNormalizado.includes('boba station') ? 'Canal Propio sin Comisiones|Atención WhatsApp 24/7|Tablero Diario por Sucursal|Dominio Blindado al Activar' : '');
 
   if(objetivoFinal || estrategiaFinal){
     const blk = document.getElementById('estrategia-block');
