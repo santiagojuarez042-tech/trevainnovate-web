@@ -317,7 +317,7 @@ const DIAG_CATEGORIES = [
     key: 'C',
     name: 'Control Administrativo',
     score: 46,
-    detail: 'Coordinación manual de nómina, pedidos y tareas clave.',
+    detail: 'Coordinación manual de pedidos, pagos y tareas clave.',
     hallazgos: [
       'Se invierten 2 a 5 horas por semana en coordinación manual.',
       'Dependencia de mensajes y seguimiento humano para tareas repetitivas.',
@@ -572,12 +572,18 @@ window.onload = () => {
   document.querySelectorAll('[data-dominio]').forEach(el => el.textContent = dominio || 'su dominio');
   document.querySelectorAll('[data-fecha]').forEach(el => el.textContent = fecha);
 
-  // Nivel badge en portada — muestra Tier calculado
+  // Nivel badge en portada — si hay precio override, muestra "Precio de Lanzamiento"
   const nb = document.getElementById('nivel-badge');
   const TIER_COLOR = { Starter: '#f59e0b', Growth: '#10b981', Enterprise: '#818cf8' };
+  const hasOverride = parseInt(P.get('setup')||'0') > 0 || parseInt(P.get('mensual')||'0') > 0;
   if(nb){
-    nb.textContent = `${currentTier.label} · ${currentTier.desc}`;
-    nb.style.color = TIER_COLOR[tierName] || '#94a3b8';
+    if(hasOverride){
+      nb.textContent = 'Precio de Lanzamiento · Oferta personalizada';
+      nb.style.color = '#00e5a0';
+    } else {
+      nb.textContent = `${currentTier.label} · ${currentTier.desc}`;
+      nb.style.color = TIER_COLOR[tierName] || '#94a3b8';
+    }
   }
 
   // DNS cards
@@ -630,7 +636,13 @@ window.onload = () => {
   }
 
   // ── Slide Solución: objetivo + flujo operativo + componentes detallados ─────
-  const hallazgosArr = hallazgosParam ? hallazgosParam.split('|').map(s=>s.trim()).filter(Boolean) : [];
+  // Boba Station: si no vienen hallazgos por URL, usar los del DIAG_CATEGORIES hardcoded
+  const bobaHallazgosDefault = clienteNormalizado.includes('boba station')
+    ? DIAG_CATEGORIES.flatMap(c => c.hallazgos)
+    : [];
+  const hallazgosArr = hallazgosParam
+    ? hallazgosParam.split('|').map(s=>s.trim()).filter(Boolean)
+    : bobaHallazgosDefault;
 
   // Función: busca el hallazgo más relevante para un agente
   function findHallazgo(agentKey) {
@@ -742,7 +754,7 @@ window.onload = () => {
     };
     const subsPorTier = {
       Starter:    'Setup único + operación mensual. Primer Módulo de Capacidad operando en 3 días.',
-      Growth:     gancho ? 'Dos Módulos de Capacidad. Un solo setup. Sin costos separados. Sin sorpresas.' : 'Dos Módulos activos 24/7. Sin ausentismo, sin costo variable.',
+      Growth:     gancho ? 'Dos Módulos de Capacidad. Un solo setup. Sin costos separados. Sin sorpresas.' : 'Dos Módulos activos 24/7. Sin fricción, sin costo variable.',
       Enterprise: '3 Módulos de Capacidad Operativa con seguridad administrada integrada. 24 horas, 7 días, sin pausas.'
     };
     if(elInvTitulo) elInvTitulo.innerHTML = titulosPorTier[tierName] || titulosPorTier['Starter'];
@@ -1161,7 +1173,7 @@ window.onload = () => {
       <!-- Pricing: equipo de agentes -->
       <div id="pricing-agentes" style="display:none;flex-direction:column;gap:8px;">
         <div class="block green" style="padding:16px 18px;">
-          <div style="font-size:8px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.14em;margin-bottom:6px;">Activación · pago único</div>
+          <div style="font-size:8px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.14em;margin-bottom:6px;">Derecho de Sistema · pago único</div>
           <div id="price-setup-agentes" style="font-size:26px;font-weight:900;color:var(--green);font-family:'JetBrains Mono',monospace;line-height:1;margin-bottom:4px;">—</div>
           <div style="font-size:9px;color:var(--muted);margin-bottom:10px;">Activas la capacidad operativa — no pagas horas, pagas el sistema funcionando</div>
           <div class="check-list">
@@ -1172,7 +1184,7 @@ window.onload = () => {
           </div>
         </div>
         <div class="block blue" style="padding:16px 18px;">
-          <div style="font-size:8px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.14em;margin-bottom:6px;">Capacidad mensual · recurrente</div>
+          <div style="font-size:8px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.14em;margin-bottom:6px;">Retainer Operativo · mensual</div>
           <div id="price-mensual" style="font-size:26px;font-weight:900;color:var(--blue);font-family:'JetBrains Mono',monospace;line-height:1;margin-bottom:4px;">—</div>
           <div style="font-size:9px;color:var(--muted);margin-bottom:10px;">El sistema corre — capacidad operativa activa, sin intervención manual</div>
           <div class="check-list">
@@ -1275,7 +1287,7 @@ window.onload = () => {
       <div style="background:rgba(239,68,68,.05);border:1px solid rgba(239,68,68,.15);border-radius:8px;padding:10px 12px;">
         <div style="font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;">Empleado equivalente</div>
         <div style="font-size:16px;font-weight:900;color:#ef4444;font-family:'JetBrains Mono',monospace;">$18–28K/mes</div>
-        <div style="font-size:8px;color:var(--muted);margin-top:2px;">sueldo + IMSS + prestaciones · 1 persona · horario fijo</div>
+        <div style="font-size:8px;color:var(--muted);margin-top:2px;">costo total real · 1 persona · horario fijo · sin capacidad 24/7</div>
       </div>
       <div style="background:rgba(245,158,11,.05);border:1px solid rgba(245,158,11,.15);border-radius:8px;padding:10px 12px;">
         <div style="font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;">Un solo incidente BEC</div>
