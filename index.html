@@ -124,7 +124,9 @@ body { background: var(--bg); font-family: 'Inter', sans-serif; color: var(--whi
 .hero-sub { font-size:18px; color:var(--muted); line-height:1.65; max-width:580px; margin-bottom:38px; }
 .hero-ctas { display:flex; gap:14px; flex-wrap:wrap; margin-bottom:56px; }
 
-.hero-stats { display:flex; gap:40px; flex-wrap:wrap; padding-top:36px; border-top:1px solid var(--border); }
+.hero-stats-wrap { padding-top:36px; border-top:1px solid var(--border); margin-top:8px; }
+.hero-stats-label { font-size:10px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:var(--green); margin-bottom:18px; opacity:.85; }
+.hero-stats { display:flex; gap:40px; flex-wrap:wrap; }
 .hstat { }
 .hstat-val { font-size:30px; font-weight:900; line-height:1; margin-bottom:5px; }
 .hstat-val.g { color:var(--green); }
@@ -1223,8 +1225,8 @@ a.audit-cta-btn:hover { transform:translateY(-2px); box-shadow:0 4px 16px rgba(0
       <!-- Terminal: centrada en 100vh — misma posición que boot terminal -->
       <div class="hero-terminal-wrap">
         <div class="hero-intro">
-          <h1 class="hero-intro-h">Gestione y proteja múltiples empresas<br>desde una plataforma unificada.</h1>
-          <p class="hero-intro-sub">Audite la seguridad de todos sus clientes en paralelo — análisis completo en minutos, sin costo.</p>
+          <h1 class="hero-intro-h">Proteja su empresa y automatice<br>su operación desde una sola plataforma.</h1>
+          <p class="hero-intro-sub">Diagnostique gratis su exposición y su potencial de automatización en 30 segundos.</p>
         </div>
         <div class="dp-terminal">
           <div class="dp-term-bar">
@@ -1250,18 +1252,20 @@ a.audit-cta-btn:hover { transform:translateY(-2px); box-shadow:0 4px 16px rgba(0
             <span class="threat-dot"></span>
             <span class="threat-text"><span class="threat-num" id="threat-num">1,247</span> amenazas bloqueadas hoy en México</span>
           </div>
-          <span class="sec-label reveal" style="display:block;margin-bottom:20px;">Ciberseguridad · México</span>
+          <span class="sec-label reveal" style="display:block;margin-bottom:20px;">Plataforma · Ciberseguridad + Automatización · México</span>
           <h2 class="hero-h1 reveal d1">
-            Sus clientes dependen de usted para<br>asegurar su infraestructura. Una plataforma<br><span class="grad">para gestionar todas las amenazas.</span>
+            Su empresa puede ser suplantada<br>en este momento — y su operación<br><span class="grad">depende de personas, no de procesos.</span>
           </h2>
           <p class="hero-sub reveal d2" style="font-size:16px;">
-            Si sus clientes no están protegidos, expone su reputación. Gestione la seguridad de correo de todos con reglas centralizadas, visibilidad única y respuesta coordinada.
+            Trev'ainnovate combina ciberseguridad gestionada y automatización con IA en una sola plataforma. Blindamos su correo, automatizamos sus procesos y le damos visibilidad total — sin cambiar lo que ya funciona.
           </p>
           <div class="hero-ctas reveal d3">
-            <a href="/diagnostico" class="btn btn-p">Evaluar viabilidad multitenant →</a>
+            <a href="/diagnostico" class="btn btn-p">Hacer diagnóstico gratuito →</a>
             <a href="#como-funciona" class="btn btn-g">Ver cómo funciona</a>
           </div>
-          <div class="hero-stats reveal d4">
+          <div class="hero-stats-wrap reveal d4">
+            <div class="hero-stats-label">Lo que entregamos · Métricas verificables</div>
+            <div class="hero-stats">
             <div class="hstat">
               <div class="hstat-val g" data-count="99.2" data-suffix="%">0%</div>
               <div class="hstat-label">Phishing bloqueado</div>
@@ -1269,13 +1273,14 @@ a.audit-cta-btn:hover { transform:translateY(-2px); box-shadow:0 4px 16px rgba(0
             </div>
             <div class="hstat">
               <div class="hstat-val b" data-count="62" data-suffix="×">0×</div>
-              <div class="hstat-label">Más eficaz que Google</div>
+              <div class="hstat-label">Más eficaz que Google Workspace</div>
               <div class="hstat-ref">Benchmark independiente</div>
             </div>
             <div class="hstat">
               <div class="hstat-val p" data-count="695" data-suffix="%">0%</div>
-              <div class="hstat-label">ROI documentado</div>
+              <div class="hstat-label">ROI documentado en automatización</div>
               <div class="hstat-ref">Casos reales · 2025</div>
+            </div>
             </div>
           </div>
         </div>
@@ -1294,7 +1299,7 @@ a.audit-cta-btn:hover { transform:translateY(-2px); box-shadow:0 4px 16px rgba(0
               <div class="score-track"><div class="score-fill" id="score-fill"></div></div>
             </div>
             <div id="audit-cta" class="audit-cta" style="display:none;">
-              <div class="audit-cta-txt"><strong>Su dominio está expuesto.</strong> Blindaje completo en menos de 24h.</div>
+              <div class="audit-cta-txt"><strong>Su dominio está expuesto.</strong> Blindaje gestionado en menos de 48h.</div>
               <a href="/diagnostico" class="audit-cta-btn">Ver mi propuesta →</a>
             </div>
           </div>
@@ -1308,7 +1313,7 @@ a.audit-cta-btn:hover { transform:translateY(-2px); box-shadow:0 4px 16px rgba(0
           <div>
             <div style="font-size:9px;font-weight:700;color:var(--amber);text-transform:uppercase;letter-spacing:.1em;margin-bottom:2px;">Plan Lite</div>
             <div style="font-size:18px;font-weight:900;color:var(--amber);font-family:'JetBrains Mono',monospace;white-space:nowrap;">$12k + $3.5k<span style="font-size:11px;font-weight:600;">/mes</span></div>
-            <div style="font-size:10px;color:var(--muted);">Primer módulo en 3 días</div>
+            <div style="font-size:10px;color:var(--muted);">Blindaje activo en 3 días</div>
           </div>
         </div>
         <div style="display:flex;align-items:center;gap:10px;padding:14px 20px;border-radius:10px;background:rgba(0,229,160,.07);border:1px solid rgba(0,229,160,.2);flex:1;min-width:160px;position:relative;">
@@ -1433,29 +1438,29 @@ a.audit-cta-btn:hover { transform:translateY(-2px); box-shadow:0 4px 16px rgba(0
   <div class="container">
     <div class="sec-head center reveal">
       <span class="sec-label b">Ciberseguridad administrada</span>
-      <h2 class="sec-title">De la evaluación al despliegue<br><span style="background:linear-gradient(135deg,#3b82f6,#8b5cf6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">en menos de 48 horas por tenant.</span></h2>
-      <p class="sec-sub">Sin cambiar los proveedores de sus clientes. Sin interrumpir operaciones. Cada tenant operando independientemente.</p>
+      <h2 class="sec-title">Del diagnóstico al blindaje<br><span style="background:linear-gradient(135deg,#3b82f6,#8b5cf6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">en menos de 48 horas.</span></h2>
+      <p class="sec-sub">Sin cambiar su proveedor de correo. Sin interrumpir operaciones. Su empresa protegida y operando con reglas claras desde el primer día.</p>
     </div>
     <div class="protect-steps reveal">
       <div class="ps-step">
         <span class="ps-num">Paso 01</span>
         <span class="ps-ico">🔍</span>
         <h3 class="ps-title">Diagnóstico gratuito</h3>
-        <p class="ps-desc">Analizamos la exposición de cada cliente: infraestructura, configuración, vectores activos. Reporte ejecutivo en 20 minutos por tenant.</p>
+        <p class="ps-desc">Analizamos su exposición real: correo corporativo, DNS, configuración, vectores activos. En 30 minutos sabe exactamente qué riesgos tiene y por dónde empezar.</p>
       </div>
       <div class="ps-arrow-wrap"><span>→</span></div>
       <div class="ps-step">
         <span class="ps-num">Paso 02</span>
         <span class="ps-ico">⚡</span>
         <h3 class="ps-title">Activación en 24 horas</h3>
-        <p class="ps-desc">Desplegamos la protección en cada tenant de forma independiente. Sin migración, sin downtime, sin cambios operacionales.</p>
+        <p class="ps-desc">Activamos la capa de protección sobre su correo actual. Sin migración, sin tiempo fuera de servicio, sin capacitación adicional para su equipo.</p>
       </div>
       <div class="ps-arrow-wrap"><span>→</span></div>
       <div class="ps-step">
         <span class="ps-num">Paso 03</span>
         <span class="ps-ico">🛡️</span>
         <h3 class="ps-title">Monitoreo IA 24/7</h3>
-        <p class="ps-desc">Monitoreo continuo con 250+ indicadores por correo en cada tenant. Alertas coordinadas, respuesta centralizada. Sus clientes operan con tranquilidad.</p>
+        <p class="ps-desc">250+ indicadores analizados por correo en tiempo real. SecOps activo siempre. Usted se enfoca en operar — nosotros absorbemos los ataques antes de que lleguen.</p>
       </div>
     </div>
     <div class="protect-features reveal">
@@ -1475,7 +1480,7 @@ a.audit-cta-btn:hover { transform:translateY(-2px); box-shadow:0 4px 16px rgba(0
     <div class="bv2-wrap reveal">
       <div class="bv2-close">Su correo está blindado.</div>
       <p class="bv2-pivot">Ahora la siguiente pregunta:</p>
-      <h2 class="bv2-q">¿Cuántas operaciones de sus clientes<br>dependen de intervención manual o<br><span class="grad">están expuestas por falta de escala?</span></h2>
+      <h2 class="bv2-q">¿Cuántos procesos de su empresa<br>siguen dependiendo de<br><span class="grad">una persona específica?</span></h2>
       <div class="bv2-stat">
         <span class="bv2-stat-num">60%</span>
         <span class="bv2-stat-txt">
@@ -1492,7 +1497,7 @@ a.audit-cta-btn:hover { transform:translateY(-2px); box-shadow:0 4px 16px rgba(0
   <div class="container">
     <div class="sec-head center reveal">
       <span class="sec-label">Automatización en vivo</span>
-      <h2 class="sec-title">Las operaciones de sus clientes,<br><span class="grad">escalables y resilientes sin intervención.</span></h2>
+      <h2 class="sec-title">Su operación,<br><span class="grad">independiente de quien esté disponible.</span></h2>
     </div>
     <div class="af-layout">
       <!-- Left: Explanation panel (updates with each node) -->
@@ -1529,8 +1534,8 @@ a.audit-cta-btn:hover { transform:translateY(-2px); box-shadow:0 4px 16px rgba(0
   <div class="container" style="position:relative;">
     <div class="sec-head center reveal">
       <span class="sec-label">Cómo funciona</span>
-      <h2 class="sec-title">Cómo escalan sus clientes.<br><span class="grad">Antes y después de integrar la plataforma.</span></h2>
-      <p class="sec-sub" style="margin:0 auto;">Sin promesas abstractas. Así crece la operación de sus clientes cuando tienen una infraestructura de plataforma.</p>
+      <h2 class="sec-title">El mismo proceso.<br><span class="grad">Antes y después de Trev'ainnovate.</span></h2>
+      <p class="sec-sub" style="margin:0 auto;">Sin promesas abstractas. Así se ve la operación real de una empresa antes y después de integrar agentes con IA.</p>
     </div>
 
     <div class="vv-wrapper reveal">
@@ -1765,7 +1770,7 @@ a.audit-cta-btn:hover { transform:translateY(-2px); box-shadow:0 4px 16px rgba(0
   <div class="container">
     <div class="sec-head center reveal">
       <span class="sec-label">Datos del sector</span>
-      <h2 class="sec-title">Los números que todo proveedor de servicios<br>debería entender</h2>
+      <h2 class="sec-title">Los números que todo empresario<br>debería conocer</h2>
     </div>
 
     <!-- Grupo: Ciberseguridad -->
@@ -1879,8 +1884,8 @@ a.audit-cta-btn:hover { transform:translateY(-2px); box-shadow:0 4px 16px rgba(0
   <div class="container">
     <div class="sec-head reveal">
       <span class="sec-label">Casos reales</span>
-      <h2 class="sec-title">Casos de implementación multitenant.</h2>
-      <p class="sec-sub">No proyecciones. Resultados reales de múltiples tenants en operación.</p>
+      <h2 class="sec-title">Resultados documentados.</h2>
+      <p class="sec-sub">No proyecciones. Números reales de implementaciones activas en México.</p>
     </div>
     <div class="casos-grid">
       <div class="caso reveal" style="border-color:rgba(59,130,246,.15);">
@@ -1937,8 +1942,8 @@ a.audit-cta-btn:hover { transform:translateY(-2px); box-shadow:0 4px 16px rgba(0
   <div class="container">
     <div class="sec-head center reveal">
       <span class="sec-label">Diagnóstico express — 60 segundos</span>
-      <h2 class="sec-title">¿Cuán vulnerables están sus clientes<br><span class="grad">realmente?</span></h2>
-      <p class="sec-sub">5 preguntas. Resultado inmediato. Plan de despliegue personalizado según perfil de riesgo de cada tenant.</p>
+      <h2 class="sec-title">¿Cuán expuesta está<br>su empresa <span class="grad">realmente?</span></h2>
+      <p class="sec-sub">5 preguntas. Resultado inmediato. Plan de acción personalizado según su perfil de riesgo.</p>
     </div>
     <div class="quiz-inner reveal">
       <div class="quiz-prog" id="quiz-prog"></div>
@@ -2017,8 +2022,8 @@ a.audit-cta-btn:hover { transform:translateY(-2px); box-shadow:0 4px 16px rgba(0
   <div class="container">
     <div class="sec-head reveal">
       <span class="sec-label">Stack técnico</span>
-      <h2 class="sec-title">La infraestructura multitenant<br><span class="grad">detrás de cada despliegue.</span></h2>
-      <p class="sec-sub">No promesas genéricas. Aislamiento de datos real, configuración por tenant, cero margen de error.</p>
+      <h2 class="sec-title">La infraestructura<br><span class="grad">detrás de cada entrega.</span></h2>
+      <p class="sec-sub">No promesas genéricas. Herramientas reales, configuración precisa por empresa, cero margen de error.</p>
     </div>
     <div class="infra-grid">
       <div class="infra-card reveal">
@@ -2122,8 +2127,8 @@ a.audit-cta-btn:hover { transform:translateY(-2px); box-shadow:0 4px 16px rgba(0
   <div class="container">
     <div class="sec-head center reveal">
       <span class="sec-label">Módulos de Capacidad Operativa</span>
-      <h2 class="sec-title">No son proyectos por cliente.<br><span class="grad">Son módulos que escalan a cientos de tenants.</span></h2>
-      <p class="sec-sub">Capacidades empresariales que cubren las operaciones críticas. Cada una escala a múltiples tenants, 24/7, sin intervención humana.</p>
+      <h2 class="sec-title">No son proyectos.<br><span class="grad">Son módulos que operan solos.</span></h2>
+      <p class="sec-sub">Tres bloques de capacidad que cubren las operaciones críticas de cualquier PyME. Cada uno corre 24/7, sin intervención humana, desde el primer día.</p>
     </div>
 
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:40px;" class="reveal agents-grid">
@@ -2186,8 +2191,8 @@ a.audit-cta-btn:hover { transform:translateY(-2px); box-shadow:0 4px 16px rgba(0
   <div class="container">
     <div class="sec-head center reveal">
       <span class="sec-label">Plan operativo</span>
-      <h2 class="sec-title">Cómo mantenemos la plataforma<br><span class="grad">íntegra para todos sus clientes.</span></h2>
-      <p class="sec-sub">Rutinas reales de operación por tenant, monitoreo coordinado y actualizaciones sin downtime. Sin improvización.</p>
+      <h2 class="sec-title">Cómo se mantiene<br><span class="grad">todo sin fallas.</span></h2>
+      <p class="sec-sub">Rutinas reales de operación, monitoreo continuo y actualizaciones sin interrupciones. Sin improvisación.</p>
     </div>
     <div class="plan-tabs reveal">
       <button class="plan-tab active" data-plan="d">Diario</button>
@@ -2260,7 +2265,7 @@ a.audit-cta-btn:hover { transform:translateY(-2px); box-shadow:0 4px 16px rgba(0
     </div>
     <div class="faq-list reveal">
       <div class="faq-item"><div class="faq-q">¿Necesito cambiar mi proveedor de correo?<span class="faq-chevron">▼</span></div><div class="faq-a"><div class="faq-a-in">No. Nuestro sistema de seguridad funciona como una capa adicional sobre cualquier proveedor existente: Google Workspace, Microsoft 365, Zoho, GoDaddy o servidor propio. No requiere migración ni cambios en su operación actual.</div></div></div>
-      <div class="faq-item"><div class="faq-q">¿Cuánto tiempo tarda la implementación?<span class="faq-chevron">▼</span></div><div class="faq-a"><div class="faq-a-in">El blindaje de seguridad se activa en menos de 48 horas por tenant. El primer flujo de automatización entra en producción entre 5 y 15 días hábiles, dependiendo de la complejidad del proceso que elija automatizar primero.</div></div></div>
+      <div class="faq-item"><div class="faq-q">¿Cuánto tiempo tarda la implementación?<span class="faq-chevron">▼</span></div><div class="faq-a"><div class="faq-a-in">El blindaje de seguridad se activa en menos de 48 horas. El primer flujo de automatización entra en producción entre 5 y 15 días hábiles, dependiendo de la complejidad del proceso que elija automatizar primero.</div></div></div>
       <div class="faq-item"><div class="faq-q">¿Qué pasa si no veo resultados?<span class="faq-chevron">▼</span></div><div class="faq-a"><div class="faq-a-in">Ofrecemos garantía de 30 días. Si en el primer mes no puede medir un impacto concreto en seguridad o eficiencia, le devolvemos su inversión sin preguntas. Así de seguros estamos de lo que entregamos.</div></div></div>
       <div class="faq-item"><div class="faq-q">¿Funciona para empresas pequeñas o solo para corporativos?<span class="faq-chevron">▼</span></div><div class="faq-a"><div class="faq-a-in">Trabajamos con empresas desde 5 empleados hasta 500+. La automatización y la seguridad de correo son críticas independientemente del tamaño — de hecho, las PyMEs son el objetivo preferido de los atacantes precisamente porque suelen tener menos defensas.</div></div></div>
       <div class="faq-item"><div class="faq-q">¿Necesito personal técnico interno para usar el servicio?<span class="faq-chevron">▼</span></div><div class="faq-a"><div class="faq-a-in">No. Nosotros nos encargamos de toda la implementación y mantenimiento. Su equipo no necesita capacitación técnica. Solo necesita decidir qué procesos quieren automatizar y nosotros hacemos el resto.</div></div></div>
@@ -2276,8 +2281,8 @@ a.audit-cta-btn:hover { transform:translateY(-2px); box-shadow:0 4px 16px rgba(0
   <div class="container">
     <div class="garantia-wrap reveal">
       <div class="garantia-icon">🛡️</div>
-      <h2 class="garantia-h">Garantía de 30 días por tenant.<br><span class="grad">Sin letra chica.</span></h2>
-      <p class="garantia-p">Si en los primeros 30 días el tenant no ve impacto en seguridad o eficiencia operativa, reembolso del 100%. Así trabajamos: con resultados medibles.</p>
+      <h2 class="garantia-h">Garantía de 30 días.<br><span class="grad">Sin letra chica.</span></h2>
+      <p class="garantia-p">Si en los primeros 30 días no puede medir un impacto concreto en seguridad o eficiencia operativa, reembolso del 100%. Así trabajamos: con resultados, no con promesas.</p>
       <div class="garantia-badges">
         <div class="gbadge">✓ <strong>Activación en 24h</strong></div>
         <div class="gbadge">✓ <strong>Sin contratos anuales</strong></div>
@@ -2294,8 +2299,8 @@ a.audit-cta-btn:hover { transform:translateY(-2px); box-shadow:0 4px 16px rgba(0
     <div class="contact-wrap">
       <div class="cl reveal">
         <span class="sec-label" style="display:block;margin-bottom:14px;">Hablemos</span>
-        <h2>Plan de viabilidad gratis.<br><span class="grad">Sin compromiso.</span></h2>
-        <p style="margin-top:14px;">30 minutos. Evaluamos su operación actual, identificamos tenants candidatos y diseñamos arquitectura de despliegue. Si no es viable, le decimos sin rodeos.</p>
+        <h2>Diagnóstico gratis.<br><span class="grad">Sin compromiso.</span></h2>
+        <p style="margin-top:14px;">30 minutos. Identificamos qué automatizar y cómo blindar su empresa. Si no hay oportunidad real, se lo decimos sin rodeos.</p>
         <div class="cinfo-list">
           <div class="cinfo"><div class="cinfo-ico">📱</div><div><div class="cinfo-lbl">WhatsApp</div><div class="cinfo-val">223 129 4663</div></div></div>
           <div class="cinfo"><div class="cinfo-ico">✉️</div><div><div class="cinfo-lbl">Correo</div><div class="cinfo-val">contacto@trevainnovate.com</div></div></div>
@@ -2392,8 +2397,8 @@ a.audit-cta-btn:hover { transform:translateY(-2px); box-shadow:0 4px 16px rgba(0
   <div class="exit-modal">
     <button class="exit-close" id="exit-close">×</button>
     <div class="exit-icon">🔐</div>
-    <h2 class="exit-h">Antes de irse — ¿sabe si sus clientes están protegidos?</h2>
-    <p class="exit-p">El 73% de las empresas en México están vulnerables a suplantación de dominio. Pero sus clientes no tienen por qué estarlo. La auditoría es rápida y gratuita.</p>
+    <h2 class="exit-h">Antes de irse — ¿sabe si su empresa está expuesta ahora mismo?</h2>
+    <p class="exit-p">El 74% de las empresas en México tienen su dominio de correo vulnerable a suplantación. La auditoría tarda 30 segundos y es completamente gratuita.</p>
     <div class="exit-btns">
       <button class="exit-cta p" onclick="document.getElementById('exit-overlay').classList.remove('show');document.getElementById('audit-input').focus();document.getElementById('hero').scrollIntoView({behavior:'smooth'})">Ver si mi empresa está expuesta →</button>
       <button class="exit-cta g" id="exit-dismiss">Prefiero no saberlo</button>
