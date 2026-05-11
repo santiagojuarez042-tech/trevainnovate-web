@@ -28,6 +28,11 @@ const FALLBACK = {
     estadoServicio: 'Problema',
     siteOnline: true,
     ultimoCheck: '2026-04-16T07:30:00.000Z',
+    spamhaus: 'En blacklist',
+    erp: null,
+    benford: null,
+    openAlerts: [],
+    recentInvoices: [],
     fromFallback: true
   }
 };
@@ -105,6 +110,9 @@ async function handleClientAPI(pathname, request, env) {
     const props = page.properties;
     const out = extractProps(props, clientId);
 
+    const sbData = await fetchSupabaseData(clientId, env);
+    if (sbData) Object.assign(out, sbData);
+
     return new Response(JSON.stringify(out), { headers });
   } catch (e) {
     // ── Fallback: último estado conocido ──
@@ -112,6 +120,8 @@ async function handleClientAPI(pathname, request, env) {
     const out = { ...fallback, fromFallback: true };
     // Calcular días SSL en tiempo real aunque sea fallback
     out.sslDias = calcSslDias(out.sslVence);
+    const sbData = await fetchSupabaseData(clientId, env);
+    if (sbData) Object.assign(out, sbData);
     return new Response(JSON.stringify(out), {
       headers: { ...headers, 'X-Data-Source': 'fallback' }
     });
@@ -237,8 +247,75 @@ function extractProps(props, cliente) {
     estadoServicio: props['Estado servicio']?.select?.name ?? 'Activo',
     siteOnline: props['Sitio online']?.checkbox ?? true,
     ultimoCheck: props['Ultimo check']?.date?.start ?? new Date().toISOString(),
+    spamhaus: props['Spamhaus']?.select?.name ?? 'En blacklist',
     fromFallback: false
   };
+}
+
+async function fetchSupabaseData(companyName, env) {
+  const SUPABASE_URL = env.SUPABASE_URL;
+  const SUPABASE_KEY = env.SUPABASE_SERVICE_KEY;
+  if (!SUPABASE_URL || !SUPABASE_KEY) return null;
+
+  const h = {
+    'apikey': SUPABASE_KEY,
+    'Authorization': `Bearer ${SUPABASE_KEY}`,
+    'Content-Type': 'application/json',
+    'Accept': 'application/json'
+  };
+
+  try {
+    // Get client_id by nombre
+    const compRes = await fetch(
+      `${SUPABASE_URL}/rest/v1/clientes_activos?nombre=eq.${encodeURIComponent(companyName)}&select=client_id&limit=1`,
+      { headers: h, signal: AbortSignal.timeout(5000) }
+    );
+    if (!compRes.ok) return null;
+    const compData = await compRes.json();
+    const companyId = compData?.[0]?.client_id;
+    if (!companyId) return null;
+
+    // Parallel queries
+    const [alertsRes, benfordRes, erpRes, invRes] = await Promise.all([
+      fetch(`${SUPABASE_URL}/rest/v1/sentinel_alerts?client_id=eq.${companyId}&status=eq.abierta&order=created_at.desc&limit=20&select=id,alert_type,severity,title,description,created_at`, { headers: h, signal: AbortSignal.timeout(5000) }),
+      fetch(`${SUPABASE_URL}/rest/v1/benford_analysis?client_id=eq.${companyId}&order=created_at.desc&limit=1&select=risk_score,risk_level,chi_square,p_value,total_invoices,periodo_fin,digit_counts,observed_pct,expected_pct`, { headers: h, signal: AbortSignal.timeout(5000) }),
+      fetch(`${SUPABASE_URL}/rest/v1/erp_connections?client_id=eq.${companyId}&select=erp_type,sync_status,last_sync_at,sync_error&limit=1`, { headers: h, signal: AbortSignal.timeout(5000) }),
+      fetch(`${SUPABASE_URL}/rest/v1/invoices?client_id=eq.${companyId}&order=created_at.desc&limit=10&select=folio,emisor_rfc,receptor_rfc,monto,moneda,fecha_emision,tipo,estatus`, { headers: h, signal: AbortSignal.timeout(5000) })
+    ]);
+
+    const alerts   = alertsRes.ok  ? await alertsRes.json()  : [];
+    const benford  = benfordRes.ok ? await benfordRes.json() : [];
+    const erp      = erpRes.ok     ? await erpRes.json()     : [];
+    const invoices = invRes.ok     ? await invRes.json()     : [];
+
+    const b = benford?.[0] ?? null;
+    const e = erp?.[0] ?? null;
+
+    return {
+      erp: e ? {
+        type:        e.erp_type ?? 'microsip',
+        syncStatus:  e.sync_status ?? 'pending',
+        lastSyncAt:  e.last_sync_at ?? null,
+        syncError:   e.sync_error ?? null
+      } : null,
+      benford: b ? {
+        riskScore:    b.risk_score,
+        riskLevel:    b.risk_level,
+        chiSquare:    b.chi_square,
+        pValue:       b.p_value,
+        totalInvoices: b.total_invoices,
+        periodoFin:   b.periodo_fin,
+        digitCounts:  b.digit_counts,
+        observedPct:  b.observed_pct,
+        expectedPct:  b.expected_pct
+      } : null,
+      openAlerts:      Array.isArray(alerts)   ? alerts   : [],
+      recentInvoices:  Array.isArray(invoices) ? invoices : []
+    };
+  } catch (e) {
+    console.error('Supabase error:', e.message);
+    return null;
+  }
 }
 
 function calcSslDias(vence) {

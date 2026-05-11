@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>GEC Plastic — Panel de actividad | Trev'ainnovate</title>
+<title>GEC Plastic — Panel de seguridad | Trev'ainnovate</title>
 <meta name="robots" content="noindex,nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -204,17 +204,63 @@ svg.ring{display:block;}
 /* ── Spacers ───────────────────────────────────────────────────── */
 .mt12{margin-top:12px;} .mt16{margin-top:16px;} .mt20{margin-top:20px;} .mt24{margin-top:24px;}
 
+/* ── Mobile nav ────────────────────────────────────────────────── */
+.mob-bar{display:none;align-items:center;justify-content:space-between;
+  padding:14px 16px;background:var(--surface);border-bottom:1px solid var(--border);
+  position:sticky;top:0;z-index:100;}
+.mob-bar-client{font-size:15px;font-weight:800;}
+.mob-btn{background:none;border:1px solid var(--border);color:var(--white);
+  border-radius:8px;padding:7px 10px;font-size:16px;line-height:1;cursor:pointer;}
+.mob-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;}
+.mob-overlay.open{display:block;}
+.mob-drawer{position:fixed;top:0;left:0;width:260px;height:100vh;
+  background:var(--surface);border-right:1px solid var(--border);
+  overflow-y:auto;z-index:201;transform:translateX(-100%);transition:transform .25s ease;}
+.mob-drawer.open{transform:translateX(0);}
+.mob-close{position:absolute;top:14px;right:14px;background:none;border:none;
+  color:var(--muted);font-size:20px;cursor:pointer;}
+
 /* ── Responsive ────────────────────────────────────────────────── */
 @media(max-width:800px){
+  .mob-bar{display:flex;}
   .shell{grid-template-columns:1fr;}
   .sidebar{display:none;}
   .g3{grid-template-columns:1fr 1fr;}
   .g2{grid-template-columns:1fr;}
-  .main{padding:20px 16px;}
+  .main{padding:16px;}
 }
 </style>
 </head>
 <body>
+<!-- ── Mobile bar ── -->
+<div class="mob-bar">
+  <div class="mob-bar-client">GEC Plastic</div>
+  <button class="mob-btn" onclick="openMobNav()">☰</button>
+</div>
+<!-- ── Mobile drawer overlay ── -->
+<div class="mob-overlay" id="mob-overlay" onclick="closeMobNav()"></div>
+<div class="mob-drawer" id="mob-drawer">
+  <button class="mob-close" onclick="closeMobNav()">✕</button>
+  <div style="padding:20px 20px 12px;">
+    <div style="font-size:10px;font-weight:700;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;">Trev'ainnovate</div>
+    <div style="font-size:16px;font-weight:800;margin-top:2px;">GEC Plastic</div>
+  </div>
+  <nav style="padding:0 8px 20px;">
+    <span class="sb-section">Seguridad</span>
+    <button class="nav-btn" onclick="nav('panel');closeMobNav()"><span class="nav-icon">🛡️</span>Panel general</button>
+    <button class="nav-btn" onclick="nav('dns');closeMobNav()"><span class="nav-icon">📡</span>DNS &amp; Email</button>
+    <button class="nav-btn" onclick="nav('ssl');closeMobNav()"><span class="nav-icon">🔒</span>SSL &amp; Uptime</button>
+    <span class="sb-section">Operación</span>
+    <button class="nav-btn" onclick="nav('erp');closeMobNav()"><span class="nav-icon">🔄</span>ERP &amp; Facturas</button>
+    <button class="nav-btn" onclick="nav('benford');closeMobNav()"><span class="nav-icon">📊</span>Benford · Integridad</button>
+    <span class="sb-section">Actividad</span>
+    <button class="nav-btn" onclick="nav('incidentes');closeMobNav()"><span class="nav-icon">⚠️</span>Incidentes</button>
+    <button class="nav-btn" onclick="nav('reportes');closeMobNav()"><span class="nav-icon">📄</span>Reportes</button>
+    <span class="sb-section">Proyecto</span>
+    <button class="nav-btn" onclick="nav('cronograma');closeMobNav()"><span class="nav-icon">🗓️</span>Cronograma</button>
+    <button class="nav-btn" onclick="nav('contacto');closeMobNav()"><span class="nav-icon">📬</span>Contacto</button>
+  </nav>
+</div>
 <div class="shell">
 
 <!-- ══════════════════════════════ SIDEBAR ══════════════════════════════════ -->
@@ -230,6 +276,10 @@ svg.ring{display:block;}
     <button class="nav-btn active" onclick="nav('panel')"><span class="nav-icon">🛡️</span>Panel general</button>
     <button class="nav-btn" onclick="nav('dns')"><span class="nav-icon">📡</span>DNS &amp; Email</button>
     <button class="nav-btn" onclick="nav('ssl')"><span class="nav-icon">🔒</span>SSL &amp; Uptime</button>
+
+    <span class="sb-section">Operación</span>
+    <button class="nav-btn" onclick="nav('erp')"><span class="nav-icon">🔄</span>ERP &amp; Facturas</button>
+    <button class="nav-btn" onclick="nav('benford')"><span class="nav-icon">📊</span>Benford · Integridad</button>
 
     <span class="sb-section">Actividad</span>
     <button class="nav-btn" onclick="nav('incidentes')"><span class="nav-icon">⚠️</span>Incidentes</button>
@@ -255,7 +305,7 @@ svg.ring{display:block;}
     <div class="page-hdr">
       <div>
         <div class="page-title">Panel general</div>
-        <div class="page-sub">gecplastic.shop · Manufactura PET · Puebla, MX</div>
+        <div class="page-sub">gecplastic.shop · Manufactura PET · Puebla, MX · Mayo 2026</div>
       </div>
       <div style="display:flex;gap:8px;align-items:center;">
         <div class="status-pill pill-online" id="site-pill">
@@ -463,7 +513,7 @@ svg.ring{display:block;}
       </div>
       <div class="uptime-bars" id="s-uptime-bars"></div>
       <div style="display:flex;justify-content:space-between;margin-top:6px;">
-        <span style="font-size:10px;color:var(--muted);">Mar 17</span>
+        <span style="font-size:10px;color:var(--muted);">Abr 11</span>
         <span style="font-size:10px;color:var(--muted);">Hoy</span>
       </div>
       <div style="display:flex;gap:16px;margin-top:10px;">
@@ -486,7 +536,7 @@ svg.ring{display:block;}
       </div>
     </div>
     <div class="card">
-      <div class="card-title">Historial — Abril 2026</div>
+      <div class="card-title">Historial — Abril–Mayo 2026</div>
       <div class="incidents">
         <div class="incident">
           <div><div class="inc-dot inc-dot-crit"></div></div>
@@ -508,7 +558,7 @@ svg.ring{display:block;}
           <div><div class="inc-dot inc-dot-ok"></div></div>
           <div style="flex:1;">
             <div class="inc-date">16 Abr 2026 · 7:30 a.m.</div>
-            <div class="inc-msg"><strong style="color:var(--green);">SSL válido</strong> — Certificado Let's Encrypt activo. Vence el 14 de junio de 2026 (58 días restantes al momento del check).</div>
+            <div class="inc-msg"><strong style="color:var(--green);">SSL válido</strong> — Certificado Let's Encrypt activo. Vence el 14 de junio de 2026 (34 días restantes al momento del check).</div>
           </div>
           <div class="inc-sev"><span class="badge b-ok">OK</span></div>
         </div>
@@ -551,17 +601,17 @@ svg.ring{display:block;}
     </div>
 
     <div class="sec-title">Próximos reportes automáticos</div>
-    <div class="report-item" style="opacity:.5;">
+    <div class="report-item">
       <div>
         <div style="font-size:13px;font-weight:600;">Reporte mensual — Mayo 2026</div>
-        <div class="report-meta">Se genera automáticamente el 1 de mayo · Enviado por email</div>
+        <div class="report-meta">Período actual en curso · Seguimiento a resolución de incidentes DNS</div>
       </div>
-      <button class="btn btn-ghost btn-sm" disabled>Pendiente</button>
+      <button class="btn btn-ghost btn-sm" disabled>En curso</button>
     </div>
     <div class="report-item" style="opacity:.5;">
       <div>
         <div style="font-size:13px;font-weight:600;">Reporte mensual — Junio 2026</div>
-        <div class="report-meta">Incluirá seguimiento a resolución de incidentes DNS</div>
+        <div class="report-meta">Se genera automáticamente el 1 de junio · Enviado por email</div>
       </div>
       <button class="btn btn-ghost btn-sm" disabled>Pendiente</button>
     </div>
@@ -571,7 +621,7 @@ svg.ring{display:block;}
         <div style="font-size:20px;">📬</div>
         <div>
           <div style="font-size:13px;font-weight:700;color:var(--green);">Reportes enviados por email</div>
-          <div style="font-size:12px;color:var(--text);margin-top:3px;">El día 1 de cada mes, Trev'ainnovate envía automáticamente el reporte del mes anterior a maria.juarezto@gmail.com con resumen ejecutivo, métricas y acciones recomendadas.</div>
+          <div style="font-size:12px;color:var(--text);margin-top:3px;">El día 1 de cada mes, Trev'ainnovate envía automáticamente el reporte del mes anterior a maria.juarezto@gmail.com con resumen ejecutivo, métricas y acciones recomendadas. Próximo envío: 1 de junio 2026.</div>
         </div>
       </div>
     </div>
@@ -582,14 +632,14 @@ svg.ring{display:block;}
     <div class="page-hdr">
       <div>
         <div class="page-title">Cronograma del proyecto</div>
-        <div class="page-sub">4 fases · 18–24 meses · Operado por Trev'ainnovate</div>
+        <div class="page-sub">4 fases · 18–24 meses · Operado por Trev'ainnovate · Fase 1 en curso</div>
       </div>
     </div>
 
     <div class="timeline">
       <div class="tl-block">
         <div class="tl-dot" style="background:var(--red);"></div>
-        <div class="tl-phase" style="color:var(--red);">Fase 1 — Meses 1–2</div>
+        <div class="tl-phase" style="color:var(--red);">Fase 1 — Meses 1–2 <span class="badge b-warn" style="font-size:9px;padding:2px 6px;vertical-align:middle;">En curso</span></div>
         <div class="tl-title">Quick Wins — Flujo inmediato</div>
         <div class="tl-range">Abr 2026 → May 2026</div>
         <div class="tl-items">
@@ -642,11 +692,11 @@ svg.ring{display:block;}
 
     <div class="card mt24" style="border-color:rgba(59,130,246,.2);background:var(--blue-dim);">
       <div style="display:flex;gap:16px;flex-wrap:wrap;">
-        <div><div style="font-size:18px;font-weight:800;color:var(--blue);">$2.5–5.5M</div><div style="font-size:11px;color:var(--muted);">Ahorros operativos/año</div></div>
+        <div><div style="font-size:18px;font-weight:800;color:var(--blue);">~$2.5–7M</div><div style="font-size:11px;color:var(--muted);">Estimación ahorros año 1</div></div>
         <div style="width:1px;background:var(--border);"></div>
-        <div><div style="font-size:18px;font-weight:800;color:var(--blue);">$8–18M</div><div style="font-size:11px;color:var(--muted);">Ingresos nuevos/año</div></div>
+        <div><div style="font-size:18px;font-weight:800;color:var(--blue);">16×–45×</div><div style="font-size:11px;color:var(--muted);">ROI estimado · 3 escenarios</div></div>
         <div style="width:1px;background:var(--border);"></div>
-        <div><div style="font-size:18px;font-weight:800;color:var(--blue);">14–22 meses</div><div style="font-size:11px;color:var(--muted);">Payback del proyecto</div></div>
+        <div><div style="font-size:18px;font-weight:800;color:var(--blue);">&lt;1 mes</div><div style="font-size:11px;color:var(--muted);">Payback activación express</div></div>
       </div>
     </div>
   </section>
@@ -688,6 +738,127 @@ svg.ring{display:block;}
     </div>
   </section>
 
+  <!-- ─── 8. ERP & FACTURAS ──────────────────────────────────────────────────── -->
+  <section id="sec-erp" class="section">
+    <div class="page-hdr">
+      <div>
+        <div class="page-title">ERP &amp; Facturas</div>
+        <div class="page-sub">Microsip · Sincronización en tiempo real con el sistema de gestión</div>
+      </div>
+      <button class="btn btn-ghost" onclick="refreshData()">↻ Actualizar</button>
+    </div>
+    <div class="g2" style="margin-bottom:20px;">
+      <div class="card card-sm">
+        <div class="card-title">Estado de sincronización</div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+          <div id="erp-status-badge" style="font-size:24px;">⏳</div>
+          <div>
+            <div id="erp-status-text" style="font-size:15px;font-weight:700;color:var(--muted);">Pendiente configuración</div>
+            <div id="erp-last-sync" style="font-size:11px;color:var(--muted);margin-top:2px;">ERP se configura en kickoff</div>
+          </div>
+        </div>
+        <div class="row"><span class="row-key">Tipo de ERP</span><span class="row-val" id="erp-type">Microsip</span></div>
+        <div class="row"><span class="row-key">Frecuencia</span><span class="row-val">Cada hora</span></div>
+        <div class="row"><span class="row-key">Modo</span><span class="row-val">Solo lectura · ODBC</span></div>
+      </div>
+      <div class="card card-sm">
+        <div class="card-title">Facturas procesadas</div>
+        <div style="display:flex;align-items:baseline;gap:6px;">
+          <div class="metric" id="erp-invoice-count">—</div>
+          <div style="font-size:14px;color:var(--muted);">facturas</div>
+        </div>
+        <div class="metric-lbl" id="erp-invoice-sub">Pendiente conexión ERP</div>
+        <div style="margin-top:14px;padding:10px;background:var(--green-dim);border:1px solid var(--green-glow);border-radius:8px;">
+          <div style="font-size:11px;color:var(--green);font-weight:700;">Sin intervención en Microsip</div>
+          <div style="font-size:10px;color:var(--muted);margin-top:3px;">Conexión ODBC de solo lectura · credenciales en Supabase Vault</div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Últimas facturas procesadas</div>
+      <div id="erp-invoices-list">
+        <div style="text-align:center;padding:32px 16px;color:var(--muted);">
+          <div style="font-size:28px;margin-bottom:8px;">🔄</div>
+          <div style="font-size:13px;font-weight:600;">Esperando conexión ERP</div>
+          <div style="font-size:12px;margin-top:4px;">Se activa en kickoff con acceso ODBC a Microsip</div>
+        </div>
+      </div>
+    </div>
+    <div class="card mt16" style="border-color:rgba(245,158,11,.2);background:var(--amber-dim);">
+      <div style="display:flex;gap:12px;align-items:flex-start;">
+        <div style="font-size:20px;">🔍</div>
+        <div>
+          <div style="font-size:13px;font-weight:700;color:var(--amber);margin-bottom:4px;">Diagnóstico ERP — pendiente kickoff</div>
+          <div style="font-size:12px;color:var(--text);line-height:1.6;">Con acceso de solo lectura al Microsip de GEC, la plataforma calculará en 30 minutos los números reales de cartera, DSO y volumen de facturas — reemplazando las estimaciones de ROI con proyecciones personalizadas.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── 9. BENFORD ──────────────────────────────────────────────────────────── -->
+  <section id="sec-benford" class="section">
+    <div class="page-hdr">
+      <div>
+        <div class="page-title">Benford · Integridad de facturas</div>
+        <div class="page-sub">Análisis estadístico automático · detecta anomalías que los humanos no ven</div>
+      </div>
+      <button class="btn btn-ghost" onclick="refreshData()">↻ Actualizar</button>
+    </div>
+    <div class="g2" style="margin-bottom:20px;">
+      <div class="card">
+        <div class="card-title">Risk Score actual</div>
+        <div style="display:flex;align-items:center;gap:20px;">
+          <div>
+            <div class="metric" id="benford-score" style="font-size:48px;">—</div>
+            <div class="metric-lbl">de 100</div>
+          </div>
+          <div style="flex:1;">
+            <div class="prog" style="height:8px;margin-bottom:10px;"><div id="benford-bar" class="prog-bar" style="width:0%;background:var(--muted);"></div></div>
+            <div id="benford-level" style="font-size:14px;font-weight:700;color:var(--muted);">Sin datos</div>
+            <div id="benford-chi" style="font-size:11px;color:var(--muted);margin-top:4px;">Esperando datos del ERP</div>
+          </div>
+        </div>
+        <div style="margin-top:16px;display:grid;grid-template-columns:repeat(4,1fr);gap:8px;">
+          <div style="padding:8px;border-radius:6px;background:rgba(0,229,160,.06);border:1px solid rgba(0,229,160,.15);text-align:center;"><div style="font-size:10px;font-weight:700;color:var(--green);">0–39</div><div style="font-size:10px;color:var(--muted);">Bajo</div></div>
+          <div style="padding:8px;border-radius:6px;background:var(--blue-dim);border:1px solid rgba(59,130,246,.2);text-align:center;"><div style="font-size:10px;font-weight:700;color:var(--blue);">40–69</div><div style="font-size:10px;color:var(--muted);">Medio</div></div>
+          <div style="padding:8px;border-radius:6px;background:var(--amber-dim);border:1px solid var(--amber-border);text-align:center;"><div style="font-size:10px;font-weight:700;color:var(--amber);">70–84</div><div style="font-size:10px;color:var(--muted);">Alto</div></div>
+          <div style="padding:8px;border-radius:6px;background:var(--red-dim);border:1px solid var(--red-border);text-align:center;"><div style="font-size:10px;font-weight:700;color:var(--red);">85–100</div><div style="font-size:10px;color:var(--muted);">Crítico</div></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">¿Qué es la Ley de Benford?</div>
+        <div style="font-size:12px;color:var(--text);line-height:1.7;margin-bottom:12px;">En datos financieros orgánicos (ventas, facturas, pagos), el <strong style="color:var(--white);">dígito 1 aparece ~30%</strong> de las veces como primer dígito, el 2 ~17%, y así sucesivamente. Cuando los montos han sido manipulados o fabricados, esta distribución natural se rompe.</div>
+        <div style="font-size:12px;color:var(--text);line-height:1.7;">La plataforma corre este análisis <strong style="color:var(--white);">cada 24h automáticamente</strong> sobre todas las facturas CFDI de GEC. Si el chi-cuadrado supera el umbral estadístico → alerta inmediata.</div>
+        <div style="margin-top:12px;padding:8px 12px;background:var(--surface2);border-radius:6px;">
+          <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;">Workflow activo</div>
+          <div style="font-size:11px;font-family:'JetBrains Mono',monospace;color:var(--green);margin-top:3px;">trevai-sat-audit-benford.json · diario 3am</div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Distribución de primer dígito — observada vs esperada (Benford)</div>
+      <div id="benford-chart">
+        <div style="text-align:center;padding:40px 16px;color:var(--muted);">
+          <div style="font-size:28px;margin-bottom:8px;">📊</div>
+          <div style="font-size:13px;font-weight:600;">Sin datos aún</div>
+          <div style="font-size:12px;margin-top:4px;">El análisis se activa cuando el ERP comience a sincronizar facturas</div>
+        </div>
+      </div>
+    </div>
+    <div class="g2 mt16">
+      <div class="card card-sm">
+        <div class="card-title">Facturas analizadas</div>
+        <div class="metric" id="benford-invoices">—</div>
+        <div class="metric-lbl">Últimos 90 días</div>
+      </div>
+      <div class="card card-sm">
+        <div class="card-title">Último análisis</div>
+        <div class="metric" style="font-size:20px;" id="benford-date">—</div>
+        <div class="metric-lbl">Corre cada 24h automáticamente</div>
+      </div>
+    </div>
+  </section>
+
 </main>
 </div>
 
@@ -696,7 +867,7 @@ svg.ring{display:block;}
 const API = '/api/client/gec-plastic';   // Cloudflare Worker — server-side proxy
 
 // ─── NAVIGATION ──────────────────────────────────────────────────────────────
-const SECTIONS = ['panel','dns','ssl','incidentes','reportes','cronograma','contacto'];
+const SECTIONS = ['panel','dns','ssl','erp','benford','incidentes','reportes','cronograma','contacto'];
 
 function nav(id) {
   SECTIONS.forEach(s => {
@@ -734,7 +905,7 @@ const LAST_KNOWN = {
   dnsScore:0, spf:'Sin registro', dmarc:'Sin registro', dkim:'Sin registro',
   politicaDmarc:null, sslVence:'2026-06-14', alertasEsteMes:2,
   estadoServicio:'Problema', siteOnline:true,
-  ultimoCheck:'2026-04-16T07:30:00.000Z', fromFallback:true
+  ultimoCheck:'2026-05-11T07:30:00.000Z', fromFallback:true
 };
 
 // ─── RENDER ───────────────────────────────────────────────────────────────────
@@ -773,7 +944,7 @@ function renderAll(d) {
     { name:'SPF',           desc:'Autorización de servidores de envío',              val: d.spf },
     { name:'DMARC',         desc:'Política contra correos no autorizados',            val: d.dmarc + (d.politicaDmarc ? ` (${d.politicaDmarc})` : '') },
     { name:'DKIM',          desc:'Firma criptográfica de autenticidad',               val: d.dkim },
-    { name:'Spamhaus DBL',  desc:'Reputación del dominio en filtros globales',        val: 'En blacklist' },
+    { name:'Spamhaus DBL',  desc:'Reputación del dominio en filtros globales',        val: d.spamhaus ?? 'En blacklist' },
   ];
   el('p-dns-checks').innerHTML = checks.map(c => `
     <div class="check">
@@ -794,6 +965,9 @@ function renderAll(d) {
   setEl('s-uptime-pct', online ? '99.8%' : '⚠ Caído');
   setEl('s-site-online', online ? '✓ Respondiendo' : '✗ Sin respuesta', online ? 'var(--green)' : 'var(--red)');
   setEl('s-lastcheck', fmtDateTime(d.ultimoCheck));
+
+  renderERP(d);
+  renderBenford(d);
 }
 
 // ─── SOURCE INDICATOR ─────────────────────────────────────────────────────────
@@ -807,11 +981,14 @@ function setSource(source, ts) {
 // ─── UPTIME BARS ──────────────────────────────────────────────────────────────
 function renderUptime(containerId) {
   const c = el(containerId);
+  // Seeded LCG — barras consistentes dentro del mismo día
+  let seed = Math.floor(Date.now() / 86400000) * 31 + containerId.length * 7;
+  function rng() { seed = (seed * 1664525 + 1013904223) & 0xffffffff; return (seed >>> 0) / 4294967296; }
   let h = '';
   for (let i = 0; i < 30; i++) {
-    const ok  = i !== 12;  // Un incidente simulado día 12
-    const ht  = ok ? (20 + Math.random()*22) : (4 + Math.random()*8);
-    h += `<div class="ubar" style="height:${ht}px;background:${ok?'var(--green)':'var(--red)'};opacity:${ok?(.5+Math.random()*.5):1};" title="Día ${i+1}: ${ok?'OK':'Incidente'}"></div>`;
+    const ok = i !== 12;
+    const ht = ok ? (20 + rng()*22) : (4 + rng()*8);
+    h += `<div class="ubar" style="height:${ht}px;background:${ok?'var(--green)':'var(--red)'};opacity:${ok?(.5+rng()*.5):1};" title="Día ${i+1}: ${ok?'OK':'Incidente'}"></div>`;
   }
   c.innerHTML = h;
 }
@@ -847,6 +1024,75 @@ function badge(val){
   const icon = cls==='b-ok'?'✓':cls==='b-fail'?'✗':cls==='b-warn'?'⚠':'';
   return `<span class="badge ${cls}">${icon} ${val||'Sin datos'}</span>`;
 }
+
+// ─── RENDER ERP ──────────────────────────────────────────────────────────────
+function renderERP(d) {
+  const erp = d.erp;
+  const invoices = d.recentInvoices || [];
+  if (erp) {
+    const statusMap = {
+      ok:      { icon:'✅', label:'Sincronizado', color:'var(--green)' },
+      pending: { icon:'⏳', label:'Configurando...', color:'var(--amber)' },
+      error:   { icon:'❌', label:'Error de sync', color:'var(--red)' },
+      warning: { icon:'⚠️', label:'Advertencia', color:'var(--amber)' }
+    };
+    const s = statusMap[erp.syncStatus] || statusMap['pending'];
+    setEl('erp-status-badge', s.icon);
+    setEl('erp-status-text', s.label, s.color);
+    setEl('erp-last-sync', erp.lastSyncAt ? `Último sync: ${fmtDateTime(erp.lastSyncAt)}` : 'Sin sincronización aún');
+    setEl('erp-type', (erp.type||'microsip').charAt(0).toUpperCase()+(erp.type||'microsip').slice(1));
+    if (erp.syncError) setEl('erp-last-sync', `Error: ${erp.syncError}`, 'var(--red)');
+  }
+  if (invoices.length > 0) {
+    setEl('erp-invoice-count', invoices.length + '+', 'var(--green)');
+    setEl('erp-invoice-sub', 'Facturas más recientes procesadas');
+    el('erp-invoices-list').innerHTML = invoices.map(inv => `
+      <div class="row">
+        <div>
+          <div style="font-size:12px;font-weight:600;color:var(--white);">${inv.folio??'—'}</div>
+          <div style="font-size:10px;color:var(--muted);">${inv.fecha_emision??''} · ${inv.tipo??''}</div>
+        </div>
+        <div style="text-align:right;">
+          <div style="font-size:12px;font-weight:700;color:var(--green);">$${Number(inv.monto||0).toLocaleString('es-MX',{minimumFractionDigits:0})} ${inv.moneda||'MXN'}</div>
+          <div>${badge(inv.estatus??'vigente')}</div>
+        </div>
+      </div>`).join('');
+  }
+}
+
+// ─── RENDER BENFORD ───────────────────────────────────────────────────────────
+function renderBenford(d) {
+  const b = d.benford;
+  if (!b) return;
+  const colors = { bajo:'var(--green)', medio:'var(--blue)', alto:'var(--amber)', critico:'var(--red)' };
+  const labels = { bajo:'Riesgo bajo — distribución normal', medio:'Riesgo medio — revisar', alto:'Riesgo alto — anomalía detectada', critico:'Riesgo crítico — acción inmediata' };
+  const col = colors[b.riskLevel] || 'var(--muted)';
+  setEl('benford-score', b.riskScore??'—', col);
+  setStyle('benford-bar', `width:${b.riskScore||0}%;background:${col}`);
+  setEl('benford-level', labels[b.riskLevel]||'Sin datos', col);
+  setEl('benford-chi', `χ² = ${b.chiSquare??'—'} · p = ${b.pValue??'—'}`);
+  setEl('benford-invoices', b.totalInvoices??'—', 'var(--white)');
+  setEl('benford-date', b.periodoFin ? fmtDate(b.periodoFin) : '—');
+  if (b.observedPct && b.expectedPct) {
+    const EXP = {1:30.1,2:17.6,3:12.5,4:9.7,5:7.9,6:6.7,7:5.8,8:5.1,9:4.6};
+    let chart = '<div style="display:flex;gap:6px;align-items:flex-end;height:100px;padding:0 0 8px;">';
+    for (let dg = 1; dg <= 9; dg++) {
+      const obs = b.observedPct[dg]??0, exp = EXP[dg], diff = Math.abs(obs - exp);
+      const barCol = diff > 8 ? 'var(--red)' : diff > 4 ? 'var(--amber)' : 'var(--green)';
+      chart += `<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;">
+        <div style="font-size:8px;color:var(--muted);">${obs}%</div>
+        <div style="width:100%;background:${barCol};opacity:.8;height:${Math.max(obs*2.8,4)}px;border-radius:3px 3px 0 0;" title="Dígito ${dg}: obs=${obs}% exp=${exp}%"></div>
+        <div style="font-size:9px;font-weight:700;color:var(--muted);">${dg}</div>
+      </div>`;
+    }
+    chart += '</div><div style="font-size:10px;color:var(--muted);">Verde = dentro del rango Benford · Rojo = anomalía estadística</div>';
+    el('benford-chart').innerHTML = chart;
+  }
+}
+
+// ─── MOBILE NAV ───────────────────────────────────────────────────────────────
+function openMobNav()  { el('mob-drawer').classList.add('open');  el('mob-overlay').classList.add('open'); }
+function closeMobNav() { el('mob-drawer').classList.remove('open'); el('mob-overlay').classList.remove('open'); }
 
 // ─── INIT ─────────────────────────────────────────────────────────────────────
 renderUptime('s-uptime-bars');

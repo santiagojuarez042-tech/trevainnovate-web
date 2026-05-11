@@ -245,14 +245,14 @@ const hallazgosParam= P.get('hallazgos') || '';
 const areasParam    = P.get('areas')     || '';
 // ── Tier Engine — Cálculo automático por módulos activos ──────────────────
 const TIERS = {
-  'Starter':    { minModules: 1, setup: 15000, mrr: 4500,  label: 'Starter',    desc: '1 Módulo de Capacidad activo' },
-  'Growth':     { minModules: 2, setup: 25000, mrr: 7000,  label: 'Growth',     desc: '2 Módulos de Capacidad activos' },
-  'Enterprise': { minModules: 3, setup: 45000, mrr: 12000, label: 'Enterprise', desc: '3+ Módulos · Ecosistema completo' }
+  'Starter':    { minModules: 1, setup: 8000,  mrr: 4500,  label: 'Agente Funcional',     desc: '1 agente operando 24/7 en el área de mayor impacto' },
+  'Growth':     { minModules: 3, setup: 10000, mrr: 10000, label: 'Ecosistema de Agentes', desc: '3–5 agentes coordinados activos' },
+  'Enterprise': { minModules: 5, setup: 15000, mrr: 20000, label: 'Empresa Digital',       desc: 'Operación completa delegada · 5+ agentes · 24/7' }
 };
 const MODULE_MAP = {
-  web:'Conversión de Leads', followup:'Conversión de Leads', sdr:'Conversión de Leads', whatsapp:'Conversión de Leads',
-  coordinacion:'Gestión Operativa', onboarding:'Gestión Operativa', facturacion:'Gestión Operativa',
-  reporte:'Visibilidad y Seguridad', dmarc_agent:'Visibilidad y Seguridad', seguridad:'Visibilidad y Seguridad', threat:'Visibilidad y Seguridad', incident:'Visibilidad y Seguridad'
+  web:'Módulo de Conversión y Relación 24/7', followup:'Módulo de Conversión y Relación 24/7', sdr:'Módulo de Conversión y Relación 24/7', whatsapp:'Módulo de Conversión y Relación 24/7',
+  coordinacion:'Módulo de Gestión Operativa', onboarding:'Módulo de Gestión Operativa', facturacion:'Módulo de Gestión Operativa',
+  reporte:'Módulo de Visibilidad y Control Ejecutivo', dmarc_agent:'Módulo de Visibilidad y Control Ejecutivo', seguridad:'Módulo de Visibilidad y Control Ejecutivo', threat:'Módulo de Visibilidad y Control Ejecutivo', incident:'Módulo de Visibilidad y Control Ejecutivo'
 };
 const moduleCount   = agentesParam ? [...new Set(agentesParam.split(',').map(k=>MODULE_MAP[k.trim()]||k.trim()).filter(Boolean))].length : 0;
 const tierName      = moduleCount >= 3 ? 'Enterprise' : moduleCount >= 2 ? 'Growth' : 'Starter';
@@ -748,14 +748,14 @@ window.onload = () => {
   {
     document.getElementById('pricing-agentes').style.display = 'flex';
     const titulosPorTier = {
-      Starter:    'Módulo de Capacidad. <span class="grad">El primer paso.</span>',
-      Growth:     gancho ? 'Bundle completo. <span class="grad">Todo incluido.</span>' : 'Dos Módulos. <span class="grad">El más solicitado.</span>',
-      Enterprise: 'Ecosistema Completo. <span class="grad">Control Total.</span>'
+      Starter:    'Un agente. <span class="grad">El primer paso.</span>',
+      Growth:     gancho ? 'Ecosistema completo. <span class="grad">Todo incluido.</span>' : 'Ecosistema coordinado. <span class="grad">El más solicitado.</span>',
+      Enterprise: 'Operación delegada. <span class="grad">Control total.</span>'
     };
     const subsPorTier = {
-      Starter:    'Setup único + operación mensual. Primer Módulo de Capacidad operando en 3 días.',
-      Growth:     gancho ? 'Dos Módulos de Capacidad. Un solo setup. Sin costos separados. Sin sorpresas.' : 'Dos Módulos activos 24/7. Sin fricción, sin costo variable.',
-      Enterprise: '3 Módulos de Capacidad Operativa con seguridad administrada integrada. 24 horas, 7 días, sin pausas.'
+      Starter:    'Activación Express + 1 agente operando en 3 días. El proceso de mayor impacto, automatizado.',
+      Growth:     gancho ? '3–5 agentes coordinados. Activación Express única. Sin costos separados. Sin sorpresas.' : '3–5 agentes activos 24/7. Licencia mensual sin costo variable.',
+      Enterprise: 'Operación completa delegada. 5+ agentes, seguridad administrada incluida, 24 horas, 7 días, sin pausas.'
     };
     if(elInvTitulo) elInvTitulo.innerHTML = titulosPorTier[tierName] || titulosPorTier['Starter'];
     if(elInvSub)    elInvSub.textContent  = subsPorTier[tierName]    || subsPorTier['Starter'];
@@ -869,7 +869,7 @@ window.onload = () => {
     </div>
   </div>
 
-  <div class="page-footer"><span></span><span class="pn">1 / 5</span><a class="nav-arrow" href="#quienes">→ Quiénes somos</a></div>
+  <div class="page-footer"><span></span><span class="pn">1 / 7</span><a class="nav-arrow" href="#quienes">→ Quiénes somos</a></div>
 </div>
 
 <!-- ══════════════════════════════════════════════════════
@@ -888,10 +888,10 @@ window.onload = () => {
   <div style="padding:10mm 10mm 7mm;border-bottom:1px solid var(--border);flex-shrink:0;position:relative;z-index:1;">
     <div style="font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--green);margin-bottom:10px;">Quiénes somos · Qué hacemos</div>
     <h2 style="font-size:36px;font-weight:900;line-height:1.04;letter-spacing:-.02em;margin-bottom:8px;">
-      No somos un consultor.<br>
-      <span class="grad">Somos una operación.</span>
+      Blindamos tu operación.<br>
+      <span class="grad">Auditamos todo. Decidimos.</span>
     </h2>
-    <p style="font-size:14px;color:var(--muted);line-height:1.65;max-width:165mm;">Trev'ainnovate despliega equipos de agentes inteligentes que operan tu negocio 24/7. Nuestra propia empresa corre sobre los mismos agentes que vendemos — cada lead, reporte y alerta de seguridad los maneja un agente, no una persona.</p>
+    <p style="font-size:14px;color:var(--muted);line-height:1.65;max-width:165mm;">Trev'ainnovate es una plataforma SaaS de inteligencia operativa. Activas una licencia — la plataforma se integra a lo que ya tienes sin tocar nada por dentro. Cada proceso se valida antes de ejecutarse, cada operación deja evidencia propia y cuando algo sale de patrón, la plataforma decide y actúa sola.</p>
   </div>
 
   <!-- ZONA 2 — Outcomes + Tres capas -->
@@ -902,79 +902,80 @@ window.onload = () => {
       <div style="font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;">Lo que gana tu empresa</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;flex:1;align-content:center;">
         <div style="background:rgba(0,229,160,.05);border:1px solid rgba(0,229,160,.15);border-radius:12px;padding:18px 18px;">
-          <div style="font-size:44px;font-weight:900;color:var(--green);font-family:'JetBrains Mono',monospace;line-height:1;">-80%</div>
-          <div style="font-size:12px;font-weight:700;color:rgba(255,255,255,.85);margin-top:6px;line-height:1.35;">tiempo en tareas<br>administrativas</div>
-          <div style="font-size:10px;color:rgba(255,255,255,.4);margin-top:7px;line-height:1.5;">Lo que hoy hace alguien, mañana lo ejecuta el sistema.</div>
+          <div style="font-size:36px;font-weight:900;color:var(--green);font-family:'JetBrains Mono',monospace;line-height:1;">0</div>
+          <div style="font-size:12px;font-weight:700;color:rgba(255,255,255,.85);margin-top:6px;line-height:1.35;">anomalías sin<br>detectar</div>
+          <div style="font-size:10px;color:rgba(255,255,255,.4);margin-top:7px;line-height:1.5;">Sentinel detecta lo raro antes de que se vuelva daño operativo.</div>
         </div>
         <div style="background:rgba(59,130,246,.05);border:1px solid rgba(59,130,246,.15);border-radius:12px;padding:18px 18px;">
-          <div style="font-size:32px;font-weight:900;color:var(--blue);font-family:'JetBrains Mono',monospace;line-height:1.1;">Tiempo<br>real</div>
-          <div style="font-size:12px;font-weight:700;color:rgba(255,255,255,.85);margin-top:6px;line-height:1.35;">visibilidad de toda<br>tu operación</div>
-          <div style="font-size:10px;color:rgba(255,255,255,.4);margin-top:7px;line-height:1.5;">Ventas, inventario y flujo — sin tener que ir a preguntar.</div>
+          <div style="font-size:32px;font-weight:900;color:var(--blue);font-family:'JetBrains Mono',monospace;line-height:1.1;">100%<br>trazado</div>
+          <div style="font-size:12px;font-weight:700;color:rgba(255,255,255,.85);margin-top:6px;line-height:1.35;">evidencia propia<br>e independiente</div>
+          <div style="font-size:10px;color:rgba(255,255,255,.4);margin-top:7px;line-height:1.5;">No dependes de lo que muestra la plataforma. Tienes tu propia bitácora.</div>
         </div>
         <div style="background:rgba(139,92,246,.05);border:1px solid rgba(139,92,246,.15);border-radius:12px;padding:18px 18px;">
           <div style="font-size:44px;font-weight:900;color:var(--purple);font-family:'JetBrains Mono',monospace;line-height:1;">24/7</div>
-          <div style="font-size:12px;font-weight:700;color:rgba(255,255,255,.85);margin-top:6px;line-height:1.35;">protección activa<br>de tu dominio</div>
-          <div style="font-size:10px;color:rgba(255,255,255,.4);margin-top:7px;line-height:1.5;">Tu correo y accesos digitales monitoreados. Sin equipo de TI.</div>
+          <div style="font-size:12px;font-weight:700;color:rgba(255,255,255,.85);margin-top:6px;line-height:1.35;">Sentinel activo<br>sin pausas</div>
+          <div style="font-size:10px;color:rgba(255,255,255,.4);margin-top:7px;line-height:1.5;">Vigilancia activa, no reactiva. Actúa antes de que lo notes.</div>
         </div>
         <div style="background:rgba(245,158,11,.05);border:1px solid rgba(245,158,11,.15);border-radius:12px;padding:18px 18px;">
           <div style="font-size:44px;font-weight:900;color:var(--amber);font-family:'JetBrains Mono',monospace;line-height:1;">×3</div>
-          <div style="font-size:12px;font-weight:700;color:rgba(255,255,255,.85);margin-top:6px;line-height:1.35;">capacidad sin<br>agregar personas</div>
-          <div style="font-size:10px;color:rgba(255,255,255,.4);margin-top:7px;line-height:1.5;">El sistema absorbe el crecimiento. Escalar no multiplica el costo.</div>
+          <div style="font-size:12px;font-weight:700;color:rgba(255,255,255,.85);margin-top:6px;line-height:1.35;">capacidad sin<br>supervisión artesanal</div>
+          <div style="font-size:10px;color:rgba(255,255,255,.4);margin-top:7px;line-height:1.5;">El sistema gobierna la operación. Tu equipo trabaja en lo que sí mueve el negocio.</div>
         </div>
       </div>
     </div>
 
     <!-- Concepto + tres capas -->
     <div style="padding:9mm 10mm 7mm 8mm;display:flex;flex-direction:column;gap:10px;">
-      <div style="font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);">Tres capas · Una sola operación</div>
+      <div style="font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);">La inteligencia operativa · Tres capas</div>
 
-      <!-- Automatización -->
+      <!-- Monitoreo inteligente — incluido en todos los planes -->
+      <div style="background:rgba(0,229,160,.05);border:2px solid rgba(0,229,160,.28);border-radius:12px;padding:14px 16px;position:relative;">
+        <div style="position:absolute;top:-1px;right:12px;background:var(--green);color:#05050e;font-size:7px;font-weight:900;text-transform:uppercase;letter-spacing:.14em;padding:2px 10px;border-radius:0 0 6px 6px;">Incluido en todos los planes</div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;margin-top:6px;">
+          <div style="font-size:22px;">🛡️</div>
+          <div>
+            <div style="font-size:13px;font-weight:800;color:var(--green);">Sentinel</div>
+            <div style="font-size:9px;color:rgba(255,255,255,.35);margin-top:1px;">El vigilante que nunca se distrae · Incluido en todos los planes</div>
+          </div>
+        </div>
+        <div style="font-size:10.5px;color:rgba(255,255,255,.65);line-height:1.6;margin-bottom:9px;">Construye la línea base de comportamiento normal de tu operación. Cuando algo se sale de patrón — acceso atípico, volumen inusual, anomalía en flujo — lo detecta, lo contiene y actúa. No por intuición: por reglas, contexto y comparación continua.</div>
+        <div style="display:flex;gap:14px;flex-wrap:wrap;">
+          <div style="font-size:9px;color:rgba(0,229,160,.75);">✓ Detección de anomalías en tiempo real</div>
+          <div style="font-size:9px;color:rgba(0,229,160,.75);">✓ Evidencia independiente de cada operación</div>
+          <div style="font-size:9px;color:rgba(0,229,160,.75);">✓ Auto-recovery ante caídas</div>
+        </div>
+      </div>
+
+      <!-- Automatización con validación -->
       <div style="background:rgba(245,158,11,.05);border:1px solid rgba(245,158,11,.22);border-radius:12px;padding:14px 16px;">
         <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
           <div style="font-size:22px;">⚙️</div>
           <div>
-            <div style="font-size:13px;font-weight:800;color:rgba(245,158,11,.95);">Automatización</div>
-            <div style="font-size:9px;color:rgba(255,255,255,.35);margin-top:1px;">La base eficiente · Inversión única</div>
+            <div style="font-size:13px;font-weight:800;color:rgba(245,158,11,.95);">Automatización con criterio</div>
+            <div style="font-size:9px;color:rgba(255,255,255,.35);margin-top:1px;">Valida antes de ejecutar · Registra evidencia independiente</div>
           </div>
         </div>
-        <div style="font-size:10.5px;color:rgba(255,255,255,.65);line-height:1.6;margin-bottom:9px;">Ejecuta procesos repetitivos sin error, sin descanso, sin costo variable. Reglas claras, resultado garantizado.</div>
-        <div style="display:flex;gap:14px;">
-          <div style="font-size:9px;color:rgba(245,158,11,.75);">✓ CRM y reportes en tiempo real</div>
-          <div style="font-size:9px;color:rgba(245,158,11,.75);">✓ Notificaciones automáticas</div>
-          <div style="font-size:9px;color:rgba(245,158,11,.75);">✓ Facturación e integraciones</div>
+        <div style="font-size:10.5px;color:rgba(255,255,255,.65);line-height:1.6;margin-bottom:9px;">Ninguna acción crítica sale directo desde una persona hacia tu plataforma. Pasa por validación, queda registrada con evidencia propia y genera trazabilidad completa — sin depender de memoria humana ni capturas de pantalla.</div>
+        <div style="display:flex;gap:14px;flex-wrap:wrap;">
+          <div style="font-size:9px;color:rgba(245,158,11,.75);">✓ Proxy operativo n8n + IA</div>
+          <div style="font-size:9px;color:rgba(245,158,11,.75);">✓ Bitácora propia e independiente</div>
+          <div style="font-size:9px;color:rgba(245,158,11,.75);">✓ Integraciones sin fricción</div>
         </div>
       </div>
 
-      <!-- Agente IA -->
-      <div style="background:rgba(0,229,160,.04);border:1px solid rgba(0,229,160,.22);border-radius:12px;padding:14px 16px;">
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
-          <div style="font-size:22px;">🧠</div>
-          <div>
-            <div style="font-size:13px;font-weight:800;color:var(--green);">Agente IA</div>
-            <div style="font-size:9px;color:rgba(255,255,255,.35);margin-top:1px;">Criterio que escala · Retainer mensual</div>
-          </div>
-        </div>
-        <div style="font-size:10.5px;color:rgba(255,255,255,.65);line-height:1.6;margin-bottom:9px;">Razona, evalúa contexto y toma decisiones. Opera donde las reglas no alcanzan y el criterio humano es demasiado costoso.</div>
-        <div style="display:flex;gap:14px;">
-          <div style="font-size:9px;color:rgba(0,229,160,.75);">✓ Atención al cliente con criterio real</div>
-          <div style="font-size:9px;color:rgba(0,229,160,.75);">✓ Detección de urgencias</div>
-          <div style="font-size:9px;color:rgba(0,229,160,.75);">✓ Seguimiento y cierre de ventas</div>
-        </div>
-      </div>
-
-      <!-- Seguridad Administrada -->
+      <!-- Seguridad Perimetral -->
       <div style="background:rgba(139,92,246,.04);border:1px solid rgba(139,92,246,.22);border-radius:12px;padding:14px 16px;">
         <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
-          <div style="font-size:22px;">🛡️</div>
+          <div style="font-size:22px;">🔐</div>
           <div>
-            <div style="font-size:13px;font-weight:800;color:var(--purple);">Seguridad Administrada</div>
-            <div style="font-size:9px;color:rgba(255,255,255,.35);margin-top:1px;">La capa que protege todo lo demás · Retainer mensual</div>
+            <div style="font-size:13px;font-weight:800;color:var(--purple);">Seguridad Perimetral</div>
+            <div style="font-size:9px;color:rgba(255,255,255,.35);margin-top:1px;">El primer frente de defensa · Licencia mensual</div>
           </div>
         </div>
-        <div style="font-size:10.5px;color:rgba(255,255,255,.65);line-height:1.6;margin-bottom:9px;">Monitoreo activo de tu dominio, correo e identidad digital. Si algo está expuesto, lo detectamos antes de que cueste — y lo resolvemos sin que tengas que intervenir.</div>
-        <div style="display:flex;gap:14px;">
-          <div style="font-size:9px;color:rgba(139,92,246,.75);">✓ SPF · DMARC · DKIM siempre válidos</div>
-          <div style="font-size:9px;color:rgba(139,92,246,.75);">✓ Alertas de amenaza en tiempo real</div>
+        <div style="font-size:10.5px;color:rgba(255,255,255,.65);line-height:1.6;margin-bottom:9px;">Identidad, acceso y correo blindados desde el arranque. SPF · DMARC · DKIM configurados. Accesos con MFA. Monitoreo DNS y SSL diario. El perímetro controlado antes de que nadie entre.</div>
+        <div style="display:flex;gap:14px;flex-wrap:wrap;">
+          <div style="font-size:9px;color:rgba(139,92,246,.75);">✓ Dominio blindado en 48h</div>
+          <div style="font-size:9px;color:rgba(139,92,246,.75);">✓ Alertas de suplantación en tiempo real</div>
           <div style="font-size:9px;color:rgba(139,92,246,.75);">✓ Sin equipo de TI interno</div>
         </div>
       </div>
@@ -995,11 +996,218 @@ window.onload = () => {
     </div>
   </div>
 
-  <div class="page-footer"><a class="nav-arrow" href="#portada">← Portada</a><span class="pn">2 / 5</span><a class="nav-arrow" href="#diagnostico">→ Diagnóstico</a></div>
+  <div class="page-footer"><a class="nav-arrow" href="#portada">← Portada</a><span class="pn">2 / 7</span><a class="nav-arrow" href="#como">→ Cómo trabajamos</a></div>
 </div>
 
 <!-- ══════════════════════════════════════════════════════
-     P3 — DIAGNÓSTICO (condicional: dominio o hallazgos)
+     P3 — CÓMO TRABAJAMOS
+══════════════════════════════════════════════════════ -->
+<div class="page" id="como">
+  <div class="topbar"></div>
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 30% 60%,rgba(0,229,160,.05) 0%,transparent 60%),radial-gradient(ellipse at 80% 20%,rgba(59,130,246,.04) 0%,transparent 55%);pointer-events:none;"></div>
+
+  <div style="padding:6mm 10mm 5mm;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);position:relative;z-index:1;flex-shrink:0;">
+    <div class="logo"><div class="logo-dot"></div>TREV'AINNOVATE</div>
+    <div class="meta"><span data-cliente></span><br><span data-fecha></span></div>
+  </div>
+
+  <div style="flex:1;display:flex;flex-direction:column;padding:10mm 10mm 8mm;position:relative;z-index:1;gap:8mm;">
+
+    <!-- Headline -->
+    <div>
+      <div style="font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--green);margin-bottom:8px;">Cómo activamos tu operación</div>
+      <h2 style="font-size:32px;font-weight:900;line-height:1.08;letter-spacing:-.02em;margin-bottom:8px;">
+        Primer resultado en <span class="grad">72 horas.</span><br>Sistema operando <span class="grad">en 30 días.</span>
+      </h2>
+      <p style="font-size:13px;color:var(--muted);line-height:1.65;max-width:165mm;">No empezamos con un plan de meses. El día 1 ya hay algo funcionando. Así lo construimos todo — capa por capa, con criterios de aceptación claros antes de avanzar.</p>
+    </div>
+
+    <!-- 3 pasos -->
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;flex:1;align-content:center;">
+
+      <!-- Paso 1 -->
+      <div style="background:rgba(245,158,11,.04);border:1px solid rgba(245,158,11,.22);border-radius:14px;padding:20px 18px;display:flex;flex-direction:column;gap:10px;">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <div style="width:32px;height:32px;border-radius:50%;background:rgba(245,158,11,.15);border:1px solid rgba(245,158,11,.4);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:var(--amber);flex-shrink:0;">1</div>
+          <div>
+            <div style="font-size:11px;font-weight:700;color:rgba(245,158,11,.9);">Diagnóstico — Día 0</div>
+            <div style="font-size:8.5px;color:rgba(255,255,255,.35);">24 horas · Sin costo</div>
+          </div>
+        </div>
+        <div style="font-size:11px;color:rgba(255,255,255,.7);line-height:1.65;">Auditamos tu dominio, correo, flujos críticos y herramientas activas. En 24 horas tenemos el mapa completo de dónde está el problema y cuál agente lo resuelve primero.</div>
+        <div style="display:flex;flex-direction:column;gap:4px;">
+          <div style="font-size:9px;color:rgba(245,158,11,.75);">✓ Auditoría DNS + seguridad de correo</div>
+          <div style="font-size:9px;color:rgba(245,158,11,.75);">✓ Mapeo de procesos críticos</div>
+          <div style="font-size:9px;color:rgba(245,158,11,.75);">✓ Prioridad de módulos definida</div>
+        </div>
+      </div>
+
+      <!-- Paso 2 -->
+      <div style="background:rgba(0,229,160,.04);border:1px solid rgba(0,229,160,.22);border-radius:14px;padding:20px 18px;display:flex;flex-direction:column;gap:10px;">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <div style="width:32px;height:32px;border-radius:50%;background:rgba(0,229,160,.15);border:1px solid rgba(0,229,160,.4);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:var(--green);flex-shrink:0;">2</div>
+          <div>
+            <div style="font-size:11px;font-weight:700;color:var(--green);">Activación Express — Días 1–3</div>
+            <div style="font-size:8.5px;color:rgba(255,255,255,.35);">72h · Primer módulo en producción</div>
+          </div>
+        </div>
+        <div style="font-size:11px;color:rgba(255,255,255,.7);line-height:1.65;">Primer agente desplegado y funcionando. DNS protegido, correos llegando a bandeja principal, primer proceso automatizado activo. No como demo — en producción real con tus datos.</div>
+        <div style="display:flex;flex-direction:column;gap:4px;">
+          <div style="font-size:9px;color:rgba(0,229,160,.75);">✓ SPF + DMARC + DKIM configurados</div>
+          <div style="font-size:9px;color:rgba(0,229,160,.75);">✓ Primer agente activo en 72h</div>
+          <div style="font-size:9px;color:rgba(0,229,160,.75);">✓ Criterio de aceptación verificado</div>
+        </div>
+      </div>
+
+      <!-- Paso 3 -->
+      <div style="background:rgba(59,130,246,.04);border:1px solid rgba(59,130,246,.22);border-radius:14px;padding:20px 18px;display:flex;flex-direction:column;gap:10px;">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <div style="width:32px;height:32px;border-radius:50%;background:rgba(59,130,246,.15);border:1px solid rgba(59,130,246,.4);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:var(--blue);flex-shrink:0;">3</div>
+          <div>
+            <div style="font-size:11px;font-weight:700;color:var(--blue);">Operación continua — Mes 1+</div>
+            <div style="font-size:8.5px;color:rgba(255,255,255,.35);">24/7 · Sin intervención manual</div>
+          </div>
+        </div>
+        <div style="font-size:11px;color:rgba(255,255,255,.7);line-height:1.65;">El sistema corre solo. Cada mes recibes un reporte de lo que hicieron los agentes, alertas de lo que detectaron y mejoras implementadas. Tú decides — el sistema ejecuta.</div>
+        <div style="display:flex;flex-direction:column;gap:4px;">
+          <div style="font-size:9px;color:rgba(59,130,246,.75);">✓ Reporte mensual automático</div>
+          <div style="font-size:9px;color:rgba(59,130,246,.75);">✓ Mejoras sin costo adicional</div>
+          <div style="font-size:9px;color:rgba(59,130,246,.75);">✓ Portal de monitoreo en tiempo real</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Garantía strip -->
+    <div style="background:rgba(0,229,160,.04);border:1px solid rgba(0,229,160,.15);border-radius:10px;padding:14px 18px;display:flex;align-items:center;gap:14px;">
+      <div style="font-size:28px;flex-shrink:0;">🛡️</div>
+      <div>
+        <div style="font-size:12px;font-weight:700;color:var(--white);margin-bottom:3px;">Garantía de resultado — mes 1</div>
+        <div style="font-size:11px;color:rgba(255,255,255,.6);line-height:1.5;">Si al final del primer mes no podemos mostrar un resultado concreto y medible — en eficiencia, ventas o seguridad — devolvemos el 100% de la licencia mensual. Sin preguntas y sin trámites.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer"><a class="nav-arrow" href="#quienes">← Quiénes somos</a><span class="pn">3 / 7</span><a class="nav-arrow" href="#agencias">→ Para agencias</a></div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     P4 — COMBOS AGENCIAS MKT
+══════════════════════════════════════════════════════ -->
+<div class="page" id="agencias">
+  <div class="topbar"></div>
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 60% 30%,rgba(139,92,246,.05) 0%,transparent 60%);pointer-events:none;"></div>
+
+  <div style="padding:6mm 10mm 5mm;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);position:relative;z-index:1;flex-shrink:0;">
+    <div class="logo"><div class="logo-dot"></div>TREV'AINNOVATE</div>
+    <div class="meta"><span data-cliente></span><br><span data-fecha></span></div>
+  </div>
+
+  <div style="flex:1;display:flex;flex-direction:column;padding:8mm 10mm 6mm;position:relative;z-index:1;gap:6mm;overflow:hidden;">
+
+    <!-- Headline -->
+    <div>
+      <div style="font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--purple);margin-bottom:6px;">Para agencias de marketing · 11–50 personas</div>
+      <h2 style="font-size:26px;font-weight:900;line-height:1.1;letter-spacing:-.02em;margin-bottom:6px;">
+        El tiempo que tu equipo gasta en reportes<br><span class="grad">lo puede gastar en crecer.</span>
+      </h2>
+      <p style="font-size:12px;color:var(--muted);line-height:1.6;max-width:165mm;">Las agencias más eficientes de México ya no dedican horas a construir PDFs para clientes. Tienen agentes que lo hacen solos — y usan ese tiempo para vender más.</p>
+    </div>
+
+    <!-- Caso de estudio compacto -->
+    <div style="background:rgba(0,229,160,.04);border:1px solid rgba(0,229,160,.15);border-radius:10px;padding:12px 16px;display:flex;align-items:flex-start;gap:16px;">
+      <div style="flex:1;">
+        <div style="font-size:9px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.12em;margin-bottom:4px;">Caso real — Agencia Digital · CDMX · 18 personas · 22 clientes</div>
+        <div style="display:flex;gap:18px;flex-wrap:wrap;">
+          <div><span style="font-size:9px;color:rgba(255,255,255,.4);">Antes:</span> <span style="font-size:11px;font-weight:700;color:rgba(255,255,255,.7);">2 personas · 40h/mes generando reportes</span></div>
+          <span style="color:var(--green);font-weight:700;">→</span>
+          <div><span style="font-size:9px;color:rgba(255,255,255,.4);">Después:</span> <span style="font-size:11px;font-weight:700;color:var(--green);">0 personas · 22 PDFs entregados automáticamente</span></div>
+        </div>
+        <div style="font-size:10px;color:rgba(255,255,255,.5);margin-top:4px;">Resultado adicional: +3 nuevos clientes incorporados en el primer mes — con el mismo equipo.</div>
+      </div>
+    </div>
+
+    <!-- 3 combos -->
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;flex:1;align-content:start;">
+
+      <!-- Combo 1 -->
+      <div style="background:rgba(245,158,11,.04);border:1px solid rgba(245,158,11,.2);border-radius:12px;padding:16px 14px;display:flex;flex-direction:column;gap:8px;">
+        <div>
+          <div style="font-size:8px;font-weight:700;color:var(--amber);text-transform:uppercase;letter-spacing:.14em;margin-bottom:4px;">Agente Funcional</div>
+          <div style="font-size:13px;font-weight:800;color:rgba(255,255,255,.9);margin-bottom:2px;">Reportes Automáticos</div>
+          <div style="font-size:9px;color:rgba(255,255,255,.4);line-height:1.4;">El primer paso para dejar de hacerlos a mano</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:3px;">
+          <div style="font-size:9px;color:rgba(255,255,255,.65);">› Reportes PDF automáticos por cliente</div>
+          <div style="font-size:9px;color:rgba(255,255,255,.65);">› Entrega en el horario y formato que defines</div>
+          <div style="font-size:9px;color:rgba(255,255,255,.65);">› DMARC + seguridad de correo incluida</div>
+          <div style="font-size:9px;color:rgba(255,255,255,.65);">› Sin intervención manual</div>
+        </div>
+        <div style="margin-top:auto;padding-top:8px;border-top:1px solid rgba(245,158,11,.15);">
+          <div style="font-size:10px;color:rgba(255,255,255,.4);margin-bottom:2px;">Activación Express</div>
+          <div style="font-size:18px;font-weight:900;color:var(--amber);font-family:'JetBrains Mono',monospace;line-height:1;">$8,000</div>
+          <div style="font-size:9px;color:rgba(255,255,255,.4);margin-bottom:4px;">MXN · pago único</div>
+          <div style="font-size:9px;color:rgba(255,255,255,.4);">Licencia mensual</div>
+          <div style="font-size:18px;font-weight:900;color:var(--amber);font-family:'JetBrains Mono',monospace;line-height:1;">$4,500</div>
+          <div style="font-size:9px;color:rgba(255,255,255,.4);">MXN / mes</div>
+        </div>
+      </div>
+
+      <!-- Combo 2 -->
+      <div style="background:rgba(0,229,160,.04);border:2px solid rgba(0,229,160,.3);border-radius:12px;padding:16px 14px;display:flex;flex-direction:column;gap:8px;position:relative;">
+        <div style="position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:var(--green);color:var(--bg);font-size:7px;font-weight:900;text-transform:uppercase;letter-spacing:.14em;padding:3px 10px;border-radius:0 0 8px 8px;">El más solicitado</div>
+        <div style="margin-top:10px;">
+          <div style="font-size:8px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.14em;margin-bottom:4px;">Ecosistema de Agentes</div>
+          <div style="font-size:13px;font-weight:800;color:rgba(255,255,255,.9);margin-bottom:2px;">Ecosistema Agencia</div>
+          <div style="font-size:9px;color:rgba(255,255,255,.4);line-height:1.4;">La agencia que crece sin contratar</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:3px;">
+          <div style="font-size:9px;color:rgba(255,255,255,.65);">› Todo lo de Agente Funcional</div>
+          <div style="font-size:9px;color:rgba(255,255,255,.65);">› Agente CRM — pipeline de clientes activo</div>
+          <div style="font-size:9px;color:rgba(255,255,255,.65);">› Agente Onboarding — cliente nuevo sin fricción</div>
+          <div style="font-size:9px;color:rgba(255,255,255,.65);">› Reply Detection — respuestas automáticas inteligentes</div>
+          <div style="font-size:9px;color:rgba(255,255,255,.65);">› Portal cliente en tiempo real</div>
+        </div>
+        <div style="margin-top:auto;padding-top:8px;border-top:1px solid rgba(0,229,160,.15);">
+          <div style="font-size:10px;color:rgba(255,255,255,.4);margin-bottom:2px;">Activación Express</div>
+          <div style="font-size:18px;font-weight:900;color:var(--green);font-family:'JetBrains Mono',monospace;line-height:1;">$10,000</div>
+          <div style="font-size:9px;color:rgba(255,255,255,.4);margin-bottom:4px;">MXN · pago único</div>
+          <div style="font-size:9px;color:rgba(255,255,255,.4);">Licencia mensual</div>
+          <div style="font-size:18px;font-weight:900;color:var(--green);font-family:'JetBrains Mono',monospace;line-height:1;">$10,000</div>
+          <div style="font-size:9px;color:rgba(255,255,255,.4);">MXN / mes</div>
+        </div>
+      </div>
+
+      <!-- Combo 3 -->
+      <div style="background:rgba(139,92,246,.04);border:1px solid rgba(139,92,246,.2);border-radius:12px;padding:16px 14px;display:flex;flex-direction:column;gap:8px;">
+        <div>
+          <div style="font-size:8px;font-weight:700;color:var(--purple);text-transform:uppercase;letter-spacing:.14em;margin-bottom:4px;">Ecosistema + White-Label</div>
+          <div style="font-size:13px;font-weight:800;color:rgba(255,255,255,.9);margin-bottom:2px;">Tu propio producto</div>
+          <div style="font-size:9px;color:rgba(255,255,255,.4);line-height:1.4;">Vende automatización como si fuera tuya</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:3px;">
+          <div style="font-size:9px;color:rgba(255,255,255,.65);">› Todo lo de Ecosistema Agencia</div>
+          <div style="font-size:9px;color:rgba(255,255,255,.65);">› Seguridad Administrada para tus clientes</div>
+          <div style="font-size:9px;color:rgba(255,255,255,.65);">› Portal rebrandeable con tu logo</div>
+          <div style="font-size:9px;color:rgba(255,255,255,.65);">› Nueva línea de ingresos recurrentes</div>
+          <div style="font-size:9px;color:rgba(255,255,255,.65);">› Soporte prioritario &lt;4h garantizado</div>
+        </div>
+        <div style="margin-top:auto;padding-top:8px;border-top:1px solid rgba(139,92,246,.15);">
+          <div style="font-size:10px;color:rgba(255,255,255,.4);margin-bottom:2px;">Activación Express</div>
+          <div style="font-size:18px;font-weight:900;color:var(--purple);font-family:'JetBrains Mono',monospace;line-height:1;">$12,000</div>
+          <div style="font-size:9px;color:rgba(255,255,255,.4);margin-bottom:4px;">MXN · pago único</div>
+          <div style="font-size:9px;color:rgba(255,255,255,.4);">Licencia mensual</div>
+          <div style="font-size:18px;font-weight:900;color:var(--purple);font-family:'JetBrains Mono',monospace;line-height:1;">$12,000</div>
+          <div style="font-size:9px;color:rgba(255,255,255,.4);">MXN / mes</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer"><a class="nav-arrow" href="#como">← Cómo trabajamos</a><span class="pn">4 / 7</span><a class="nav-arrow" href="#diagnostico">→ Diagnóstico</a></div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     P5 — DIAGNÓSTICO (condicional: dominio o hallazgos)
 ══════════════════════════════════════════════════════ -->
 <div class="page page-diag" id="diagnostico">
   <div class="topbar"></div>
@@ -1081,7 +1289,7 @@ window.onload = () => {
       </div>
     </div>
   </div>
-  <div class="page-footer"><a class="nav-arrow" href="#quienes">← Quiénes somos</a><span class="pn">3 / 5</span><a class="nav-arrow" href="#equipo">→ Su equipo</a></div>
+  <div class="page-footer"><a class="nav-arrow" href="#agencias">← Para agencias</a><span class="pn">5 / 7</span><a class="nav-arrow" href="#equipo">→ Su equipo</a></div>
 </div>
 
 <!-- ══════════════════════════════════════════════════════
@@ -1095,7 +1303,7 @@ window.onload = () => {
   </div>
   <div class="page-body">
     <span class="label">Solución Operativa</span>
-    <h2 class="h2" style="margin-bottom:5px;">Lo que vamos a construir <span class="grad">en <span data-cliente></span>.</span></h2>
+    <h2 class="h2" style="margin-bottom:5px;">Qué activa la plataforma <span class="grad">en <span data-cliente></span>.</span></h2>
 
     <!-- Objetivo estratégico + flujo de estrategia — visible si hay params -->
     <div id="estrategia-block" style="display:none;margin-bottom:10px;background:rgba(0,229,160,.04);border:1px solid rgba(0,229,160,.18);border-radius:10px;padding:10px 14px;">
@@ -1125,7 +1333,7 @@ window.onload = () => {
       <p style="font-size:8.5px;color:rgba(255,255,255,.4);line-height:1.5;margin:0;">Infraestructura propia — ningún módulo depende de plataformas externas para operar.</p>
     </div>
   </div>
-  <div class="page-footer"><a class="nav-arrow" href="#diagnostico">← Diagnóstico</a><span class="pn">4 / 5</span><a class="nav-arrow" href="#inversion">→ Inversión</a></div>
+  <div class="page-footer"><a class="nav-arrow" href="#diagnostico">← Diagnóstico</a><span class="pn">6 / 7</span><a class="nav-arrow" href="#inversion">→ Inversión</a></div>
 </div>
 
 <!-- ══════════════════════════════════════════════════════
@@ -1155,7 +1363,7 @@ window.onload = () => {
       <!-- Pricing: proyecto -->
       <div id="pricing-proyecto" style="display:none;flex-direction:column;gap:8px;">
         <div class="block b" style="padding:20px 22px;">
-          <div style="font-size:9px;font-weight:700;color:var(--amber);text-transform:uppercase;letter-spacing:.14em;margin-bottom:8px;">Plan Lite · Setup único + retainer mensual — el primer paso</div>
+          <div style="font-size:9px;font-weight:700;color:var(--amber);text-transform:uppercase;letter-spacing:.14em;margin-bottom:8px;">Agente Funcional · Activación Express + licencia mensual — el primer paso</div>
           <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:4px;">
             <div style="font-size:22px;font-weight:900;color:var(--amber);font-family:'JetBrains Mono',monospace;line-height:1;">$12,000</div>
             <div style="font-size:11px;color:var(--muted);">MXN setup</div>
@@ -1174,7 +1382,7 @@ window.onload = () => {
         <div class="block" style="padding:14px 18px;background:rgba(245,158,11,.04);border-color:rgba(245,158,11,.18);">
           <div style="font-size:11px;color:var(--muted);line-height:1.6;">
             <strong style="color:var(--white);display:block;margin-bottom:4px;">El siguiente paso natural</strong>
-            La mayoría de clientes que empieza en Plan Lite escala a Plan Pro en los primeros 60 días — una vez que ven lo que es posible con agentes operando 24/7.
+            La mayoría de clientes que empieza con un Agente Funcional escala a Ecosistema de Agentes en los primeros 60 días — una vez que ven lo que es posible con agentes operando 24/7.
           </div>
         </div>
       </div>
@@ -1182,9 +1390,9 @@ window.onload = () => {
       <!-- Pricing: equipo de agentes -->
       <div id="pricing-agentes" style="display:none;flex-direction:column;gap:8px;">
         <div class="block green" style="padding:16px 18px;">
-          <div style="font-size:8px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.14em;margin-bottom:6px;">Derecho de Sistema · pago único</div>
+          <div style="font-size:8px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.14em;margin-bottom:6px;">Activación Express · pago único</div>
           <div id="price-setup-agentes" style="font-size:26px;font-weight:900;color:var(--green);font-family:'JetBrains Mono',monospace;line-height:1;margin-bottom:4px;">—</div>
-          <div style="font-size:9px;color:var(--muted);margin-bottom:10px;">Activas la capacidad operativa — no pagas horas, pagas el sistema funcionando</div>
+          <div style="font-size:9px;color:var(--muted);margin-bottom:10px;">Primer módulo en producción en 72h — no pagas horas, pagas el sistema operando</div>
           <div class="check-list">
             <div class="check-item">Diagnóstico, build y despliegue de los módulos</div>
             <div class="check-item">Integración con sus sistemas actuales</div>
@@ -1193,9 +1401,9 @@ window.onload = () => {
           </div>
         </div>
         <div class="block blue" style="padding:16px 18px;">
-          <div style="font-size:8px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.14em;margin-bottom:6px;">Retainer Operativo · mensual</div>
+          <div style="font-size:8px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.14em;margin-bottom:6px;">Licencia Operativa · mensual</div>
           <div id="price-mensual" style="font-size:26px;font-weight:900;color:var(--blue);font-family:'JetBrains Mono',monospace;line-height:1;margin-bottom:4px;">—</div>
-          <div style="font-size:9px;color:var(--muted);margin-bottom:10px;">El sistema corre — capacidad operativa activa, sin intervención manual</div>
+          <div style="font-size:9px;color:var(--muted);margin-bottom:10px;">Agentes corriendo 24/7 — capacidad operativa activa sin intervención manual</div>
           <div class="check-list">
             <div class="check-item">Infraestructura y hosting incluidos</div>
             <div class="check-item">Monitoreo y mejora continua mensual</div>
@@ -1257,7 +1465,7 @@ window.onload = () => {
           <div style="font-size:18px;flex-shrink:0;">🤝</div>
           <div>
             <div style="font-size:8.5px;font-weight:700;color:var(--green);margin-bottom:3px;">Garantía 30 días — sin letra chica</div>
-            <div style="font-size:8px;color:rgba(255,255,255,.6);line-height:1.55;">Si al primer mes no hay un resultado concreto y medible, devolvemos el 100% del Retainer Operativo. Sin preguntas. El riesgo es nuestro.</div>
+            <div style="font-size:8px;color:rgba(255,255,255,.6);line-height:1.55;">Si al primer mes no hay un resultado concreto y medible, devolvemos el 100% de la Licencia Operativa. Sin preguntas. El riesgo es nuestro.</div>
           </div>
         </div>
 
@@ -1501,7 +1709,7 @@ window.onload = () => {
   </div>
   <div class="page-footer">
     <span>Trev'ainnovate · Santiago Juárez Treviño · trevainnovate.com</span>
-    <span class="pn">5 / 5</span>
+    <span class="pn">7 / 7</span>
   </div>
 </div>
 
@@ -1564,6 +1772,8 @@ function firmarPropuesta() {
 <nav class="fnav">
   <a class="fnav-item" href="#portada"><span class="fnav-label">Portada</span><span class="fnav-dot"></span></a>
   <a class="fnav-item" href="#quienes"><span class="fnav-label">Quiénes somos</span><span class="fnav-dot"></span></a>
+  <a class="fnav-item" href="#como"><span class="fnav-label">Cómo trabajamos</span><span class="fnav-dot"></span></a>
+  <a class="fnav-item" href="#agencias"><span class="fnav-label">Para agencias</span><span class="fnav-dot"></span></a>
   <a class="fnav-item" href="#diagnostico"><span class="fnav-label">Diagnóstico</span><span class="fnav-dot"></span></a>
   <a class="fnav-item" href="#equipo"><span class="fnav-label">Su equipo</span><span class="fnav-dot"></span></a>
   <a class="fnav-item" href="#inversion"><span class="fnav-label">Inversión</span><span class="fnav-dot"></span></a>
