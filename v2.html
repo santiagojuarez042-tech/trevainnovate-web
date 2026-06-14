@@ -1,0 +1,1415 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trev'ainnovate — Su operación funciona aunque no esté</title>
+<meta name="description" content="Módulos de operación autónoma para PyMEs B2B en México. Captura de leads, inteligencia operativa y seguridad de correo activos en 72 horas.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ── TOKENS ─────────────────────────────────────────── */
+:root {
+  --bg:    #05050e;
+  --bg2:   #0a0b18;
+  --bg3:   #0d0e1f;
+  --green: #00e5a0;
+  --white: #f1f5f9;
+  --muted: #64748b;
+  --border: rgba(255,255,255,.07);
+  --amber: #fbbf24;
+  --purple: #818cf8;
+  --blue: #60a5fa;
+  --red: #f87171;
+}
+
+/* ── RESET ──────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--white); line-height: 1.6; overflow-x: hidden; }
+a { text-decoration: none; color: inherit; }
+button { border: none; cursor: pointer; font-family: inherit; }
+img { display: block; }
+
+/* ── LAYOUT ─────────────────────────────────────────── */
+.wrap { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+.frame { min-height: 100svh; display: flex; flex-direction: column; justify-content: center; padding: 80px 0; }
+.frame-tight { padding: 100px 0; }
+.sec-label { font-size: 11px; font-weight: 700; letter-spacing: .15em; color: var(--green); font-family: 'JetBrains Mono', monospace; text-transform: uppercase; display: block; margin-bottom: 16px; }
+.sec-title { font-size: clamp(32px, 4.5vw, 54px); font-weight: 900; line-height: 1.05; margin-bottom: 18px; }
+.sec-sub { font-size: 17px; color: var(--muted); line-height: 1.7; max-width: 600px; }
+.grad { background: linear-gradient(135deg, var(--green), #00b580); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.center { text-align: center; }
+.center .sec-sub { margin: 0 auto; }
+
+/* ── NAV ─────────────────────────────────────────────── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 0 24px;
+  transition: background .3s, backdrop-filter .3s, border-color .3s;
+}
+nav.scrolled {
+  background: rgba(5,5,14,.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-inner { max-width: 1100px; margin: 0 auto; height: 64px; display: flex; align-items: center; justify-content: space-between; }
+.nav-logo img { height: 32px; }
+.nav-links { display: flex; align-items: center; gap: 32px; }
+.nav-links a { font-size: 13px; font-weight: 500; color: var(--muted); transition: color .2s; }
+.nav-links a:hover { color: var(--white); }
+.nav-cta { padding: 9px 20px; border-radius: 8px; background: var(--green); color: #05050e; font-size: 13px; font-weight: 800; transition: opacity .2s; }
+.nav-cta:hover { opacity: .85; }
+.nav-ham { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+.nav-ham span { display: block; width: 22px; height: 2px; background: var(--white); border-radius: 2px; transition: .3s; }
+.nav-mob { display: none; position: fixed; top: 64px; left: 0; right: 0; background: rgba(5,5,14,.98); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); padding: 24px; flex-direction: column; gap: 20px; z-index: 99; }
+.nav-mob.open { display: flex; }
+.nav-mob a { font-size: 15px; font-weight: 600; color: var(--muted); }
+
+/* ── BUTTONS ─────────────────────────────────────────── */
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; border-radius: 10px; font-size: 14px; font-weight: 800; transition: opacity .2s, transform .2s; }
+.btn:hover { opacity: .88; transform: translateY(-1px); }
+.btn-primary { background: var(--green); color: #05050e; }
+.btn-ghost { background: transparent; border: 1px solid rgba(255,255,255,.15); color: var(--white); }
+.btn-ghost:hover { border-color: rgba(255,255,255,.3); }
+
+/* ── HERO ─────────────────────────────────────────────── */
+#hero {
+  background: var(--bg);
+  position: relative;
+  overflow: hidden;
+}
+.hero-glow-a {
+  position: absolute; top: -200px; right: -100px;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(0,229,160,.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-glow-b {
+  position: absolute; bottom: -200px; left: -100px;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(129,140,248,.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 6px 14px; border-radius: 99px;
+  background: rgba(0,229,160,.08); border: 1px solid rgba(0,229,160,.2);
+  font-size: 12px; font-weight: 700; color: var(--green);
+  margin-bottom: 32px;
+}
+.hero-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: pulse-g 2s ease-in-out infinite; }
+@keyframes pulse-g { 0%,100%{opacity:1} 50%{opacity:.3} }
+.hero-h1 { font-size: clamp(40px, 6vw, 74px); font-weight: 900; line-height: 1.0; letter-spacing: -.02em; margin-bottom: 24px; }
+.hero-sub { font-size: 18px; color: var(--muted); line-height: 1.7; max-width: 560px; margin-bottom: 40px; }
+.hero-sub strong { color: var(--white); font-weight: 600; }
+.hero-ctas { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.hero-stats { display: flex; gap: 40px; margin-top: 72px; padding-top: 40px; border-top: 1px solid var(--border); flex-wrap: wrap; }
+.hstat-val { font-size: 28px; font-weight: 900; color: var(--white); font-family: 'JetBrains Mono', monospace; }
+.hstat-lbl { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+/* ── DOLOR / CHECKLIST ───────────────────────────────── */
+#dolor { background: var(--bg2); }
+.check-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 40px; }
+.check-item {
+  display: flex; align-items: flex-start; gap: 14px;
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: 14px; padding: 18px 20px;
+  cursor: pointer; transition: border-color .25s, background .25s;
+  user-select: none;
+}
+.check-item.checked { border-color: rgba(0,229,160,.4); background: rgba(0,229,160,.04); }
+.check-box {
+  width: 20px; height: 20px; border-radius: 6px; flex-shrink: 0;
+  border: 2px solid rgba(255,255,255,.2); transition: all .2s;
+  display: flex; align-items: center; justify-content: center;
+  margin-top: 1px;
+}
+.check-item.checked .check-box { background: var(--green); border-color: var(--green); }
+.check-box-mark { font-size: 11px; color: #05050e; opacity: 0; transition: opacity .15s; }
+.check-item.checked .check-box-mark { opacity: 1; }
+.check-txt { font-size: 14px; color: var(--muted); line-height: 1.55; transition: color .2s; }
+.check-item.checked .check-txt { color: var(--white); }
+.check-counter { margin-top: 32px; text-align: center; }
+.check-num { font-size: 48px; font-weight: 900; font-family: 'JetBrains Mono', monospace; color: var(--green); }
+.check-of { font-size: 14px; color: var(--muted); margin-top: 4px; }
+.check-cta-wrap { margin-top: 28px; text-align: center; opacity: 0; transition: opacity .4s, transform .4s; transform: translateY(10px); }
+.check-cta-wrap.visible { opacity: 1; transform: translateY(0); }
+
+/* ── MÓDULOS ─────────────────────────────────────────── */
+#modulos { background: var(--bg); }
+.sector-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin: 36px 0 32px; }
+.sector-tab {
+  padding: 9px 20px; border-radius: 99px; font-size: 13px; font-weight: 700;
+  background: var(--bg2); border: 1px solid var(--border); color: var(--muted);
+  transition: all .2s; cursor: pointer;
+}
+.sector-tab.active { background: rgba(0,229,160,.1); border-color: rgba(0,229,160,.3); color: var(--green); }
+.mod-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.mod-card {
+  background: var(--bg2); border-radius: 16px; padding: 26px;
+  border: 1px solid var(--border); display: flex; flex-direction: column;
+  transition: border-color .3s;
+}
+.mod-num { font-size: 10px; font-weight: 700; letter-spacing: .12em; font-family: 'JetBrains Mono', monospace; margin-bottom: 8px; }
+.mod-name { font-size: 15px; font-weight: 800; color: var(--white); margin-bottom: 18px; }
+.mod-sit { padding: 11px 0; border-bottom: 1px solid rgba(255,255,255,.05); display: flex; gap: 10px; align-items: flex-start; }
+.mod-sit:last-of-type { border-bottom: none; }
+.mod-sit-ico { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+.mod-sit-body { font-size: 12px; color: var(--muted); line-height: 1.6; }
+.mod-sit-body strong { color: var(--white); font-weight: 600; }
+.mod-arr { color: var(--green); font-weight: 700; }
+.mod-plan { margin-top: auto; padding-top: 18px; font-size: 10px; font-weight: 700; letter-spacing: .08em; }
+
+/* ── CAPACIDADES BENTO ───────────────────────────────── */
+#capacidades { background: var(--bg2); }
+.bento { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; margin-top: 48px; }
+.bc { background: var(--bg3); border-radius: 18px; padding: 26px; border: 1px solid var(--border); transition: border-color .3s, transform .3s; }
+.bc:hover { transform: translateY(-3px); }
+.bc-wide { grid-column: span 2; }
+.bc-ico { font-size: 24px; margin-bottom: 12px; }
+.bc-lbl { font-size: 10px; font-weight: 700; letter-spacing: .12em; font-family: 'JetBrains Mono', monospace; margin-bottom: 8px; }
+.bc-ttl { font-size: 14px; font-weight: 800; color: var(--white); line-height: 1.35; margin-bottom: 10px; }
+.bc-desc { font-size: 12px; color: var(--muted); line-height: 1.65; }
+/* Benford bars */
+.bf-wrap { display: flex; gap: 5px; align-items: flex-end; height: 56px; margin: 18px 0 8px; }
+.bf-grp { display: flex; flex-direction: column; align-items: center; gap: 3px; flex: 1; }
+.bf-bar { width: 100%; border-radius: 3px 3px 0 0; min-height: 4px; }
+.bf-bar.exp { background: rgba(129,140,248,.2); }
+.bf-bar.act { background: var(--purple); }
+.bf-grp.anom .bf-bar.act { background: #ef4444; animation: pbar 2s ease-in-out infinite; }
+@keyframes pbar { 0%,100%{opacity:1} 50%{opacity:.5} }
+.bf-dig { font-size: 9px; color: var(--muted); font-family: 'JetBrains Mono', monospace; }
+.bf-legend { display: flex; gap: 12px; font-size: 10px; color: var(--muted); flex-wrap: wrap; }
+.bf-dot { display: inline-block; width: 8px; height: 8px; border-radius: 2px; margin-right: 4px; }
+/* Telegram sim */
+.tg-sim { background: #1a1d24; border-radius: 12px; padding: 14px; margin-top: 16px; }
+.tg-header { display: flex; align-items: center; gap: 6px; color: rgba(255,255,255,.45); font-size: 11px; font-weight: 600; margin-bottom: 10px; }
+.tg-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: pulse-g 2s ease-in-out infinite; }
+.tg-msg { display: flex; gap: 8px; }
+.tg-av { width: 28px; height: 28px; border-radius: 50%; background: linear-gradient(135deg,var(--purple),#6366f1); display: flex; align-items: center; justify-content: center; font-size: 12px; flex-shrink: 0; }
+.tg-bub { background: #212226; border-radius: 4px 12px 12px 12px; padding: 10px 12px; font-size: 11px; line-height: 1.65; color: rgba(255,255,255,.8); flex: 1; }
+.tg-ts { font-size: 10px; color: rgba(255,255,255,.25); margin-top: 5px; text-align: right; }
+/* Monitor mini-grid */
+.mon-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 14px; }
+.mon-i { background: rgba(0,0,0,.3); border-radius: 8px; padding: 10px 12px; }
+.mon-val { font-size: 18px; font-weight: 900; font-family: 'JetBrains Mono', monospace; }
+.mon-lbl { font-size: 10px; color: var(--muted); margin-top: 2px; }
+/* Big number */
+.big-num { font-size: 68px; font-weight: 900; line-height: 1; background: linear-gradient(135deg,var(--green),#00b580); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+
+/* ── CASOS ────────────────────────────────────────────── */
+#casos { background: var(--bg); }
+.carousel-wrap { position: relative; }
+.carousel-track-outer { overflow: hidden; border-radius: 18px; }
+.carousel-track { display: flex; transition: transform .45s cubic-bezier(.22,1,.36,1); }
+.caso { flex: 0 0 100%; background: var(--bg2); border: 1px solid var(--border); border-radius: 18px; padding: 36px; }
+.caso-sect { display: inline-flex; align-items: center; gap: 8px; padding: 5px 14px; border-radius: 99px; background: rgba(0,229,160,.07); border: 1px solid rgba(0,229,160,.15); color: var(--green); font-size: 11px; font-weight: 700; margin-bottom: 20px; }
+.caso-company { font-size: 22px; font-weight: 900; margin-bottom: 12px; }
+.caso-desc { font-size: 15px; color: var(--muted); line-height: 1.7; max-width: 640px; }
+.caso-metrics { display: flex; gap: 40px; margin-top: 32px; }
+.caso-val { font-size: 36px; font-weight: 900; font-family: 'JetBrains Mono', monospace; color: var(--white); }
+.caso-lbl { font-size: 12px; color: var(--muted); margin-top: 4px; }
+.caso-nav { display: flex; align-items: center; gap: 16px; margin-top: 20px; }
+.caso-btn { width: 38px; height: 38px; border-radius: 50%; background: var(--bg2); border: 1px solid var(--border); color: var(--white); font-size: 16px; display: flex; align-items: center; justify-content: center; transition: all .2s; }
+.caso-btn:hover { border-color: var(--green); color: var(--green); }
+.caso-dots { display: flex; gap: 6px; }
+.caso-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--border); transition: background .2s; }
+.caso-dot.active { background: var(--green); }
+
+/* ── CÓMO FUNCIONA ───────────────────────────────────── */
+#como { background: var(--bg2); }
+.steps { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-top: 48px; }
+.step { background: var(--bg3); border: 1px solid var(--border); border-radius: 16px; padding: 28px; position: relative; }
+.step::before { content: ''; position: absolute; top: 50%; left: 100%; width: 16px; height: 1px; background: var(--border); display: none; }
+.step-num { font-size: 10px; font-weight: 700; letter-spacing: .12em; font-family: 'JetBrains Mono', monospace; color: var(--muted); margin-bottom: 16px; }
+.step-ico { font-size: 28px; margin-bottom: 14px; }
+.step-time { display: inline-block; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 99px; background: rgba(0,229,160,.1); border: 1px solid rgba(0,229,160,.2); color: var(--green); margin-bottom: 12px; font-family: 'JetBrains Mono', monospace; }
+.step-ttl { font-size: 15px; font-weight: 800; color: var(--white); margin-bottom: 10px; }
+.step-desc { font-size: 13px; color: var(--muted); line-height: 1.65; }
+
+/* ── PLANES ──────────────────────────────────────────── */
+#planes { background: var(--bg); }
+.planes-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-top: 48px; }
+.plan-card {
+  border-radius: 18px; padding: 32px; border: 1px solid var(--border);
+  background: var(--bg2); display: flex; flex-direction: column;
+  transition: border-color .3s, transform .3s;
+}
+.plan-card:hover { transform: translateY(-4px); }
+.plan-card.featured { border-color: rgba(0,229,160,.3); background: rgba(0,229,160,.04); }
+.plan-badge { display: inline-block; font-size: 10px; font-weight: 700; padding: 3px 10px; border-radius: 99px; margin-bottom: 20px; }
+.plan-name { font-size: 20px; font-weight: 900; margin-bottom: 8px; }
+.plan-desc { font-size: 13px; color: var(--muted); line-height: 1.6; margin-bottom: 24px; }
+.plan-feats { display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; flex: 1; }
+.plan-feat { display: flex; gap: 10px; font-size: 13px; color: var(--muted); align-items: flex-start; }
+.plan-feat-check { color: var(--green); flex-shrink: 0; font-weight: 700; }
+.plan-cta { display: flex; align-items: center; justify-content: center; padding: 13px; border-radius: 10px; font-size: 13px; font-weight: 800; transition: all .2s; }
+
+/* ── CTA CIERRE ──────────────────────────────────────── */
+#cierre {
+  background: var(--bg2);
+  text-align: center;
+  padding: 120px 0;
+}
+.cierre-inner { max-width: 640px; margin: 0 auto; }
+
+/* ── FOOTER ──────────────────────────────────────────── */
+footer { background: var(--bg); border-top: 1px solid var(--border); padding: 40px 24px; }
+.footer-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+.footer-copy { font-size: 12px; color: var(--muted); }
+
+/* ── REVEAL ──────────────────────────────────────────── */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ── RESPONSIVE ──────────────────────────────────────── */
+@media (max-width: 900px) {
+  .nav-links { display: none; }
+  .nav-ham { display: flex; }
+  .check-grid { grid-template-columns: 1fr; }
+  .mod-grid { grid-template-columns: 1fr; }
+  .bento { grid-template-columns: 1fr 1fr; }
+  .bc-wide { grid-column: span 2; }
+  .steps { grid-template-columns: 1fr; }
+  .planes-grid { grid-template-columns: 1fr; }
+  .caso-metrics { gap: 24px; flex-wrap: wrap; }
+}
+@media (max-width: 540px) {
+  .bento { grid-template-columns: 1fr; }
+  .bc-wide { grid-column: span 1; }
+  .hero-stats { gap: 24px; }
+  .hero-h1 { font-size: 36px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══ NAV ══════════════════════════════════════════════ -->
+<nav id="main-nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo"><img src="logo-wordmark.svg" alt="Trev'ainnovate" style="height:30px;"></a>
+    <div class="nav-links">
+      <a href="#dolor">¿Es para mí?</a>
+      <a href="#modulos">Módulos</a>
+      <a href="#casos">Casos reales</a>
+      <a href="#planes">Planes</a>
+      <a href="#cierre" class="nav-cta">Diagnóstico gratuito</a>
+    </div>
+    <div class="nav-ham" id="nav-ham" onclick="toggleMob()">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+<div class="nav-mob" id="nav-mob">
+  <a href="#dolor" onclick="closeMob()">¿Es para mí?</a>
+  <a href="#modulos" onclick="closeMob()">Módulos</a>
+  <a href="#casos" onclick="closeMob()">Casos reales</a>
+  <a href="#planes" onclick="closeMob()">Planes</a>
+  <a href="#cierre" onclick="closeMob()" class="nav-cta" style="text-align:center;border-radius:10px;">Diagnóstico gratuito</a>
+</div>
+
+<!-- ══ HERO ══════════════════════════════════════════════ -->
+<section id="hero" class="frame">
+  <div class="hero-glow-a"></div>
+  <div class="hero-glow-b"></div>
+  <div class="wrap" style="position:relative;">
+
+    <div class="hero-badge reveal">
+      <div class="hero-badge-dot"></div>
+      Activación en 72 horas · Sin consultores · Sin meses de implementación
+    </div>
+
+    <h1 class="hero-h1 reveal">
+      Su negocio funciona<br>
+      aunque usted<br>
+      <span class="grad">no esté.</span>
+    </h1>
+
+    <p class="hero-sub reveal">
+      Módulos de operación autónoma para PyMEs B2B en México.<br>
+      <strong>Leads capturados. Procesos coordinados. Seguridad activa.</strong><br>
+      Desde el primer día, sin cambiar lo que ya tienen.
+    </p>
+
+    <div class="hero-ctas reveal">
+      <a href="#cierre" class="btn btn-primary">Quiero ver cómo funciona →</a>
+      <a href="#dolor" class="btn btn-ghost">¿Es para mi empresa?</a>
+    </div>
+
+    <div class="hero-stats reveal">
+      <div>
+        <div class="hstat-val">72h</div>
+        <div class="hstat-lbl">De diagnóstico a operación activa</div>
+      </div>
+      <div>
+        <div class="hstat-val">60+</div>
+        <div class="hstat-lbl">Flujos autónomos coordinados</div>
+      </div>
+      <div>
+        <div class="hstat-val">100%</div>
+        <div class="hstat-lbl">Auditado — usted ve todo</div>
+      </div>
+      <div>
+        <div class="hstat-val">$0</div>
+        <div class="hstat-lbl">En contratar personal adicional</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ DOLOR / RECONOCIMIENTO ════════════════════════════ -->
+<section id="dolor" class="frame">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="sec-label">¿Le suena familiar?</span>
+      <h2 class="sec-title">Marque las que<br><span class="grad">reconoce en su empresa.</span></h2>
+      <p class="sec-sub">No necesita contarnos. El patrón es el mismo en PyMEs B2B de 15 a 80 empleados.</p>
+    </div>
+
+    <div class="check-grid" id="check-grid">
+      <div class="check-item" onclick="toggleCheck(this)">
+        <div class="check-box"><span class="check-box-mark">✓</span></div>
+        <div class="check-txt">Llegan leads el viernes y se responden — si alguien se acuerda — el lunes en la mañana.</div>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)">
+        <div class="check-box"><span class="check-box-mark">✓</span></div>
+        <div class="check-txt">El reporte semanal lo hace el dueño, o simplemente no existe.</div>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)">
+        <div class="check-box"><span class="check-box-mark">✓</span></div>
+        <div class="check-txt">No sabe si alguien puede enviar correos suplantando su empresa ante sus clientes.</div>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)">
+        <div class="check-box"><span class="check-box-mark">✓</span></div>
+        <div class="check-txt">Cada pedido, cotización o solicitud se registra manualmente porque nadie conectó los sistemas.</div>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)">
+        <div class="check-box"><span class="check-box-mark">✓</span></div>
+        <div class="check-txt">El seguimiento de cotizaciones depende de que alguien se acuerde de dar seguimiento.</div>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)">
+        <div class="check-box"><span class="check-box-mark">✓</span></div>
+        <div class="check-txt">Si el dueño se va dos semanas, ciertos procesos críticos se pausan o se hacen mal.</div>
+      </div>
+    </div>
+
+    <div class="check-counter">
+      <div class="check-num" id="check-num">0</div>
+      <div class="check-of">de 6 situaciones marcadas</div>
+    </div>
+
+    <div class="check-cta-wrap" id="check-cta">
+      <p style="font-size:15px;color:var(--muted);margin-bottom:20px;">Eso es exactamente lo que resolvemos.<br>En 72 horas y sin cambiar lo que ya tienen.</p>
+      <a href="#modulos" class="btn btn-primary">Ver cómo funciona →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ MÓDULOS ════════════════════════════════════════════ -->
+<section id="modulos" class="frame-tight">
+  <div class="wrap">
+    <div class="center reveal">
+      <span class="sec-label">Módulos de Capacidad Operativa</span>
+      <h2 class="sec-title">Tres módulos.<br><span class="grad">Un solo resultado.</span></h2>
+      <p class="sec-sub">Seleccione su sector para ver situaciones reales de su giro.</p>
+    </div>
+
+    <div class="sector-tabs reveal" id="sector-tabs">
+      <button class="sector-tab active" onclick="setSector(0)">🏭 Manufactura</button>
+      <button class="sector-tab" onclick="setSector(1)">📦 Distribución</button>
+      <button class="sector-tab" onclick="setSector(2)">💼 Servicios B2B</button>
+      <button class="sector-tab" onclick="setSector(3)">📣 Agencias</button>
+    </div>
+
+    <div class="mod-grid" id="mod-grid">
+      <!-- Filled by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- ══ CAPACIDADES ════════════════════════════════════════ -->
+<section id="capacidades" class="frame-tight">
+  <div class="wrap">
+    <div class="center reveal">
+      <span class="sec-label">Bajo el capó</span>
+      <h2 class="sec-title">Lo que hacemos<br><span class="grad">que nadie espera que hagamos.</span></h2>
+      <p class="sec-sub">Capacidades reales. Resultados concretos. Sin términos técnicos.</p>
+    </div>
+
+    <div class="bento reveal">
+
+      <!-- Ley de Benford — wide -->
+      <div class="bc bc-wide" style="border-color:rgba(129,140,248,.2);" onmouseover="this.style.borderColor='rgba(129,140,248,.45)'" onmouseout="this.style.borderColor='rgba(129,140,248,.2)'">
+        <div class="bc-ico">📊</div>
+        <div class="bc-lbl" style="color:var(--purple);">AUDITORÍA MATEMÁTICA — Ley de Benford</div>
+        <div class="bc-ttl">Detectamos facturas con anomalías estadísticas antes de que usted las revise.</div>
+        <div class="bc-desc">La Ley de Benford establece que en datos financieros reales, los primeros dígitos siguen una distribución matemática predecible. Cuando un proveedor infla importes o alguien manipula registros, esa distribución se rompe. Lo analizamos en su contabilidad mensual y generamos alerta si el riesgo es alto — el mismo principio que usa el SAT para detectar fraude fiscal.</div>
+        <div class="bf-wrap" id="bf-bars"></div>
+        <div class="bf-legend">
+          <span><span class="bf-dot" style="background:rgba(129,140,248,.3);"></span>Distribución esperada</span>
+          <span><span class="bf-dot" style="background:var(--purple);"></span>Distribución real</span>
+          <span><span class="bf-dot" style="background:#ef4444;"></span>Anomalía detectada → alerta automática</span>
+        </div>
+      </div>
+
+      <!-- Suplantación -->
+      <div class="bc" style="border-color:rgba(248,113,113,.15);" onmouseover="this.style.borderColor='rgba(248,113,113,.4)'" onmouseout="this.style.borderColor='rgba(248,113,113,.15)'">
+        <div class="bc-ico">🚨</div>
+        <div class="bc-lbl" style="color:var(--red);">DMARC + MONITOREO EN TIEMPO REAL</div>
+        <div class="bc-ttl">Suplantación detectada antes de llegar a su primer cliente.</div>
+        <div class="tg-sim">
+          <div class="tg-header"><div class="tg-dot"></div>TrevAI Sentinel · activo</div>
+          <div class="tg-msg">
+            <div class="tg-av">🛡️</div>
+            <div style="flex:1;">
+              <div class="tg-bub">⚠️ <strong>ALERTA — Suplantación</strong><br>Dominio: su-empresa.mx<br>Origen: IP 45.33.72.x<br>Acción: <span style="color:var(--green);font-weight:700;">Bloqueado · DMARC reject</span></div>
+              <div class="tg-ts">Hace 3 minutos</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ERP Bridge — Animated Network (span 2) -->
+      <div class="bc bc-wide" style="border-color:rgba(0,229,160,.2);" onmouseover="this.style.borderColor='rgba(0,229,160,.5)'" onmouseout="this.style.borderColor='rgba(0,229,160,.2)'">
+        <style>
+          .erp-net { margin-top:20px; }
+          .erp-nodes { display:flex; align-items:center; gap:0; }
+          .erp-node {
+            background:rgba(0,0,0,.35); border-radius:12px; padding:12px 14px;
+            text-align:center; flex-shrink:0; min-width:100px;
+            border:1px solid rgba(0,229,160,.12);
+          }
+          .erp-node.agent {
+            border-color:rgba(0,229,160,.5); background:rgba(0,229,160,.06);
+            position:relative; min-width:120px;
+          }
+          .erp-pulse {
+            position:absolute; inset:-7px; border-radius:18px;
+            border:1px solid rgba(0,229,160,.35);
+            animation:erp-expand 2.4s ease-in-out infinite;
+          }
+          .erp-pulse2 {
+            position:absolute; inset:-14px; border-radius:22px;
+            border:1px solid rgba(0,229,160,.15);
+            animation:erp-expand 2.4s ease-in-out .6s infinite;
+          }
+          @keyframes erp-expand { 0%,100%{transform:scale(1);opacity:.6} 50%{transform:scale(1.06);opacity:0} }
+          .erp-nod-ico { font-size:22px; margin-bottom:6px; }
+          .erp-nod-name { font-size:11px; font-weight:800; color:var(--white); }
+          .erp-nod-sub { font-size:9px; color:var(--muted); margin-top:3px; min-height:13px; }
+          .erp-nod-sub.live { color:var(--green); }
+          /* Path between nodes */
+          .erp-path { flex:1; position:relative; height:2px; margin:0 2px; overflow:visible; }
+          .erp-path-line {
+            position:absolute; top:0; left:0; right:0; height:2px;
+            background:linear-gradient(90deg, rgba(0,229,160,.4), rgba(0,229,160,.1));
+          }
+          .erp-path.rev .erp-path-line { background:linear-gradient(270deg, rgba(0,229,160,.4), rgba(0,229,160,.1)); }
+          .erp-dot {
+            position:absolute; top:-4px;
+            width:10px; height:10px; border-radius:50%;
+            background:var(--green); box-shadow:0 0 10px rgba(0,229,160,.8);
+            animation:dot-travel 2s linear infinite; left:-10px;
+          }
+          .erp-path.rev .erp-dot { animation-name:dot-travel-rev; }
+          @keyframes dot-travel {
+            0%   { left:-10px; opacity:0; }
+            8%   { opacity:1; }
+            92%  { opacity:1; }
+            100% { left:calc(100% + 10px); opacity:0; }
+          }
+          @keyframes dot-travel-rev {
+            0%   { right:-10px; left:auto; opacity:0; }
+            8%   { opacity:1; }
+            92%  { opacity:1; }
+            100% { right:calc(100% + 10px); opacity:0; }
+          }
+          /* Feed */
+          .erp-feed {
+            margin-top:16px; background:rgba(0,0,0,.35); border-radius:10px;
+            padding:12px 14px; border:1px solid rgba(0,229,160,.08);
+            font-family:'JetBrains Mono',monospace;
+          }
+          .erp-feed-hd { font-size:9px; color:var(--muted); margin-bottom:8px; letter-spacing:.08em; }
+          .erp-event {
+            display:flex; gap:10px; font-size:10px; padding:3px 0;
+            border-bottom:1px solid rgba(255,255,255,.04);
+            animation:ev-in .35s ease;
+          }
+          .erp-event:last-child { border-bottom:none; }
+          @keyframes ev-in { from{opacity:0;transform:translateX(-6px)} to{opacity:1;transform:none} }
+          .erp-ev-t { color:var(--muted); flex-shrink:0; }
+          .erp-ev-txt { color:rgba(255,255,255,.7); flex:1; }
+          .erp-ev-ok { color:var(--green); }
+          .erp-ev-warn { color:#f59e0b; }
+          /* Portal mini chart */
+          .portal-chart { display:flex; gap:3px; align-items:flex-end; height:28px; margin-top:6px; justify-content:center; }
+          .p-bar { width:6px; border-radius:2px 2px 0 0; background:rgba(0,229,160,.25); transition:height .4s ease; }
+          .p-bar.active { background:var(--green); }
+        </style>
+
+        <div class="bc-ico">⚡</div>
+        <div class="bc-lbl" style="color:var(--green);">ERP BRIDGE — AGENTES SENTINEL</div>
+        <div class="bc-ttl">Su ERP, sus agentes y su portal — sincronizados en tiempo real.</div>
+        <div class="bc-desc">Los agentes Sentinel leen su ERP continuamente: pedidos, inventario, facturas y clientes. Cada cambio dispara una acción — sin que nadie lo ordene, sin exportar archivos, sin errores de captura.</div>
+
+        <div class="erp-net">
+          <!-- Node network -->
+          <div class="erp-nodes">
+            <!-- ERP source node -->
+            <div class="erp-node">
+              <div class="erp-nod-ico">🗄️</div>
+              <div class="erp-nod-name" id="erp-src-name">Microsip</div>
+              <div class="erp-nod-sub">Base de datos</div>
+            </div>
+
+            <!-- Path 1: ERP → Agent -->
+            <div class="erp-path">
+              <div class="erp-path-line"></div>
+              <div class="erp-dot"></div>
+              <div class="erp-dot" style="animation-delay:.67s"></div>
+              <div class="erp-dot" style="animation-delay:1.34s"></div>
+            </div>
+
+            <!-- Sentinel Agent -->
+            <div class="erp-node agent">
+              <div class="erp-pulse"></div>
+              <div class="erp-pulse2"></div>
+              <div class="erp-nod-ico">🤖</div>
+              <div class="erp-nod-name">Agente Sentinel</div>
+              <div class="erp-nod-sub live" id="erp-state">Procesando...</div>
+            </div>
+
+            <!-- Path 2: Agent → Portal -->
+            <div class="erp-path">
+              <div class="erp-path-line"></div>
+              <div class="erp-dot" style="animation-delay:.3s"></div>
+              <div class="erp-dot" style="animation-delay:.97s"></div>
+              <div class="erp-dot" style="animation-delay:1.64s"></div>
+            </div>
+
+            <!-- Portal Cliente -->
+            <div class="erp-node">
+              <div class="erp-nod-ico">📊</div>
+              <div class="erp-nod-name">Portal Cliente</div>
+              <div class="portal-chart" id="portal-chart">
+                <div class="p-bar" style="height:40%"></div>
+                <div class="p-bar" style="height:60%"></div>
+                <div class="p-bar" style="height:50%"></div>
+                <div class="p-bar" style="height:80%"></div>
+                <div class="p-bar active" style="height:100%"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Live event feed -->
+          <div class="erp-feed">
+            <div class="erp-feed-hd">▸ EVENTOS EN TIEMPO REAL</div>
+            <div id="erp-events"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 60+ stat (span 1) -->
+      <div class="bc" style="border-color:rgba(0,229,160,.15);display:flex;flex-direction:column;justify-content:center;" onmouseover="this.style.borderColor='rgba(0,229,160,.4)'" onmouseout="this.style.borderColor='rgba(0,229,160,.15)'">
+        <div class="big-num">60+</div>
+        <div class="bc-ttl" style="margin-top:12px;">flujos autónomos coordinados</div>
+        <div class="bc-desc" style="margin-top:8px;">No scripts aislados. Procesos que se encadenan: un lead entra, se califica, se registra y se reporta — sin que nadie lo recuerde.</div>
+      </div>
+
+      <!-- Monitor — full width horizontal strip (span 3) -->
+      <div class="bc" style="grid-column:span 3;border-color:rgba(96,165,250,.15);" onmouseover="this.style.borderColor='rgba(96,165,250,.4)'" onmouseout="this.style.borderColor='rgba(96,165,250,.15)'">
+        <div style="display:flex;align-items:center;gap:32px;flex-wrap:wrap;">
+          <div style="flex-shrink:0;">
+            <div class="bc-ico">📡</div>
+            <div class="bc-lbl" style="color:var(--blue);">MONITOREO CONTINUO</div>
+            <div class="bc-ttl" style="max-width:240px;">Si algo falla, usted lo sabe antes que sus clientes.</div>
+          </div>
+          <div style="flex:1;display:flex;gap:16px;flex-wrap:wrap;justify-content:flex-end;">
+            <div class="mon-i"><div class="mon-val" style="color:var(--blue);">288×</div><div class="mon-lbl">revisiones/día</div></div>
+            <div class="mon-i"><div class="mon-val" style="color:var(--green);">5 min</div><div class="mon-lbl">tiempo de respuesta</div></div>
+            <div class="mon-i"><div class="mon-val" style="color:var(--amber);">30 días</div><div class="mon-lbl">anticipación SSL</div></div>
+            <div class="mon-i"><div class="mon-val" style="color:var(--purple);">100%</div><div class="mon-lbl">DNS · SSL · uptime</div></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ SISTEMA EN ACCIÓN ════════════════════════════════ -->
+<section id="sistema" style="padding:100px 0;background:var(--bg);">
+<style>
+/* ── Workflow pipeline ────────────────────────────── */
+.wf-tabs { display:flex; gap:8px; flex-wrap:wrap; margin:36px 0 32px; }
+.wf-tab {
+  padding:10px 20px; border-radius:10px; font-size:13px; font-weight:700;
+  background:var(--bg2); border:1px solid var(--border); color:var(--muted);
+  transition:all .2s; cursor:pointer;
+}
+.wf-tab.active { background:rgba(0,229,160,.08); border-color:rgba(0,229,160,.35); color:var(--green); }
+.wf-layout { display:grid; grid-template-columns:1fr 280px; gap:24px; align-items:start; }
+.wf-pipe { background:var(--bg2); border:1px solid var(--border); border-radius:18px; padding:32px; min-height:420px; }
+.wf-sidebar-panel { display:flex; flex-direction:column; gap:14px; }
+.wf-stat-card { background:var(--bg2); border:1px solid var(--border); border-radius:14px; padding:20px; }
+.wf-stat-val { font-size:28px; font-weight:900; font-family:'JetBrains Mono',monospace; color:var(--green); }
+.wf-stat-lbl { font-size:11px; color:var(--muted); margin-top:4px; line-height:1.5; }
+/* Nodes */
+.wf-node { display:flex; gap:14px; align-items:flex-start; opacity:0; transform:translateX(-10px); transition:opacity .4s, transform .4s; }
+.wf-node.vis { opacity:1; transform:none; }
+.wf-left { display:flex; flex-direction:column; align-items:center; width:38px; flex-shrink:0; }
+.wf-dot {
+  width:38px; height:38px; border-radius:50%; border:1.5px solid var(--border);
+  background:var(--bg3); display:flex; align-items:center; justify-content:center;
+  font-size:16px; flex-shrink:0; transition:border-color .3s, background .3s;
+}
+.wf-dot.ok   { border-color:rgba(0,229,160,.5); }
+.wf-dot.warn { border-color:rgba(251,191,36,.5); }
+.wf-dot.done { border-color:rgba(0,229,160,.8); background:rgba(0,229,160,.1); }
+.wf-dot.info { border-color:rgba(96,165,250,.5); }
+.wf-vline {
+  width:2px; flex:1; min-height:28px; margin-top:5px;
+  background:linear-gradient(to bottom,rgba(0,229,160,.3),transparent);
+  transform:scaleY(0); transform-origin:top; transition:transform .35s .1s;
+}
+.wf-vline.vis { transform:scaleY(1); }
+.wf-content { padding-bottom:22px; flex:1; min-width:0; }
+.wf-lbl { font-size:13px; font-weight:700; color:var(--white); line-height:1.3; }
+.wf-dtl { font-size:11px; color:var(--muted); margin-top:5px; line-height:1.6; font-family:'JetBrains Mono',monospace; }
+.wf-ts  { font-size:10px; color:var(--green); margin-top:5px; font-family:'JetBrains Mono',monospace; }
+.warn-node .wf-lbl { color:var(--amber); }
+.warn-node .wf-ts  { color:var(--amber); }
+/* Parallel branch */
+.wf-branch {
+  display:flex; gap:10px; margin:0 0 22px 52px;
+  opacity:0; transform:translateY(8px); transition:opacity .4s, transform .4s;
+}
+.wf-branch.vis { opacity:1; transform:none; }
+.wf-bnode {
+  flex:1; background:var(--bg3); border:1px solid var(--border);
+  border-radius:10px; padding:12px 14px; min-width:0;
+}
+.wf-bnode.ok   { border-color:rgba(0,229,160,.2); }
+.wf-bnode.warn { border-color:rgba(251,191,36,.2); }
+.wf-bnode-ico  { font-size:18px; margin-bottom:6px; }
+.wf-bnode-lbl  { font-size:11px; font-weight:700; color:var(--white); }
+.wf-bnode-dtl  { font-size:10px; color:var(--muted); margin-top:4px; line-height:1.5; font-family:'JetBrains Mono',monospace; }
+/* Connector for branch */
+.wf-branch-line {
+  height:1px; background:linear-gradient(90deg,rgba(0,229,160,.3),rgba(0,229,160,.05));
+  margin:0 0 0 52px; margin-bottom:-10px;
+  opacity:0; transition:opacity .3s;
+}
+.wf-branch-line.vis { opacity:1; }
+@media(max-width:900px){ .wf-layout{grid-template-columns:1fr;} }
+@media(max-width:540px){ .wf-branch{flex-direction:column;margin-left:32px;} .wf-pipe{padding:20px;} }
+</style>
+
+<div class="wrap">
+  <div class="center reveal">
+    <span class="sec-label">Stack multitenant en acción</span>
+    <h2 class="sec-title">Así trabaja el sistema<br><span class="grad">sin que nadie lo active.</span></h2>
+    <p class="sec-sub">Seleccione un escenario. Observe cada paso ejecutándose en tiempo real.</p>
+  </div>
+
+  <div class="wf-tabs reveal" id="wf-tabs">
+    <button class="wf-tab active" onclick="playWf(0)">💬 Lead → CRM</button>
+    <button class="wf-tab" onclick="playWf(1)">🎯 Cold Email → Demo</button>
+    <button class="wf-tab" onclick="playWf(2)">🆕 Onboarding 72h</button>
+    <button class="wf-tab" onclick="playWf(3)">📊 Auditoría Benford</button>
+  </div>
+
+  <div class="wf-layout reveal">
+    <div class="wf-pipe" id="wf-pipe">
+      <!-- pipeline rendered by JS -->
+    </div>
+    <div class="wf-sidebar-panel">
+      <div class="wf-stat-card">
+        <div class="wf-stat-val" id="wf-time-val">—</div>
+        <div class="wf-stat-lbl">Tiempo total del proceso</div>
+      </div>
+      <div class="wf-stat-card">
+        <div class="wf-stat-val" id="wf-people-val" style="color:var(--muted);">0</div>
+        <div class="wf-stat-lbl" id="wf-people-lbl">Personas involucradas</div>
+      </div>
+      <div class="wf-stat-card" style="border-color:rgba(0,229,160,.2);background:rgba(0,229,160,.04);">
+        <div style="font-size:11px;font-weight:700;color:var(--green);margin-bottom:8px;letter-spacing:.08em;">RESULTADO</div>
+        <div class="wf-stat-lbl" id="wf-result" style="color:var(--white);font-size:13px;line-height:1.6;"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const WFS = [
+  {
+    label:'Lead → CRM',
+    timeVal:'1 min 42 seg',
+    peopleVal:'0',
+    peopleLbl:'Personas involucradas',
+    result:'Lead capturado, vendedor notificado y respuesta enviada — mientras todos dormían.',
+    steps:[
+      { ico:'💬', status:'ok',   lbl:'Mensaje WhatsApp recibido', dtl:'"Necesito cotización urgente, ¿tienen stock de PET?"', ts:'22:47:03' },
+      { ico:'🤖', status:'ok',   lbl:'Agente SDR califica en tiempo real', dtl:'Sector: Manufactura · Tamaño: 30-50 emp · Urgencia: Alta · Canal: WhatsApp', ts:'22:47:05' },
+      { ico:'📋', status:'ok',   lbl:'Registro creado automáticamente en CRM', dtl:'Empresa, contacto, canal, contexto e historial — sin que nadie lo escriba', ts:'22:47:06' },
+      { type:'branch', status:'ok', nodes:[
+        { ico:'📱', status:'ok', lbl:'Alerta Telegram', dtl:'Vendedor recibe contexto completo + botones de acción' },
+        { ico:'✉️', status:'ok', lbl:'Auto-respuesta al lead', dtl:'Confirmación + cotización inicial + link de agenda' },
+        { ico:'📅', status:'ok', lbl:'Slot de reunión disponible', dtl:'Cal.com embebido en el mensaje automático' },
+      ]},
+      { ico:'🚀', status:'done', lbl:'Demo agendada — 27 min después', dtl:'Lead eligió horario. Deal creado. Pipeline actualizado.', ts:'23:14:51' },
+    ]
+  },
+  {
+    label:'Cold Email → Demo',
+    timeVal:'3 días',
+    peopleVal:'2 min',
+    peopleLbl:'Trabajo manual (1 aprobación)',
+    result:'Prospecto frío se convierte en demo agendada con intervención humana mínima.',
+    steps:[
+      { ico:'🔭', status:'ok',   lbl:'Apollo identifica empresa ICP', dtl:'Manufactura · 28 empleados · Querétaro · CEO verificado · email corporativo', ts:'Día 1 · 09:00' },
+      { ico:'🌐', status:'warn', lbl:'Auditoría DNS automática', dtl:'Sin DMARC configurado · Dominio vulnerable a suplantación · Score: 40/100', ts:'Día 1 · 09:01' },
+      { ico:'🤖', status:'ok',   lbl:'Claude Haiku genera Email 1 personalizado', dtl:'"Revisé el dominio de Empresa XYZ antes de escribir..." — gancho de seguridad', ts:'Día 1 · 09:01' },
+      { ico:'👁️', status:'info', lbl:'Preview en Telegram — aprobación manual', dtl:'Santiago lee el email en 1 tap. Aprueba o descarta. Nada más.', ts:'Día 1 · 09:02' },
+      { ico:'✉️', status:'ok',   lbl:'Email 1 enviado · Email 2 auto-programado', dtl:'3 días después: costo del problema cuantificado por industria', ts:'Día 1 · 09:03' },
+      { ico:'💬', status:'ok',   lbl:'Respuesta detectada vía Gmail OAuth', dtl:'"Me interesa, ¿cuándo podemos hablar?" → auto-reply con Cal.com en segundos', ts:'Día 5 · 11:22' },
+      { ico:'📅', status:'done', lbl:'Demo agendada · Deal creado en CRM', dtl:'Pipeline activo. Brief del cliente generado. Sin intervención adicional.', ts:'Día 5 · 14:30' },
+    ]
+  },
+  {
+    label:'Onboarding 72h',
+    timeVal:'72 horas',
+    peopleVal:'0 setup',
+    peopleLbl:'Requerido del cliente',
+    result:'Cliente pasa de "propuesta aceptada" a operación autónoma completa en 3 días.',
+    steps:[
+      { ico:'📝', status:'ok',   lbl:'Propuesta aceptada — trigger automático', dtl:'GEC Plastic · Ecosistema de Agentes · Plan firmado digitalmente', ts:'Hora 0' },
+      { type:'branch', status:'ok', nodes:[
+        { ico:'🔗', status:'ok', lbl:'ERP Bridge',    dtl:'Microsip conectado y sincronizando' },
+        { ico:'🛡️', status:'ok', lbl:'DMARC activo',  dtl:'p=reject configurado en 4 horas' },
+        { ico:'📊', status:'ok', lbl:'Portal listo',  dtl:'Credenciales enviadas al dueño' },
+      ]},
+      { ico:'🤖', status:'ok',   lbl:'Agentes activados en producción', dtl:'Módulos 01, 02 y 03 corriendo · Leads · Operaciones · Seguridad', ts:'Hora 48' },
+      { ico:'📱', status:'ok',   lbl:'Primer reporte automático enviado', dtl:'Dueño recibe resumen de las primeras 48h de operación', ts:'Hora 71' },
+      { ico:'🚀', status:'done', lbl:'Operación autónoma activa', dtl:'72 horas después de firmar. Sin reuniones adicionales. Sin manual.', ts:'Hora 72' },
+    ]
+  },
+  {
+    label:'Auditoría Benford',
+    timeVal:'4 min 12 seg',
+    peopleVal:'0',
+    peopleLbl:'Personas requeridas',
+    result:'Detectamos en 4 minutos lo que un auditor humano tardaría días en encontrar.',
+    steps:[
+      { ico:'📅', status:'ok',   lbl:'Día 1 del mes · 00:00 — trigger automático', dtl:'Programa mensual · Sin intervención · Sin recordatorio', ts:'00:00:01' },
+      { ico:'🗄️', status:'ok',   lbl:'Extrae y normaliza facturas del mes', dtl:'847 facturas · $12.4M en operaciones · Microsip vía ERP Bridge', ts:'00:01:14' },
+      { ico:'📊', status:'ok',   lbl:'Calcula distribución de primeros dígitos', dtl:'Chi-cuadrado · p-value · Comparación vs Ley de Benford esperada', ts:'00:02:47' },
+      { ico:'⚠️', status:'warn', lbl:'Anomalía detectada — Proveedor Ferretería del Norte', dtl:'Dígito 5: 38% observado vs 7.9% esperado · Chi² = 84.3 · Riesgo: ALTO', ts:'00:03:21' },
+      { ico:'🔍', status:'warn', lbl:'Sentinel investiga automáticamente', dtl:'12 facturas señaladas · Importes entre $48,xxx y $52,xxx · Patrón sistemático', ts:'00:03:58' },
+      { ico:'📱', status:'done', lbl:'Reporte enviado al dueño vía Telegram + PDF', dtl:'Nivel de riesgo: Alto · Proveedor señalado · Acción sugerida: auditoría legal', ts:'00:04:12' },
+    ]
+  }
+];
+
+let wfTimer = null;
+
+function playWf(idx) {
+  // Update tabs
+  document.querySelectorAll('.wf-tab').forEach((t,i)=>t.classList.toggle('active',i===idx));
+  // Update sidebar
+  const wf = WFS[idx];
+  document.getElementById('wf-time-val').textContent   = wf.timeVal;
+  document.getElementById('wf-people-val').textContent = wf.peopleVal;
+  document.getElementById('wf-people-lbl').textContent = wf.peopleLbl;
+  document.getElementById('wf-result').textContent     = wf.result;
+  // Clear timer
+  if(wfTimer) clearTimeout(wfTimer);
+  // Build pipeline
+  const pipe = document.getElementById('wf-pipe');
+  pipe.innerHTML = '';
+  const items = [];
+  wf.steps.forEach((step, si) => {
+    if(step.type === 'branch') {
+      // Branch connector hint
+      const bl = document.createElement('div');
+      bl.className = 'wf-branch-line';
+      pipe.appendChild(bl);
+      items.push({ el:bl, type:'line' });
+      // Branch row
+      const br = document.createElement('div');
+      br.className = 'wf-branch';
+      step.nodes.forEach(n => {
+        const bn = document.createElement('div');
+        bn.className = `wf-bnode ${n.status}`;
+        bn.innerHTML = `<div class="wf-bnode-ico">${n.ico}</div><div class="wf-bnode-lbl">${n.lbl}</div><div class="wf-bnode-dtl">${n.dtl}</div>`;
+        br.appendChild(bn);
+      });
+      pipe.appendChild(br);
+      items.push({ el:br, type:'branch' });
+    } else {
+      const isLast = si === wf.steps.length - 1;
+      const nd = document.createElement('div');
+      nd.className = `wf-node${step.status==='warn'?' warn-node':''}`;
+      nd.innerHTML = `
+        <div class="wf-left">
+          <div class="wf-dot ${step.status}">${step.ico}</div>
+          ${!isLast?`<div class="wf-vline" id="vl${si}"></div>`:''}
+        </div>
+        <div class="wf-content">
+          <div class="wf-lbl">${step.lbl}</div>
+          <div class="wf-dtl">${step.dtl}</div>
+          ${step.ts?`<div class="wf-ts">${step.ts}</div>`:''}
+        </div>`;
+      pipe.appendChild(nd);
+      items.push({ el:nd, type:'node', lineId:`vl${si}` });
+    }
+  });
+  // Animate sequence
+  items.forEach((item, i) => {
+    wfTimer = setTimeout(()=>{
+      item.el.classList.add('vis');
+      if(item.lineId){ setTimeout(()=>{ const l=document.getElementById(item.lineId); if(l) l.classList.add('vis'); },180); }
+    }, i * 520);
+  });
+}
+
+// Auto-play on first scroll into view
+const sysSection = document.getElementById('sistema');
+let wfStarted = false;
+const wfObs = new IntersectionObserver(entries=>{
+  if(entries[0].isIntersecting && !wfStarted){ wfStarted=true; playWf(0); wfObs.disconnect(); }
+},{ threshold:0.2 });
+if(sysSection) wfObs.observe(sysSection);
+</script>
+</section>
+
+<!-- ══ CASOS ══════════════════════════════════════════════ -->
+<section id="casos" class="frame-tight">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="sec-label">Casos reales</span>
+      <h2 class="sec-title">Resultados documentados.<br><span class="grad">No proyecciones.</span></h2>
+    </div>
+
+    <div class="carousel-wrap reveal" style="margin-top:36px;">
+      <div class="carousel-track-outer">
+        <div class="carousel-track" id="casos-track">
+
+          <div class="caso">
+            <div class="caso-sect">🏭 Ciberseguridad · Industrial · Monterrey</div>
+            <div class="caso-company">Empresa Industrial</div>
+            <div class="caso-desc">El diagnóstico detectó suplantación activa del dominio — correos fraudulentos circulando con el nombre de la empresa ante clientes y proveedores. Blindaje completo en 18 horas sin interrumpir operaciones.</div>
+            <div class="caso-metrics">
+              <div><div class="caso-val">0</div><div class="caso-lbl">Incidentes en 6 meses</div></div>
+              <div><div class="caso-val">18h</div><div class="caso-lbl">De diagnóstico a blindaje</div></div>
+            </div>
+          </div>
+
+          <div class="caso">
+            <div class="caso-sect">🚗 Automotriz · Querétaro</div>
+            <div class="caso-company">Parabrisas Cristalu</div>
+            <div class="caso-desc">Cada lead desde Facebook o Google activa respuesta automática en menos de 2 minutos. El equipo recibe alerta en Telegram con el historial completo. Cero leads sin seguimiento desde la activación.</div>
+            <div class="caso-metrics">
+              <div><div class="caso-val">&lt;2 min</div><div class="caso-lbl">Tiempo de respuesta</div></div>
+              <div><div class="caso-val">100%</div><div class="caso-lbl">Leads rastreados</div></div>
+            </div>
+          </div>
+
+          <div class="caso">
+            <div class="caso-sect">🏗️ Manufactura · Plásticos · Puebla</div>
+            <div class="caso-company">GEC Plastic</div>
+            <div class="caso-desc">Cada solicitud de cotización del sitio web llega organizada al equipo de ventas en segundos — con historial del contacto, empresa y canal de origen. Sin captura manual, sin datos perdidos.</div>
+            <div class="caso-metrics">
+              <div><div class="caso-val">0</div><div class="caso-lbl">Captura manual</div></div>
+              <div><div class="caso-val">100%</div><div class="caso-lbl">Contactos organizados</div></div>
+            </div>
+          </div>
+
+          <div class="caso">
+            <div class="caso-sect">🏨 Hospitalidad Premium · 5 Verticales</div>
+            <div class="caso-company">CASA RAGE</div>
+            <div class="caso-desc">Ecosistema diseñado para atención simultánea en WhatsApp, Instagram y Messenger. Bot "Adriana" con 26 matrices de precio dinámico por temporada. Cotizaciones y reservas sin intervención del equipo.</div>
+            <div class="caso-metrics">
+              <div><div class="caso-val">3</div><div class="caso-lbl">Canales atendidos 24/7</div></div>
+              <div><div class="caso-val">26</div><div class="caso-lbl">Matrices de precio activas</div></div>
+            </div>
+            <div style="margin-top:16px;font-size:10px;font-weight:700;color:var(--green);letter-spacing:.1em;opacity:.7;">● EN IMPLEMENTACIÓN</div>
+          </div>
+
+          <div class="caso">
+            <div class="caso-sect">📬 Prospección Comercial · Interno</div>
+            <div class="caso-company">Trev'ainnovate</div>
+            <div class="caso-desc">De lista de empresas a secuencia de email personalizada lista para enviar en menos de 5 minutos. Seguimiento automático, calificación de respuestas y alerta en Telegram al detectar interés real.</div>
+            <div class="caso-metrics">
+              <div><div class="caso-val">200+</div><div class="caso-lbl">Empresas/semana alcanzadas</div></div>
+              <div><div class="caso-val">&lt;5 min</div><div class="caso-lbl">De lista a secuencia activa</div></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="caso-nav">
+        <button class="caso-btn" onclick="casoNav(-1)">←</button>
+        <div class="caso-dots" id="caso-dots"></div>
+        <button class="caso-btn" onclick="casoNav(1)">→</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CÓMO EMPEZAR ════════════════════════════════════════ -->
+<section id="como" class="frame-tight">
+  <div class="wrap">
+    <div class="center reveal">
+      <span class="sec-label">El proceso</span>
+      <h2 class="sec-title">De diagnóstico<br>a <span class="grad">operación activa en 72h.</span></h2>
+      <p class="sec-sub">Sin reuniones interminables. Sin cambiar lo que ya tienen. Sin contratar a nadie más.</p>
+    </div>
+
+    <div class="steps reveal">
+      <div class="step">
+        <div class="step-num">PASO 01</div>
+        <div class="step-ico">🔍</div>
+        <div class="step-time">Día 1</div>
+        <div class="step-ttl">Diagnóstico gratuito</div>
+        <div class="step-desc">Revisamos su operación actual: cómo llegan sus leads, cómo coordinan internamente, qué tan expuesto está su dominio. Sin costo. Sin compromiso.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">PASO 02</div>
+        <div class="step-ico">⚙️</div>
+        <div class="step-time">24 – 48h</div>
+        <div class="step-ttl">Configuración sin fricción</div>
+        <div class="step-desc">Conectamos sus sistemas actuales — ERP, correo, WhatsApp, web — sin reemplazarlos ni interrumpir operaciones. No necesita IT. No necesita meses.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">PASO 03</div>
+        <div class="step-ico">🚀</div>
+        <div class="step-time">Hora 72</div>
+        <div class="step-ttl">Operación autónoma activa</div>
+        <div class="step-desc">Sus módulos están corriendo. Leads capturados, procesos coordinados, seguridad activa. Usted lo ve todo desde el portal. Nosotros lo monitoreamos.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PLANES ═════════════════════════════════════════════ -->
+<section id="planes" class="frame-tight">
+  <div class="wrap">
+    <div class="center reveal">
+      <span class="sec-label">Planes</span>
+      <h2 class="sec-title">Empieza con uno.<br><span class="grad">Escala cuando lo necesite.</span></h2>
+      <p class="sec-sub">Los precios van en la propuesta personalizada. Aquí va la capacidad de cada plan.</p>
+    </div>
+
+    <div class="planes-grid reveal">
+
+      <!-- Agente Funcional -->
+      <div class="plan-card">
+        <span class="plan-badge" style="background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.2);color:var(--amber);">Agente Funcional</span>
+        <div class="plan-name">Un módulo.<br>Un proceso resuelto.</div>
+        <div class="plan-desc">Para empresas que tienen un cuello de botella claro. Activamos el módulo con mayor impacto inmediato.</div>
+        <div class="plan-feats">
+          <div class="plan-feat"><span class="plan-feat-check">✓</span>1 módulo activo (Leads, Operativo o Seguridad)</div>
+          <div class="plan-feat"><span class="plan-feat-check">✓</span>Activación en 72 horas</div>
+          <div class="plan-feat"><span class="plan-feat-check">✓</span>Portal de visibilidad incluido</div>
+          <div class="plan-feat"><span class="plan-feat-check">✓</span>Alertas Telegram en tiempo real</div>
+          <div class="plan-feat"><span class="plan-feat-check">✓</span>Soporte directo con el equipo</div>
+        </div>
+        <a href="#cierre" class="plan-cta btn-ghost" style="border:1px solid var(--border);">Solicitar propuesta →</a>
+      </div>
+
+      <!-- Ecosistema -->
+      <div class="plan-card featured">
+        <span class="plan-badge" style="background:rgba(0,229,160,.1);border:1px solid rgba(0,229,160,.3);color:var(--green);">Ecosistema de Agentes · Más elegido</span>
+        <div class="plan-name">Los 3 módulos.<br>Operación coordinada.</div>
+        <div class="plan-desc">Para empresas que quieren que su operación funcione sin depender de que alguien esté disponible.</div>
+        <div class="plan-feats">
+          <div class="plan-feat"><span class="plan-feat-check">✓</span>Los 3 módulos activos 24/7</div>
+          <div class="plan-feat"><span class="plan-feat-check">✓</span>Conversión de Leads automatizada</div>
+          <div class="plan-feat"><span class="plan-feat-check">✓</span>Inteligencia Operativa + reportes</div>
+          <div class="plan-feat"><span class="plan-feat-check">✓</span>Visibilidad y Seguridad completa</div>
+          <div class="plan-feat"><span class="plan-feat-check">✓</span>Análisis Benford mensual incluido</div>
+          <div class="plan-feat"><span class="plan-feat-check">✓</span>ERP Bridge según su sistema</div>
+        </div>
+        <a href="#cierre" class="plan-cta" style="background:var(--green);color:#05050e;border-radius:10px;font-weight:800;">Solicitar propuesta →</a>
+      </div>
+
+      <!-- Empresa Digital -->
+      <div class="plan-card">
+        <span class="plan-badge" style="background:rgba(129,140,248,.1);border:1px solid rgba(129,140,248,.2);color:var(--purple);">Empresa Digital</span>
+        <div class="plan-name">Operación completa.<br>Auditoría incluida.</div>
+        <div class="plan-desc">Para empresas que quieren visibilidad total y que Trev'ainnovate opere como socio estratégico de largo plazo.</div>
+        <div class="plan-feats">
+          <div class="plan-feat"><span class="plan-feat-check">✓</span>Todo lo del Ecosistema</div>
+          <div class="plan-feat"><span class="plan-feat-check">✓</span>Auditoría Sentinel mensual</div>
+          <div class="plan-feat"><span class="plan-feat-check">✓</span>Reporte ejecutivo semanal automático</div>
+          <div class="plan-feat"><span class="plan-feat-check">✓</span>Detección de fraude Benford</div>
+          <div class="plan-feat"><span class="plan-feat-check">✓</span>Módulos adicionales según necesidad</div>
+          <div class="plan-feat"><span class="plan-feat-check">✓</span>SLA de respuesta garantizado</div>
+        </div>
+        <a href="#cierre" class="plan-cta btn-ghost" style="border:1px solid var(--border);">Solicitar propuesta →</a>
+      </div>
+
+    </div>
+    <p style="text-align:center;margin-top:24px;font-size:12px;color:var(--muted);">Precios por propuesta personalizada según tamaño y sector · Sin letra pequeña · Sin contratos anuales forzados</p>
+  </div>
+</section>
+
+<!-- ══ CTA CIERRE ══════════════════════════════════════════ -->
+<section id="cierre">
+  <div class="wrap">
+    <div class="cierre-inner reveal">
+      <span class="sec-label" style="display:block;text-align:center;">El siguiente paso</span>
+      <h2 class="sec-title" style="font-size:clamp(32px,4.5vw,52px);text-align:center;margin-bottom:20px;">
+        Diagnóstico gratuito.<br><span class="grad">Sin reunión previa.</span>
+      </h2>
+      <p style="font-size:16px;color:var(--muted);text-align:center;line-height:1.7;margin-bottom:40px;">
+        Revisamos su dominio, sus procesos y sus sistemas actuales. Le decimos qué módulo tiene mayor impacto inmediato — sin costo y sin compromiso. La mayoría de empresas empieza a ver resultados en los primeros 7 días.
+      </p>
+      <div style="display:flex;flex-direction:column;gap:12px;max-width:420px;margin:0 auto;">
+        <input type="text" id="cta-nombre" placeholder="Su nombre" style="width:100%;padding:14px 18px;border-radius:10px;background:var(--bg2);border:1px solid var(--border);color:var(--white);font-size:14px;font-family:inherit;outline:none;transition:border-color .2s;" onfocus="this.style.borderColor='rgba(0,229,160,.4)'" onblur="this.style.borderColor='rgba(255,255,255,.07)'">
+        <input type="text" id="cta-empresa" placeholder="Nombre de la empresa" style="width:100%;padding:14px 18px;border-radius:10px;background:var(--bg2);border:1px solid var(--border);color:var(--white);font-size:14px;font-family:inherit;outline:none;transition:border-color .2s;" onfocus="this.style.borderColor='rgba(0,229,160,.4)'" onblur="this.style.borderColor='rgba(255,255,255,.07)'">
+        <input type="email" id="cta-email" placeholder="Correo corporativo" style="width:100%;padding:14px 18px;border-radius:10px;background:var(--bg2);border:1px solid var(--border);color:var(--white);font-size:14px;font-family:inherit;outline:none;transition:border-color .2s;" onfocus="this.style.borderColor='rgba(0,229,160,.4)'" onblur="this.style.borderColor='rgba(255,255,255,.07)'">
+        <select id="cta-sector" style="width:100%;padding:14px 18px;border-radius:10px;background:var(--bg2);border:1px solid var(--border);color:var(--muted);font-size:14px;font-family:inherit;outline:none;cursor:pointer;">
+          <option value="" disabled selected>Sector de su empresa</option>
+          <option>Manufactura</option>
+          <option>Distribución / Importación</option>
+          <option>Servicios B2B</option>
+          <option>Agencia de Marketing</option>
+          <option>Despacho Contable / Legal</option>
+          <option>Hospitalidad / Turismo</option>
+          <option>Otro</option>
+        </select>
+        <button onclick="sendDiag()" style="padding:16px;border-radius:10px;background:var(--green);color:#05050e;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;transition:opacity .2s;" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
+          Quiero mi diagnóstico gratuito →
+        </button>
+        <div id="cta-msg" style="text-align:center;font-size:13px;color:var(--green);display:none;padding:8px;">✓ Recibido — le contactamos en menos de 24 horas.</div>
+      </div>
+      <p style="text-align:center;font-size:12px;color:var(--muted);margin-top:20px;">O escríbanos directo: <a href="mailto:contacto@trevainnovate.com" style="color:var(--green);">contacto@trevainnovate.com</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ═════════════════════════════════════════════ -->
+<footer>
+  <div class="footer-inner">
+    <img src="logo-wordmark.svg" alt="Trev'ainnovate" style="height:26px;">
+    <div class="footer-copy">© 2026 Trev'ainnovate · contacto@trevainnovate.com</div>
+    <div style="display:flex;gap:20px;font-size:12px;color:var(--muted);">
+      <a href="/" style="color:var(--muted);">Inicio</a>
+      <a href="/diagnostico" style="color:var(--muted);">Diagnóstico</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ══ JS ═════════════════════════════════════════════════ -->
+<script>
+// ── Nav scroll ──────────────────────────────────────────
+const nav = document.getElementById('main-nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 40);
+});
+
+function toggleMob() { document.getElementById('nav-mob').classList.toggle('open'); }
+function closeMob() { document.getElementById('nav-mob').classList.remove('open'); }
+
+// ── Reveal on scroll ───────────────────────────────────
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+// ── Checklist ──────────────────────────────────────────
+function toggleCheck(el) {
+  el.classList.toggle('checked');
+  const count = document.querySelectorAll('.check-item.checked').length;
+  document.getElementById('check-num').textContent = count;
+  const cta = document.getElementById('check-cta');
+  cta.classList.toggle('visible', count >= 3);
+}
+
+// ── Sector tabs ────────────────────────────────────────
+const SECTORS = [
+  {
+    name: 'Manufactura',
+    mods: [
+      {
+        num: 'MÓDULO 01', color: '#fbbf24', name: 'Conversión de Leads',
+        plan: 'Disponible desde Agente Funcional',
+        sits: [
+          { ico: '💬', strong: 'Un cliente pide cotización por WhatsApp', result: 'precio y disponibilidad enviados en 90 segundos, conectados al inventario real' },
+          { ico: '🌐', strong: 'Llega solicitud del formulario web', result: 'en el CRM con empresa, producto y canal de origen antes de terminar la jornada' },
+          { ico: '🔁', strong: 'Un prospecto no responde en 48h', result: 'seguimiento automático con mensaje personalizado para su giro' }
+        ]
+      },
+      {
+        num: 'MÓDULO 02', color: '#00e5a0', name: 'Inteligencia Operativa',
+        plan: 'Disponible desde Ecosistema de Agentes',
+        sits: [
+          { ico: '📊', strong: 'Cierra el mes', result: 'reporte de producción, pedidos y despachos en el correo del dueño a las 7am del lunes' },
+          { ico: '📦', strong: 'Entra un pedido al sistema', result: 'capturado, validado contra inventario y notificado al equipo en segundos' },
+          { ico: '🧾', strong: 'Llega factura de proveedor', result: 'comparada contra orden de compra, aprobada o alertada automáticamente' }
+        ]
+      },
+      {
+        num: 'MÓDULO 03', color: '#818cf8', name: 'Visibilidad y Seguridad',
+        plan: 'Incluido en todos los planes',
+        sits: [
+          { ico: '⚠️', strong: 'Alguien intenta suplantar el dominio', result: 'alerta Telegram antes de que llegue a un solo cliente o proveedor' },
+          { ico: '🔐', strong: 'Vence un certificado SSL', result: 'detectado 30 días antes y renovado sin que nadie lo note' },
+          { ico: '📊', strong: 'Análisis Benford mensual detecta anomalía', result: 'alerta de riesgo contable con dígitos y proveedor señalado' }
+        ]
+      }
+    ]
+  },
+  {
+    name: 'Distribución',
+    mods: [
+      {
+        num: 'MÓDULO 01', color: '#fbbf24', name: 'Conversión de Leads',
+        plan: 'Disponible desde Agente Funcional',
+        sits: [
+          { ico: '📦', strong: 'Un distribuidor solicita inventario disponible', result: 'respuesta inmediata con disponibilidad real, conectada al ERP en tiempo real' },
+          { ico: '💬', strong: 'Llega consulta por WhatsApp Business', result: 'calificada, registrada y asignada al vendedor correcto sin intervención' },
+          { ico: '🔁', strong: 'Cotización enviada sin respuesta en 72h', result: 'seguimiento automático con disponibilidad actualizada y CTA directo' }
+        ]
+      },
+      {
+        num: 'MÓDULO 02', color: '#00e5a0', name: 'Inteligencia Operativa',
+        plan: 'Disponible desde Ecosistema de Agentes',
+        sits: [
+          { ico: '📋', strong: 'Cierra el período', result: 'reporte de ventas por zona, producto y vendedor generado automáticamente al lunes' },
+          { ico: '🚚', strong: 'Sale un pedido a entrega', result: 'cliente notificado automáticamente con número de guía y ETA estimado' },
+          { ico: '🧾', strong: 'Proveedor manda factura fuera de precio acordado', result: 'detectado contra orden de compra, alerta al responsable de compras' }
+        ]
+      },
+      {
+        num: 'MÓDULO 03', color: '#818cf8', name: 'Visibilidad y Seguridad',
+        plan: 'Incluido en todos los planes',
+        sits: [
+          { ico: '⚠️', strong: 'Correo fraudulento suplanta al proveedor', result: 'bloqueado y reportado antes de que llegue a cuentas por pagar' },
+          { ico: '📡', strong: 'Cae el sitio web de pedidos', result: 'alerta en Telegram en menos de 5 minutos, acción antes de que un cliente lo note' },
+          { ico: '🔐', strong: 'Certificado SSL vence en 30 días', result: 'detectado y renovado automáticamente sin intervención del equipo' }
+        ]
+      }
+    ]
+  },
+  {
+    name: 'Servicios B2B',
+    mods: [
+      {
+        num: 'MÓDULO 01', color: '#fbbf24', name: 'Conversión de Leads',
+        plan: 'Disponible desde Agente Funcional',
+        sits: [
+          { ico: '🌐', strong: 'Un prospecto llena el formulario', result: 'en el CRM con historial completo y seguimiento activado en menos de 2 minutos' },
+          { ico: '💬', strong: 'Consulta llega por LinkedIn o correo', result: 'capturada, clasificada por servicio y asignada sin que nadie lo procese manualmente' },
+          { ico: '📅', strong: 'Un lead interesado no agenda la llamada', result: 'recordatorio automático con link de calendario a las 24h y a las 72h' }
+        ]
+      },
+      {
+        num: 'MÓDULO 02', color: '#00e5a0', name: 'Inteligencia Operativa',
+        plan: 'Disponible desde Ecosistema de Agentes',
+        sits: [
+          { ico: '📊', strong: 'Termina el mes', result: 'reportes de todos los clientes generados y enviados automáticamente sin que el equipo los arme' },
+          { ico: '🆕', strong: 'Entra un cliente nuevo', result: 'onboarding completo: accesos enviados, contrato generado, primera reunión agendada' },
+          { ico: '💰', strong: 'Vence una factura por cobrar', result: 'recordatorio automático al cliente a los 3, 7 y 15 días sin que nadie lo persiga' }
+        ]
+      },
+      {
+        num: 'MÓDULO 03', color: '#818cf8', name: 'Visibilidad y Seguridad',
+        plan: 'Incluido en todos los planes',
+        sits: [
+          { ico: '⚠️', strong: 'Phishing usando el nombre de la empresa', result: 'detectado y bloqueado vía DMARC antes de llegar a clientes actuales' },
+          { ico: '📡', strong: 'Cae el portal de clientes', result: 'alerta en menos de 5 minutos, investigación iniciada automáticamente' },
+          { ico: '📊', strong: 'Análisis mensual detecta patrón anómalo en facturas', result: 'reporte con proveedor, monto y riesgo señalado para revisión' }
+        ]
+      }
+    ]
+  },
+  {
+    name: 'Agencias',
+    mods: [
+      {
+        num: 'MÓDULO 01', color: '#fbbf24', name: 'Conversión de Leads',
+        plan: 'Disponible desde Agente Funcional',
+        sits: [
+          { ico: '📲', strong: 'Lead llega desde Instagram o Meta Ads', result: 'calificado por industria y presupuesto, asignado al ejecutivo correcto sin intervención' },
+          { ico: '💬', strong: 'Empresa pide cotización de servicios', result: 'propuesta inicial generada con su información y enviada en menos de 10 minutos' },
+          { ico: '🔁', strong: 'Prospecto pidió info pero no respondió', result: 'seguimiento a las 48h con caso de éxito relevante para su industria' }
+        ]
+      },
+      {
+        num: 'MÓDULO 02', color: '#00e5a0', name: 'Inteligencia Operativa',
+        plan: 'Disponible desde Ecosistema de Agentes',
+        sits: [
+          { ico: '📊', strong: 'Cierra el período', result: 'reportes de todas las cuentas generados automáticamente — el cliente los recibe sin que el equipo los arme' },
+          { ico: '📅', strong: 'Hay entregables vencidos en alguna cuenta', result: 'alerta interna al responsable, escalación automática si no se resuelve en 24h' },
+          { ico: '💰', strong: 'Vence una factura de cliente', result: 'recordatorio automático sin que el director tenga que perseguirlo' }
+        ]
+      },
+      {
+        num: 'MÓDULO 03', color: '#818cf8', name: 'Visibilidad y Seguridad',
+        plan: 'Incluido en todos los planes',
+        sits: [
+          { ico: '⚠️', strong: 'El dominio de la agencia pierde DMARC', result: 'detectado en minutos, resuelto antes de que afecte la entregabilidad de campañas' },
+          { ico: '📡', strong: 'Cae un sitio de cliente que administran', result: 'alerta inmediata al equipo, cliente notificado antes de que lo reporte' },
+          { ico: '🔐', strong: 'Alguien suplanta el correo de la agencia', result: 'bloqueado y reportado — protege la reputación con clientes actuales' }
+        ]
+      }
+    ]
+  }
+];
+
+let currentSector = 0;
+
+function setSector(idx) {
+  currentSector = idx;
+  document.querySelectorAll('.sector-tab').forEach((t,i) => t.classList.toggle('active', i===idx));
+  renderMods();
+}
+
+function renderMods() {
+  const sector = SECTORS[currentSector];
+  const grid = document.getElementById('mod-grid');
+  grid.innerHTML = sector.mods.map(m => `
+    <div class="mod-card" style="border-color:rgba(255,255,255,.07);" onmouseover="this.style.borderColor='${m.color}55'" onmouseout="this.style.borderColor='rgba(255,255,255,.07)'">
+      <div class="mod-num" style="color:${m.color};">${m.num}</div>
+      <div class="mod-name">${m.name}</div>
+      ${m.sits.map(s => `
+        <div class="mod-sit">
+          <span class="mod-sit-ico">${s.ico}</span>
+          <span class="mod-sit-body"><strong>${s.strong}</strong> <span class="mod-arr">→</span> ${s.result}</span>
+        </div>
+      `).join('')}
+      <div class="mod-plan" style="color:${m.color};border-top:1px solid rgba(255,255,255,.06);margin-top:16px;">${m.plan}</div>
+    </div>
+  `).join('');
+}
+
+renderMods();
+
+// ── Benford bars ───────────────────────────────────────
+(function(){
+  const exp = [30.1,17.6,12.5,9.7,7.9,6.7,5.8,5.1,4.6];
+  const act = [29,18,13,10,15,6,5,4,4];
+  const wrap = document.getElementById('bf-bars');
+  if(!wrap) return;
+  const maxVal = Math.max(...exp,...act);
+  exp.forEach((e,i) => {
+    const grp = document.createElement('div');
+    grp.className = 'bf-grp' + (i===4?' anom':'');
+    const eH = Math.round((e/maxVal)*48);
+    const aH = Math.round((act[i]/maxVal)*48);
+    grp.innerHTML = `<div class="bf-bar exp" style="height:${eH}px"></div><div class="bf-bar act" style="height:${aH}px"></div><div class="bf-dig">${i+1}</div>`;
+    wrap.appendChild(grp);
+  });
+})();
+
+// ── Carousel ───────────────────────────────────────────
+let casoIdx = 0;
+const CASO_TOTAL = 5;
+const casoTrack = document.getElementById('casos-track');
+const casoDots = document.getElementById('caso-dots');
+
+function initDots() {
+  casoDots.innerHTML = '';
+  for(let i=0;i<CASO_TOTAL;i++){
+    const d = document.createElement('div');
+    d.className = 'caso-dot' + (i===0?' active':'');
+    d.onclick = () => { casoIdx=i; renderCaso(); };
+    casoDots.appendChild(d);
+  }
+}
+
+function renderCaso() {
+  casoTrack.style.transform = `translateX(-${casoIdx*100}%)`;
+  casoDots.querySelectorAll('.caso-dot').forEach((d,i)=>d.classList.toggle('active',i===casoIdx));
+}
+
+function casoNav(dir) {
+  casoIdx = (casoIdx+dir+CASO_TOTAL)%CASO_TOTAL;
+  renderCaso();
+}
+
+initDots();
+
+// Touch support
+let touchX = 0;
+casoTrack.addEventListener('touchstart', e=>{ touchX=e.touches[0].clientX; },{passive:true});
+casoTrack.addEventListener('touchend', e=>{
+  const dx=e.changedTouches[0].clientX-touchX;
+  if(Math.abs(dx)>40) casoNav(dx<0?1:-1);
+},{passive:true});
+
+// Auto-advance
+setInterval(()=>casoNav(1), 7000);
+
+// ── ERP Network animation ─────────────────────────────
+const ERP_SYSTEMS = ['Microsip','CONTPAQi','SAP B1','Aspel','Odoo'];
+const ERP_STATES  = ['Leyendo pedidos...','Sync inventario...','Validando facturas...','Actualizando portal...','Procesando clientes...'];
+const ERP_EVENTS  = [
+  { txt:'Pedido #4872 recibido · GEC Plastic', ok:true },
+  { txt:'Stock: Resina PET –50 kg → portal actualizado', ok:true },
+  { txt:'Factura FE-2847 validada contra OC-1134', ok:true },
+  { txt:'Cliente nuevo: Plastiform SA → CRM sync', ok:true },
+  { txt:'Pago INV-3091 recibido → contabilidad actualizada', ok:true },
+  { txt:'⚠ Anomalía Benford detectada — dígito 7 inflado', ok:false },
+  { txt:'Inventario bajo: Pigmento azul &lt;20 kg → alerta', ok:false },
+  { txt:'Pedido #4871 despachado · cliente notificado', ok:true },
+  { txt:'Cotización #CT-882 generada automáticamente', ok:true },
+  { txt:'Conciliación bancaria actualizada ✓', ok:true },
+];
+
+let erpSysIdx=0, erpStateIdx=0, erpEvIdx=0;
+const erpSrcName = document.getElementById('erp-src-name');
+const erpStateEl = document.getElementById('erp-state');
+const erpEvFeed  = document.getElementById('erp-events');
+const portalBars = document.querySelectorAll('.p-bar');
+let activePBar   = 4;
+
+function addErpEvent() {
+  if(!erpEvFeed) return;
+  const ev  = ERP_EVENTS[erpEvIdx % ERP_EVENTS.length];
+  const now = new Date();
+  const ts  = `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
+  const el  = document.createElement('div');
+  el.className = 'erp-event';
+  el.innerHTML = `<span class="erp-ev-t">${ts}</span><span class="erp-ev-txt">${ev.txt}</span><span class="${ev.ok?'erp-ev-ok':'erp-ev-warn'}">${ev.ok?'✓':'!'}</span>`;
+  erpEvFeed.insertBefore(el, erpEvFeed.firstChild);
+  while(erpEvFeed.children.length > 3) erpEvFeed.removeChild(erpEvFeed.lastChild);
+  // Pulse a portal bar
+  portalBars.forEach(b=>b.classList.remove('active'));
+  activePBar = (activePBar + 1) % portalBars.length;
+  portalBars[activePBar].classList.add('active');
+  erpEvIdx++;
+}
+
+// Seed with 2 events
+if(erpEvFeed){ addErpEvent(); addErpEvent(); }
+
+setInterval(addErpEvent, 2800);
+setInterval(()=>{ if(erpSrcName) erpSrcName.textContent = ERP_SYSTEMS[erpSysIdx++ % ERP_SYSTEMS.length]; }, 3000);
+setInterval(()=>{ if(erpStateEl) erpStateEl.textContent = ERP_STATES[erpStateIdx++ % ERP_STATES.length]; }, 2000);
+
+// ── Form submit ───────────────────────────────────────
+function sendDiag() {
+  const nombre = document.getElementById('cta-nombre').value.trim();
+  const empresa = document.getElementById('cta-empresa').value.trim();
+  const email = document.getElementById('cta-email').value.trim();
+  const sector = document.getElementById('cta-sector').value;
+  if(!nombre||!email||!sector) return;
+  // Send to n8n webhook
+  fetch('https://n8n.trevainnovate.com/webhook/diagnostico-v2', {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({nombre,empresa,email,sector,fuente:'v2-landing',ts:new Date().toISOString()})
+  }).catch(()=>{});
+  document.getElementById('cta-msg').style.display='block';
+}
+</script>
+</body>
+</html>

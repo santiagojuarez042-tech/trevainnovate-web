@@ -257,9 +257,9 @@ const MODULE_MAP = {
 const moduleCount   = agentesParam ? [...new Set(agentesParam.split(',').map(k=>MODULE_MAP[k.trim()]||k.trim()).filter(Boolean))].length : 0;
 const tierName      = moduleCount >= 3 ? 'Enterprise' : moduleCount >= 2 ? 'Growth' : 'Starter';
 const currentTier   = TIERS[tierName];
-// Si vienen precios explícitos en la URL, éstos tienen prioridad (override por cliente)
-let setup    = parseInt(P.get('setup')   || '0') || currentTier.setup;
-let mensual  = parseInt(P.get('mensual') || '0') || currentTier.mrr;
+// Precios: solo de URL explícita — nunca se muestran por defecto
+let setup    = parseInt(P.get('setup')   || '0') || 0;
+let mensual  = parseInt(P.get('mensual') || '0') || 0;
 const segmento   = P.get('segmento')   || '';  // pyme_pequena | pyme_mediana | empresa
 const objetivo   = P.get('objetivo')   || '';  // frase síntesis de la estrategia
 const estrategia = P.get('estrategia') || '';  // bullets separados por | → A → B → C
@@ -268,10 +268,6 @@ const gancho     = P.get('gancho') === 'true';  // bundle especial con precio de
 const fecha      = P.get('fecha') || new Date().toLocaleDateString('es-MX',{day:'numeric',month:'long',year:'numeric'});
 
 const clienteNormalizado = (cliente || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
-if (clienteNormalizado.includes('boba station')) {
-  setup = 16000;
-  mensual = 2899;
-}
 
 const BOBA_BASELINE = {
   sucursales: 2,
@@ -451,7 +447,7 @@ const AGENTS = {
   },
 };
 
-const NIVEL_NAME  = ['','Lite','Pro','Premium','Empresa Digital'];
+const NIVEL_NAME  = ['','Agente Funcional','Ecosistema de Agentes','Empresa Digital','Empresa Digital'];
 const NIVEL_COLOR = ['','var(--blue)','var(--green)','var(--purple)','var(--amber)'];
 
 function statusLabel(v){
@@ -785,6 +781,10 @@ window.onload = () => {
   // Páginas condicionales
   document.querySelectorAll('.page-diag').forEach(p=>p.style.display=hasDiag?'':'none');
   document.querySelectorAll('.page-agentes').forEach(p=>p.style.display=hasAgentes?'':'none');
+  // Combos de planes: visible si no hay segmento, o si segmento no es fabricacion/manufactura
+  const segExclude = ['manufactura','fabricacion','erp','industrial'];
+  const showCombos = !segExclude.some(s => segmento.toLowerCase().includes(s));
+  document.querySelectorAll('.page-combos').forEach(p=>p.style.display=showCombos?'':'none');
 
   // ── Pilares dinámicos — cada agente activo genera su pilar ────────────────
   const PILAR_MAP = {
@@ -834,14 +834,14 @@ window.onload = () => {
   <div class="cover-grid"></div>
 
   <div style="padding:6mm 10mm 5mm;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);position:relative;z-index:1;">
-    <div class="logo"><div class="logo-dot"></div>TREV'AINNOVATE</div>
+    <img src="logo-wordmark.svg" alt="Trev'ainnovate" style="height:48px;display:block;">
     <span style="font-size:8px;font-weight:700;color:rgba(255,255,255,.18);text-transform:uppercase;letter-spacing:.12em;">Propuesta Comercial Confidencial</span>
   </div>
 
   <div class="cover-inner">
     <div style="display:inline-flex;align-items:center;gap:8px;padding:5px 12px;border-radius:99px;background:rgba(0,229,160,.08);border:1px solid rgba(0,229,160,.2);font-size:9px;font-weight:700;color:var(--green);letter-spacing:.12em;text-transform:uppercase;margin-bottom:22px;width:fit-content;">
       <div style="width:5px;height:5px;border-radius:50%;background:var(--green);"></div>
-      Operación Digital 24/7 · <span data-fecha></span>
+      El siguiente nivel de tu negocio · <span data-fecha></span>
     </div>
 
     <h1 style="font-size:38px;font-weight:900;line-height:1.04;letter-spacing:-.02em;margin-bottom:16px;">
@@ -880,18 +880,19 @@ window.onload = () => {
   <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 70% 30%,rgba(0,229,160,.05) 0%,transparent 60%),radial-gradient(ellipse at 20% 80%,rgba(59,130,246,.04) 0%,transparent 55%);pointer-events:none;"></div>
 
   <div style="padding:6mm 10mm 5mm;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);position:relative;z-index:1;flex-shrink:0;">
-    <div class="logo"><div class="logo-dot"></div>TREV'AINNOVATE</div>
+    <img src="logo-wordmark.svg" alt="Trev'ainnovate" style="height:48px;display:block;">
     <div class="meta"><span data-cliente></span><br><span data-fecha></span></div>
   </div>
 
   <!-- ZONA 1 — Headline grande -->
   <div style="padding:10mm 10mm 7mm;border-bottom:1px solid var(--border);flex-shrink:0;position:relative;z-index:1;">
     <div style="font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--green);margin-bottom:10px;">Quiénes somos · Qué hacemos</div>
-    <h2 style="font-size:36px;font-weight:900;line-height:1.04;letter-spacing:-.02em;margin-bottom:8px;">
-      Blindamos tu operación.<br>
-      <span class="grad">Auditamos todo. Decidimos.</span>
+    <h2 style="font-size:36px;font-weight:900;line-height:1.04;letter-spacing:-.02em;margin-bottom:6px;">
+      <span class="grad">Blinda. Eficienta.</span><br>
+      Audita. Decide.
     </h2>
-    <p style="font-size:14px;color:var(--muted);line-height:1.65;max-width:165mm;">Trev'ainnovate es una plataforma SaaS de inteligencia operativa. Activas una licencia — la plataforma se integra a lo que ya tienes sin tocar nada por dentro. Cada proceso se valida antes de ejecutarse, cada operación deja evidencia propia y cuando algo sale de patrón, la plataforma decide y actúa sola.</p>
+    <p style="font-size:11px;font-weight:600;color:rgba(255,255,255,.38);letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px;">Así se ve el siguiente nivel de tu negocio.</p>
+    <p style="font-size:14px;color:var(--muted);line-height:1.65;max-width:165mm;">Trev'ainnovate es una plataforma SaaS multitenant de inteligencia operativa. Activas una licencia — la plataforma se conecta a lo que ya tienes sin tocar nada por dentro. Cada proceso se valida antes de ejecutarse, cada operación deja evidencia independiente y cuando algo sale de patrón, la plataforma actúa sola. Tu equipo opera en lo que mueve el negocio. El sistema opera en todo lo demás.</p>
   </div>
 
   <!-- ZONA 2 — Outcomes + Tres capas -->
@@ -904,7 +905,7 @@ window.onload = () => {
         <div style="background:rgba(0,229,160,.05);border:1px solid rgba(0,229,160,.15);border-radius:12px;padding:18px 18px;">
           <div style="font-size:36px;font-weight:900;color:var(--green);font-family:'JetBrains Mono',monospace;line-height:1;">0</div>
           <div style="font-size:12px;font-weight:700;color:rgba(255,255,255,.85);margin-top:6px;line-height:1.35;">anomalías sin<br>detectar</div>
-          <div style="font-size:10px;color:rgba(255,255,255,.4);margin-top:7px;line-height:1.5;">Sentinel detecta lo raro antes de que se vuelva daño operativo.</div>
+          <div style="font-size:10px;color:rgba(255,255,255,.4);margin-top:7px;line-height:1.5;">La inteligencia operativa detecta lo raro antes de que se vuelva daño.</div>
         </div>
         <div style="background:rgba(59,130,246,.05);border:1px solid rgba(59,130,246,.15);border-radius:12px;padding:18px 18px;">
           <div style="font-size:32px;font-weight:900;color:var(--blue);font-family:'JetBrains Mono',monospace;line-height:1.1;">100%<br>trazado</div>
@@ -913,7 +914,7 @@ window.onload = () => {
         </div>
         <div style="background:rgba(139,92,246,.05);border:1px solid rgba(139,92,246,.15);border-radius:12px;padding:18px 18px;">
           <div style="font-size:44px;font-weight:900;color:var(--purple);font-family:'JetBrains Mono',monospace;line-height:1;">24/7</div>
-          <div style="font-size:12px;font-weight:700;color:rgba(255,255,255,.85);margin-top:6px;line-height:1.35;">Sentinel activo<br>sin pausas</div>
+          <div style="font-size:12px;font-weight:700;color:rgba(255,255,255,.85);margin-top:6px;line-height:1.35;">Monitoreo activo<br>sin pausas</div>
           <div style="font-size:10px;color:rgba(255,255,255,.4);margin-top:7px;line-height:1.5;">Vigilancia activa, no reactiva. Actúa antes de que lo notes.</div>
         </div>
         <div style="background:rgba(245,158,11,.05);border:1px solid rgba(245,158,11,.15);border-radius:12px;padding:18px 18px;">
@@ -934,8 +935,8 @@ window.onload = () => {
         <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;margin-top:6px;">
           <div style="font-size:22px;">🛡️</div>
           <div>
-            <div style="font-size:13px;font-weight:800;color:var(--green);">Sentinel</div>
-            <div style="font-size:9px;color:rgba(255,255,255,.35);margin-top:1px;">El vigilante que nunca se distrae · Incluido en todos los planes</div>
+            <div style="font-size:13px;font-weight:800;color:var(--green);">Inteligencia Operativa 24/7</div>
+            <div style="font-size:9px;color:rgba(255,255,255,.35);margin-top:1px;">Monitoreo autónomo · nunca se distrae · Incluido en todos los planes</div>
           </div>
         </div>
         <div style="font-size:10.5px;color:rgba(255,255,255,.65);line-height:1.6;margin-bottom:9px;">Construye la línea base de comportamiento normal de tu operación. Cuando algo se sale de patrón — acceso atípico, volumen inusual, anomalía en flujo — lo detecta, lo contiene y actúa. No por intuición: por reglas, contexto y comparación continua.</div>
@@ -969,7 +970,7 @@ window.onload = () => {
           <div style="font-size:22px;">🔐</div>
           <div>
             <div style="font-size:13px;font-weight:800;color:var(--purple);">Seguridad Perimetral</div>
-            <div style="font-size:9px;color:rgba(255,255,255,.35);margin-top:1px;">El primer frente de defensa · Licencia mensual</div>
+            <div style="font-size:9px;color:rgba(255,255,255,.35);margin-top:1px;">El primer frente de defensa · incluida en todos los planes</div>
           </div>
         </div>
         <div style="font-size:10.5px;color:rgba(255,255,255,.65);line-height:1.6;margin-bottom:9px;">Identidad, acceso y correo blindados desde el arranque. SPF · DMARC · DKIM configurados. Accesos con MFA. Monitoreo DNS y SSL diario. El perímetro controlado antes de que nadie entre.</div>
@@ -982,17 +983,15 @@ window.onload = () => {
     </div>
   </div>
 
-  <!-- ZONA 3 — Stack técnico -->
-  <div style="padding:4mm 10mm;border-top:1px solid var(--border);flex-shrink:0;display:flex;align-items:center;gap:12px;position:relative;z-index:1;">
-    <div style="font-size:8px;font-weight:700;color:rgba(255,255,255,.2);text-transform:uppercase;letter-spacing:.12em;white-space:nowrap;">Stack técnico</div>
-    <div style="display:flex;flex-wrap:wrap;gap:5px;">
-      <span style="font-size:8px;padding:3px 8px;border-radius:4px;background:rgba(255,255,255,.04);border:1px solid var(--border);color:rgba(255,255,255,.4);font-family:'JetBrains Mono',monospace;">n8n self-hosted</span>
-      <span style="font-size:8px;padding:3px 8px;border-radius:4px;background:rgba(255,255,255,.04);border:1px solid var(--border);color:rgba(255,255,255,.4);font-family:'JetBrains Mono',monospace;">Claude AI</span>
-      <span style="font-size:8px;padding:3px 8px;border-radius:4px;background:rgba(255,255,255,.04);border:1px solid var(--border);color:rgba(255,255,255,.4);font-family:'JetBrains Mono',monospace;">Cloudflare</span>
-      <span style="font-size:8px;padding:3px 8px;border-radius:4px;background:rgba(255,255,255,.04);border:1px solid var(--border);color:rgba(255,255,255,.4);font-family:'JetBrains Mono',monospace;">BetterStack</span>
-      <span style="font-size:8px;padding:3px 8px;border-radius:4px;background:rgba(255,255,255,.04);border:1px solid var(--border);color:rgba(255,255,255,.4);font-family:'JetBrains Mono',monospace;">Supabase</span>
-      <span style="font-size:8px;padding:3px 8px;border-radius:4px;background:rgba(255,255,255,.04);border:1px solid var(--border);color:rgba(255,255,255,.4);font-family:'JetBrains Mono',monospace;">Vapi</span>
-      <span style="font-size:8px;padding:3px 8px;border-radius:4px;background:rgba(255,255,255,.04);border:1px solid var(--border);color:rgba(255,255,255,.4);font-family:'JetBrains Mono',monospace;">Resend</span>
+  <!-- ZONA 3 — Infraestructura -->
+  <div style="padding:4mm 10mm;border-top:1px solid var(--border);flex-shrink:0;display:flex;align-items:center;gap:14px;position:relative;z-index:1;">
+    <div style="font-size:8px;font-weight:700;color:rgba(255,255,255,.2);text-transform:uppercase;letter-spacing:.12em;white-space:nowrap;">Infraestructura</div>
+    <div style="display:flex;flex-wrap:wrap;gap:5px;align-items:center;">
+      <span style="font-size:8px;padding:3px 10px;border-radius:4px;background:rgba(0,229,160,.05);border:1px solid rgba(0,229,160,.15);color:rgba(0,229,160,.6);">IA de nivel enterprise</span>
+      <span style="font-size:8px;padding:3px 10px;border-radius:4px;background:rgba(59,130,246,.05);border:1px solid rgba(59,130,246,.15);color:rgba(59,130,246,.6);">CDN + WAF global</span>
+      <span style="font-size:8px;padding:3px 10px;border-radius:4px;background:rgba(139,92,246,.05);border:1px solid rgba(139,92,246,.15);color:rgba(139,92,246,.6);">Base de datos multitenant aislada</span>
+      <span style="font-size:8px;padding:3px 10px;border-radius:4px;background:rgba(245,158,11,.05);border:1px solid rgba(245,158,11,.15);color:rgba(245,158,11,.6);">Orquestación autónoma 24/7</span>
+      <span style="font-size:8px;color:rgba(255,255,255,.18);letter-spacing:.04em;">· Gestionada por nosotros. Tú no tocas nada.</span>
     </div>
   </div>
 
@@ -1007,7 +1006,7 @@ window.onload = () => {
   <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 30% 60%,rgba(0,229,160,.05) 0%,transparent 60%),radial-gradient(ellipse at 80% 20%,rgba(59,130,246,.04) 0%,transparent 55%);pointer-events:none;"></div>
 
   <div style="padding:6mm 10mm 5mm;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);position:relative;z-index:1;flex-shrink:0;">
-    <div class="logo"><div class="logo-dot"></div>TREV'AINNOVATE</div>
+    <img src="logo-wordmark.svg" alt="Trev'ainnovate" style="height:48px;display:block;">
     <div class="meta"><span data-cliente></span><br><span data-fecha></span></div>
   </div>
 
@@ -1071,7 +1070,7 @@ window.onload = () => {
         <div style="font-size:11px;color:rgba(255,255,255,.7);line-height:1.65;">El sistema corre solo. Cada mes recibes un reporte de lo que hicieron los agentes, alertas de lo que detectaron y mejoras implementadas. Tú decides — el sistema ejecuta.</div>
         <div style="display:flex;flex-direction:column;gap:4px;">
           <div style="font-size:9px;color:rgba(59,130,246,.75);">✓ Reporte mensual automático</div>
-          <div style="font-size:9px;color:rgba(59,130,246,.75);">✓ Mejoras sin costo adicional</div>
+          <div style="font-size:9px;color:rgba(59,130,246,.75);">✓ Ajustes y mejoras incluidos en la licencia</div>
           <div style="font-size:9px;color:rgba(59,130,246,.75);">✓ Portal de monitoreo en tiempo real</div>
         </div>
       </div>
@@ -1087,18 +1086,18 @@ window.onload = () => {
     </div>
   </div>
 
-  <div class="page-footer"><a class="nav-arrow" href="#quienes">← Quiénes somos</a><span class="pn">3 / 7</span><a class="nav-arrow" href="#agencias">→ Para agencias</a></div>
+  <div class="page-footer"><a class="nav-arrow" href="#quienes">← Quiénes somos</a><span class="pn">3 / 7</span><a class="nav-arrow" href="#agencias">→ Planes</a></div>
 </div>
 
 <!-- ══════════════════════════════════════════════════════
      P4 — COMBOS AGENCIAS MKT
 ══════════════════════════════════════════════════════ -->
-<div class="page" id="agencias">
+<div class="page page-combos" id="agencias">
   <div class="topbar"></div>
   <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 60% 30%,rgba(139,92,246,.05) 0%,transparent 60%);pointer-events:none;"></div>
 
   <div style="padding:6mm 10mm 5mm;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);position:relative;z-index:1;flex-shrink:0;">
-    <div class="logo"><div class="logo-dot"></div>TREV'AINNOVATE</div>
+    <img src="logo-wordmark.svg" alt="Trev'ainnovate" style="height:48px;display:block;">
     <div class="meta"><span data-cliente></span><br><span data-fecha></span></div>
   </div>
 
@@ -1106,11 +1105,11 @@ window.onload = () => {
 
     <!-- Headline -->
     <div>
-      <div style="font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--purple);margin-bottom:6px;">Para agencias de marketing · 11–50 personas</div>
+      <div style="font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--purple);margin-bottom:6px;">Elige el nivel de operación que necesitas</div>
       <h2 style="font-size:26px;font-weight:900;line-height:1.1;letter-spacing:-.02em;margin-bottom:6px;">
-        El tiempo que tu equipo gasta en reportes<br><span class="grad">lo puede gastar en crecer.</span>
+        Lo que hoy hace tu equipo manualmente<br><span class="grad">mañana lo hace el sistema.</span>
       </h2>
-      <p style="font-size:12px;color:var(--muted);line-height:1.6;max-width:165mm;">Las agencias más eficientes de México ya no dedican horas a construir PDFs para clientes. Tienen agentes que lo hacen solos — y usan ese tiempo para vender más.</p>
+      <p style="font-size:12px;color:var(--muted);line-height:1.6;max-width:165mm;">Cada licencia activa un nivel distinto de la plataforma. No pagas por horas ni por módulos sueltos — pagas por un sistema operando 24/7 en tu negocio. Empieza por el área de mayor impacto, escala sin nuevo setup.</p>
     </div>
 
     <!-- Caso de estudio compacto -->
@@ -1143,18 +1142,13 @@ window.onload = () => {
           <div style="font-size:9px;color:rgba(255,255,255,.65);">› Sin intervención manual</div>
         </div>
         <div style="margin-top:auto;padding-top:8px;border-top:1px solid rgba(245,158,11,.15);">
-          <div style="font-size:10px;color:rgba(255,255,255,.4);margin-bottom:2px;">Activación Express</div>
-          <div style="font-size:18px;font-weight:900;color:var(--amber);font-family:'JetBrains Mono',monospace;line-height:1;">$8,000</div>
-          <div style="font-size:9px;color:rgba(255,255,255,.4);margin-bottom:4px;">MXN · pago único</div>
-          <div style="font-size:9px;color:rgba(255,255,255,.4);">Licencia mensual</div>
-          <div style="font-size:18px;font-weight:900;color:var(--amber);font-family:'JetBrains Mono',monospace;line-height:1;">$4,500</div>
-          <div style="font-size:9px;color:rgba(255,255,255,.4);">MXN / mes</div>
+          <div style="font-size:9px;color:rgba(255,255,255,.5);line-height:1.6;">Activación Express · pago único<br>+ Licencia Operativa mensual</div>
         </div>
       </div>
 
       <!-- Combo 2 -->
       <div style="background:rgba(0,229,160,.04);border:2px solid rgba(0,229,160,.3);border-radius:12px;padding:16px 14px;display:flex;flex-direction:column;gap:8px;position:relative;">
-        <div style="position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:var(--green);color:var(--bg);font-size:7px;font-weight:900;text-transform:uppercase;letter-spacing:.14em;padding:3px 10px;border-radius:0 0 8px 8px;">El más solicitado</div>
+        <div style="position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:var(--green);color:var(--bg);font-size:7px;font-weight:900;text-transform:uppercase;letter-spacing:.14em;padding:3px 10px;border-radius:0 0 8px 8px;">Recomendado</div>
         <div style="margin-top:10px;">
           <div style="font-size:8px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.14em;margin-bottom:4px;">Ecosistema de Agentes</div>
           <div style="font-size:13px;font-weight:800;color:rgba(255,255,255,.9);margin-bottom:2px;">Ecosistema Agencia</div>
@@ -1168,12 +1162,7 @@ window.onload = () => {
           <div style="font-size:9px;color:rgba(255,255,255,.65);">› Portal cliente en tiempo real</div>
         </div>
         <div style="margin-top:auto;padding-top:8px;border-top:1px solid rgba(0,229,160,.15);">
-          <div style="font-size:10px;color:rgba(255,255,255,.4);margin-bottom:2px;">Activación Express</div>
-          <div style="font-size:18px;font-weight:900;color:var(--green);font-family:'JetBrains Mono',monospace;line-height:1;">$10,000</div>
-          <div style="font-size:9px;color:rgba(255,255,255,.4);margin-bottom:4px;">MXN · pago único</div>
-          <div style="font-size:9px;color:rgba(255,255,255,.4);">Licencia mensual</div>
-          <div style="font-size:18px;font-weight:900;color:var(--green);font-family:'JetBrains Mono',monospace;line-height:1;">$10,000</div>
-          <div style="font-size:9px;color:rgba(255,255,255,.4);">MXN / mes</div>
+          <div style="font-size:9px;color:rgba(255,255,255,.5);line-height:1.6;">Activación Express · pago único<br>+ Licencia Operativa mensual</div>
         </div>
       </div>
 
@@ -1192,12 +1181,7 @@ window.onload = () => {
           <div style="font-size:9px;color:rgba(255,255,255,.65);">› Soporte prioritario &lt;4h garantizado</div>
         </div>
         <div style="margin-top:auto;padding-top:8px;border-top:1px solid rgba(139,92,246,.15);">
-          <div style="font-size:10px;color:rgba(255,255,255,.4);margin-bottom:2px;">Activación Express</div>
-          <div style="font-size:18px;font-weight:900;color:var(--purple);font-family:'JetBrains Mono',monospace;line-height:1;">$12,000</div>
-          <div style="font-size:9px;color:rgba(255,255,255,.4);margin-bottom:4px;">MXN · pago único</div>
-          <div style="font-size:9px;color:rgba(255,255,255,.4);">Licencia mensual</div>
-          <div style="font-size:18px;font-weight:900;color:var(--purple);font-family:'JetBrains Mono',monospace;line-height:1;">$12,000</div>
-          <div style="font-size:9px;color:rgba(255,255,255,.4);">MXN / mes</div>
+          <div style="font-size:9px;color:rgba(255,255,255,.5);line-height:1.6;">Activación Express · pago único<br>+ Licencia Operativa mensual</div>
         </div>
       </div>
     </div>
@@ -1212,7 +1196,7 @@ window.onload = () => {
 <div class="page page-diag" id="diagnostico">
   <div class="topbar"></div>
   <div class="page-header">
-    <div class="logo"><div class="logo-dot"></div>TREV'AINNOVATE</div>
+    <img src="logo-wordmark.svg" alt="Trev'ainnovate" style="height:48px;display:block;">
     <div class="meta"><span data-cliente></span><br><span data-fecha></span></div>
   </div>
   <div class="page-body">
@@ -1289,7 +1273,7 @@ window.onload = () => {
       </div>
     </div>
   </div>
-  <div class="page-footer"><a class="nav-arrow" href="#agencias">← Para agencias</a><span class="pn">5 / 7</span><a class="nav-arrow" href="#equipo">→ Su equipo</a></div>
+  <div class="page-footer"><a class="nav-arrow" href="#agencias">← Planes</a><span class="pn">5 / 7</span><a class="nav-arrow" href="#equipo">→ Su equipo</a></div>
 </div>
 
 <!-- ══════════════════════════════════════════════════════
@@ -1298,7 +1282,7 @@ window.onload = () => {
 <div class="page page-agentes" id="equipo">
   <div class="topbar"></div>
   <div class="page-header">
-    <div class="logo"><div class="logo-dot"></div>TREV'AINNOVATE</div>
+    <img src="logo-wordmark.svg" alt="Trev'ainnovate" style="height:48px;display:block;">
     <div class="meta"><span data-cliente></span><br><span data-fecha></span></div>
   </div>
   <div class="page-body">
@@ -1342,7 +1326,7 @@ window.onload = () => {
 <div class="page" id="inversion">
   <div class="topbar"></div>
   <div class="page-header">
-    <div class="logo"><div class="logo-dot"></div>TREV'AINNOVATE</div>
+    <img src="logo-wordmark.svg" alt="Trev'ainnovate" style="height:48px;display:block;">
     <div class="meta"><span data-cliente></span><br><span data-fecha></span></div>
   </div>
   <div class="page-body">
@@ -1363,15 +1347,8 @@ window.onload = () => {
       <!-- Pricing: proyecto -->
       <div id="pricing-proyecto" style="display:none;flex-direction:column;gap:8px;">
         <div class="block b" style="padding:20px 22px;">
-          <div style="font-size:9px;font-weight:700;color:var(--amber);text-transform:uppercase;letter-spacing:.14em;margin-bottom:8px;">Agente Funcional · Activación Express + licencia mensual — el primer paso</div>
-          <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:4px;">
-            <div style="font-size:22px;font-weight:900;color:var(--amber);font-family:'JetBrains Mono',monospace;line-height:1;">$12,000</div>
-            <div style="font-size:11px;color:var(--muted);">MXN setup</div>
-          </div>
-          <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:14px;">
-            <div style="font-size:22px;font-weight:900;color:var(--blue);font-family:'JetBrains Mono',monospace;line-height:1;">$3,500</div>
-            <div style="font-size:11px;color:var(--muted);">MXN / mes operación</div>
-          </div>
+          <div style="font-size:9px;font-weight:700;color:var(--amber);text-transform:uppercase;letter-spacing:.14em;margin-bottom:8px;">Agente Funcional · Activación Express + Licencia Operativa mensual</div>
+          <div style="margin-bottom:14px;"></div>
           <div class="check-list">
             <div class="check-item">Arquitectura y build de 1–2 agentes clave</div>
             <div class="check-item">Integración con sus sistemas actuales</div>
@@ -1563,7 +1540,7 @@ window.onload = () => {
 <div class="page" id="garantia">
   <div class="topbar"></div>
   <div class="page-header">
-    <div class="logo"><div class="logo-dot"></div>TREV'AINNOVATE</div>
+    <img src="logo-wordmark.svg" alt="Trev'ainnovate" style="height:48px;display:block;">
     <div class="meta"><span data-cliente></span><br><span data-fecha></span></div>
   </div>
   <div class="page-body">
