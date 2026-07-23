@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trev'AI — Portal Demo Interactivo</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f8f9fb;--bg2:#fff;--bg3:#f1f3f6;
+  --green:#00c48c;--green-bg:rgba(0,196,140,.08);--green-glow:rgba(0,196,140,.25);
+  --red:#e53935;--red-bg:rgba(229,57,53,.07);
+  --amber:#f5a623;--amber-bg:rgba(245,166,35,.08);
+  --blue:#3b82f6;--blue-bg:rgba(59,130,246,.07);
+  --text:#1a1a2e;--text2:#4a4a68;--text3:#8892a4;
+  --border:#e8eaed;--border2:#d4d8de;
+  --sidebar-w:220px;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);font-family:'Inter',system-ui,sans-serif;color:var(--text);-webkit-font-smoothing:antialiased;overflow:hidden;height:100vh}
+
+/* ═══ LAYOUT ═══ */
+.app{display:flex;height:100vh;width:100vw}
+
+/* SIDEBAR */
+.sidebar{width:var(--sidebar-w);background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;overflow-y:auto}
+.sidebar-header{padding:16px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
+.sidebar-logo{width:28px;height:28px;border-radius:7px;background:var(--green);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:12px}
+.sidebar-brand{font-size:14px;font-weight:800}
+.sidebar-brand small{display:block;font-size:10px;font-weight:500;color:var(--text3)}
+.sidebar-section{padding:12px 0}
+.sidebar-label{font-size:9px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--text3);padding:4px 18px 6px}
+.sidebar-item{display:flex;align-items:center;justify-content:space-between;padding:9px 18px;cursor:pointer;font-size:13px;font-weight:500;color:var(--text2);border-left:3px solid transparent;transition:all .15s}
+.sidebar-item:hover{background:rgba(0,0,0,.02)}
+.sidebar-item.active{background:var(--green-bg);border-left-color:var(--green);font-weight:700;color:var(--text)}
+.sidebar-item .si-badge{font-size:10px;font-weight:700;padding:2px 7px;border-radius:10px}
+.si-badge.red{background:var(--red-bg);color:var(--red)}
+.si-badge.amber{background:var(--amber-bg);color:var(--amber)}
+.si-badge.green{background:var(--green-bg);color:var(--green)}
+.si-badge.blue{background:var(--blue-bg);color:var(--blue)}
+
+/* VIEW TOGGLE */
+.view-toggle{padding:12px 14px;border-top:1px solid var(--border);margin-top:auto}
+.vt-bar{display:flex;border:1px solid var(--border);border-radius:8px;overflow:hidden;background:var(--bg)}
+.vt-btn{flex:1;padding:8px;text-align:center;font-size:11px;font-weight:700;cursor:pointer;border:none;background:transparent;color:var(--text3);font-family:'Inter',sans-serif;transition:all .2s}
+.vt-btn.active{background:var(--green);color:#fff}
+
+/* MAIN */
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden}
+
+/* TOPBAR */
+.topbar{height:52px;padding:0 24px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);background:var(--bg2);flex-shrink:0}
+.topbar-left{display:flex;align-items:center;gap:12px}
+.topbar-title{font-size:15px;font-weight:800}
+.topbar-right{display:flex;align-items:center;gap:10px}
+
+/* BADGE */
+.badge{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:5px;font-size:10px;font-weight:700}
+.badge-red{background:var(--red-bg);color:var(--red)}.badge-amber{background:var(--amber-bg);color:var(--amber)}.badge-green{background:var(--green-bg);color:var(--green)}.badge-blue{background:var(--blue-bg);color:var(--blue)}
+@keyframes bpulse{0%,100%{box-shadow:0 0 0 rgba(229,57,53,0)}50%{box-shadow:0 0 8px rgba(229,57,53,.18)}}
+.badge-pulse{animation:bpulse 2s ease infinite}
+
+/* CONTENT */
+.content{flex:1;overflow-y:auto;padding:24px}
+.tab{display:none}.tab.active{display:block}
+
+/* KPI */
+.kpi-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+.kpi{padding:16px 18px;border-radius:10px;border:1px solid var(--border);background:var(--bg2);flex:1;min-width:140px}
+.kpi-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text3);margin-bottom:4px}
+.kpi-val{font-size:24px;font-weight:900;line-height:1;font-variant-numeric:tabular-nums}
+.kpi-sub{font-size:11px;color:var(--text3);margin-top:3px}
+
+/* TABLE */
+.p-table{width:100%;border-collapse:collapse;font-size:13px;margin-bottom:16px}
+.p-table th{text-align:left;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--text3);padding:8px 10px;border-bottom:2px solid var(--border);background:var(--bg)}
+.p-table td{padding:10px;border-bottom:1px solid var(--border);color:var(--text2)}
+.p-table .mono{font-family:'JetBrains Mono',monospace;font-size:12px}
+.p-table .money{font-weight:700;font-variant-numeric:tabular-nums;text-align:right}
+
+/* CHIP */
+.chip{display:inline-flex;align-items:center;gap:4px;padding:5px 12px;border-radius:6px;font-size:11px;font-weight:700;border:1px solid var(--border);background:var(--bg2);color:var(--text2);cursor:pointer;transition:all .2s;text-decoration:none}
+.chip:hover{border-color:var(--green);color:var(--green);transform:translateY(-1px)}
+.chip-wa{border-color:rgba(37,211,102,.3);color:#25d366}.chip-wa:hover{border-color:#25d366;box-shadow:0 0 10px rgba(37,211,102,.12)}
+.chip-red{border-color:rgba(229,57,53,.25);color:var(--red)}.chip-red:hover{border-color:var(--red)}
+.chip-green{color:#fff;background:var(--green);border-color:var(--green)}.chip-green:hover{box-shadow:0 0 10px var(--green-glow)}
+
+/* SENTINEL CALLOUT */
+.sentinel{padding:14px 18px;border-radius:10px;border-left:3px solid var(--amber);background:rgba(245,166,35,.04);margin-bottom:16px}
+.sentinel.ok{border-left-color:var(--green);background:rgba(0,196,140,.03)}
+.sentinel.danger{border-left-color:var(--red);background:rgba(229,57,53,.03)}
+.sentinel-hd{display:flex;align-items:center;gap:6px;margin-bottom:4px}
+.sentinel-icon{width:16px;height:16px;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:900;color:#fff;background:var(--amber)}
+.sentinel.ok .sentinel-icon{background:var(--green)}.sentinel.danger .sentinel-icon{background:var(--red)}
+.sentinel-label{font-size:9px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--amber)}
+.sentinel.ok .sentinel-label{color:var(--green)}.sentinel.danger .sentinel-label{color:var(--red)}
+.sentinel-body{font-size:13px;color:var(--text2);line-height:1.6}
+.sentinel-body strong{color:var(--text)}
+
+/* GUIDE TOOLTIP */
+.guide-tip{position:relative;margin-bottom:16px;padding:14px 18px;border-radius:10px;background:linear-gradient(135deg,rgba(59,130,246,.06),rgba(0,196,140,.06));border:1px dashed rgba(59,130,246,.25);animation:guideIn .5s ease}
+@keyframes guideIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.guide-tip::before{content:'GUIA';position:absolute;top:-8px;left:14px;font-size:8px;font-weight:900;letter-spacing:.15em;color:var(--blue);background:var(--bg);padding:1px 6px;border-radius:3px;border:1px solid rgba(59,130,246,.2)}
+.guide-tip p{font-size:12px;color:var(--text2);line-height:1.6;margin:0}
+.guide-tip strong{color:var(--blue)}
+
+/* FLOW BAR */
+.flow-bar{height:7px;border-radius:4px;background:var(--bg3);overflow:hidden;margin-bottom:3px}
+.flow-fill{height:100%;border-radius:4px;transition:width 1s cubic-bezier(.22,1,.36,1)}
+.flow-fill.green{background:var(--green)}.flow-fill.red{background:var(--red)}.flow-fill.amber{background:var(--amber)}
+
+/* ═══ DRAG & DROP ═══ */
+.drop-zone{border:2px dashed var(--border2);border-radius:14px;padding:40px;text-align:center;transition:all .3s;cursor:pointer;background:var(--bg);margin-bottom:16px}
+.drop-zone:hover,.drop-zone.over{border-color:var(--green);background:rgba(0,196,140,.03)}
+.drop-zone.over{transform:scale(1.01);box-shadow:0 0 20px var(--green-glow)}
+.drop-zone-icon{font-size:36px;margin-bottom:8px;opacity:.6}
+.drop-zone h4{font-size:14px;font-weight:700;margin-bottom:4px}
+.drop-zone p{font-size:12px;color:var(--text3)}
+.drop-zone.processing{border-style:solid;border-color:var(--green);pointer-events:none}
+.drop-zone.done{border-color:var(--green);background:rgba(0,196,140,.05);border-style:solid}
+
+/* PROCESSING ANIMATION */
+.processing-bar{height:4px;border-radius:2px;background:var(--bg3);overflow:hidden;margin:16px 0 8px}
+.processing-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--green),var(--blue));width:0;transition:width .3s}
+
+/* ═══ WA AGENT ═══ */
+.wa-chat{border:1px solid var(--border);border-radius:14px;overflow:hidden;background:var(--bg2);max-width:420px}
+.wa-chat-header{background:#075e54;color:#fff;padding:12px 16px;display:flex;align-items:center;gap:10px}
+.wa-chat-avatar{width:36px;height:36px;border-radius:50%;background:#25d366;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900}
+.wa-chat-name{font-size:14px;font-weight:700}
+.wa-chat-status{font-size:10px;opacity:.8}
+.wa-chat-body{background:#e5ddd5;padding:12px;min-height:200px;max-height:360px;overflow-y:auto;display:flex;flex-direction:column;gap:6px;background-image:url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 5 L35 15 L30 25 L25 15Z' fill='%23d4cfc6' opacity='.15'/%3E%3C/svg%3E")}
+.wa-msg{max-width:80%;padding:6px 10px;border-radius:8px;font-size:13px;line-height:1.5;position:relative;box-shadow:0 1px 1px rgba(0,0,0,.08)}
+.wa-msg.in{background:#fff;align-self:flex-start;border-radius:0 8px 8px 8px}
+.wa-msg.out{background:#dcf8c6;align-self:flex-end;border-radius:8px 0 8px 8px}
+.wa-msg .wa-time{font-size:9px;color:#999;float:right;margin-left:8px;margin-top:4px}
+.wa-msg .wa-check{color:#53bdeb;font-size:10px}
+.wa-msg-typing{background:#fff;padding:8px 14px;border-radius:0 8px 8px 8px;align-self:flex-start;box-shadow:0 1px 1px rgba(0,0,0,.08)}
+.wa-typing-dots{display:flex;gap:4px}
+.wa-typing-dots span{width:6px;height:6px;border-radius:50%;background:#999;animation:waTyping 1.4s ease infinite}
+.wa-typing-dots span:nth-child(2){animation-delay:.2s}
+.wa-typing-dots span:nth-child(3){animation-delay:.4s}
+@keyframes waTyping{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-4px)}}
+.wa-chat-input{display:flex;gap:6px;padding:8px 10px;border-top:1px solid var(--border);background:var(--bg)}
+.wa-chat-input input{flex:1;border:1px solid var(--border);border-radius:20px;padding:8px 14px;font-size:13px;font-family:'Inter',sans-serif}
+.wa-chat-input input:focus{outline:none;border-color:var(--green)}
+.wa-chat-input button{width:36px;height:36px;border-radius:50%;border:none;background:#25d366;color:#fff;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center}
+
+/* ═══ COTIZACION PDF ═══ */
+.cot-pdf{border:1px solid var(--border);border-radius:10px;overflow:hidden;background:var(--bg2);animation:cotIn .5s ease}
+@keyframes cotIn{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:none}}
+.cot-pdf-header{background:var(--green);color:#fff;padding:14px 18px;display:flex;align-items:center;justify-content:space-between}
+.cot-pdf-header h4{font-size:14px;font-weight:800}
+.cot-pdf-body{padding:18px}
+.cot-pdf-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px}
+.cot-pdf-total{display:flex;justify-content:space-between;padding:12px 0 0;font-size:16px;font-weight:900;border-top:2px solid var(--text)}
+
+/* ═══ WA ALERT PANEL ═══ */
+.wa-alerts{position:fixed;top:60px;right:0;width:340px;background:var(--bg2);border-left:1px solid var(--border);height:calc(100vh - 60px);display:none;flex-direction:column;z-index:100;box-shadow:-4px 0 24px rgba(0,0,0,.06)}
+.wa-alerts.open{display:flex}
+.wa-alerts-header{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.wa-alerts-header h4{font-size:14px;font-weight:800;display:flex;align-items:center;gap:6px}
+.wa-alerts-body{flex:1;overflow-y:auto;padding:12px}
+.wa-alert-item{padding:12px;border-radius:8px;border:1px solid var(--border);margin-bottom:8px;background:var(--bg);animation:alertIn .4s ease}
+@keyframes alertIn{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:none}}
+.wa-alert-to{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text3);margin-bottom:3px}
+.wa-alert-msg{font-size:12px;color:var(--text2);line-height:1.5}
+.wa-alert-time{font-size:10px;color:var(--text3);margin-top:4px}
+.wa-alert-status{display:inline-flex;align-items:center;gap:3px;font-size:10px;color:#25d366;font-weight:600}
+
+/* ═══ NOTIFICATION TOAST ═══ */
+.toast{position:fixed;top:64px;right:24px;z-index:999;padding:12px 18px;border-radius:10px;background:var(--bg2);border:1px solid var(--border);box-shadow:0 8px 32px rgba(0,0,0,.1);display:flex;align-items:center;gap:10px;font-size:13px;animation:toastIn .4s ease;max-width:360px}
+@keyframes toastIn{from{opacity:0;transform:translateY(-12px) translateX(20px)}to{opacity:1;transform:none}}
+.toast-icon{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
+.toast .toast-text{flex:1;line-height:1.4}
+.toast .toast-text strong{display:block;font-size:12px;margin-bottom:1px}
+.toast .toast-text span{font-size:11px;color:var(--text3)}
+
+/* SEND PULSE */
+@keyframes sendPulse{0%,100%{box-shadow:0 0 0 rgba(37,211,102,0)}50%{box-shadow:0 0 14px rgba(37,211,102,.5)}}
+
+/* ═══ SENTINEL TOUR ═══ */
+.tour-overlay{position:fixed;inset:0;background:rgba(0,0,0,.2);z-index:8000;opacity:0;transition:opacity .3s;pointer-events:none}
+.tour-overlay.show{opacity:1;pointer-events:auto;cursor:pointer}
+.tour-bubble{position:fixed;z-index:8001;background:var(--bg2);border:2px solid var(--green);border-radius:14px;padding:20px 22px;max-width:380px;box-shadow:0 12px 40px rgba(0,0,0,.18);animation:tourIn .4s ease}
+@keyframes tourIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.tour-bubble::before{content:'';position:absolute;top:-8px;left:24px;width:14px;height:14px;background:var(--bg2);border-left:2px solid var(--green);border-top:2px solid var(--green);transform:rotate(45deg)}
+.tour-bubble.bottom::before{top:auto;bottom:-8px;transform:rotate(225deg)}
+.tour-avatar{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.tour-avatar-circle{width:28px;height:28px;border-radius:50%;background:var(--green);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900}
+.tour-avatar-name{font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--green)}
+.tour-text{font-size:13px;color:var(--text2);line-height:1.65}
+.tour-text strong{color:var(--text)}
+.tour-actions{display:flex;gap:8px;margin-top:12px;align-items:center}
+.tour-next{padding:8px 18px;border-radius:8px;border:none;background:var(--green);color:#fff;font-size:12px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;transition:all .2s}
+.tour-next:hover{transform:translateY(-1px);box-shadow:0 3px 10px var(--green-glow)}
+.tour-skip{padding:8px 14px;border-radius:8px;border:none;background:transparent;color:var(--text3);font-size:11px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif}
+.tour-skip:hover{color:var(--text2)}
+.tour-progress{font-size:10px;color:var(--text3);margin-left:auto}
+.tour-highlight{position:relative;z-index:8002;box-shadow:0 0 0 4px var(--green-glow),0 0 20px var(--green-glow)!important;border-radius:10px;transition:box-shadow .3s}
+
+/* MOBILE */
+@media(max-width:768px){
+  .sidebar{width:60px}.sidebar-brand,.sidebar-label,.sidebar-item span:first-child{display:none}
+  .sidebar-item{padding:9px 0;justify-content:center}
+  .wa-alerts{width:100%}
+  .tour-bubble{max-width:300px;left:10px!important;right:10px!important}
+  .cot-grid{grid-template-columns:1fr!important}
+}
+</style>
+</head>
+<body>
+
+<div class="app">
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo">T</div>
+      <div class="sidebar-brand">EIN Demo<small>Envases Industriales del Norte</small></div>
+    </div>
+
+    <div class="sidebar-section" id="sidebar-ops">
+      <div class="sidebar-label">Operacion</div>
+      <div class="sidebar-item active" data-tab="centro"><span>Centro de Control</span><span class="si-badge red">7</span></div>
+      <div class="sidebar-item" data-tab="cobranza"><span>Cobranza</span><span class="si-badge red">4</span></div>
+      <div class="sidebar-item" data-tab="inventario"><span>Inventario</span><span class="si-badge red">4</span></div>
+      <div class="sidebar-item" data-tab="conciliaciones"><span>Conciliaciones</span><span class="si-badge amber">5</span></div>
+      <div class="sidebar-item" data-tab="cotizaciones"><span>Cotizaciones</span><span class="si-badge green">WA</span></div>
+    </div>
+
+    <div class="sidebar-section" id="sidebar-dir">
+      <div class="sidebar-label">Direccion</div>
+      <div class="sidebar-item" data-tab="salud"><span>Salud del Negocio</span></div>
+      <div class="sidebar-item" data-tab="flujo"><span>Flujo de Efectivo</span></div>
+      <div class="sidebar-item" data-tab="financieros"><span>Estados Financieros</span></div>
+    </div>
+
+    <div class="view-toggle">
+      <div class="vt-bar">
+        <button class="vt-btn active" data-view="ops">Operacion</button>
+        <button class="vt-btn" data-view="dir">Direccion</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main">
+    <div class="topbar">
+      <div class="topbar-left">
+        <span class="topbar-title" id="topbar-title">Centro de Control</span>
+        <span class="badge badge-red badge-pulse" id="topbar-badge">7 criticos</span>
+      </div>
+      <div class="topbar-right">
+        <button class="chip" id="btn-alerts" style="font-size:11px;padding:4px 10px;position:relative;">
+          &#x1F4AC; Alertas WA
+          <span style="position:absolute;top:-4px;right:-4px;width:14px;height:14px;border-radius:50%;background:var(--red);color:#fff;font-size:8px;display:flex;align-items:center;justify-content:center;font-weight:800;" id="alert-count">3</span>
+        </button>
+        <span style="font-size:12px;font-weight:600;color:var(--text2);">Fernanda</span>
+        <span class="badge badge-blue">DEMO</span>
+      </div>
+    </div>
+
+    <div class="content" id="content">
+
+      <!-- ═══ TAB: CENTRO DE CONTROL ═══ -->
+      <div class="tab active" id="tab-centro">
+        <div class="guide-tip">
+          <p><strong>Centro de Control:</strong> Vista panoramica de toda la operacion. Sentinel cruza cobranza, inventario, conciliaciones y produccion para mostrarte solo lo que necesita atencion. Los numeros rojos son urgentes &mdash; los ambar requieren seguimiento.</p>
+        </div>
+
+        <div class="kpi-row">
+          <div class="kpi"><div class="kpi-label">Vencido</div><div class="kpi-val" style="color:var(--red);">$3,249,700</div><div class="kpi-sub">4 facturas vencidas</div></div>
+          <div class="kpi"><div class="kpi-label">Stock critico</div><div class="kpi-val" style="color:var(--red);">4</div><div class="kpi-sub">articulos bajo reorden</div></div>
+          <div class="kpi"><div class="kpi-label">Produccion</div><div class="kpi-val">3</div><div class="kpi-sub">ordenes en proceso</div></div>
+          <div class="kpi"><div class="kpi-label">Sin conciliar</div><div class="kpi-val" style="color:var(--amber);">5</div><div class="kpi-sub">movimientos pendientes</div></div>
+        </div>
+
+        <div class="sentinel danger">
+          <div class="sentinel-hd"><div class="sentinel-icon">!</div><div class="sentinel-label" style="color:var(--red);">Sentinel &mdash; Alertas activas</div></div>
+          <div class="sentinel-body" style="margin-top:8px;display:flex;flex-direction:column;gap:8px;">
+            <div style="display:flex;align-items:center;gap:8px;"><span style="color:var(--red);font-weight:600;">&#x26A0; Resina PET a 3 dias de agotarse &mdash; produccion comprometida</span><span class="badge badge-red" style="margin-left:auto;">Urgente</span></div>
+            <div style="display:flex;align-items:center;gap:8px;"><span style="color:var(--red);font-weight:600;">&#x26A0; 4 facturas vencidas por $3.25M &mdash; cobro urgente</span><span class="badge badge-red" style="margin-left:auto;">Urgente</span></div>
+            <div style="display:flex;align-items:center;gap:8px;"><span style="color:var(--text2);">&#x25CF; BBVA: 8 movimientos sin conciliar ($119K)</span><span class="badge badge-amber" style="margin-left:auto;">Atencion</span></div>
+            <div style="display:flex;align-items:center;gap:8px;"><span style="color:var(--text2);">&#x25CF; Orden OP-3049 con varianza +363% en consumo</span><span class="badge badge-amber" style="margin-left:auto;">Atencion</span></div>
+          </div>
+        </div>
+
+        <div class="sentinel ok" style="margin-top:0;">
+          <div class="sentinel-hd"><div class="sentinel-icon" style="background:var(--green);">&#x2713;</div><div class="sentinel-label" style="color:var(--green);">Sentinel &mdash; Acciones sugeridas</div></div>
+          <div class="sentinel-body">
+            <strong>1.</strong> Cobrar F-7812 ($1.24M, 28d vencida) via WhatsApp. <strong>2.</strong> Generar orden de compra de Resina PET antes de cierre. <strong>3.</strong> Conciliar deposito BBVA no identificado $75,300.
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ TAB: COBRANZA ═══ -->
+      <div class="tab" id="tab-cobranza">
+        <div class="guide-tip">
+          <p><strong>Cobranza:</strong> Sentinel ordena facturas por urgencia. Cada fila tiene accion directa: <strong>"Cobrar" abre WhatsApp con mensaje pre-armado</strong> (folio, monto, cliente). El operador confirma y envia. Sentinel notifica al director si pasan de 30 dias.</p>
+        </div>
+
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:8px;">
+          <div><h3 style="font-size:16px;font-weight:800;">Cobranza Vencida</h3><div style="font-size:12px;color:var(--text3);">4 documentos &mdash; $3,249,700 pendiente</div></div>
+          <div style="display:flex;gap:6px;">
+            <span class="chip chip-wa" onclick="sendWaAlert('cobro','Iniciando gestion de cobro masivo: 4 facturas por $3.25M. Enviando mensajes a clientes.')">&#x1F4AC; WhatsApp Cobro</span>
+            <span class="chip">Exportar</span>
+          </div>
+        </div>
+
+        <table class="p-table">
+          <thead><tr><th>Folio</th><th>Cliente</th><th>Importe</th><th>Dias</th><th>Accion</th></tr></thead>
+          <tbody>
+            <tr><td class="mono">F-7812</td><td>Agua Cristalina del Pacifico</td><td class="money">$1,245,000</td><td><span class="badge badge-red">28d</span></td><td><span class="chip chip-green" onclick="sendWaAlert('cobro','Cobro enviado a Agua Cristalina: F-7812 por $1,245,000. 28 dias vencida.')">Cobrar</span></td></tr>
+            <tr><td class="mono">F-7835</td><td>Embotelladora Sierra Madre</td><td class="money">$892,000</td><td><span class="badge badge-red">15d</span></td><td><span class="chip chip-green" onclick="sendWaAlert('cobro','Cobro enviado a Sierra Madre: F-7835 por $892,000. 15 dias vencida.')">Cobrar</span></td></tr>
+            <tr><td class="mono">F-7841</td><td>Purificadora Los Alpes</td><td class="money">$634,500</td><td><span class="badge badge-amber">8d</span></td><td><span class="chip chip-green" onclick="sendWaAlert('cobro','Cobro enviado a Los Alpes: F-7841 por $634,500.')">Cobrar</span></td></tr>
+            <tr><td class="mono">F-7856</td><td>Distribuidora Nacional</td><td class="money">$478,200</td><td><span class="badge badge-amber">3d</span></td><td><span class="chip chip-green" onclick="sendWaAlert('cobro','Cobro enviado a Distribuidora Nacional: F-7856 por $478,200.')">Cobrar</span></td></tr>
+          </tbody>
+        </table>
+
+        <div class="sentinel">
+          <div class="sentinel-hd"><div class="sentinel-icon">!</div><div class="sentinel-label">Sentinel</div></div>
+          <div class="sentinel-body"><strong>Prioridad: F-7812.</strong> $1.24M con 28 dias vencida. El cliente tiene historial de pago a 35 dias. Si no se cobra esta semana, entra a cartera de dificil recuperacion. WhatsApp es el canal con mayor tasa de respuesta (72%).</div>
+        </div>
+      </div>
+
+      <!-- ═══ TAB: INVENTARIO ═══ -->
+      <div class="tab" id="tab-inventario">
+        <div class="guide-tip">
+          <p><strong>Inventario:</strong> Sentinel cruza consumo real de produccion con stock actual. Calcula dias restantes y sugiere orden de compra con cantidades basadas en historico. <strong>"Reponer" genera la orden completa</strong> &mdash; material, cantidad, proveedor, costo estimado.</p>
+        </div>
+
+        <h3 style="font-size:16px;font-weight:800;margin-bottom:4px;">Inventario Critico</h3>
+        <div style="font-size:12px;color:var(--text3);margin-bottom:16px;">4 articulos requieren reposicion inmediata</div>
+
+        <table class="p-table">
+          <thead><tr><th>Material</th><th>Stock</th><th>Reorden</th><th>Dias</th><th>Accion</th></tr></thead>
+          <tbody>
+            <tr><td>Resina PET grado alimenticio</td><td class="mono">1,350 kg</td><td class="mono">2,000 kg</td><td><span class="badge badge-red">3d</span></td><td><span class="chip chip-red" onclick="showOrden()">Reponer</span></td></tr>
+            <tr><td>Preforma 500ml cristal</td><td class="mono">3,600 pz</td><td class="mono">5,000 pz</td><td><span class="badge badge-red">3d</span></td><td><span class="chip chip-red" onclick="showOrden()">Reponer</span></td></tr>
+            <tr><td>Preforma 1L cristal</td><td class="mono">2,100 pz</td><td class="mono">3,000 pz</td><td><span class="badge badge-red">3d</span></td><td><span class="chip chip-red" onclick="showOrden()">Reponer</span></td></tr>
+            <tr><td>Resina HDPE reciclada</td><td class="mono">920 kg</td><td class="mono">1,500 kg</td><td><span class="badge badge-amber">2d</span></td><td><span class="chip chip-red" onclick="showOrden()">Reponer</span></td></tr>
+          </tbody>
+        </table>
+
+        <!-- ORDEN DE COMPRA GENERADA -->
+        <div id="orden-panel" style="display:none;">
+          <div class="cot-pdf">
+            <div class="cot-pdf-header"><h4>&#x1F4E6; Orden de Compra Sugerida</h4><span style="font-size:11px;opacity:.8;">OC-2026-0891</span></div>
+            <div class="cot-pdf-body">
+              <div style="font-size:11px;color:var(--text3);margin-bottom:12px;">Generada por Sentinel &mdash; basada en consumo promedio 90 dias</div>
+              <div class="cot-pdf-row"><span>Resina PET grado alimenticio &mdash; 2,000 kg</span><span style="font-weight:700;">$148,000</span></div>
+              <div class="cot-pdf-row"><span>Preforma 500ml cristal &mdash; 5,000 pz</span><span style="font-weight:700;">$85,000</span></div>
+              <div class="cot-pdf-row"><span>Preforma 1L cristal &mdash; 3,000 pz</span><span style="font-weight:700;">$72,000</span></div>
+              <div class="cot-pdf-row"><span>Resina HDPE reciclada &mdash; 1,500 kg</span><span style="font-weight:700;">$67,500</span></div>
+              <div class="cot-pdf-total"><span>Total estimado</span><span style="color:var(--red);">$372,500 MXN</span></div>
+              <div style="margin-top:14px;display:flex;gap:8px;">
+                <span class="chip chip-wa" onclick="sendWaAlert('compra','Orden de compra OC-2026-0891 enviada a proveedor Polimeros del Norte. Total: $372,500 MXN. 4 materiales criticos.')">&#x1F4AC; Enviar a proveedor</span>
+                <span class="chip">Descargar PDF</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sentinel danger" id="inv-sentinel">
+          <div class="sentinel-hd"><div class="sentinel-icon" style="background:var(--red);">!</div><div class="sentinel-label" style="color:var(--red);">Sentinel</div></div>
+          <div class="sentinel-body"><strong>Resina PET es el material mas critico.</strong> A consumo actual (217 kg/dia), stock se agota en 3 dias. Las ordenes de produccion OP-3049, OP-3051 y OP-3055 dependen de este material. Si no se repone hoy, 3 ordenes se detienen manana.</div>
+        </div>
+      </div>
+
+      <!-- ═══ TAB: CONCILIACIONES ═══ -->
+      <div class="tab" id="tab-conciliaciones">
+        <div class="guide-tip">
+          <p><strong>Conciliaciones:</strong> Arrastra el PDF del estado de cuenta bancario a la zona de abajo. <strong>Sentinel lo procesa en 3 segundos:</strong> extrae movimientos, los cruza con la contabilidad del ERP y te muestra solo las diferencias. Lo que antes tomaba horas, ahora toma segundos.</p>
+        </div>
+
+        <div class="kpi-row">
+          <div class="kpi" style="border-left:3px solid var(--amber);"><div class="kpi-label">BBVA ****4521</div><div class="kpi-val" style="font-size:20px;">$4,832,100</div><div class="kpi-sub" style="color:var(--red);font-weight:600;">Diferencia: $119,300 (8 movs)</div></div>
+          <div class="kpi" style="border-left:3px solid var(--green);"><div class="kpi-label">BANORTE ****7890</div><div class="kpi-val" style="font-size:20px;">$2,148,500</div><div class="kpi-sub" style="color:var(--green);font-weight:600;">Conciliado &#x2713;</div></div>
+          <div class="kpi" style="border-left:3px solid var(--amber);"><div class="kpi-label">SANTANDER ****3456</div><div class="kpi-val" style="font-size:20px;">$1,259,400</div><div class="kpi-sub" style="color:var(--red);font-weight:600;">Diferencia: $62,200 (3 movs)</div></div>
+        </div>
+
+        <!-- DROP ZONE -->
+        <div class="drop-zone" id="drop-zone">
+          <div class="drop-zone-icon">&#x1F4C4;</div>
+          <h4>Arrastra tu estado de cuenta aqui</h4>
+          <p>PDF o Excel &mdash; Sentinel lo procesa en 3 segundos</p>
+        </div>
+
+        <!-- PROCESSING (hidden) -->
+        <div id="conc-processing" style="display:none;">
+          <div style="text-align:center;padding:20px 0;">
+            <div style="font-size:14px;font-weight:700;margin-bottom:4px;" id="conc-step">Leyendo documento...</div>
+            <div style="font-size:12px;color:var(--text3);" id="conc-detail">Extrayendo movimientos del PDF</div>
+            <div class="processing-bar"><div class="processing-fill" id="conc-bar"></div></div>
+          </div>
+        </div>
+
+        <!-- RESULT (hidden) -->
+        <div id="conc-result" style="display:none;">
+          <div class="sentinel ok" style="margin-bottom:12px;">
+            <div class="sentinel-hd"><div class="sentinel-icon" style="background:var(--green);">&#x2713;</div><div class="sentinel-label" style="color:var(--green);">Conciliacion completada</div></div>
+            <div class="sentinel-body"><strong>47 movimientos procesados en 2.8 segundos.</strong> 44 conciliados automaticamente. 3 requieren revision manual.</div>
+          </div>
+
+          <table class="p-table">
+            <thead><tr><th>Fecha</th><th>Concepto</th><th>Monto</th><th>Estado</th><th>ERP</th></tr></thead>
+            <tbody>
+              <tr style="background:rgba(0,196,140,.03);"><td class="mono">Jul 21</td><td>Deposito Agua Cristalina del Pacifico</td><td class="money" style="color:var(--green);">+$845,000</td><td><span class="badge badge-green">Conciliado</span></td><td class="mono" style="color:var(--green);">F-7799 &#x2713;</td></tr>
+              <tr style="background:rgba(0,196,140,.03);"><td class="mono">Jul 20</td><td>Transferencia Plasticos del Golfo</td><td class="money" style="color:var(--green);">+$412,000</td><td><span class="badge badge-green">Conciliado</span></td><td class="mono" style="color:var(--green);">F-7815 &#x2713;</td></tr>
+              <tr style="background:rgba(245,166,35,.04);"><td class="mono">Jul 18</td><td>Deposito no identificado</td><td class="money" style="color:var(--amber);">+$75,300</td><td><span class="badge badge-amber">Revisar</span></td><td class="mono" style="color:var(--amber);">Sin match</td></tr>
+              <tr style="background:rgba(0,196,140,.03);"><td class="mono">Jul 18</td><td>Comision bancaria BBVA</td><td class="money" style="color:var(--red);">-$4,200</td><td><span class="badge badge-green">Conciliado</span></td><td class="mono" style="color:var(--green);">Gasto &#x2713;</td></tr>
+              <tr style="background:rgba(229,57,53,.03);"><td class="mono">Jul 17</td><td>Cargo domiciliado CFE</td><td class="money" style="color:var(--red);">-$28,400</td><td><span class="badge badge-red">No registrado</span></td><td class="mono" style="color:var(--red);">Falta poliza</td></tr>
+              <tr style="background:rgba(229,57,53,.03);"><td class="mono">Jul 15</td><td>Transferencia a tercero</td><td class="money" style="color:var(--red);">-$15,200</td><td><span class="badge badge-red">No registrado</span></td><td class="mono" style="color:var(--red);">Falta poliza</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- EXISTING MOVEMENTS -->
+        <div id="conc-existing">
+          <div style="font-size:14px;font-weight:700;margin-bottom:10px;">Movimientos Sin Conciliar <span style="font-weight:400;color:var(--text3);font-size:12px;">5 pendientes</span></div>
+          <table class="p-table">
+            <thead><tr><th>Fecha</th><th>Concepto</th><th>Monto</th><th>Banco</th></tr></thead>
+            <tbody>
+              <tr><td class="mono">Jul 21</td><td>Deposito Agua Cristalina del Pacifico</td><td class="money" style="color:var(--green);">+$845,000</td><td>BBVA</td></tr>
+              <tr><td class="mono">Jul 20</td><td>Transferencia Plasticos del Golfo</td><td class="money" style="color:var(--green);">+$412,000</td><td>BBVA</td></tr>
+              <tr><td class="mono">Jul 19</td><td>Deposito Embotelladora Sierra Madre</td><td class="money" style="color:var(--green);">+$632,000</td><td>BBVA</td></tr>
+              <tr><td class="mono">Jul 18</td><td>Deposito no identificado</td><td class="money" style="color:var(--amber);">+$75,300</td><td>BBVA</td></tr>
+              <tr><td class="mono">Jul 18</td><td>Comision bancaria</td><td class="money" style="color:var(--red);">-$4,200</td><td>BBVA</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ═══ TAB: COTIZACIONES (WA AGENT) ═══ -->
+      <div class="tab" id="tab-cotizaciones">
+        <div class="guide-tip">
+          <p><strong>Agente de Cotizaciones:</strong> Escribe lo que necesita el cliente en el chat de WhatsApp. <strong>Sentinel genera la cotizacion completa en menos de 3 segundos</strong> &mdash; con precios del ERP, disponibilidad de inventario y PDF listo para enviar. Pruebalo.</p>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start;" class="cot-grid">
+          <div>
+            <h3 style="font-size:16px;font-weight:800;margin-bottom:12px;">Agente WhatsApp &mdash; Cotizacion</h3>
+
+            <div class="wa-chat">
+              <div class="wa-chat-header">
+                <div class="wa-chat-avatar">T</div>
+                <div>
+                  <div class="wa-chat-name">Trev'AI Cotizaciones</div>
+                  <div class="wa-chat-status">en linea</div>
+                </div>
+              </div>
+              <div class="wa-chat-body" id="wa-body">
+                <div class="wa-msg in">Hola, soy el agente de cotizaciones de EIN. Escriba que necesita cotizar y lo genero en segundos. &#x1F4CB;<span class="wa-time">10:30 am</span></div>
+              </div>
+              <div class="wa-chat-input">
+                <input type="text" id="wa-input" value="5000 preformas 500ml y 2 ton resina PET" autocomplete="off" style="color:var(--text);font-weight:500;">
+                <button id="wa-send" style="animation:sendPulse 2s ease infinite;">&#x27A4;</button>
+              </div>
+            </div>
+          </div>
+
+          <div id="cot-output">
+            <h3 style="font-size:16px;font-weight:800;margin-bottom:12px;">Cotizacion generada</h3>
+            <div style="padding:32px;text-align:center;border:1px dashed var(--border);border-radius:10px;color:var(--text3);font-size:13px;">
+              Envia un mensaje al agente para generar una cotizacion al instante.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ TAB: SALUD DEL NEGOCIO ═══ -->
+      <div class="tab" id="tab-salud">
+        <div class="guide-tip">
+          <p><strong>Vista Ejecutiva &mdash; Salud del Negocio:</strong> El director abre esta seccion y ve un score que resume toda la operacion. <strong>No necesita pedir reportes ni llamar a nadie.</strong> Sentinel calcula el score cada hora cruzando cobranza + inventario + produccion + conciliaciones.</p>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:24px;margin-bottom:20px;flex-wrap:wrap;">
+          <div style="text-align:center;">
+            <div style="font-size:64px;font-weight:900;color:var(--amber);line-height:1;">60</div>
+            <div style="font-size:11px;color:var(--text3);text-transform:uppercase;font-weight:600;">/100 Salud del negocio</div>
+          </div>
+          <div style="flex:1;min-width:200px;">
+            <span class="badge badge-red badge-pulse" style="margin-bottom:10px;">&#x25CF; Riesgo activo</span>
+            <div class="kpi-row">
+              <div class="kpi"><div class="kpi-label">Ventas YTD</div><div class="kpi-val" style="color:var(--green);font-size:20px;">$18,742,350</div><div class="kpi-sub" style="color:var(--green);">+8.1% vs periodo anterior</div></div>
+              <div class="kpi"><div class="kpi-label">Cobranza critica</div><div class="kpi-val" style="color:var(--red);font-size:20px;">$3,249,700</div><div class="kpi-sub">4 facturas sin gestionar</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="kpi-row">
+          <div class="kpi"><div class="kpi-label">Margen bruto</div><div class="kpi-val" style="color:var(--green);">45.7%</div><div class="kpi-sub">Benchmark: 20-25%</div></div>
+          <div class="kpi"><div class="kpi-label">Utilidad operativa</div><div class="kpi-val" style="color:var(--green);">$22.6M</div><div class="kpi-sub">Margen: 20.3%</div></div>
+          <div class="kpi"><div class="kpi-label">Capital de trabajo</div><div class="kpi-val" style="color:var(--green);">$27.3M</div><div class="kpi-sub">Activos - Pasivos</div></div>
+          <div class="kpi"><div class="kpi-label">Razon circulante</div><div class="kpi-val" style="color:var(--green);">3.97x</div><div class="kpi-sub">Liquidez holgada</div></div>
+        </div>
+
+        <div class="sentinel ok">
+          <div class="sentinel-hd"><div class="sentinel-icon" style="background:var(--green);">&#x2713;</div><div class="sentinel-label" style="color:var(--green);">Sentinel &mdash; Recomendacion ejecutiva</div></div>
+          <div class="sentinel-body">Empresa con margen saludable y liquidez holgada. <strong>El riesgo no es financiero &mdash; es operativo:</strong> $3.2M vencidos sin gestionar y 4 materiales criticos sin reponer. Accion: cobrar primero, reponer despues, sin comprometer flujo. Score bajara a 45 si no se actua esta semana.</div>
+        </div>
+
+        <div class="sentinel" style="margin-top:0;">
+          <div class="sentinel-hd"><div class="sentinel-icon">&#x2191;</div><div class="sentinel-label">Sentinel &mdash; Alertas enviadas</div></div>
+          <div class="sentinel-body" style="font-size:12px;">
+            <strong>Hoy 08:00:</strong> Alerta WA a David (Director) &mdash; Score bajo de 72 a 60. Causa: cartera vencida aumento 18%.<br>
+            <strong>Ayer 17:30:</strong> Alerta WA a Fernanda (Admin) &mdash; Resina PET llego a punto critico. Orden sugerida enviada.
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ TAB: FLUJO DE EFECTIVO ═══ -->
+      <div class="tab" id="tab-flujo">
+        <div class="guide-tip">
+          <p><strong>Flujo de Efectivo:</strong> Sentinel proyecta cobros y pagos a 7, 15, 30 y 60 dias cruzando facturas pendientes, pagos programados y gastos recurrentes. <strong>El director sabe hoy si tendra liquidez el proximo mes</strong> &mdash; sin pedir proyecciones a contabilidad.</p>
+        </div>
+
+        <div style="display:flex;gap:16px;text-align:center;margin-bottom:20px;flex-wrap:wrap;">
+          <div style="flex:1;min-width:100px;"><div style="font-size:20px;font-weight:900;color:var(--green);">$12.4M</div><div style="font-size:10px;text-transform:uppercase;color:var(--text3);font-weight:600;">Por cobrar</div></div>
+          <div style="flex:1;min-width:100px;"><div style="font-size:20px;font-weight:900;color:var(--red);">$9.2M</div><div style="font-size:10px;text-transform:uppercase;color:var(--text3);font-weight:600;">Por pagar</div></div>
+          <div style="flex:1;min-width:100px;"><div style="font-size:20px;font-weight:900;color:var(--green);">+$3.2M</div><div style="font-size:10px;text-transform:uppercase;color:var(--text3);font-weight:600;">Neto proyectado</div></div>
+        </div>
+
+        <div class="kpi-row">
+          <div class="kpi"><div class="kpi-label">7 dias</div><div style="margin:6px 0"><div class="flow-bar"><div class="flow-fill green" style="width:55%"></div></div><div class="flow-bar"><div class="flow-fill red" style="width:35%"></div></div></div><div class="kpi-val" style="color:var(--green);font-size:18px;">+$730K</div><div class="kpi-sub">Cobros: $1.8M &bull; Pagos: $1.1M</div></div>
+          <div class="kpi"><div class="kpi-label">15 dias</div><div style="margin:6px 0"><div class="flow-bar"><div class="flow-fill green" style="width:70%"></div></div><div class="flow-bar"><div class="flow-fill red" style="width:48%"></div></div></div><div class="kpi-val" style="color:var(--green);font-size:18px;">+$1.6M</div><div class="kpi-sub">Cobros: $4.2M &bull; Pagos: $2.6M</div></div>
+          <div class="kpi"><div class="kpi-label">30 dias</div><div style="margin:6px 0"><div class="flow-bar"><div class="flow-fill green" style="width:82%"></div></div><div class="flow-bar"><div class="flow-fill red" style="width:62%"></div></div></div><div class="kpi-val" style="color:var(--green);font-size:18px;">+$2.3M</div><div class="kpi-sub">Cobros: $8.1M &bull; Pagos: $5.8M</div></div>
+          <div class="kpi"><div class="kpi-label">60 dias</div><div style="margin:6px 0"><div class="flow-bar"><div class="flow-fill green" style="width:92%"></div></div><div class="flow-bar"><div class="flow-fill red" style="width:72%"></div></div></div><div class="kpi-val" style="color:var(--green);font-size:18px;">+$2.9M</div><div class="kpi-sub">Cobros: $11.8M &bull; Pagos: $8.9M</div></div>
+        </div>
+
+        <div class="sentinel ok">
+          <div class="sentinel-hd"><div class="sentinel-icon" style="background:var(--green);">&#x2713;</div><div class="sentinel-label" style="color:var(--green);">Sentinel</div></div>
+          <div class="sentinel-body">Flujo positivo en todos los horizontes. <strong>Riesgo principal:</strong> $3.2M de cobranza vencida que podria no cobrarse. Si se pierde, el neto a 30 dias cae a -$900K. Cobrar esta semana asegura liquidez para los proximos 60 dias.</div>
+        </div>
+      </div>
+
+      <!-- ═══ TAB: ESTADOS FINANCIEROS ═══ -->
+      <div class="tab" id="tab-financieros">
+        <div class="guide-tip">
+          <p><strong>Estados Financieros:</strong> Sentinel integra datos del ERP para mostrar estado de resultados, balance y metricas financieras clave. <strong>Actualizado cada hora, no cada mes.</strong> El director ve tendencias y anomalias antes de que contabilidad cierre.</p>
+        </div>
+
+        <h3 style="font-size:16px;font-weight:800;margin-bottom:16px;">Estado de Resultados &mdash; Acumulado 2026</h3>
+
+        <table class="p-table" style="max-width:600px;">
+          <tbody>
+            <tr style="font-weight:700;"><td>Ventas netas</td><td class="money">$18,742,350</td></tr>
+            <tr><td style="padding-left:20px;color:var(--text3);">(-) Costo de ventas</td><td class="money" style="color:var(--red);">-$10,178,997</td></tr>
+            <tr style="font-weight:700;border-top:2px solid var(--border);"><td>Utilidad bruta</td><td class="money" style="color:var(--green);">$8,563,353</td></tr>
+            <tr><td style="padding-left:20px;color:var(--text3);">Margen bruto</td><td class="money" style="color:var(--green);">45.7%</td></tr>
+            <tr><td style="padding-left:20px;color:var(--text3);">(-) Gastos operativos</td><td class="money" style="color:var(--red);">-$4,762,000</td></tr>
+            <tr style="font-weight:700;border-top:2px solid var(--border);"><td>Utilidad operativa</td><td class="money" style="color:var(--green);">$3,801,353</td></tr>
+            <tr><td style="padding-left:20px;color:var(--text3);">(-) Gastos financieros</td><td class="money" style="color:var(--red);">-$892,000</td></tr>
+            <tr style="font-weight:900;border-top:2px solid var(--text);font-size:14px;"><td>Utilidad neta</td><td class="money" style="color:var(--green);">$2,909,353</td></tr>
+          </tbody>
+        </table>
+
+        <div class="kpi-row" style="margin-top:20px;">
+          <div class="kpi"><div class="kpi-label">Capital de trabajo</div><div class="kpi-val" style="color:var(--green);font-size:20px;">$27.3M</div></div>
+          <div class="kpi"><div class="kpi-label">Razon circulante</div><div class="kpi-val" style="color:var(--green);font-size:20px;">3.97x</div></div>
+          <div class="kpi"><div class="kpi-label">Deuda / Capital</div><div class="kpi-val" style="font-size:20px;">0.42x</div><div class="kpi-sub">Nivel saludable</div></div>
+        </div>
+
+        <div class="sentinel ok">
+          <div class="sentinel-hd"><div class="sentinel-icon" style="background:var(--green);">&#x2713;</div><div class="sentinel-label" style="color:var(--green);">Sentinel</div></div>
+          <div class="sentinel-body">Empresa financieramente solida. Margen bruto 45.7% supera benchmark de industria (20-25%). <strong>Punto de atencion:</strong> gastos financieros de $892K sugieren deuda con intereses altos. Evaluar refinanciamiento para liberar $200-300K anuales.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- WA ALERTS PANEL -->
+<div class="wa-alerts" id="wa-alerts">
+  <div class="wa-alerts-header">
+    <h4>&#x1F4AC; Alertas WhatsApp <span class="badge badge-green" id="alerts-count-label">3 enviadas</span></h4>
+    <button style="background:none;border:none;font-size:18px;cursor:pointer;color:var(--text3);" id="close-alerts">&times;</button>
+  </div>
+  <div class="wa-alerts-body" id="wa-alerts-body">
+    <div class="wa-alert-item">
+      <div class="wa-alert-to">&#x2192; David Garza &mdash; Director General</div>
+      <div class="wa-alert-msg"><strong>Sentinel:</strong> Score de salud bajo de 72 a 60. Causa principal: cartera vencida aumento 18% ($3.2M). 4 materiales criticos sin reponer. Accion recomendada: priorizar cobro F-7812 ($1.24M, 28d).</div>
+      <div class="wa-alert-time">Hoy 08:00 &mdash; <span class="wa-alert-status">&#x2713;&#x2713; Leido</span></div>
+    </div>
+    <div class="wa-alert-item">
+      <div class="wa-alert-to">&#x2192; Fernanda Lopez &mdash; Administracion</div>
+      <div class="wa-alert-msg"><strong>Sentinel:</strong> Resina PET grado alimenticio a 3 dias de agotarse (1,350 kg / consumo 217 kg/dia). Orden de compra sugerida: 2,000 kg, $148,000. Proveedor: Polimeros del Norte.</div>
+      <div class="wa-alert-time">Hoy 07:15 &mdash; <span class="wa-alert-status">&#x2713;&#x2713; Leido</span></div>
+    </div>
+    <div class="wa-alert-item">
+      <div class="wa-alert-to">&#x2192; Fernanda Lopez &mdash; Administracion</div>
+      <div class="wa-alert-msg"><strong>Sentinel:</strong> BBVA deposito no identificado $75,300 (Jul 18). No coincide con ninguna factura pendiente. Requiere revision manual &mdash; pedir referencia al banco.</div>
+      <div class="wa-alert-time">Ayer 17:30 &mdash; <span class="wa-alert-status">&#x2713; Entregado</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST CONTAINER -->
+<div id="toast-container" style="position:fixed;top:60px;right:24px;z-index:9999;display:flex;flex-direction:column;gap:8px;"></div>
+
+<!-- TOUR -->
+<div class="tour-overlay" id="tour-overlay"></div>
+<div class="tour-bubble" id="tour-bubble" style="display:none;"></div>
+
+<script>
+(function(){
+
+/* ═══ SIDEBAR NAVIGATION ═══ */
+const sidebarItems = document.querySelectorAll('.sidebar-item[data-tab]');
+const tabs = document.querySelectorAll('.tab');
+const topTitle = document.getElementById('topbar-title');
+const topBadge = document.getElementById('topbar-badge');
+
+const tabMeta = {
+  centro: {title:'Centro de Control', badge:'7 criticos', badgeClass:'badge-red badge-pulse'},
+  cobranza: {title:'Cobranza Vencida', badge:'$3.2M', badgeClass:'badge-red'},
+  inventario: {title:'Inventario Critico', badge:'4 bajo reorden', badgeClass:'badge-red'},
+  conciliaciones: {title:'Conciliaciones', badge:'5 pendientes', badgeClass:'badge-amber'},
+  cotizaciones: {title:'Agente Cotizaciones', badge:'WA activo', badgeClass:'badge-green'},
+  salud: {title:'Salud del Negocio', badge:'60/100', badgeClass:'badge-amber'},
+  flujo: {title:'Flujo de Efectivo', badge:'+$3.2M neto', badgeClass:'badge-green'},
+  financieros: {title:'Estados Financieros', badge:'YTD 2026', badgeClass:'badge-blue'},
+};
+
+function switchTab(tabId) {
+  sidebarItems.forEach(i => i.classList.remove('active'));
+  tabs.forEach(t => t.classList.remove('active'));
+  const item = document.querySelector(`.sidebar-item[data-tab="${tabId}"]`);
+  if (item) item.classList.add('active');
+  const tab = document.getElementById('tab-' + tabId);
+  if (tab) tab.classList.add('active');
+  const meta = tabMeta[tabId] || {};
+  topTitle.textContent = meta.title || tabId;
+  topBadge.textContent = meta.badge || '';
+  topBadge.className = 'badge ' + (meta.badgeClass || '');
+  // Toggle view sections
+  const opsSection = document.getElementById('sidebar-ops');
+  const dirSection = document.getElementById('sidebar-dir');
+  const vtBtns = document.querySelectorAll('.vt-btn');
+  if (['salud','flujo','financieros'].includes(tabId)) {
+    opsSection.style.display = 'none'; dirSection.style.display = '';
+    vtBtns.forEach(b => { b.classList.toggle('active', b.dataset.view === 'dir'); });
+  } else {
+    opsSection.style.display = ''; dirSection.style.display = 'none';
+    vtBtns.forEach(b => { b.classList.toggle('active', b.dataset.view === 'ops'); });
+  }
+}
+
+sidebarItems.forEach(item => {
+  item.addEventListener('click', () => switchTab(item.dataset.tab));
+});
+
+/* ═══ VIEW TOGGLE ═══ */
+document.querySelectorAll('.vt-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.vt-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    switchTab(btn.dataset.view === 'ops' ? 'centro' : 'salud');
+  });
+});
+
+/* ═══ WA ALERTS PANEL ═══ */
+const alertsPanel = document.getElementById('wa-alerts');
+document.getElementById('btn-alerts').addEventListener('click', () => alertsPanel.classList.toggle('open'));
+document.getElementById('close-alerts').addEventListener('click', () => alertsPanel.classList.remove('open'));
+
+/* ═══ TOAST NOTIFICATIONS ═══ */
+function showToast(icon, bg, title, text, duration) {
+  const t = document.createElement('div');
+  t.className = 'toast';
+  t.innerHTML = `<div class="toast-icon" style="background:${bg};color:#fff;">${icon}</div><div class="toast-text"><strong>${title}</strong><span>${text}</span></div>`;
+  document.getElementById('toast-container').appendChild(t);
+  setTimeout(() => { t.style.opacity = '0'; t.style.transform = 'translateY(-10px)'; setTimeout(() => t.remove(), 300); }, duration || 4000);
+}
+
+/* ═══ WA ALERT SENDER ═══ */
+let alertCounter = 3;
+window.sendWaAlert = function(type, msg) {
+  alertCounter++;
+  document.getElementById('alert-count').textContent = alertCounter;
+  document.getElementById('alerts-count-label').textContent = alertCounter + ' enviadas';
+  const dest = type === 'cobro' ? 'Fernanda Lopez — Admin' : type === 'compra' ? 'Polimeros del Norte — Proveedor' : 'David Garza — Director';
+  const now = new Date();
+  const time = now.getHours() + ':' + String(now.getMinutes()).padStart(2, '0');
+  const alertDiv = document.createElement('div');
+  alertDiv.className = 'wa-alert-item';
+  alertDiv.innerHTML = `<div class="wa-alert-to">&#x2192; ${dest}</div><div class="wa-alert-msg"><strong>Sentinel:</strong> ${msg}</div><div class="wa-alert-time">Ahora ${time} — <span class="wa-alert-status">&#x2713; Enviado</span></div>`;
+  document.getElementById('wa-alerts-body').insertBefore(alertDiv, document.getElementById('wa-alerts-body').firstChild);
+  showToast('&#x1F4AC;', '#25d366', 'WhatsApp enviado', dest, 3500);
+  alertsPanel.classList.add('open');
+  setTimeout(() => alertsPanel.classList.remove('open'), 3000);
+};
+
+/* ═══ ORDEN DE COMPRA ═══ */
+window.showOrden = function() {
+  document.getElementById('orden-panel').style.display = 'block';
+  document.getElementById('orden-panel').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  showToast('&#x1F4E6;', '#e53935', 'Orden generada', 'OC-2026-0891 — $372,500 MXN', 3500);
+};
+
+/* ═══ DRAG & DROP CONCILIACION ═══ */
+const dropZone = document.getElementById('drop-zone');
+const concProcessing = document.getElementById('conc-processing');
+const concResult = document.getElementById('conc-result');
+const concExisting = document.getElementById('conc-existing');
+const concBar = document.getElementById('conc-bar');
+const concStep = document.getElementById('conc-step');
+const concDetail = document.getElementById('conc-detail');
+
+['dragenter','dragover'].forEach(e => dropZone.addEventListener(e, ev => { ev.preventDefault(); dropZone.classList.add('over'); }));
+['dragleave','drop'].forEach(e => dropZone.addEventListener(e, ev => { ev.preventDefault(); dropZone.classList.remove('over'); }));
+dropZone.addEventListener('click', () => startConciliation());
+dropZone.addEventListener('drop', () => startConciliation());
+
+function startConciliation() {
+  dropZone.classList.add('processing');
+  dropZone.innerHTML = '<div class="drop-zone-icon">&#x2699;</div><h4>Procesando documento...</h4>';
+  setTimeout(() => {
+    dropZone.style.display = 'none';
+    concProcessing.style.display = 'block';
+    concExisting.style.display = 'none';
+    const steps = [
+      {pct:20, step:'Leyendo documento...', detail:'Extrayendo movimientos del PDF bancario'},
+      {pct:45, step:'Extrayendo movimientos...', detail:'47 movimientos encontrados en estado de cuenta'},
+      {pct:70, step:'Cruzando con ERP...', detail:'Comparando con auxiliares contables de Microsip'},
+      {pct:90, step:'Conciliando...', detail:'44 de 47 conciliados automaticamente'},
+      {pct:100, step:'Completado', detail:'3 movimientos requieren revision manual'},
+    ];
+    let i = 0;
+    function nextStep() {
+      if (i >= steps.length) {
+        setTimeout(() => {
+          concProcessing.style.display = 'none';
+          concResult.style.display = 'block';
+          showToast('&#x2713;', '#00c48c', 'Conciliacion completada', '47 movimientos — 2.8 segundos', 4000);
+          sendWaAlert('conc', 'Conciliacion BBVA completada: 47 movimientos procesados, 44 conciliados, 3 requieren revision.');
+        }, 400);
+        return;
+      }
+      concBar.style.width = steps[i].pct + '%';
+      concStep.textContent = steps[i].step;
+      concDetail.textContent = steps[i].detail;
+      i++;
+      setTimeout(nextStep, 600);
+    }
+    nextStep();
+  }, 500);
+}
+
+/* ═══ WA COTIZACION AGENT ═══ */
+const waBody = document.getElementById('wa-body');
+const waInput = document.getElementById('wa-input');
+const waSend = document.getElementById('wa-send');
+const cotOutput = document.getElementById('cot-output');
+
+function waAddMsg(text, type) {
+  const d = document.createElement('div');
+  d.className = 'wa-msg ' + type;
+  const now = new Date();
+  const time = now.getHours() + ':' + String(now.getMinutes()).padStart(2, '0');
+  const check = type === 'out' ? ' <span class="wa-check">&#x2713;&#x2713;</span>' : '';
+  d.innerHTML = text + '<span class="wa-time">' + time + check + '</span>';
+  waBody.appendChild(d);
+  waBody.scrollTop = waBody.scrollHeight;
+}
+
+function waTyping() {
+  const d = document.createElement('div');
+  d.className = 'wa-msg-typing';
+  d.innerHTML = '<div class="wa-typing-dots"><span></span><span></span><span></span></div>';
+  waBody.appendChild(d);
+  waBody.scrollTop = waBody.scrollHeight;
+  return d;
+}
+
+function generateCotizacion(text) {
+  waAddMsg(text, 'out');
+  const typing = waTyping();
+  setTimeout(() => {
+    typing.remove();
+    waAddMsg('Entendido. Verificando disponibilidad y precios en el ERP... &#x1F50D;', 'in');
+    const typing2 = waTyping();
+    setTimeout(() => {
+      typing2.remove();
+      const items = [];
+      if (text.match(/preforma|500/i)) items.push({name:'Preforma 500ml cristal',qty:'5,000 pz',price:'$85,000',unit:'$17.00/pz'});
+      if (text.match(/resina|pet|ton/i)) items.push({name:'Resina PET grado alimenticio',qty:'2,000 kg',price:'$148,000',unit:'$74.00/kg'});
+      if (text.match(/1l|1 l|litro/i)) items.push({name:'Preforma 1L cristal',qty:'3,000 pz',price:'$72,000',unit:'$24.00/pz'});
+      if (text.match(/hdpe|reciclad/i)) items.push({name:'Resina HDPE reciclada',qty:'1,500 kg',price:'$67,500',unit:'$45.00/kg'});
+      if (!items.length) { items.push({name:'Preforma 500ml cristal',qty:'5,000 pz',price:'$85,000',unit:'$17.00/pz'}); items.push({name:'Resina PET grado alimenticio',qty:'2,000 kg',price:'$148,000',unit:'$74.00/kg'}); }
+      const total = items.reduce((s,i) => s + parseInt(i.price.replace(/[$,]/g,'')), 0);
+      waAddMsg('&#x2705; <strong>Cotizacion COT-2026-0347 lista.</strong><br><br>' + items.map(i => '&#x2022; '+i.name+': '+i.qty+' — '+i.price).join('<br>') + '<br><br><strong>Total: $'+total.toLocaleString('en')+' MXN + IVA</strong><br>Vigencia: 15 dias<br>Entrega: 3-5 dias habiles<br><br>&#x1F4CE; PDF adjunto generado.', 'in');
+      cotOutput.innerHTML = `<h3 style="font-size:16px;font-weight:800;margin-bottom:12px;">Cotizacion generada &#x2713;</h3><div class="cot-pdf"><div class="cot-pdf-header"><h4>COT-2026-0347</h4><span style="font-size:11px;opacity:.8;">EIN — Envases Industriales del Norte</span></div><div class="cot-pdf-body"><div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text3);margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border);"><div><strong style="color:var(--text);">Cliente:</strong> Solicitado via WhatsApp</div><div><strong style="color:var(--text);">Fecha:</strong> ${new Date().toLocaleDateString('es-MX')}</div></div>${items.map(i=>`<div class="cot-pdf-row"><span>${i.name}<br><span style="font-size:11px;color:var(--text3);">${i.qty} — ${i.unit}</span></span><span style="font-weight:700;">${i.price}</span></div>`).join('')}<div class="cot-pdf-total"><span>Total (antes de IVA)</span><span style="color:var(--green);">$${total.toLocaleString('en')} MXN</span></div><div class="cot-pdf-row" style="border:none;font-size:11px;color:var(--text3);"><span>IVA 16%</span><span>$${Math.round(total*.16).toLocaleString('en')}</span></div><div class="cot-pdf-total"><span>Total con IVA</span><span style="color:var(--green);font-size:18px;">$${Math.round(total*1.16).toLocaleString('en')} MXN</span></div><div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--border);display:flex;gap:8px;flex-wrap:wrap;"><span class="chip chip-green" onclick="sendWaAlert('cotizacion','Cotizacion COT-2026-0347 enviada al cliente via WhatsApp. Total: $${Math.round(total*1.16).toLocaleString('en')} MXN.')">&#x1F4AC; Enviar al cliente</span><span class="chip">&#x1F4C4; Descargar PDF</span><span class="chip">&#x2709; Correo</span></div><div style="margin-top:10px;font-size:10px;color:var(--text3);">Generada por Sentinel en 2.4s &bull; Precios del ERP &bull; Vigencia 15 dias</div></div></div>`;
+      showToast('&#x1F4CB;', '#00c48c', 'Cotizacion generada', 'COT-2026-0347 — $'+Math.round(total*1.16).toLocaleString('en')+' MXN', 4000);
+    }, 1800);
+  }, 1200);
+}
+
+waSend.addEventListener('click', () => { const t = waInput.value.trim(); if (t) { generateCotizacion(t); waInput.value = ''; } });
+waInput.addEventListener('keydown', e => { if (e.key === 'Enter') { const t = waInput.value.trim(); if (t) { generateCotizacion(t); waInput.value = ''; } } });
+
+/* ═══════════════════════════════════════════════
+   SENTINEL GUIDED TOUR
+   Sentinel walks the visitor through each section
+   ═══════════════════════════════════════════════ */
+
+const tourOverlay = document.getElementById('tour-overlay');
+const tourBubble = document.getElementById('tour-bubble');
+let tourStep = 0;
+let tourHighlighted = null;
+
+const tourSteps = [
+  {
+    tab: 'centro',
+    text: 'Bienvenido. Soy <strong>Sentinel</strong>, el motor de inteligencia de este portal. Te voy a guiar por el ciclo operativo completo de esta empresa — desde la operacion hasta la vista ejecutiva.<br><br>Esto que ves es el <strong>Centro de Control</strong>: aqui se concentran todas las alertas activas. 7 puntos criticos que necesitan atencion hoy.',
+    anchor: 'tab-centro',
+    pos: 'content-top'
+  },
+  {
+    tab: 'cobranza',
+    text: '<strong>Cobranza.</strong> $3.2 millones en facturas vencidas. Cada fila tiene un boton "Cobrar" que abre WhatsApp con el mensaje pre-armado: folio, monto y cliente. Prueba hacer click en uno — veras como se dispara la alerta.',
+    anchor: 'tab-cobranza',
+    pos: 'content-top'
+  },
+  {
+    tab: 'inventario',
+    text: '<strong>Inventario critico.</strong> 4 materiales bajo punto de reorden. Resina PET se agota en 3 dias — si no se repone hoy, produccion se para manana. Haz click en "Reponer" para ver la orden de compra que genero automaticamente.',
+    anchor: 'tab-inventario',
+    pos: 'content-top'
+  },
+  {
+    tab: 'conciliaciones',
+    text: '<strong>Conciliaciones bancarias.</strong> Aqui viene lo bueno: haz click en la zona de arrastre (o arrastra cualquier archivo). Voy a "procesar" el estado de cuenta del banco y conciliar 47 movimientos en menos de 3 segundos. Asi de rapido.',
+    anchor: 'drop-zone',
+    pos: 'content-top'
+  },
+  {
+    tab: 'cotizaciones',
+    text: '<strong>Agente de cotizaciones WhatsApp.</strong> El mensaje ya esta listo — solo pulsa el boton verde de enviar. En menos de 3 segundos genero la cotizacion completa con precios del ERP, disponibilidad, IVA y PDF. Pruebalo.',
+    anchor: 'tab-cotizaciones',
+    pos: 'content-top'
+  },
+  {
+    tab: 'salud',
+    text: 'Ahora la <strong>vista ejecutiva</strong>. Esto es lo que ve el director. Score de salud 60/100 — riesgo activo. No porque la empresa este mal financieramente (margen 45.7%), sino porque la operacion tiene $3.2M sin cobrar y material critico sin reponer. Todo conectado.',
+    anchor: 'tab-salud',
+    pos: 'content-top'
+  },
+  {
+    tab: 'flujo',
+    text: '<strong>Flujo de efectivo proyectado.</strong> Cruzo facturas pendientes, pagos programados y gastos recurrentes para mostrar liquidez a 7, 15, 30 y 60 dias. El director sabe hoy si tendra dinero el proximo mes — sin esperar reportes de contabilidad.',
+    anchor: 'tab-flujo',
+    pos: 'content-top'
+  },
+  {
+    tab: 'financieros',
+    text: '<strong>Estados financieros</strong> integrados del ERP, actualizados cada hora. Margen bruto, utilidad, capital de trabajo, razon circulante — todo visible sin cerrar mes.<br><br>Abre el panel de <strong>"Alertas WA"</strong> arriba a la derecha para ver todos los mensajes que envie hoy al director y a administracion. Cada accion que tomas aqui, yo la comunico por WhatsApp automaticamente.',
+    anchor: 'tab-financieros',
+    pos: 'content-top'
+  }
+];
+
+function showTourStep(idx) {
+  if (idx >= tourSteps.length) { endTour(); return; }
+  tourStep = idx;
+  const step = tourSteps[idx];
+
+  // Switch to correct tab
+  switchTab(step.tab);
+
+  // Remove previous highlight
+  if (tourHighlighted) tourHighlighted.classList.remove('tour-highlight');
+
+  // Position bubble in the content area
+  setTimeout(() => {
+    const content = document.getElementById('content');
+    const contentRect = content.getBoundingClientRect();
+
+    tourBubble.style.display = 'block';
+    tourBubble.style.left = (contentRect.left + 20) + 'px';
+    tourBubble.style.top = (contentRect.top + 12) + 'px';
+    tourBubble.style.maxWidth = Math.min(380, contentRect.width - 40) + 'px';
+    tourBubble.className = 'tour-bubble';
+
+    tourBubble.innerHTML = `
+      <div class="tour-avatar"><div class="tour-avatar-circle">S</div><div class="tour-avatar-name">Sentinel te guia</div></div>
+      <div class="tour-text">${step.text}</div>
+      <div class="tour-actions">
+        <button class="tour-next" onclick="nextTourStep()">${idx < tourSteps.length - 1 ? 'Siguiente &#x2192;' : 'Terminar tour'}</button>
+        <button class="tour-skip" onclick="endTour()">Salir del tour</button>
+        <span class="tour-progress">${idx + 1} / ${tourSteps.length}</span>
+      </div>
+    `;
+
+    tourOverlay.classList.add('show');
+
+    // Scroll content to top
+    content.scrollTop = 0;
+  }, 150);
+}
+
+window.nextTourStep = function() { showTourStep(tourStep + 1); };
+
+window.endTour = function() {
+  tourOverlay.classList.remove('show');
+  tourBubble.style.display = 'none';
+  if (tourHighlighted) tourHighlighted.classList.remove('tour-highlight');
+  tourHighlighted = null;
+};
+
+tourOverlay.addEventListener('click', e => { if (e.target === tourOverlay) window.endTour(); });
+
+/* Dead button fallbacks */
+document.addEventListener('click', e => {
+  const chip = e.target.closest('.chip');
+  if (!chip) return;
+  const text = chip.textContent.trim().toLowerCase();
+  if (text.includes('descargar pdf') || text.includes('exportar') || text.includes('correo')) {
+    showToast('&#x1F4C4;', '#3b82f6', 'Demo', 'En produccion, este archivo se genera y descarga automaticamente.', 3000);
+  }
+});
+
+/* Init sidebar correctly — hide Direccion on load */
+document.getElementById('sidebar-dir').style.display = 'none';
+
+// Start tour after 1.5s
+setTimeout(() => {
+  showTourStep(0);
+}, 1500);
+
+})();
+</script>
+</body>
+</html>
